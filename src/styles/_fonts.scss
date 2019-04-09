@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat/Montserrat-ExtraLight.woff2') format('woff2'),
+       url('../assets/fonts/montserrat/Montserrat-ExtraLight.woff') format('woff'),
+       url('../assets/fonts/montserrat/Montserrat-ExtraLight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat/Montserrat-Regular.woff2') format('woff2'),
+       url('../assets/fonts/montserrat/Montserrat-Regular.woff') format('woff'),
+       url('../assets/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../assets/fonts/montserrat/Montserrat-Medium.woff2') format('woff2'),
+       url('../assets/fonts/montserrat/Montserrat-Medium.woff') format('woff'),
+       url('../assets/fonts/montserrat/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../assets/fonts/opensans/OpenSans-Light.woff2') format('woff2'),
+       url('../assets/fonts/opensans/OpenSans-Light.woff') format('woff'),
+       url('../assets/fonts/opensans/OpenSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../assets/fonts/opensans/OpenSans-Regular.woff2') format('woff2'),
+       url('../assets/fonts/opensans/OpenSans-Regular.woff') format('woff'),
+       url('../assets/fonts/opensans/OpenSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../assets/fonts/opensans/OpenSans-SemiBold.woff2') format('woff2'),
+       url('../assets/fonts/opensans/OpenSans-SemiBold.woff') format('woff'),
+       url('../assets/fonts/opensans/OpenSans-SemiBold.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face{
+  font-family:'FontAwesome';
+  src:url('../assets/fonts/fontawesome/fontawesome-webfont.eot?v=4.7.0');
+  src:url('../assets/fonts/fontawesome/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),
+      url('../assets/fonts/fontawesome/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),
+      url('../assets/fonts/fontawesome/fontawesome-webfont.woff?v=4.7.0') format('woff'),
+      url('../assets/fonts/fontawesome/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),
+      url('../assets/fonts/fontawesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+  font-weight:normal;
+  font-style:normal
+}

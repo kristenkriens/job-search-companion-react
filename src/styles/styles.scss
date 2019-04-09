@@ -1,0 +1,95 @@
+@import 'normalize';
+@import 'variables';
+@import 'fonts';
+@import 'fontawesome';
+@import 'typography';
+@import 'forms';
+@import 'sidebar';
+@import 'main';
+@import 'footer';
+
+/*
+====================================
+Default Styling
+====================================
+*/
+
+html, body {
+	overflow-x: hidden;
+}
+
+body {
+	background-color: $lightest-grey;
+	color: $grey-blue;
+	font-size: 16px;
+	font-family: $body-font;
+	font-weight: 300;
+	line-height: 1.25;
+
+	#root {
+		display: flex;
+		flex-wrap: wrap;
+		position: relative;
+	}
+}
+
+img {
+	max-width: 100%;
+	color: transparent;
+}
+
+.accessible {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	overflow: hidden;
+	border: 0 none !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px;
+}
+
+.skipnav {
+	&:focus, &:active {
+		position: absolute !important;
+		top: 5px !important;
+		left: 42% !important;
+		width: 16%;
+		background-color: #000;
+		padding: 10px;
+		color: #fff;
+		z-index: 9999;
+		text-align: center;
+		clip: inherit;
+		overflow: hidden;
+		border: 0 none !important;
+		width: auto !important;
+		height: auto !important;
+		margin: inherit;
+	}
+}
+
+.pac {
+	&-container {
+		box-shadow: none;
+		border-top: none;
+		color: $grey-blue;
+
+		&:after {
+			background-image: none!important;
+		  height: 0px;
+		}
+	}
+
+	&-icon {
+		display: none;
+	}
+
+	&-item {
+		padding: 0 10px;
+		font-size: 13px;
+
+		&:hover {
+			background-color: $lightest-grey;
+		}
+	}
+}

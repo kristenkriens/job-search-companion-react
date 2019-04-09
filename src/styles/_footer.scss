@@ -1,0 +1,39 @@
+.footer {
+  color: $white;
+  width: 250px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 14px;
+  padding: 20px;
+
+  a {
+    color: $white;
+    transition: 200ms opacity ease;
+
+    &:hover {
+      opacity: 0.85;
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: 650px) {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 5px 0 rgba($grey, 0.5);
+    background-color: $white;
+    color: $grey-blue;
+    position: static;
+    width: 100%;
+    padding: 30px;
+    height: 60px;
+
+    a {
+      color: $grey-blue;
+    }
+  }
+
+  @media (max-width: $sm-width) {
+    padding: 20px;
+  }
+}

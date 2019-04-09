@@ -1,0 +1,28 @@
+a {
+  color: $blurple;
+  text-decoration: none;
+  transition: 200ms opacity ease, 200ms color ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  font-family: $heading-font;
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2, h3 {
+  font-size: 24px;
+}
+
+p {
+  margin: 0;
+}

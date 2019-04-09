@@ -1,0 +1,30 @@
+$white: #fff;
+$grey: #ADB3BA;
+$light-grey: #CED6E1;
+$lightest-grey: #f6f6f6;
+$grey-blue: #344A5E;
+$light-grey-blue: #415A6B;
+$red: #F05540;
+$light-red: #F3705A;
+$blue: #77B5F7;
+$blurple: #757BE0;
+$blue-blurple: darken(#759BEE, 5%);
+$dark-blue-blurple: darken($blue-blurple, 5%);
+$teal: #4ABAA5;
+$light-teal: #66C6B9;
+$yellow: #F7B64C;
+$light-yellow: #FFD15C;
+
+$heading-font: 'Montserrat', sans-serif;
+$body-font: 'Open Sans', sans-serif;
+
+$xs-width: 320px;
+$xs-width-plus: $xs-width + 1px;
+$sm-width: 480px;
+$sm-width-plus: $sm-width + 1px;
+$md-width: 768px;
+$md-width-plus: $md-width + 1px;
+$lg-width: 940px;
+$lg-width-plus: $lg-width + 1px;
+$xl-width: 1200px;
+$xl-width-plus: $xl-width + 1px;

@@ -1,0 +1,79 @@
+.sidebar {
+  padding: 20px;
+  background: $blue;
+	background: url(../assets/images/ladder.svg), linear-gradient(to bottom, $blue 0%, $blurple 100%);
+  background-repeat: no-repeat;
+  background-position: bottom center, center center;
+  color: $white;
+  width: 250px;
+  padding-bottom: 60px;
+
+  @media (max-width: 650px) {
+    background: linear-gradient(to bottom, $blue 0%, $blurple 100%);
+    background-position: center center;
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  &__primary {
+    &-item {
+      position: relative;
+      padding: 15px 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &--open {
+        &.sidebar__primary-item:after {
+          content: '\f106';
+        }
+      }
+
+      &:after {
+        font-family: 'FontAwesome';
+  		  content: '\f107';
+        font-size: 14px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+
+      .fa {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  &__secondary {
+    display: none;
+    font-size: 14px;
+    background-color: $blue-blurple;
+
+    &-item {
+      padding: 10px 20px 10px 50px;
+      transition: 200ms background-color ease;
+
+      &--listing {
+        display: none;
+      }
+
+      &:hover {
+        background-color: darken($blue-blurple, 2%);
+      }
+    }
+  }
+}
