@@ -10,8 +10,6 @@ const changeOpenSidenavGroup = (state, action) => {
     openNavGroup: action.navGroup
   };
 
-  console.log(action.navGroup);
-
   return updateObject(state, updatedState);
 }
 
