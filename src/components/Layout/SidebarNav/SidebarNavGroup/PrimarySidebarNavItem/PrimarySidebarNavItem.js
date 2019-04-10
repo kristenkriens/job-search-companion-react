@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PrimaryNavItem = (props) => {
+const PrimarySidebarNavItem = (props) => {
   const { children, isOpen, navGroupOpened } = props;
 
   return (
@@ -12,4 +12,4 @@ const PrimaryNavItem = (props) => {
   )
 }
 
-export default PrimaryNavItem;
+export default PrimarySidebarNavItem;

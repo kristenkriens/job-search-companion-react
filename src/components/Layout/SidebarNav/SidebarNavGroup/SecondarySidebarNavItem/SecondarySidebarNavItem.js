@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SecondaryNavItem = (props) => {
+const SecondarySidebarNavItem = (props) => {
   const { children, link, exact } = props;
 
   return (
@@ -13,4 +13,4 @@ const SecondaryNavItem = (props) => {
   )
 }
 
-export default SecondaryNavItem;
+export default SecondarySidebarNavItem;

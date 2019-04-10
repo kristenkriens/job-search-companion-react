@@ -1,48 +1,28 @@
 import React from 'react';
 
-import SidebarNavGroupItems from './SidebarNavGroupItems/SidebarNavGroupItems';
+import PrimarySidebarNavItem from './PrimarySidebarNavItem/PrimarySidebarNavItem';
+import SecondarySidebarNavItem from './SecondarySidebarNavItem/SecondarySidebarNavItem';
 
-const SidebarNavGroup = (props) => {
-  const { group, isOpen, navGroupOpened } = props;
-
-  let primaryItem = {};
-  let secondaryItems = [];
-  if(group === 'find') {
-    primaryItem = {
-      icon: 'search',
-      title: 'Find Jobs'
-    };
-    secondaryItems = [
-      { title: 'Search Form', link: '/', exact: true },
-      { title: 'Map View', link: '/map-view', exact: false },
-      { title: 'List View', link: '/list-view', exact: false }
-    ];
-  } else if(group === 'track') {
-    primaryItem = {
-      icon: 'book',
-      title: 'Track Applications'
-    };
-    secondaryItems = [
-      { title: 'Overview', link: '/overview', exact: false },
-      { title: 'Follow Ups', link: '/follow-ups', exact: false },
-      { title: 'Interviews', link: '/interviews', exact: false }
-    ];
-  } else if(group === 'analyze') {
-    primaryItem = {
-      icon: 'line-chart',
-      title: 'Analyze'
-    };
-    secondaryItems = [
-      { title: 'Applications', link: '/applications', exact: false },
-      { title: 'Correspondence', link: '/correspondence', exact: false }
-    ];
-  }
+const SidebarNavGroupItems = (props) => {
+  const { primaryItem, secondaryItems, isOpen, navGroupOpened } = props;
 
   return (
     <>
-      <SidebarNavGroupItems isOpen={isOpen} primaryItem={primaryItem} secondaryItems={secondaryItems} navGroupOpened={navGroupOpened} />
+      <PrimarySidebarNavItem isOpen={isOpen} navGroupOpened={navGroupOpened}>
+        <i className={`fa fa-${primaryItem.icon}`} aria-hidden="true" />
+        {primaryItem.title}
+      </PrimarySidebarNavItem>
+      {isOpen && (
+        <ul className="sidebar__secondary">
+          {secondaryItems.map(secondaryItem => (
+            <SecondarySidebarNavItem key={secondaryItem.title} link={secondaryItem.link} exact={secondaryItem.exact}>
+              {secondaryItem.title}
+            </SecondarySidebarNavItem>
+          ))}
+        </ul>
+      )}
     </>
   )
 }
 
-export default SidebarNavGroup;
+export default SidebarNavGroupItems;
