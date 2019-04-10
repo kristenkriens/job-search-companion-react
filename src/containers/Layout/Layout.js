@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Skipnav from '../../components/Shared/Skipnav/Skipnav';
+import Skipnav from '../../components/Layout/Skipnav/Skipnav';
 import Sidebar from './Sidebar/Sidebar';
 import Topbar from './Topbar/Topbar';
-import Footer from '../../components/Shared/Footer/Footer';
+import Footer from '../../components/Layout/Footer/Footer';
 
 class Layout extends Component {
   render() {
@@ -13,7 +13,7 @@ class Layout extends Component {
     return (
       <>
         <Skipnav />
-        <Sidebar isAuthenticated={this.props.isAuthenticated} />
+        <Sidebar />
         <main id="main" className="main">
           <Topbar isAuthenticated={this.props.isAuthenticated} />
           <div className="content">

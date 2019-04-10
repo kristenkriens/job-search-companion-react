@@ -35,8 +35,8 @@ class App extends Component {
     if(this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/map" component={MapView} />
-          <Route path="/list" component={ListView} />
+          <Route path="/map-view" component={MapView} />
+          <Route path="/list-view" component={ListView} />
           <Route path="/listing/:id" component={Listing} />
           <Route path="/overview" component={Overview} />
           <Route path="/follow-ups" component={FollowUps} />
