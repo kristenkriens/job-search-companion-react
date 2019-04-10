@@ -24,29 +24,17 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/map" component={MapView} />
-        <Route path="/list" component={ListView} />
+        <Route path="/map-view" component={MapView} />
+        <Route path="/list-view" component={ListView} />
         <Route path="/listing/:id" component={Listing} />
+        <Route path="/overview" component={Overview} />
+        <Route path="/follow-ups" component={FollowUps} />
+        <Route path="/interviews" component={Interviews} />
+        <Route path="/applications-chart" component={Applications} />
+        <Route path="/correspondence" component={Correspondence} />
         <Route path="/" exact component={SearchForm} />
-        <Redirect to="/" />
       </Switch>
     )
-
-    if(this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path="/map-view" component={MapView} />
-          <Route path="/list-view" component={ListView} />
-          <Route path="/listing/:id" component={Listing} />
-          <Route path="/overview" component={Overview} />
-          <Route path="/follow-ups" component={FollowUps} />
-          <Route path="/interviews" component={Interviews} />
-          <Route path="/applications-chart" component={Applications} />
-          <Route path="/correspondence" component={Correspondence} />
-          <Route path="/" exact component={SearchForm} />
-        </Switch>
-      )
-    }
 
     return (
       <Layout>
@@ -56,16 +44,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.token !== null
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState())
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(null, mapDispatchToProps)(App));
