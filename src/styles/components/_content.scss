@@ -1,0 +1,34 @@
+.content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+
+  &, &-inner {
+    padding: 30px;
+
+    @media (max-width: $sm-width) {
+      padding: 20px;
+    }
+  }
+
+  &-inner {
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    box-shadow: 0 0 5px 0 rgba($grey, 0.5);
+    min-height: calc(100vh - 120px);
+
+    &__logged-out {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h3 {
+      text-align: center;
+      width: 100%;
+    }
+  }
+}

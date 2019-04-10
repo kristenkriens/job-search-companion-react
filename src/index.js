@@ -1,10 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
 import './styles/styles.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import authReducer from './store/reducers/auth';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const rootReducer = combineReducers({
+  auth: authReducer
+})
+
+const store = createStore(
+  rootReducer, /* preloadedState, */
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+const app = (
+  <Provider store={store}>
+    <BrowserRouter basename="/job-search-companion">
+      <App />
+    </BrowserRouter>
+  </Provider>
+)
+
+ReactDOM.render(app, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

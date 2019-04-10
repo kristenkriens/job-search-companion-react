@@ -1,0 +1,55 @@
+.table {
+  max-height: 300px;
+  overflow: auto;
+
+  &-inner {
+    width: 100%;
+    border: 1px solid $light-grey;
+    text-align: center;
+    overflow-x: scroll;
+  }
+
+  tbody td:first-of-type {
+    cursor:grab;
+  }
+
+  th {
+    background-color: $lightest-grey;
+    padding: 5px 10px;
+    font-weight: 400;
+  }
+
+  td {
+    background-color: $white;
+    border: 1px solid $light-grey;
+    font-weight: 300;
+    padding: 5px 10px;
+  }
+
+  input[type="text"], input[type="email"], input[type="date"], select {
+    border: none;
+    text-align: center;
+    height: auto;
+    padding: 0;
+  }
+
+  select {
+    text-align-last:center;
+  }
+
+  &__delete {
+    background-color: $lightest-grey;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed $light-grey;
+    height: 38px;
+    width: 100%;
+    font-weight: 400;
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+}
