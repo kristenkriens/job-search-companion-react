@@ -75,3 +75,23 @@ export const auth = (email, password, isSignUp) => {
       });
   }
 };
+
+export const authCheckState = () => {
+  return dispatch => {
+    const token = localStorage.getItem('token');
+
+    if(!token) {
+      dispatch(authLogout());
+    } else {
+      const expirationDate = new Date(localStorage.getItem('expirationDate'));
+
+      if(expirationDate <= new Date()) {
+        dispatch(authLogout());
+      } else {
+        const userId = localStorage.getItem('userId');
+        dispatch(authSuccess(token, userId));
+        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+      }
+    }
+  }
+}
