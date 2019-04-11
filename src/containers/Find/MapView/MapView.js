@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import * as actions from '../../../store/actions/index';
 
 class MapView extends Component {
+  componentDidMount() {
+    this.props.handleNavGroupItemLoaded('find');
+  }
+
   render() {
     return (
       <div id="map" className="content-inner content-inner--map">
@@ -10,4 +17,10 @@ class MapView extends Component {
   }
 }
 
-export default MapView;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleNavGroupItemLoaded: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(MapView);

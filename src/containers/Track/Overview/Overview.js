@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import * as actions from '../../../store/actions/index';
 
 class Overview extends Component {
+  componentDidMount() {
+    this.props.handleNavGroupItemLoaded('track');
+  }
+
   render() {
     return (
       <div className="content-inner content-inner--overview">
@@ -57,4 +64,10 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleNavGroupItemLoaded: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Overview);

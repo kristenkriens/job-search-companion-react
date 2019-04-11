@@ -7,12 +7,12 @@ import * as actions from '../../../store/actions/index';
 
 class Sidebar extends Component {
   render() {
-    const { openNavGroup, onNavGroupOpened } = this.props;
+    const { openNavGroup, handleNavGroupClick } = this.props;
 
     return (
       <header className="sidebar">
         <h1>Job Search Companion</h1>
-        <SidebarNav openNavGroup={openNavGroup} navGroupOpened={onNavGroupOpened} />
+        <SidebarNav openNavGroup={openNavGroup} handleNavGroupClick={handleNavGroupClick} />
       </header>
     )
   }
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onNavGroupOpened: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
+    handleNavGroupClick: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
   }
 }
 

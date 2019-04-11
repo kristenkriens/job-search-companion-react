@@ -3,7 +3,7 @@ import React from 'react';
 import SidebarNavGroup from './SidebarNavGroup/SidebarNavGroup';
 
 const SidebarNav = (props) => {
-  const { openNavGroup, navGroupOpened } = props;
+  const { openNavGroup, handleNavGroupClick } = props;
 
   const groups = [
     {
@@ -47,7 +47,7 @@ const SidebarNav = (props) => {
     <nav>
       <ul className="sidebar__primary">
         {groups.map(group => (
-          <SidebarNavGroup key={group.type} isOpen={group.type === openNavGroup} primaryItem={group.primaryItem} secondaryItems={group.secondaryItems} navGroupOpened={() => navGroupOpened(group.type)} />
+          <SidebarNavGroup key={group.type} isOpen={group.type === openNavGroup} primaryItem={group.primaryItem} secondaryItems={group.secondaryItems} handleNavGroupClick={() => handleNavGroupClick(group.type)} />
         ))}
       </ul>
     </nav>
