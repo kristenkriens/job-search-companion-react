@@ -8,14 +8,14 @@ import Footer from '../../components/Layout/Footer/Footer';
 
 class Layout extends Component {
   render() {
-    const { children } = this.props;
+    const { children, isAuthenticated } = this.props;
 
     return (
       <>
         <Skipnav />
         <Sidebar />
         <main id="main" className="main">
-          <Topbar isAuthenticated={this.props.isAuthenticated} />
+          <Topbar isAuthenticated={isAuthenticated} />
           {children}
         </main>
         <Footer />
