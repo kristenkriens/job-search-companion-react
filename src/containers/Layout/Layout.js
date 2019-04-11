@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import Skipnav from '../../components/Layout/Skipnav/Skipnav';
 import Sidebar from './Sidebar/Sidebar';
@@ -24,10 +23,4 @@ class Layout extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.token !== null
-  }
-}
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;

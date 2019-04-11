@@ -30,35 +30,35 @@ class App extends Component {
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<Search />} group="find" />}
         />
         <Route
           path="/find/map-view"
-          render={() => <Content component={<MapView isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<MapView />} group="find" />}
         />
         <Route
           path="/find/list-view"
-          render={() => <Content component={<ListView isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<ListView />} group="find" />}
         />
         <Route
           path="/find/listing/:id"
-          render={() => <Content component={<Listing isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<Listing />} group="find" />}
         />
         <Route
           path="/track/overview"
-          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content component={<Overview />} group="track" />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content component={<FollowUps />} group="track" />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content component={<Interviews />} group="track" />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} />} group="analyze" />}
+          render={() => <Content component={<Applications />} group="analyze" />}
         />
         <Route
           path="/analyze/correspondence"
@@ -67,14 +67,14 @@ class App extends Component {
         <Route
           path="/"
           exact
-          render={() => <Content component={<Home isAuthenticated={isAuthenticated} />} group="" />}
+          render={() => <Content component={<Home />} group="" />}
         />
         <Redirect to="/" />
       </Switch>
     )
 
     return (
-      <Layout>
+      <Layout isAuthenticated={isAuthenticated}>
         {routes}
       </Layout>
     );
