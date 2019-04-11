@@ -1,11 +1,11 @@
 import React from 'react';
 
 const PrimarySidebarNavItem = (props) => {
-  const { children, isOpen, handleNavGroupClick } = props;
+  const { children, isOpen, handleNavClick } = props;
 
   return (
     <li>
-      <button className={`sidebar__primary-item ${isOpen ? 'sidebar__primary-item--open' : ''}`} onClick={handleNavGroupClick}>
+      <button className={`sidebar__primary-item ${isOpen ? 'sidebar__primary-item--open' : ''}`} onClick={handleNavClick}>
         {children}
       </button>
     </li>

@@ -8,14 +8,14 @@ import * as actions from '../../../store/actions/index';
 
 class Sidebar extends Component {
   render() {
-    const { openNavGroup, handleNavGroupClick } = this.props;
+    const { openNavGroup, handleNavClick } = this.props;
 
     return (
       <header className="sidebar">
-        <NavLink to='/' exact>
+        <NavLink to='/' exact onClick={() => handleNavClick('')}>
           <h1>Job Search Companion</h1>
         </NavLink>
-        <SidebarNav openNavGroup={openNavGroup} handleNavGroupClick={handleNavGroupClick} />
+        <SidebarNav openNavGroup={openNavGroup} handleNavClick={handleNavClick} />
       </header>
     )
   }
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleNavGroupClick: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
+    handleNavClick: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
   }
 }
 
