@@ -39,13 +39,15 @@ class Interviews extends Component {
               </table>
             </div>
             <div className="table__delete"><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
-            <button className="table__add-new">Add New</button>
-            <button className="table__save">Save</button>
+            <div class="button-wrapper">
+              <button className="button table__add-new">Add New</button>
+              <button className="button table__save">Save</button>
+            </div>
           </>
         ) : (
           <>
             <h3>You need to be logged in to view this page!</h3>
-            <button className="login">Log In</button>
+            <button className="button button--login">Log In</button>
           </>
         )}
       </>

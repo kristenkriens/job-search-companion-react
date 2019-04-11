@@ -12,7 +12,7 @@ class Home extends Component {
         ) : (
           <>
             <p>Log in to get started!</p>
-            <button className="login">Log In</button>
+            <button className="button button--login">Log In</button>
           </>
         )}
       </>

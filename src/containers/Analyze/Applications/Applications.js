@@ -11,7 +11,7 @@ class Applications extends Component {
         ) : (
           <>
             <h3>You need to be logged in to view this page!</h3>
-            <button className="login">Log In</button>
+            <button className="button button--login">Log In</button>
           </>
         )}
       </>

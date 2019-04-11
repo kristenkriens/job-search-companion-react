@@ -20,7 +20,7 @@ const Topbar = (props) => {
           </div>
         ) : (
           <div className="topbar__profile-status">
-            <div className="login">Log In / Create Account</div>
+            <button className="topbar__login">Log In / Create Account</button>
           </div>
         )}
       </div>

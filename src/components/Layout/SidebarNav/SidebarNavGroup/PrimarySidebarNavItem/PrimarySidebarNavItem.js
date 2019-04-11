@@ -5,7 +5,7 @@ const PrimarySidebarNavItem = (props) => {
 
   return (
     <li>
-      <button className={`sidebar__primary-item ${isOpen ? 'sidebar__primary-item--open' : ''} not-button`} onClick={handleNavGroupClick}>
+      <button className={`sidebar__primary-item ${isOpen ? 'sidebar__primary-item--open' : ''}`} onClick={handleNavGroupClick}>
         {children}
       </button>
     </li>
