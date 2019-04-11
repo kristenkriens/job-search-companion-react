@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 
-import { connect } from 'react-redux';
-
-import * as actions from '../../../store/actions/index';
-
-class SearchForm extends Component {
-  componentDidMount() {
-    this.props.handleNavGroupItemLoaded('find');
-  }
-
+class Search extends Component {
   render() {
     return (
       <div className="content-inner content-inner--search">
@@ -82,10 +74,4 @@ class SearchForm extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleNavGroupItemLoaded: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(SearchForm);
+export default Search;

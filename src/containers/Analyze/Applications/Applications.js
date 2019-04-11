@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import * as actions from '../../../store/actions/index';
 
 class Applications extends Component {
-  componentDidMount() {
-    this.props.handleNavGroupItemLoaded('analyze');
-  }
-
   render() {
     return (
       <div className="content-inner content-inner--analyze-applications">
@@ -23,10 +16,4 @@ class Applications extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleNavGroupItemLoaded: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Applications);
+export default Applications;

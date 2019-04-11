@@ -13,9 +13,9 @@ const SidebarNav = (props) => {
         title: 'Find Jobs'
       },
       secondaryItems: [
-        { title: 'Search Form', link: '/', exact: true },
-        { title: 'Map View', link: '/map-view', exact: false },
-        { title: 'List View', link: '/list-view', exact: false }
+        { title: 'Search', link: '/find/search', exact: false },
+        { title: 'Map View', link: '/find/map-view', exact: false },
+        { title: 'List View', link: '/find/list-view', exact: false }
       ]
     },
     {
@@ -25,9 +25,9 @@ const SidebarNav = (props) => {
         title: 'Track Applications'
       },
       secondaryItems: [
-        { title: 'Overview', link: '/overview', exact: false },
-        { title: 'Follow Ups', link: '/follow-ups', exact: false },
-        { title: 'Interviews', link: '/interviews', exact: false }
+        { title: 'Overview', link: '/track/overview', exact: false },
+        { title: 'Follow Ups', link: '/track/follow-ups', exact: false },
+        { title: 'Interviews', link: '/track/interviews', exact: false }
       ]
     },
     {
@@ -37,8 +37,8 @@ const SidebarNav = (props) => {
         title: 'Analyze'
       },
       secondaryItems: [
-        { title: 'Applications', link: '/applications', exact: false },
-        { title: 'Correspondence', link: '/correspondence', exact: false }
+        { title: 'Applications', link: '/analyze/applications', exact: false },
+        { title: 'Correspondence', link: '/analyze/correspondence', exact: false }
       ]
     }
   ];

@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import * as actions from '../../../store/actions/index';
 
 class Interviews extends Component {
-  componentDidMount() {
-    this.props.handleNavGroupItemLoaded('track');
-  }
-
   render() {
     return (
       <div className="content-inner content-inner--interviews">
@@ -55,10 +48,4 @@ class Interviews extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleNavGroupItemLoaded: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Interviews);
+export default Interviews;

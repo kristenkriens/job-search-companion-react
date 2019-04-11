@@ -16,9 +16,7 @@ class Layout extends Component {
         <Sidebar />
         <main id="main" className="main">
           <Topbar isAuthenticated={this.props.isAuthenticated} />
-          <div className="content">
-            {children}
-          </div>
+          {children}
         </main>
         <Footer />
       </>

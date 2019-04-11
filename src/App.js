@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import Content from './containers/Layout/Content/Content';
 import Layout from './containers/Layout/Layout';
-import SearchForm from './containers/Find/SearchForm/SearchForm';
+import Home from './containers/Home/Home';
+import Search from './containers/Find/Search/Search';
 import MapView from './containers/Find/MapView/MapView';
 import ListView from './containers/Find/ListView/ListView';
 import Listing from './containers/Find/Listing/Listing';
@@ -24,15 +26,17 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/map-view" component={MapView} />
-        <Route path="/list-view" component={ListView} />
-        <Route path="/listing/:id" component={Listing} />
-        <Route path="/overview" component={Overview} />
-        <Route path="/follow-ups" component={FollowUps} />
-        <Route path="/interviews" component={Interviews} />
-        <Route path="/applications" component={Applications} />
-        <Route path="/correspondence" component={Correspondence} />
-        <Route path="/" exact component={SearchForm} />
+        <Route path="/find/search" render={() => <Content component={<Search />} group="find" />} />
+        <Route path="/find/map-view" render={() => <Content component={<MapView />} group="find" />} />
+        <Route path="/find/list-view" render={() => <Content component={<ListView />} group="find" />} />
+        <Route path="/find/listing/:id" render={() => <Content component={<Listing />} group="find" />} />
+        <Route path="/track/overview" render={() => <Content component={<Overview />} group="track" />} />
+        <Route path="/track/follow-ups" render={() => <Content component={<FollowUps />} group="track" />} />
+        <Route path="/track/interviews" render={() => <Content component={<Interviews />} group="track" />} />
+        <Route path="/analyze/applications" render={() => <Content component={<Applications />} group="analyze" />} />
+        <Route path="/analyze/correspondence" render={() => <Content component={<Correspondence />} group="analyze" />} />
+        <Route path="/" exact render={() => <Content component={<Home />} group="" />} />
+        <Redirect to="/" />
       </Switch>
     )
 

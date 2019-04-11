@@ -1,6 +1,7 @@
 .table {
   max-height: 300px;
   overflow: auto;
+  margin-bottom: 20px;
 
   &-inner {
     width: 100%;
@@ -39,7 +40,7 @@
 
   &__delete {
     background-color: $lightest-grey;
-    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
