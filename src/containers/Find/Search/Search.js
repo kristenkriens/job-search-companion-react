@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 class Search extends Component {
   render() {
+    const { isAuthenticated } = this.props;
+
     return (
-      <div className="content-inner content-inner--search">
+      <>
         <form className="form">
           <div className="form__element form__element--half">
             <label htmlFor="query">Job Title / Keywords / Company</label>
@@ -62,14 +64,16 @@ class Search extends Component {
           </div>
           <button type="submit" className="form__submit">Search</button>
         </form>
-        <div className="content-inner__logged-in">
-          <p className="form__save">Save Search</p>
-          <div className="saved-searches">
-            <h2>Saved Searches</h2>
-            <p>You don't have any saved searches.</p>
-          </div>
-        </div>
-      </div>
+        {isAuthenticated && (
+          <>
+            <p className="form__save">Save Search</p>
+            <div className="saved-searches">
+              <h2>Saved Searches</h2>
+              <p>You don't have any saved searches.</p>
+            </div>
+          </>
+        )}
+      </>
     )
   }
 }

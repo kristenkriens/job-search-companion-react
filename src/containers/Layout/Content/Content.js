@@ -11,9 +11,13 @@ class Content extends Component {
   render() {
     const { component } = this.props;
 
+    let dashedComponent = component.type.name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
+
     return (
       <div className="content">
-        {component}
+        <div className={`content-inner content-inner--${dashedComponent}`}>
+          {component}
+        </div>
       </div>
     )
   }

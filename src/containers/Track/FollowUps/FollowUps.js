@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 
 class FollowUps extends Component {
   render() {
+    const { isAuthenticated } = this.props;
+
     return (
-      <div className="content-inner content-inner--follow-ups">
-        <div className="content-inner__logged-out">
-          <h3>You need to be logged in to view this page!</h3>
-          <button className="login">Log In</button>
-        </div>
-        <div className="content-inner__logged-in">
+      <>
+        {isAuthenticated ? (
+          <>
           <div className="table">
             <table className="table-inner">
               <thead>
@@ -42,8 +41,14 @@ class FollowUps extends Component {
           <div className="table__delete"><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
           <button className="table__add-new">Add New</button>
           <button className="table__save">Save</button>
-        </div>
-      </div>
+          </>
+        ) : (
+          <>
+            <h3>You need to be logged in to view this page!</h3>
+            <button className="login">Log In</button>
+          </>
+        )}
+      </>
     )
   }
 }

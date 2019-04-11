@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import SidebarNav from '../../../components/Layout/SidebarNav/SidebarNav';
 
@@ -11,7 +12,9 @@ class Sidebar extends Component {
 
     return (
       <header className="sidebar">
-        <h1>Job Search Companion</h1>
+        <NavLink to='/' exact>
+          <h1>Job Search Companion</h1>
+        </NavLink>
         <SidebarNav openNavGroup={openNavGroup} handleNavGroupClick={handleNavGroupClick} />
       </header>
     )
