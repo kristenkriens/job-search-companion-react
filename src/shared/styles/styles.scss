@@ -1,21 +1,14 @@
-/* Shared */
-@import './shared/normalize';
-@import './shared/variables';
-@import './shared/fontawesome';
-@import './shared/fonts';
+@import './normalize';
+@import './variables';
+@import './fontawesome';
+@import './fonts';
+@import './typography';
+@import './forms';
 
-/* Components */
-@import './components/typography';
-@import './components/forms';
-@import './components/sidebar';
-@import './components/main';
-@import './components/topbar';
-@import './components/content';
-@import './components/footer';
-@import './components/backdrop';
+
+// TODO
+@import './components/other';
 @import './components/table';
-@import './components/button';
-@import './components/modal';
 
 
 html, body {

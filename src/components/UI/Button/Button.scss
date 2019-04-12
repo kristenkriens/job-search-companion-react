@@ -1,13 +1,4 @@
-button {
-  color: $grey-blue;
-  text-align: left;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
-  transition: 200ms background-color ease, 200ms color ease, 200ms font-weight ease;
-}
+@import '../../../shared/styles/variables';
 
 .button {
 	background-color: $grey-blue;
@@ -36,7 +27,7 @@ button {
     margin: 5px;
   }
 
-  @media (max-width: $sm-width-plus) {
+  @media (max-width: $sm-width) {
     text-align: center;
   }
 }

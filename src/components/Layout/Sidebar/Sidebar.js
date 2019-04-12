@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import './Sidebar.scss';
 import SidebarNav from './SidebarNav/SidebarNav';
-
 import * as actions from '../../../store/actions/index';
 
 class Sidebar extends Component {

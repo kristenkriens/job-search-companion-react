@@ -1,3 +1,5 @@
+@import '../../../shared/styles/variables';
+
 .main {
   position: relative;
   min-height: 100vh;
@@ -10,17 +12,4 @@
   @media (max-width: 650px) {
     width: 100%;
   }
-}
-
-.saved-searches {
-  margin-top: 15px;
-
-  h2 {
-    margin-bottom: 10px;
-  }
-}
-
-.applications-chart {
-  height: calc(100vh - 180px);
-  width: 100%;
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Backdrop.scss';
+
 const Backdrop = (props) => {
   const { show, close } = props;
 

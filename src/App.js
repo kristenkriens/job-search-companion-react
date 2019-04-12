@@ -74,9 +74,7 @@ class App extends Component {
     )
 
     return (
-      <Layout isAuthenticated={isAuthenticated}>
-        {routes}
-      </Layout>
+      <Layout isAuthenticated={isAuthenticated} routes={routes} />
     );
   }
 }

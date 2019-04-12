@@ -1,6 +1,8 @@
+@import '../../../shared/styles/variables';
+
 .sidebar {
   background: $blue;
-	background: url(../assets/images/ladder.svg), linear-gradient(to bottom, $blue 0%, $blurple 100%);
+	background: url(../../../assets/images/ladder.svg), linear-gradient(to bottom, $blue 0%, $blurple 100%);
   background-repeat: no-repeat;
   background-position: bottom center, center center;
   color: $white;
