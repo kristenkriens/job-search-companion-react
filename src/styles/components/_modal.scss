@@ -1,48 +1,21 @@
-.overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.2);
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 350px;
+  background-color: $white;
+  padding: 30px 20px;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 
   h2 {
     margin-bottom: 30px;
   }
 
-  &__content {
-    width: 100%;
-    max-width: 350px;
-    background-color: $white;
-    padding: 30px 20px;
-    margin: 20px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  &__close {
-    position: absolute;
-    font-size: 14px;
-    padding: 5px;
-    top: 0;
-    right: 0;
-    width: 25px;
-    height: 25px;
-    margin-top: 0;
-
-    .fa {
-      position: relative;
-      top: -3px;
-      left: 1px;
-    }
-  }
-
-  &__skills {
+  &--skills {
     list-style-type: none;
     margin: 0 -5px 10px;
     padding: 0;
@@ -50,10 +23,6 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-
-    &--hidden {
-      display: none;
-    }
 
     li {
       width: calc(50% - 10px);
@@ -73,6 +42,23 @@
       &:hover {
         color: $red;
       }
+    }
+  }
+
+  &__close {
+    position: absolute;
+    font-size: 14px;
+    padding: 5px;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    margin-top: 0;
+
+    .fa {
+      position: relative;
+      top: -3px;
+      left: 1px;
     }
   }
 

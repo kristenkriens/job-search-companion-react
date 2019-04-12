@@ -13,7 +13,11 @@
     padding: 20px;
   }
 
-  &__current {
+  button:hover {
+    color: $blurple;
+  }
+
+  &__breadcrumb {
     padding-right: 10px;
 
     &-parent {
@@ -35,7 +39,7 @@
       }
     }
 
-    &-self {
+    &-current {
       margin-left: 10px;
 
       @media (max-width: $md-width) {
