@@ -1,12 +1,12 @@
-/* Global */
-@import './global/normalize';
-@import './global/variables';
-@import './global/fontawesome';
-@import './global/fonts';
-@import './global/typography';
-@import './global/forms';
+/* Shared */
+@import './shared/normalize';
+@import './shared/variables';
+@import './shared/fontawesome';
+@import './shared/fonts';
 
 /* Components */
+@import './components/typography';
+@import './components/forms';
 @import './components/sidebar';
 @import './components/main';
 @import './components/topbar';

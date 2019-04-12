@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import SidebarNav from '../../../components/Layout/SidebarNav/SidebarNav';
+import SidebarNav from './SidebarNav/SidebarNav';
 
 import * as actions from '../../../store/actions/index';
 
