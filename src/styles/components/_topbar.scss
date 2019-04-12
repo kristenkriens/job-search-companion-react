@@ -40,6 +40,7 @@
     }
 
     &-current {
+      font-weight: 500;
       margin-left: 10px;
 
       @media (max-width: $md-width) {
