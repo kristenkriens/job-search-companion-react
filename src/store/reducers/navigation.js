@@ -44,7 +44,7 @@ const initialState = {
 
 const changeOpenSidebarNavGroup = (state, action) => {
   const updatedState = {
-    openSidebarNavGroup: action.sidebarNavGroup
+    openSidebarNavGroup: state.openSidebarNavGroup !== action.openSidebarNavGroup ? action.openSidebarNavGroup : ''
   };
 
   return updateObject(state, updatedState);
