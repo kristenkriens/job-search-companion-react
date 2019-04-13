@@ -21,11 +21,7 @@
     box-shadow: 0 0 5px 0 rgba($grey, 0.5);
     min-height: calc(100vh - 120px);
 
-    &__logged-out {
-      text-align: center;
-    }
-
-    &--home {
+    &--home, .logged-out & {
       text-align: center;
     }
 

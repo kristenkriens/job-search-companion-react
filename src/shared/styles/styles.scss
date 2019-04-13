@@ -23,7 +23,7 @@ body {
 	font-weight: 300;
 	line-height: 1.25;
 
-	#root {
+	#root > div {
 		display: flex;
 		flex-wrap: wrap;
 		position: relative;

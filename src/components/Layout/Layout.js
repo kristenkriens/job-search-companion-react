@@ -10,12 +10,12 @@ class Layout extends Component {
     const { routes, isAuthenticated } = this.props;
 
     return (
-      <>
+      <div class={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
         <Main isAuthenticated={isAuthenticated} routes={routes} />
         <Footer />
-      </>
+      </div>
     )
   }
 }
