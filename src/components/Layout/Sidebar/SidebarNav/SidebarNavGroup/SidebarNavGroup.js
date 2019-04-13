@@ -3,7 +3,7 @@ import React from 'react';
 import PrimarySidebarNavItem from './PrimarySidebarNavItem/PrimarySidebarNavItem';
 import SecondarySidebarNavItem from './SecondarySidebarNavItem/SecondarySidebarNavItem';
 
-const SidebarNavGroupItems = (props) => {
+const SidebarNavGroup = (props) => {
   const { primaryItem, secondaryItems, isOpen, handleNavClick } = props;
 
   return (
@@ -25,4 +25,4 @@ const SidebarNavGroupItems = (props) => {
   )
 }
 
-export default SidebarNavGroupItems;
+export default SidebarNavGroup;
