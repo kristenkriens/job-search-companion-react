@@ -8,14 +8,14 @@ import * as actions from '../../../store/actions/index';
 
 class Sidebar extends Component {
   render() {
-    const { openNavGroup, handleNavClick } = this.props;
+    const { openSidebarNavGroup, handleSidebarNavClick } = this.props;
 
     return (
       <header className="sidebar">
-        <NavLink to='/' exact onClick={() => handleNavClick('')}>
+        <NavLink to='/' exact onClick={() => handleSidebarNavClick('')}>
           <h1>Job Search Companion</h1>
         </NavLink>
-        <SidebarNav openNavGroup={openNavGroup} handleNavClick={handleNavClick} />
+        <SidebarNav openSidebarNavGroup={openSidebarNavGroup} handleSidebarNavClick={handleSidebarNavClick} />
       </header>
     )
   }
@@ -23,13 +23,13 @@ class Sidebar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    openNavGroup: state.navigation.openNavGroup
+    openSidebarNavGroup: state.navigation.openSidebarNavGroup
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleNavClick: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
+    handleSidebarNavClick: (sidebarNavGroup) => dispatch(actions.changeOpenSidebarNavGroup(sidebarNavGroup))
   }
 }
 

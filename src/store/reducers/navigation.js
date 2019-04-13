@@ -2,12 +2,12 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-  openNavGroup: ''
+  openSidebarNavGroup: ''
 }
 
-const changeOpenSidenavGroup = (state, action) => {
+const changeOpenSidebarNavGroup = (state, action) => {
   const updatedState = {
-    openNavGroup: action.navGroup
+    openSidebarNavGroup: action.sidebarNavGroup
   };
 
   return updateObject(state, updatedState);
@@ -15,8 +15,8 @@ const changeOpenSidenavGroup = (state, action) => {
 
 const navigationReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionTypes.CHANGE_OPEN_SIDENAV_GROUP:
-      return changeOpenSidenavGroup(state, action);
+    case actionTypes.CHANGE_OPEN_SIDEBAR_NAV_GROUP:
+      return changeOpenSidebarNavGroup(state, action);
     default: return state;
   }
 }

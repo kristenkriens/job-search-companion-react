@@ -1,8 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const changeOpenSidenavGroup = (navGroup) => {
+export const changeOpenSidebarNavGroup = (sidebarNavGroup) => {
   return {
-    type: actionTypes.CHANGE_OPEN_SIDENAV_GROUP,
-    navGroup: navGroup
+    type: actionTypes.CHANGE_OPEN_SIDEBAR_NAV_GROUP,
+    sidebarNavGroup: sidebarNavGroup
   }
 };

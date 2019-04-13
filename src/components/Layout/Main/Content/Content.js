@@ -6,7 +6,7 @@ import * as actions from '../../../../store/actions/index';
 
 class Content extends Component {
   componentDidMount() {
-    this.props.handleNavGroupItemLoaded(this.props.group);
+    this.props.handleSidebarNavGroupItemLoaded(this.props.group);
   }
 
   render() {
@@ -26,7 +26,7 @@ class Content extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleNavGroupItemLoaded: (navGroup) => dispatch(actions.changeOpenSidenavGroup(navGroup))
+    handleSidebarNavGroupItemLoaded: (sidebarNavGroup) => dispatch(actions.changeOpenSidebarNavGroup(sidebarNavGroup))
   }
 }
 

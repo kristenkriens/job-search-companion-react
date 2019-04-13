@@ -4,11 +4,11 @@ import PrimarySidebarNavItem from './PrimarySidebarNavItem/PrimarySidebarNavItem
 import SecondarySidebarNavItem from './SecondarySidebarNavItem/SecondarySidebarNavItem';
 
 const SidebarNavGroup = (props) => {
-  const { primaryItem, secondaryItems, isOpen, handleNavClick } = props;
+  const { primaryItem, secondaryItems, isOpen, handleSidebarNavClick } = props;
 
   return (
     <>
-      <PrimarySidebarNavItem isOpen={isOpen} handleNavClick={handleNavClick}>
+      <PrimarySidebarNavItem isOpen={isOpen} handleSidebarNavClick={handleSidebarNavClick}>
         <i className={`fa fa-${primaryItem.icon}`} aria-hidden="true" />
         {primaryItem.title}
       </PrimarySidebarNavItem>

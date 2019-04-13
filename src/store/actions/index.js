@@ -5,5 +5,5 @@ export {
 } from './auth';
 
 export {
-  changeOpenSidenavGroup
+  changeOpenSidebarNavGroup
 } from './navigation';
