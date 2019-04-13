@@ -16,7 +16,6 @@ import Applications from './components/Routes/Analyze/Applications/Applications'
 import Correspondence from './components/Routes/Analyze/Correspondence/Correspondence';
 
 import * as actions from './store/actions/index';
-import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 class App extends Component {
   componentDidMount = () => {
@@ -24,8 +23,6 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props;
-
     let routes = (
       <Switch>
         <Route
@@ -74,14 +71,8 @@ class App extends Component {
     )
 
     return (
-      <Layout isAuthenticated={isAuthenticated} routes={routes} />
+      <Layout routes={routes} />
     );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.token !== null
   }
 }
 
@@ -91,4 +82,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(null, mapDispatchToProps)(App));

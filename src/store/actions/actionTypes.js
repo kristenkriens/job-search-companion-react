@@ -4,3 +4,5 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const CHANGE_OPEN_SIDEBAR_NAV_GROUP = 'CHANGE_OPEN_SIDEBAR_NAV_GROUP';
+
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';

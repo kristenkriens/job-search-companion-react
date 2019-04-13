@@ -7,3 +7,7 @@ export {
 export {
   changeOpenSidebarNavGroup
 } from './navigation';
+
+export {
+  toggleModal
+} from './modal';

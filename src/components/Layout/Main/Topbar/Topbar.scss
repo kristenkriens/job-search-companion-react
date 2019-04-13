@@ -15,7 +15,7 @@
     padding: 20px;
   }
 
-  button:hover {
+  button:not(.button):hover {
     color: $blurple;
   }
 

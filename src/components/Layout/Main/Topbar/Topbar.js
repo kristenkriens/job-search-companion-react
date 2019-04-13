@@ -5,12 +5,12 @@ import Breadcrumb from './Breadcrumb/Breadcrumb';
 import Auth from './Auth/Auth';
 
 const Topbar = (props) => {
-  const { isAuthenticated } = props;
+  const { isAuthenticated, isModalOpen, toggleModal } = props;
 
   return (
     <div className="topbar">
       <Breadcrumb />
-      <Auth isAuthenticated={isAuthenticated} />
+      <Auth isAuthenticated={isAuthenticated} isModalOpen={isModalOpen} toggleModal={toggleModal} />
     </div>
   )
 }

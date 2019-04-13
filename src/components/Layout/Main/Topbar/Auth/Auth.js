@@ -1,7 +1,10 @@
 import React from 'react';
 
+import Modal from '../../../../UI/Modal/Modal';
+import Login from './Login/Login';
+
 const Auth = (props) => {
-  const { isAuthenticated } = props;
+  const { isAuthenticated, isModalOpen, toggleModal } = props;
 
   return (
     <div className="topbar__auth">
@@ -17,7 +20,12 @@ const Auth = (props) => {
           </ul>
         </div>
       ) : (
-        <button className="login">Log In / Create Account</button>
+        <>
+          <Modal isModalOpen={isModalOpen} toggleModal={toggleModal} title="Login">
+            <Login />
+          </Modal>
+          <button className="login" onClick={toggleModal}>Log In / Create Account</button>
+        </>
       )}
     </div>
   )
