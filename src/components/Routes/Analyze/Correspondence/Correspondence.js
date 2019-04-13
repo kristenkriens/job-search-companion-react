@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Button from '../../../UI/Button/Button';
+
 class Correspondence extends Component {
   render() {
     return (
@@ -9,7 +11,7 @@ class Correspondence extends Component {
             <label htmlFor="correspondence">Please enter the text you would like to analyze below:</label>
             <textarea id="correspondence"></textarea>
           </div>
-          <button type="submit" className="button">Analyze</button>
+          <Button type="submit">Analyze</Button>
         </form>
       </>
     )

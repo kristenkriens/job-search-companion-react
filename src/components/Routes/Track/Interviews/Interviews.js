@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Button from '../../../UI/Button/Button';
+
 class Interviews extends Component {
   render() {
     const { isAuthenticated } = this.props;
@@ -40,14 +42,14 @@ class Interviews extends Component {
             </div>
             <div className="table__delete"><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
             <div class="button-wrapper">
-              <button className="button">Add New</button>
-              <button className="button">Save</button>
+              <Button>Add New</Button>
+              <Button>Save</Button>
             </div>
           </>
         ) : (
           <>
             <h3>You need to be logged in to view this page!</h3>
-            <button className="button">Log In</button>
+            <Button>Log In</Button>
           </>
         )}
       </>

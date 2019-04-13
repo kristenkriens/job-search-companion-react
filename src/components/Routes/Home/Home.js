@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Button from '../../UI/Button/Button';
+
 class Home extends Component {
   render() {
     const { isAuthenticated } = this.props;
@@ -12,7 +14,7 @@ class Home extends Component {
         ) : (
           <>
             <p>Log in to get started!</p>
-            <button className="button">Log In</button>
+            <Button>Log In</Button>
           </>
         )}
       </>

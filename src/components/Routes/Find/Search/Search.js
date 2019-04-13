@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Button from '../../../UI/Button/Button';
+
 class Search extends Component {
   render() {
     const { isAuthenticated } = this.props;
@@ -14,10 +16,10 @@ class Search extends Component {
           <div className="form__element form__element--half">
             <label htmlFor="location">Address / Location</label>
             <input type="text" id="location" placeholder="e.g. Toronto, ON" />
-            <button type="button" className="button units units--square">
+            <Button type="button" additionalClasses="units units--square">
               <i className="fa fa-location-arrow" aria-hidden="true"></i>
               <span className="accessible">Get Geolocation</span>
-            </button>
+            </Button>
           </div>
           <div className="form__element form__element--half form__element--half-small">
             <label htmlFor="postAge">Max Days Old</label>
@@ -62,7 +64,7 @@ class Search extends Component {
               </li>
             </ul>
           </div>
-          <button type="submit" className="button">Search</button>
+          <Button type="submit">Search</Button>
         </form>
         {isAuthenticated && (
           <>
