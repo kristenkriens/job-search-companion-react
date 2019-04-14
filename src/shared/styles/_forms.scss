@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: flex-end;
 
-  &__submit {
+  button[type="submit"] {
     margin-top: 10px;
   }
 
@@ -28,6 +28,11 @@
 		position: relative;
 		margin-bottom: 15px;
 	  width: 100%;
+
+    > div {
+      font-size: 14px;
+      margin-top: 5px;
+    }
 
 	  &--half {
 	    width: calc(50% - 10px);

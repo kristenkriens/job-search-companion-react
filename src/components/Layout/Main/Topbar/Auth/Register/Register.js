@@ -6,18 +6,13 @@ import Button from '../../../../../UI/Button/Button';
 import * as actions from '../../../../../../store/actions/index';
 
 class Register extends Component {
-  state = {
-    email: '',
-    password: ''
-  }
-
   render() {
     const { auth, setActiveModal } = this.props;
 
     return (
       <>
         <h2>Create Account</h2>
-        <form onSubmit={auth(this.state.email, this.state.password, true)}>
+        <form className="form">
           <div className="form__element">
             <label htmlFor="email">Email</label>
             <input type="email" id="email" placeholder="e.g. fake-email@gmail.com" />
@@ -31,8 +26,8 @@ class Register extends Component {
             <input type="password" id="confirmPassword" />
           </div>
           <Button type="submit" additionalClasses="modal__submit" disabled>Submit</Button>
-          <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
         </form>
+        <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
       </>
     )
   }
