@@ -77,27 +77,25 @@ class Login extends Component {
       }
     }
 
-    let form = formElementsArray.map((formElement) => {
-      return (
-        <FormElement
-          key={formElement.id}
-          id={formElement.id}
-          elementType={formElement.config.elementType}
-          elementConfig={formElement.config.elementConfig}
-          label={formElement.config.label}
-          value={formElement.config.value}
-          error={!formElement.config.valid}
-          shouldValidate={formElement.config.validation}
-          changed={(event) => this.inputChangedHandler(event, formElement.id)}
-        />
-      )
-    });
-
     return (
       <>
         <h2>Log In</h2>
         <form onSubmit={this.submitHandler} className="form">
-          {form}
+          {formElementsArray.map((formElement) => {
+            return (
+              <FormElement
+                key={formElement.id}
+                id={formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                label={formElement.config.label}
+                value={formElement.config.value}
+                error={!formElement.config.valid}
+                shouldValidate={formElement.config.validation}
+                changed={(event) => this.inputChangedHandler(event, formElement.id)}
+              />
+            )
+          })}
           <Button type="submit" additionalClasses="modal__submit" disabled={disabled}>Submit</Button>
         </form>
         <button className="modal__link" onClick={() => setActiveModal('register')}>New user? Create an account</button>
