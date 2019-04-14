@@ -20,7 +20,7 @@ class Auth extends Component {
 
     return (
       <div className="topbar__auth">
-        {!isAuthenticated ? (
+        {isAuthenticated ? (
           <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
           <>
