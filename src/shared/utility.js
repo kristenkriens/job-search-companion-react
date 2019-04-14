@@ -28,3 +28,14 @@ export const checkValidity = (value, rules) => {
 
   return isValid;
 }
+
+export const checkSubmitButtonDisabled = (form) => {
+  let submitButtonDisabled = false;
+  for(let key in form) {
+    if(!form[key].valid) {
+      submitButtonDisabled = true;
+    }
+  }
+
+  return submitButtonDisabled;
+}

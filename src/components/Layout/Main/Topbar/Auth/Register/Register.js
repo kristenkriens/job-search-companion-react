@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormElement from '../../../../../UI/FormElement/FormElement';
 import Button from '../../../../../UI/Button/Button';
 
-import { updateObject, checkValidity } from '../../../../../../shared/utility';
+import { updateObject, checkValidity, checkSubmitButtonDisabled } from '../../../../../../shared/utility';
 import * as actions from '../../../../../../store/actions/index';
 
 class Register extends Component {
@@ -84,13 +84,6 @@ class Register extends Component {
       });
     }
 
-    let disabled = false;
-    for(let key in this.state.form) {
-      if(!this.state.form[key].valid) {
-        disabled = true;
-      }
-    }
-
     return (
       <>
         <h2>Create Account</h2>
@@ -110,7 +103,7 @@ class Register extends Component {
               />
             )
           })}
-          <Button type="submit" additionalClasses="modal__submit" disabled={disabled}>Submit</Button>
+          <Button type="submit" additionalClasses="modal__submit" disabled={checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
         </form>
         <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
       </>
