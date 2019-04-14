@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FormElement = (props) => {
-  const { label, elementConfig, elementType, value, error, shouldValidate, touched, changed, hiddenLabel } = props;
+  const { label, elementConfig, elementType, value, error, shouldValidate, changed, hiddenLabel } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -28,13 +28,12 @@ const FormElement = (props) => {
       formElement = <input {...elementConfig} value={value} onChange={changed} />;
   }
 
+  const valid = shouldValidate && !error;
+
   return (
-    <div className="form__element">
+    <div className={`form__element ${valid ? 'form__element--valid' : ''}`}>
       <label className={hiddenLabel ? 'accessible' : ''}>{label}</label>
       {formElement}
-      {error && shouldValidate && touched && (
-        <div>Please enter a valid value</div>
-      )}
     </div>
   )
 }

@@ -18,6 +18,10 @@
 			background-color: $blurple;
 		}
 	}
+
+	&[disabled] {
+		background-color: $light-grey-blue;
+	}
 }
 
 .button-wrapper {

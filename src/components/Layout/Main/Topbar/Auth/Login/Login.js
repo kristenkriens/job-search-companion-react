@@ -22,8 +22,7 @@ class Login extends Component {
           required: true,
           isEmail: true
         },
-        valid: false,
-        touched: false
+        valid: false
       },
       password: {
         elementType: 'input',
@@ -37,8 +36,7 @@ class Login extends Component {
           required: true,
           minLength: 6
         },
-        valid: false,
-        touched: false
+        valid: false
       }
     },
     isRegister: false
@@ -48,8 +46,7 @@ class Login extends Component {
     const updatedForm = updateObject(this.state.form, {
       [inputName]: updateObject(this.state.form[inputName], {
         value: event.target.value,
-        valid: checkValidity(event.target.value, this.state.form[inputName].validation),
-        touched: true
+        valid: checkValidity(event.target.value, this.state.form[inputName].validation)
       })
     });
 
@@ -90,7 +87,6 @@ class Login extends Component {
           value={formElement.config.value}
           error={!formElement.config.valid}
           shouldValidate={formElement.config.validation}
-          touched={formElement.config.touched}
           changed={(event) => this.inputChangedHandler(event, formElement.id)}
         />
       )
