@@ -16,7 +16,7 @@ class Search extends Component {
           <div className="form__element form__element--half">
             <label htmlFor="location">Address / Location</label>
             <input type="text" id="location" placeholder="e.g. Toronto, ON" />
-            <Button type="button" additionalClasses="units units--square">
+            <Button additionalClasses="units units--square">
               <i className="fa fa-location-arrow" aria-hidden="true"></i>
               <span className="accessible">Get Geolocation</span>
             </Button>

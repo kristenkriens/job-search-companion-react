@@ -9,40 +9,9 @@
   max-width: 350px;
   background-color: $white;
   padding: 30px 20px;
-  margin: 20px;
   text-align: center;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
   z-index: 110;
-
-  &--skills {
-    list-style-type: none;
-    margin: 0 -5px 10px;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-
-    li {
-      width: calc(50% - 10px);
-      margin: 0 5px 10px;
-      padding: 5px;
-      background-color: $lightest-grey;
-    }
-
-    .fa {
-      cursor: pointer;
-      font-size: 13px;
-      position: relative;
-      top: -1px;
-      margin-left: 5px;
-      transition: 200ms color ease;
-
-      &:hover {
-        color: $red;
-      }
-    }
-  }
 
   h2 {
     margin-bottom: 30px;

@@ -17,7 +17,7 @@ class Auth extends Component {
         ) : (
           <>
             <button onClick={toggleModal}>Log In / Create Account</button>
-            <Modal isModalOpen={isModalOpen} toggleModal={toggleModal} title="Login">
+            <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
               <Login />
             </Modal>
           </>
