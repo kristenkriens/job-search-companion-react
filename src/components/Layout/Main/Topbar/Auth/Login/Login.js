@@ -81,6 +81,7 @@ class Login extends Component {
       return (
         <FormElement
           key={formElement.id}
+          id={formElement.id}
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
           label={formElement.config.label}
