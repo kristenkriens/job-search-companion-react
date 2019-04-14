@@ -16,21 +16,21 @@ class Auth extends Component {
   }
 
   render() {
-    const { isAuthenticated, logout, isModalOpen, activeModal, toggleModal, setActiveModal } = this.props;
+    const { isAuthenticated, logout, isModalOpen, activeModal, toggleModal } = this.props;
 
     return (
       <div className="topbar__auth">
-        {isAuthenticated ? (
-          <div>Hello, Anonymous! <button className="underline" onClick={logout}>(Logout)</button></div>
+        {!isAuthenticated ? (
+          <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
           <>
             <button onClick={() => this.toggleSetActiveModal('login')}>Log In / Create Account</button>
             <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
               {activeModal === 'login' && (
-                <Login setActiveModal={setActiveModal} />
+                <Login />
               )}
               {activeModal === 'register' && (
-                <Register setActiveModal={setActiveModal} />
+                <Register />
               )}
             </Modal>
           </>
