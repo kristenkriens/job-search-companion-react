@@ -1,26 +1,44 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Modal from '../../../../UI/Modal/Modal';
 import Profile from './Profile/Profile';
 import Login from './Login/Login';
 
-const Auth = (props) => {
-  const { isAuthenticated, isModalOpen, toggleModal } = props;
+import * as actions from '../../../../../store/actions/index';
 
-  return (
-    <div className="topbar__auth">
-      {!isAuthenticated ? (
-        <div>Hello, Anonymous! <button className="underline">(Logout)</button></div>
-      ) : (
-        <>
-          <button onClick={toggleModal}>Log In / Create Account</button>
-          <Modal isModalOpen={isModalOpen} toggleModal={toggleModal} title="Login">
-            <Login />
-          </Modal>
-        </>
-      )}
-    </div>
-  )
+class Auth extends Component {
+  render() {
+    const { isAuthenticated, isModalOpen, toggleModal } = this.props;
+
+    return (
+      <div className="topbar__auth">
+        {isAuthenticated ? (
+          <div>Hello, Anonymous! <button className="underline">(Logout)</button></div>
+        ) : (
+          <>
+            <button onClick={toggleModal}>Log In / Create Account</button>
+            <Modal isModalOpen={isModalOpen} toggleModal={toggleModal} title="Login">
+              <Login />
+            </Modal>
+          </>
+        )}
+      </div>
+    )
+  }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    isModalOpen: state.modal.isModalOpen
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleModal: () => dispatch(actions.toggleModal())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

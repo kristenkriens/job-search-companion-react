@@ -10,13 +10,13 @@ import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
   render() {
-    const { routes, isAuthenticated, isModalOpen, toggleModal } = this.props;
+    const { routes, isAuthenticated } = this.props;
 
     return (
       <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
-        <Main routes={routes} isAuthenticated={isAuthenticated} isModalOpen={isModalOpen} toggleModal={toggleModal} />
+        <Main routes={routes} isAuthenticated={isAuthenticated} />
         <Footer />
       </div>
     )
@@ -25,15 +25,13 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
-    isModalOpen: state.modal.isModalOpen
+    isAuthenticated: state.auth.token !== null
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState()),
-    toggleModal: () => dispatch(actions.toggleModal())
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
   }
 }
 
