@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FormElement = (props) => {
-  const { id, label, elementConfig, elementType, value, error, shouldValidate, changed, hiddenLabel } = props;
+  const { id, label, hiddenLabel, elementConfig, elementType, value, error, shouldValidate, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -32,7 +32,7 @@ const FormElement = (props) => {
 
   return (
     <div className={`form__element ${valid ? 'form__element--valid' : ''}`}>
-      <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{label}</label>
+      <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
       {formElement}
     </div>
   )
