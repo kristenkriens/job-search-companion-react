@@ -6,8 +6,6 @@ import Sidebar from './Sidebar/Sidebar';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
 
-import * as actions from '../../store/actions/index';
-
 class Layout extends Component {
   render() {
     const { routes, isAuthenticated } = this.props;
@@ -16,7 +14,7 @@ class Layout extends Component {
       <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
-        <Main routes={routes} isAuthenticated={isAuthenticated} />
+        <Main routes={routes} />
         <Footer />
       </div>
     )
@@ -29,10 +27,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps)(Layout);

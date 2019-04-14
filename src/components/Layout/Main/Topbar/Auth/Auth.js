@@ -16,12 +16,12 @@ class Auth extends Component {
   }
 
   render() {
-    const { isAuthenticated, isModalOpen, activeModal, toggleModal, setActiveModal } = this.props;
+    const { isAuthenticated, logout, isModalOpen, activeModal, toggleModal, setActiveModal } = this.props;
 
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
-          <div>Hello, Anonymous! <button className="underline">(Logout)</button></div>
+          <div>Hello, Anonymous! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
           <>
             <button onClick={() => this.toggleSetActiveModal('login')}>Log In / Create Account</button>
@@ -50,8 +50,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    logout: () => dispatch(actions.authLogout()),
     toggleModal: () => dispatch(actions.toggleModal()),
-    setActiveModal: (modalType) => dispatch(actions.setActiveModal(modalType)),
+    setActiveModal: (modalType) => dispatch(actions.setActiveModal(modalType))
   }
 }
 
