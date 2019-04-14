@@ -21,7 +21,7 @@ export const checkValidity = (value, rules) => {
   }
 
   if(rules.isEmail) {
-    let testEmail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    let testEmail = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
     isValid = testEmail.test(value) && isValid;
   }

@@ -60,20 +60,24 @@ class Login extends Component {
     event.preventDefault();
 
     this.props.auth(this.state.form.email.value, this.state.form.password.value, this.state.isRegister);
-
-    // TODO: Close modal if success
   }
 
   render() {
-    const { auth, setActiveModal } = this.props;
+    const { setActiveModal } = this.props;
 
     const formElementsArray = [];
-
     for(let key in this.state.form) {
       formElementsArray.push({
         id: key,
         config: this.state.form[key]
       });
+    }
+
+    let disabled = false;
+    for(let key in this.state.form) {
+      if(!this.state.form[key].valid) {
+        disabled = true;
+      }
     }
 
     let form = formElementsArray.map((formElement) => {
@@ -92,22 +96,12 @@ class Login extends Component {
       )
     });
 
-    let errorMessage = null;
-    if(this.props.error) {
-      errorMessage = (
-        <p>{this.props.error.message}</p>
-      );
-    }
-
-    // TODO: Instead of inline validation, check if all validation has passed and re-enable submit button
-
     return (
       <>
         <h2>Log In</h2>
-        {errorMessage}
         <form onSubmit={this.submitHandler} className="form">
           {form}
-          <Button type="submit" additionalClasses="modal__submit" disabled>Submit</Button>
+          <Button type="submit" additionalClasses="modal__submit" disabled={disabled}>Submit</Button>
         </form>
         <button className="modal__link" onClick={() => setActiveModal('register')}>New user? Create an account</button>
       </>
