@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Modal from '../../../../UI/Modal/Modal';
-import Profile from './Profile/Profile';
 import Login from './Login/Login';
 
 import * as actions from '../../../../../store/actions/index';
