@@ -9,5 +9,6 @@ export {
 } from './navigation';
 
 export {
-  toggleModal
+  toggleModal,
+  setActiveModal
 } from './modal';
