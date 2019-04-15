@@ -8,13 +8,13 @@ import Footer from './Footer/Footer';
 
 class Layout extends Component {
   render() {
-    const { routes, isAuthenticated } = this.props;
+    const { routes, isAuthenticated, breadcrumb } = this.props;
 
     return (
       <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
-        <Main routes={routes} />
+        <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
       </div>
     )
@@ -23,7 +23,8 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    breadcrumb: state.navigation.breadcrumb
   }
 }
 

@@ -39,7 +39,14 @@ const initialState = {
         { title: 'Correspondence', link: '/analyze/correspondence', exact: false }
       ]
     }
-  ]
+  ],
+  breadcrumb: {
+    group: '',
+    current: {
+      title: '',
+      link: ''
+    }
+  }
 }
 
 const changeOpenSidebarNavGroup = (state, action) => {
@@ -50,10 +57,21 @@ const changeOpenSidebarNavGroup = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const getSetBreadcrumb = (state, action) => {
+  const updatedState = {
+    breadcrumb: action.breadcrumb
+  };
+
+  return updateObject(state, updatedState);
+}
+
+
 const navigationReducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.CHANGE_OPEN_SIDEBAR_NAV_GROUP:
       return changeOpenSidebarNavGroup(state, action);
+    case actionTypes.GET_SET_BREADCRUMB:
+      return getSetBreadcrumb(state, action);
     default: return state;
   }
 }

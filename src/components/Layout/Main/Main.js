@@ -4,11 +4,11 @@ import './Main.scss';
 import Topbar from './Topbar/Topbar';
 
 const Main = (props) => {
-  const { routes } = props;
+  const { routes, breadcrumb } = props;
 
   return (
     <main id="main" className="main">
-      <Topbar />
+      <Topbar breadcrumb={breadcrumb} />
       {routes}
     </main>
   )

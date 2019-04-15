@@ -5,7 +5,8 @@ export {
 } from './auth';
 
 export {
-  changeOpenSidebarNavGroup
+  changeOpenSidebarNavGroup,
+  getSetBreadcrumb
 } from './navigation';
 
 export {

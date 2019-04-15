@@ -5,8 +5,14 @@ import './Content.scss';
 import * as actions from '../../../../store/actions/index';
 
 class Content extends Component {
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.handleSidebarNavGroupItemLoaded(this.props.group);
+
+    this.props.getSetBreadcrumb(this.props.sidebarNav);
+  }
+
+  componentDidUpdate = () => {
+    this.props.getSetBreadcrumb(this.props.sidebarNav);
   }
 
   render() {
@@ -24,10 +30,17 @@ class Content extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    handleSidebarNavGroupItemLoaded: (sidebarNavGroup) => dispatch(actions.changeOpenSidebarNavGroup(sidebarNavGroup))
+    sidebarNav: state.navigation.sidebarNav
   }
 }
 
-export default connect(null, mapDispatchToProps)(Content);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSidebarNavGroupItemLoaded: (sidebarNavGroup) => dispatch(actions.changeOpenSidebarNavGroup(sidebarNavGroup)),
+    getSetBreadcrumb: (sidebarNav) => dispatch(actions.getSetBreadcrumb(sidebarNav))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
