@@ -11,24 +11,20 @@ export const getSetBreadcrumb = (sidebarNav) => {
   const path = window.location.pathname.replace('/job-search-companion', '');
   const pathItems = path.split('/');
 
-  let group = '';
-  let current = '';
-  sidebarNav.forEach((navItem) => {
-    if(navItem.type === pathItems[1]) {
-      group = navItem.primaryItem.title;
+  let breadcrumb = {};
+  sidebarNav.forEach((sidebarNavItem) => {
+    if(sidebarNavItem.type === pathItems[1]) {
+      breadcrumb.group = sidebarNavItem.primaryItem.title;
 
-      navItem.secondaryItems.forEach((secondaryNavItem) => {
-        if(secondaryNavItem.link === path) {
-          current = secondaryNavItem.title;
+      sidebarNavItem.secondaryItems.forEach((secondarySidebarNavItem) => {
+        if(secondarySidebarNavItem.link === path) {
+          breadcrumb.current = secondarySidebarNavItem.title;
         }
       });
+    } else if (pathItems[1] === '') {
+      breadcrumb.current = 'Home';
     }
   });
-
-  const breadcrumb = {
-    group: group,
-    current: current ? current : 'Home'
-  }
 
   return {
     type: actionTypes.GET_SET_BREADCRUMB,
