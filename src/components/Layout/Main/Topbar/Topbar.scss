@@ -28,7 +28,7 @@
 
     &-group {
       position: relative;
-      margin-right: 15px;
+      margin-right: 25px;
 
       &:after {
         cursor: auto;
@@ -47,11 +47,6 @@
 
     &-current {
       font-weight: 500;
-      margin-left: 10px;
-
-      @media (max-width: $md-width) {
-        margin-left: 0;
-      }
     }
   }
 

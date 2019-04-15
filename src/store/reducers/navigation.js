@@ -42,10 +42,7 @@ const initialState = {
   ],
   breadcrumb: {
     group: '',
-    current: {
-      title: '',
-      link: ''
-    }
+    current: ''
   }
 }
 
