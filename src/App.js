@@ -29,7 +29,7 @@ class App extends Component {
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Content location={location} component={<Search isAuthenticated={isAuthenticated} />} group="find" />} // TODO: Change to Main and all associated changes
+          render={() => <Content location={location} component={<Search isAuthenticated={isAuthenticated} />} group="find" />}
         />
         <Route
           path="/find/map-view"
