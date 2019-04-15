@@ -100,7 +100,6 @@ class Login extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     auth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp)),
-    setActiveModal: (modalType) => dispatch(actions.setActiveModal(modalType)),
     toggleModal: () => dispatch(actions.toggleModal())
   }
 }

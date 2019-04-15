@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { toggleModal, setActiveModal } from './modal';
+import { toggleModal } from './modal';
 
 export const authStart = () => {
   return {
@@ -74,7 +74,6 @@ export const auth = (email, password, isRegister) => {
       })
       .catch((error) => {
         dispatch(authFail(error.response.data.error));
-        dispatch(setActiveModal('error')); //TODO: setup error modal
       });
   }
 };

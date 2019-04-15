@@ -8,15 +8,25 @@ import Register from './Register/Register';
 import * as actions from '../../../../../store/actions/index';
 
 class Auth extends Component {
-  toggleSetActiveModal = (modalType) => {
-    const { setActiveModal, toggleModal } = this.props;
+  state = {
+    activeModal: 'login'
+  }
 
-    setActiveModal(modalType);
+  setActiveModal = (modalType) => {
+    this.setState({
+      activeModal: modalType
+    })
+  };
+
+  toggleAndSetActiveModal = (modalType) => {
+    const { toggleModal } = this.props;
+
+    this.setActiveModal(modalType);
     toggleModal();
   }
 
   render() {
-    const { isAuthenticated, logout, isModalOpen, activeModal, toggleModal } = this.props;
+    const { isAuthenticated, logout, isModalOpen, toggleModal } = this.props;
 
     return (
       <div className="topbar__auth">
@@ -24,13 +34,13 @@ class Auth extends Component {
           <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
           <>
-            <button onClick={() => this.toggleSetActiveModal('login')}>Log In / Create Account</button>
+            <button onClick={() => this.toggleAndSetActiveModal('login')}>Log In / Create Account</button>
             <Modal isModalOpen={isModalOpen} toggleModal={toggleModal}>
-              {activeModal === 'login' && (
-                <Login />
+              {this.state.activeModal === 'login' && (
+                <Login setActiveModal={this.setActiveModal} />
               )}
-              {activeModal === 'register' && (
-                <Register />
+              {this.state.activeModal === 'register' && (
+                <Register setActiveModal={this.setActiveModal} />
               )}
             </Modal>
           </>
@@ -43,16 +53,14 @@ class Auth extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    isModalOpen: state.modal.isModalOpen,
-    activeModal: state.modal.activeModal
+    isModalOpen: state.modal.isModalOpen
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.authLogout()),
-    toggleModal: () => dispatch(actions.toggleModal()),
-    setActiveModal: (modalType) => dispatch(actions.setActiveModal(modalType))
+    toggleModal: () => dispatch(actions.toggleModal())
   }
 }
 
