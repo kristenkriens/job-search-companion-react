@@ -23,50 +23,50 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, location } = this.props;
 
     let routes = (
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content location={location} component={<Search isAuthenticated={isAuthenticated} />} group="find" />} // TODO: Change to Main and all associated changes
         />
         <Route
           path="/find/map-view"
-          render={() => <Content component={<MapView isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content location={location} component={<MapView isAuthenticated={isAuthenticated} />} group="find" />}
         />
         <Route
           path="/find/list-view"
-          render={() => <Content component={<ListView isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content location={location} component={<ListView isAuthenticated={isAuthenticated} />} group="find" />}
         />
         <Route
           path="/find/listing/:id"
-          render={() => <Content component={<Listing isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content location={location} component={<Listing isAuthenticated={isAuthenticated} />} group="find" />}
         />
         <Route
           path="/track/overview"
-          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content location={location} component={<Overview isAuthenticated={isAuthenticated} />} group="track" />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content location={location} component={<FollowUps isAuthenticated={isAuthenticated} />} group="track" />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content location={location} component={<Interviews isAuthenticated={isAuthenticated} />} group="track" />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} />} group="analyze" />}
+          render={() => <Content location={location} component={<Applications isAuthenticated={isAuthenticated} />} group="analyze" />}
         />
         <Route
           path="/analyze/correspondence"
-          render={() => <Content component={<Correspondence isAuthenticated={isAuthenticated} />} group="analyze" />}
+          render={() => <Content location={location} component={<Correspondence isAuthenticated={isAuthenticated} />} group="analyze" />}
         />
         <Route
           path="/"
           exact
-          render={() => <Content component={<Home isAuthenticated={isAuthenticated} />} group="" />}
+          render={() => <Content location={location} component={<Home isAuthenticated={isAuthenticated} />} group="" />}
         />
         <Redirect to="/" />
       </Switch>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import './Content.scss';
 import * as actions from '../../../../store/actions/index';
@@ -16,15 +17,26 @@ class Content extends Component {
   }
 
   render() {
-    const { component } = this.props;
+    const { component, location } = this.props;
 
     let dashedComponent = component.type.name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
 
     return (
       <div className="content">
-        <div className={`content-inner content-inner--${dashedComponent}`}>
-          {component}
-        </div>
+        <TransitionGroup className="transition-group">
+          <CSSTransition
+            key={location.pathname}
+            classNames="content-inner"
+            timeout={{
+              enter: 1000,
+              exit: 0,
+            }}
+          >
+            <div className={`content-inner content-inner--${dashedComponent}`}>
+              {component}
+            </div>
+          </CSSTransition>
+        </TransitionGroup>
       </div>
     )
   }
