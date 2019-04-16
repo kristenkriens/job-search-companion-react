@@ -1,4 +1,5 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import PrimarySidebarNavItem from './PrimarySidebarNavItem/PrimarySidebarNavItem';
 import SecondarySidebarNavItem from './SecondarySidebarNavItem/SecondarySidebarNavItem';
@@ -12,7 +13,12 @@ const SidebarNavGroup = (props) => {
         <i className={`fa fa-${primaryItem.icon}`} aria-hidden="true" />
         {primaryItem.title}
       </PrimarySidebarNavItem>
-      {isOpen && (
+      <CSSTransition
+        in={isOpen}
+        timeout={500}
+        classNames="slide"
+        unmountOnExit
+      >
         <ul className="sidebar__secondary">
           {secondaryItems.map(secondaryItem => (
             <SecondarySidebarNavItem key={secondaryItem.title} link={secondaryItem.link} exact={secondaryItem.exact}>
@@ -20,7 +26,7 @@ const SidebarNavGroup = (props) => {
             </SecondarySidebarNavItem>
           ))}
         </ul>
-      )}
+      </CSSTransition>
     </>
   )
 }
