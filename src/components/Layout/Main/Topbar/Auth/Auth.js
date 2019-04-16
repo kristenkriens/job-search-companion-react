@@ -31,7 +31,7 @@ class Auth extends Component {
         {isAuthenticated ? (
           <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
-          <AuthModal isModalOpen={isModalOpen} toggleModal={toggleModal} isButton={false} text="Login / Create Account" />
+          <AuthModal isModalOpen={isModalOpen} toggleModal={toggleModal} text="Login / Create Account" />
         )}
       </div>
     )
