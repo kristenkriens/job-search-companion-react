@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
 
-import { updateObject, checkValidity, checkSubmitButtonDisabled } from '../../../../shared/utility';
+import { checkSubmitButtonDisabled, inputChanged, submitForm } from '../../../../shared/utility';
 import * as actions from '../../../../store/actions/index';
 
 class Register extends Component {
@@ -56,23 +56,6 @@ class Register extends Component {
     isRegister: true
   }
 
-  inputChangedHandler = (event, inputName) => {
-    const updatedForm = updateObject(this.state.form, {
-      [inputName]: updateObject(this.state.form[inputName], {
-        value: event.target.value,
-        valid: checkValidity(event.target.value, this.state.form[inputName].validation)
-      })
-    });
-
-    this.setState({form: updatedForm});
-  }
-
-  submitHandler = (event) => {
-    event.preventDefault();
-
-    this.props.auth(this.state.form.email.value, this.state.form.password.value, this.state.isRegister);
-  }
-
   render() {
     const { setActiveModal } = this.props;
 
@@ -87,7 +70,7 @@ class Register extends Component {
     return (
       <>
         <h2>Create Account</h2>
-        <form onSubmit={this.submitHandler} className="form">
+        <form onSubmit={(event) => submitForm(this, event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -99,7 +82,7 @@ class Register extends Component {
                 value={formElement.config.value}
                 error={!formElement.config.valid}
                 shouldValidate={formElement.config.validation}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)}
+                changed={(event) => inputChanged(this, event, formElement.id)}
               />
             )
           })}

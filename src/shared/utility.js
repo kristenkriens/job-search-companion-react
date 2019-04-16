@@ -39,3 +39,20 @@ export const checkSubmitButtonDisabled = (form) => {
 
   return submitButtonDisabled;
 }
+
+export const inputChanged = (that, event, inputName) => {
+  const updatedForm = updateObject(that.state.form, {
+    [inputName]: updateObject(that.state.form[inputName], {
+      value: event.target.value,
+      valid: checkValidity(event.target.value, that.state.form[inputName].validation)
+    })
+  });
+
+  that.setState({form: updatedForm});
+}
+
+export const submitForm = (that, event) => {
+  event.preventDefault();
+
+  that.props.auth(that.state.form.email.value, that.state.form.password.value, that.state.isRegister);
+}
