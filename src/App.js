@@ -29,44 +29,44 @@ class App extends Component {
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Content location={location} component={<Search isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/find/map-view"
-          render={() => <Content location={location} component={<MapView isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<MapView isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/find/list-view"
-          render={() => <Content location={location} component={<ListView isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<ListView isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/find/listing/:id"
-          render={() => <Content location={location} component={<Listing isAuthenticated={isAuthenticated} />} group="find" />}
+          render={() => <Content component={<Listing isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/track/overview"
-          render={() => <Content location={location} component={<Overview isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <Content location={location} component={<FollowUps isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Content location={location} component={<Interviews isAuthenticated={isAuthenticated} />} group="track" />}
+          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Content location={location} component={<Applications isAuthenticated={isAuthenticated} />} group="analyze" />}
+          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/analyze/correspondence"
-          render={() => <Content location={location} component={<Correspondence isAuthenticated={isAuthenticated} />} group="analyze" />}
+          render={() => <Content component={<Correspondence isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/"
           exact
-          render={() => <Content location={location} component={<Home isAuthenticated={isAuthenticated} />} group="" />}
+          render={() => <Content component={<Home isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Redirect to="/" />
       </Switch>
