@@ -26,8 +26,6 @@ class AuthModal extends Component {
   render() {
     const { isModalOpen, toggleModal, isButton, text } = this.props;
 
-    console.log(isButton);
-
     return (
       <>
         {isButton ? (
