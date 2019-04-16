@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FormElement from '../../../FormElement/FormElement';
-import Button from '../../../Button/Button';
+import FormElement from '../../FormElement/FormElement';
+import Button from '../../Button/Button';
 
-import { updateObject, checkValidity, checkSubmitButtonDisabled } from '../../../../../shared/utility';
-import * as actions from '../../../../../store/actions/index';
+import { updateObject, checkValidity, checkSubmitButtonDisabled } from '../../../../shared/utility';
+import * as actions from '../../../../store/actions/index';
 
-class Login extends Component {
+class Register extends Component {
   state = {
     form: {
       email: {
@@ -37,9 +37,23 @@ class Login extends Component {
           minLength: 6
         },
         valid: false
+      },
+      confirmPassword: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'password',
+          placeholder: ''
+        },
+        label: 'Confirm Password',
+        value: '',
+        validation: {
+          required: true,
+          minLength: 6
+        },
+        valid: false
       }
     },
-    isRegister: false
+    isRegister: true
   }
 
   inputChangedHandler = (event, inputName) => {
@@ -72,7 +86,7 @@ class Login extends Component {
 
     return (
       <>
-        <h2>Log In</h2>
+        <h2>Create Account</h2>
         <form onSubmit={this.submitHandler} className="form">
           {formElementsArray.map((formElement) => {
             return (
@@ -91,7 +105,7 @@ class Login extends Component {
           })}
           <Button type="submit" additionalClasses="modal__submit" disabled={checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
         </form>
-        <button className="modal__link" onClick={() => setActiveModal('register')}>New user? Create an account</button>
+        <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
       </>
     )
   }
@@ -99,9 +113,8 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    auth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp)),
-    toggleModal: () => dispatch(actions.toggleModal())
+    auth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Register);

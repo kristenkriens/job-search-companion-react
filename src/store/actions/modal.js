@@ -5,3 +5,10 @@ export const toggleModal = () => {
     type: actionTypes.TOGGLE_MODAL
   }
 };
+
+export const setActiveModal = (activeModal) => {
+  return {
+    type: actionTypes.SET_ACTIVE_MODAL,
+    activeModal: activeModal
+  }
+};

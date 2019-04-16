@@ -1,37 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AuthModal from '../../../../UI/Modal/AuthModal/AuthModal';
-
 import * as actions from '../../../../../store/actions/index';
 
 class Auth extends Component {
-  state = {
-    activeModal: 'login'
-  }
+  toggleAndSetActiveModal = (activeModal) => {
+    const { toggleModal, setActiveModal } = this.props;
 
-  setActiveModal = (modalType) => {
-    this.setState({
-      activeModal: modalType
-    })
-  };
-
-  toggleAndSetActiveModal = (modalType) => {
-    const { toggleModal } = this.props;
-
-    this.setActiveModal(modalType);
+    setActiveModal(activeModal);
     toggleModal();
   }
 
   render() {
-    const { isAuthenticated, logout, isModalOpen, toggleModal } = this.props;
+    const { isAuthenticated, logout } = this.props;
 
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
           <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
-          <AuthModal isModalOpen={isModalOpen} toggleModal={toggleModal} text="Login / Create Account" />
+          <button onClick={() => this.toggleAndSetActiveModal('login')}>Login / Create Account</button>
         )}
       </div>
     )
@@ -40,15 +28,15 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
-    isModalOpen: state.modal.isModalOpen
+    isAuthenticated: state.auth.token !== null
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.authLogout()),
-    toggleModal: () => dispatch(actions.toggleModal())
+    toggleModal: () => dispatch(actions.toggleModal()),
+    setActiveModal: (activeModal) => dispatch(actions.setActiveModal(activeModal))
   }
 }
 
