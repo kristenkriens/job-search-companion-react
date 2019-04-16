@@ -29,6 +29,18 @@ export const checkValidity = (value, rules) => {
   return isValid;
 }
 
+export const createFormElementsArray = (form) => {
+  const formElementsArray = [];
+  for(let key in form) {
+    formElementsArray.push({
+      id: key,
+      config: form[key]
+    });
+  }
+
+  return formElementsArray;
+}
+
 export const checkSubmitButtonDisabled = (form) => {
   let submitButtonDisabled = false;
   for(let key in form) {

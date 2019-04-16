@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
 
-import { checkSubmitButtonDisabled, inputChanged, submitForm } from '../../../../shared/utility';
+import { createFormElementsArray, checkSubmitButtonDisabled, inputChanged, submitForm } from '../../../../shared/utility';
 import * as actions from '../../../../store/actions/index';
 
 class Register extends Component {
@@ -59,13 +59,7 @@ class Register extends Component {
   render() {
     const { setActiveModal } = this.props;
 
-    const formElementsArray = [];
-    for(let key in this.state.form) {
-      formElementsArray.push({
-        id: key,
-        config: this.state.form[key]
-      });
-    }
+    const formElementsArray = createFormElementsArray(this.state.form);
 
     return (
       <>
