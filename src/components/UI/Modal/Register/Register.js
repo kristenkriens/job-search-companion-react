@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
 
-import { createFormElementsArray, checkSubmitButtonDisabled, inputChanged, submitForm } from '../../../../shared/utility';
+import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
 class Register extends Component {
@@ -59,12 +59,12 @@ class Register extends Component {
   render() {
     const { setActiveModal } = this.props;
 
-    const formElementsArray = createFormElementsArray(this.state.form);
+    const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
         <h2>Create Account</h2>
-        <form onSubmit={(event) => submitForm(this, event)} className="form">
+        <form onSubmit={(event) => forms.submitForm(this, event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -76,11 +76,11 @@ class Register extends Component {
                 value={formElement.config.value}
                 error={!formElement.config.valid}
                 shouldValidate={formElement.config.validation}
-                changed={(event) => inputChanged(this, event, formElement.id)}
+                changed={(event) => forms.inputChanged(this, event, formElement.id)}
               />
             )
           })}
-          <Button type="submit" additionalClasses="modal__submit" disabled={checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+          <Button type="submit" additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
         </form>
         <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
       </>

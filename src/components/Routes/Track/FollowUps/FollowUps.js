@@ -41,7 +41,7 @@ class FollowUps extends Component {
               </table>
             </div>
             <div className="table__delete"><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
-            <div class="button-wrapper">
+            <div className="button-wrapper">
               <Button>Add New</Button>
               <Button>Save</Button>
             </div>
