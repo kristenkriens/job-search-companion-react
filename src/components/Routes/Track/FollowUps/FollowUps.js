@@ -4,7 +4,7 @@ import Button from '../../../UI/Button/Button';
 
 class FollowUps extends Component {
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, toggleAndSetActiveModal } = this.props;
 
     return (
       <>
@@ -49,7 +49,7 @@ class FollowUps extends Component {
         ) : (
           <>
             <h3>You need to be logged in to view this page!</h3>
-            <Button>Log In</Button>
+            <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
           </>
         )}
       </>

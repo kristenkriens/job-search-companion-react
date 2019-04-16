@@ -11,5 +11,6 @@ export {
 
 export {
   toggleModal,
-  setActiveModal
+  setActiveModal,
+  toggleAndSetActiveModal
 } from './modal';

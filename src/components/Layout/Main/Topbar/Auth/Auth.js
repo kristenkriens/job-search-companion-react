@@ -4,22 +4,15 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../../store/actions/index';
 
 class Auth extends Component {
-  toggleAndSetActiveModal = (activeModal) => {
-    const { toggleModal, setActiveModal } = this.props;
-
-    setActiveModal(activeModal);
-    toggleModal();
-  }
-
   render() {
-    const { isAuthenticated, logout } = this.props;
+    const { isAuthenticated, logout, toggleAndSetActiveModal } = this.props;
 
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
           <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
-          <button onClick={() => this.toggleAndSetActiveModal('login')}>Login / Create Account</button>
+          <button onClick={() => toggleAndSetActiveModal('login')}>Login / Create Account</button>
         )}
       </div>
     )
@@ -36,7 +29,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.authLogout()),
     toggleModal: () => dispatch(actions.toggleModal()),
-    setActiveModal: (activeModal) => dispatch(actions.setActiveModal(activeModal))
+    setActiveModal: (activeModal) => dispatch(actions.setActiveModal(activeModal)),
+    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
   }
 }
 

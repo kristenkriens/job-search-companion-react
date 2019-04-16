@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, location } = this.props;
+    const { isAuthenticated, location, toggleAndSetActiveModal } = this.props;
 
     let routes = (
       <Switch>
@@ -45,19 +45,19 @@ class App extends Component {
         />
         <Route
           path="/track/overview"
-          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
         />
         <Route
           path="/analyze/correspondence"
@@ -66,7 +66,7 @@ class App extends Component {
         <Route
           path="/"
           exact
-          render={() => <Content component={<Home isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Home isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
         />
         <Redirect to="/" />
       </Switch>
@@ -86,7 +86,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tryAutoSignup: () => dispatch(actions.authCheckState())
+    tryAutoSignup: () => dispatch(actions.authCheckState()),
+    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
   }
 }
 
