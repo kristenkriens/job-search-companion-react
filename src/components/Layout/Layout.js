@@ -17,9 +17,7 @@ class Layout extends Component {
       <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
-        {openModal !== null && (
-          <Modal openModal={openModal} setOpenModal={setOpenModal} />
-        )}
+        <Modal openModal={openModal} setOpenModal={setOpenModal} />
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
       </div>

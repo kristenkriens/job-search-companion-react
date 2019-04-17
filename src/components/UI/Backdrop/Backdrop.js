@@ -1,12 +1,20 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import './Backdrop.scss';
 
 const Backdrop = (props) => {
-  const { close } = props;
+  const { isOpen, close } = props;
 
   return (
-    <div className="backdrop" onClick={close}></div>
+    <CSSTransition
+      in={isOpen}
+      timeout={500}
+      classNames="fade"
+      unmountOnExit
+    >
+      <div className="backdrop" onClick={close}></div>
+    </CSSTransition>
   )
 }
 

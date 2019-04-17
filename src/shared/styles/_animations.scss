@@ -1,26 +1,72 @@
-/* Slide */
-.slide-enter {
+/* Accordion */
+.accordion-enter {
   opacity: 0;
 	max-height: 0;
 	overflow: hidden;
   transition: all 500ms ease-in-out;
 }
 
-.slide-enter-active {
+.accordion-enter-active {
   opacity: 1;
 	max-height: 500px;
   transition: all 500ms ease-in-out;
 }
 
-.slide-exit {
+.accordion-exit {
   opacity: 1;
 	max-height: 500px;
 	transition: all 250ms ease-in-out;
 }
 
-.slide-exit-active {
+.accordion-exit-active {
   opacity: 0;
 	max-height: 0;
 	overflow: hidden;
   transition: all 250ms ease-in-out;
+}
+
+/* Modal */
+.modal-enter {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 50px)) !important;
+  transition: all 500ms ease-in-out;
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: translate(-50%, -50%) !important;
+  transition: all 500ms ease-in-out;
+}
+
+.modal-exit {
+  opacity: 0;
+  transform: translate(-50%, -50%) !important;
+	transition: all 250ms ease-in-out;
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 50px)) !important;
+  transition: all 250ms ease-in-out;
+}
+
+/* Fade */
+.fade-enter {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+	transition: opacity 250ms ease-in-out;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
 }

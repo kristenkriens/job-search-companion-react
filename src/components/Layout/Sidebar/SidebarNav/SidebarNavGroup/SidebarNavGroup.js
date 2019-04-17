@@ -16,7 +16,7 @@ const SidebarNavGroup = (props) => {
       <CSSTransition
         in={isOpen}
         timeout={500}
-        classNames="slide"
+        classNames="accordion"
         unmountOnExit
       >
         <ul className="sidebar__secondary">
