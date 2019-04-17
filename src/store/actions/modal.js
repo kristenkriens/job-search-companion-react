@@ -13,7 +13,6 @@ export const setActiveModal = (activeModal) => {
   }
 };
 
-
 export const toggleAndSetActiveModal = (activeModal) => {
   return (dispatch) => {
     dispatch(toggleModal());
