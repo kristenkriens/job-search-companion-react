@@ -64,7 +64,7 @@ class Register extends Component {
     return (
       <>
         <h2>Create Account</h2>
-        <form onSubmit={(event) => forms.submitForm(this, event)} className="form">
+        <form onSubmit={(event) => forms.submitAuthForm(this, event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement

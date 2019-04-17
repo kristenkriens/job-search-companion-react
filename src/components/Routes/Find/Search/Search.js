@@ -1,69 +1,114 @@
 import React, { Component } from 'react';
 
+import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 
+import * as forms from '../../../../shared/forms';
+
 class Search extends Component {
+  state = {
+    form: {
+      query: {
+        widths: ['half'],
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'e.g. Front End Developer'
+        },
+        label: 'Job Title / Keywords / Company',
+        value: '',
+      },
+      location: {
+        widths: ['half'],
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'e.g. Toronto, ON',
+          hasGeolocate: true
+        },
+        label: 'Location',
+        value: '',
+      },
+      postAge: {
+        widths: ['half', 'half-small'],
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          placeholder: 'e.g. 7'
+        },
+        label: 'Max Days Old',
+        value: '',
+      },
+      radius: {
+        widths: ['half', 'half-small'],
+        elementType: 'input',
+        elementConfig: {
+          type: 'number',
+          placeholder: 'e.g. 10',
+          hasUnits: true
+        },
+        label: 'Search Radius',
+        value: '',
+      },
+      jobType: {
+        elementType: 'checkboxRadio',
+        elementConfig: {
+          type: 'checkbox',
+          choices: {
+            noPreference: {
+              label: 'No Preference',
+              value: 'nopreference'
+            },
+            fullTime: {
+              label: 'Full Time',
+              value: 'fulltime'
+            },
+            partTime: {
+              label: 'Part Time',
+              value: 'parttime'
+            },
+            contract: {
+              label: 'Contract',
+              value: 'contract'
+            },
+            internship: {
+              label: 'Internship',
+              value: 'internship'
+            },
+            temporary: {
+              label: 'Temporary',
+              value: 'temporary'
+            }
+          }
+        },
+        label: 'Job Type',
+        value: 'nopreference'
+      }
+    }
+  }
+
   render() {
     const { isAuthenticated } = this.props;
 
+    const formElementsArray = forms.createFormElementsArray(this.state.form);
+
     return (
       <>
-        <form className="form">
-          <div className="form__element form__element--half">
-            <label htmlFor="query">Job Title / Keywords / Company</label>
-            <input type="text" id="query" placeholder="e.g. Front End Developer" />
-          </div>
-          <div className="form__element form__element--half">
-            <label htmlFor="location">Address / Location</label>
-            <input type="text" id="location" placeholder="e.g. Toronto, ON" />
-            <Button additionalClasses="units units--square">
-              <i className="fa fa-location-arrow" aria-hidden="true"></i>
-              <span className="accessible">Get Geolocation</span>
-            </Button>
-          </div>
-          <div className="form__element form__element--half form__element--half-small">
-            <label htmlFor="postAge">Max Days Old</label>
-            <input type="number" id="postAge" placeholder="e.g. 7" />
-          </div>
-          <div className="form__element form__element--half form__element--half-small">
-            <label htmlFor="radius">Search Radius</label>
-            <input type="number" id="radius" placeholder="e.g. 10" />
-            <div className="units units--select">
-              <select id="radiusUnits">
-                <option defaultValue>km</option>
-                <option>mi</option>
-              </select>
-            </div>
-          </div>
-          <div className="form__element">
-            <legend>Job Type</legend>
-            <ul>
-              <li>
-                <input type="checkbox" id="noPreference" name="jobType" value="nopreference" className="accessible" checked />
-                <label htmlFor="noPreference">No Preference</label>
-              </li>
-              <li>
-                <input type="checkbox" id="fulltime" name="jobType" value="fulltime" className="accessible" />
-                <label htmlFor="fulltime">Full Time</label>
-              </li>
-              <li>
-                <input type="checkbox" id="parttime" name="jobType" value="parttime" className="accessible" />
-                <label htmlFor="parttime">Part Time</label>
-              </li>
-              <li>
-                <input type="checkbox" id="contract" name="jobType" value="contract" className="accessible" />
-                <label htmlFor="contract">Contract</label>
-              </li>
-              <li>
-                <input type="checkbox" id="internship" name="jobType" value="internship" className="accessible" />
-                <label htmlFor="internship">Internship</label>
-              </li>
-              <li>
-                <input type="checkbox" id="temporary" name="jobType" value="temporary" className="accessible" />
-                <label htmlFor="temporary">Temporary</label>
-              </li>
-            </ul>
-          </div>
+        <form onSubmit={(event) => forms.submitSearchForm(this, event)} className="form">
+          {formElementsArray.map((formElement) => {
+            return (
+              <FormElement
+                key={formElement.id}
+                id={formElement.id}
+                widths={formElement.config.widths}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                label={formElement.config.label}
+                value={formElement.config.value}
+                changed={(event) => forms.inputChanged(this, event, formElement.id)}
+              />
+            )
+          })}
           <Button type="submit">Search</Button>
         </form>
         {isAuthenticated && (

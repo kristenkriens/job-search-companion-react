@@ -85,7 +85,7 @@
 	    &:after {
 	      position: absolute;
 	      right: 10px;
-	      bottom: 9px;
+	      bottom: 10px;
 	      content: '\f107';
 	      font-family: 'FontAwesome';
 	      pointer-events: none;
@@ -123,7 +123,7 @@
 	    }
 	  }
 
-	  .units {
+	  .extras {
 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
@@ -154,7 +154,7 @@
 	      &:after {
 	        position: absolute;
 	        right: 10px;
-	        bottom: 9px;
+	        bottom: 10px;
 	        content: '\f107';
 	        font-family: 'FontAwesome';
 	        pointer-events: none;

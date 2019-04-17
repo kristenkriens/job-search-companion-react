@@ -38,8 +38,7 @@ class Login extends Component {
         },
         valid: false
       }
-    },
-    isRegister: false
+    }
   }
 
   render() {
@@ -50,7 +49,7 @@ class Login extends Component {
     return (
       <>
         <h2>Log In</h2>
-        <form onSubmit={(event) => forms.submitForm(this, event)} className="form">
+        <form onSubmit={(event) => forms.submitAuthForm(this, event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement

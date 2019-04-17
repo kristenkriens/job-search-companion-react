@@ -1,7 +1,11 @@
 import React from 'react';
 
+import Button from '../Button/Button';
+
+import * as forms from '../../../shared/forms';
+
 const FormElement = (props) => {
-  const { id, label, hiddenLabel, elementConfig, elementType, value, error, shouldValidate, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, elementType, value, error, shouldValidate, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -24,16 +28,68 @@ const FormElement = (props) => {
         </select>
       );
       break;
+    case ('checkboxRadio'):
+      const choices = forms.createFormElementsArray(elementConfig.choices);
+
+      console.log(elementConfig);
+
+      formElement = (
+        <ul>
+          {choices.map((choice) => {
+            console.log(choice);
+            return (
+              <li>
+                <input key={choice.id} type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.value === value} />
+                <label htmlFor={choice.id}>{choice.config.label}</label>
+              </li>
+            )
+          })}
+        </ul>
+      );
+      break;
     default:
       formElement = <input id={id} {...elementConfig} value={value} onChange={changed} />;
   }
 
   const valid = shouldValidate && !error;
 
+  let widthClasses = '';
+  if(widths) {
+    widths.forEach((width) => {
+      widthClasses += `form__element--${width} `;
+    });
+  }
+
+  let extras = '';
+  if(elementConfig.hasGeolocate) {
+    extras = (
+      <Button additionalClasses="extras extras--square">
+        <i className="fa fa-location-arrow" aria-hidden="true"></i>
+        <span className="accessible">Get Geolocation</span>
+      </Button>
+    )
+  } else if(elementConfig.hasUnits) {
+    extras = (
+      <div className="extras extras--select">
+        <select id="radiusUnits">
+          <option defaultValue value="km">km</option>
+          <option value="mi">mi</option>
+        </select>
+      </div>
+    )
+  }
+
+  const isCheckboxOrRadio = elementType === 'checkbox' || elementType === 'radio';
+
   return (
-    <div className={`form__element ${valid ? 'form__element--valid' : ''}`}>
-      <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
+    <div className={`form__element ${valid ? 'form__element--valid' : ''} ${widthClasses}`}>
+      {isCheckboxOrRadio ? (
+        <legend>{hiddenLabel ? hiddenLabel : label}</legend>
+      ) : (
+        <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
+      )}
       {formElement}
+      {extras}
     </div>
   )
 }

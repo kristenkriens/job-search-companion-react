@@ -58,8 +58,14 @@ export const inputChanged = (that, event, inputName) => {
   that.setState({form: updatedForm});
 }
 
-export const submitForm = (that, event) => {
+export const submitAuthForm = (that, event) => {
   event.preventDefault();
 
   that.props.auth(that.state.form.email.value, that.state.form.password.value, that.state.isRegister);
+}
+
+export const submitSearchForm = (that, event) => {
+  event.preventDefault();
+
+  console.log('Search Form Submitted');
 }
