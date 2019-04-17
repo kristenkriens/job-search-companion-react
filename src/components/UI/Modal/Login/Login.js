@@ -43,7 +43,7 @@ class Login extends Component {
   }
 
   render() {
-    const { setActiveModal } = this.props;
+    const { setOpenModal } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -68,7 +68,7 @@ class Login extends Component {
           })}
           <Button type="submit" additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
         </form>
-        <button className="modal__link" onClick={() => setActiveModal('register')}>New user? Create an account</button>
+        <button className="modal__link" onClick={() => setOpenModal('register')}>New user? Create an account</button>
       </>
     )
   }

@@ -57,7 +57,7 @@ class Register extends Component {
   }
 
   render() {
-    const { setActiveModal } = this.props;
+    const { setOpenModal } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -82,7 +82,7 @@ class Register extends Component {
           })}
           <Button type="submit" additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
         </form>
-        <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
+        <button className="modal__link" onClick={() => setOpenModal('login')}>Already have an account? Log In</button>
       </>
     )
   }

@@ -11,14 +11,14 @@ import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
   render() {
-    const { routes, isAuthenticated, breadcrumb, isModalOpen, activeModal, toggleModal, setActiveModal } = this.props;
+    const { routes, isAuthenticated, breadcrumb, openModal, setOpenModal } = this.props;
 
     return (
       <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
-        {isModalOpen && (
-          <Modal activeModal={activeModal} toggleModal={toggleModal} setActiveModal={setActiveModal} />
+        {openModal !== null && (
+          <Modal openModal={openModal} setOpenModal={setOpenModal} />
         )}
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
@@ -31,15 +31,13 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     breadcrumb: state.navigation.breadcrumb,
-    isModalOpen: state.modal.isModalOpen,
-    activeModal: state.modal.activeModal
+    openModal: state.modal.openModal
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleModal: () => dispatch(actions.toggleModal()),
-    setActiveModal: (activeModal) => dispatch(actions.setActiveModal(activeModal))
+    setOpenModal: (openModal) => dispatch(actions.setOpenModal(openModal))
   }
 }
 

@@ -7,19 +7,19 @@ import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { activeModal, toggleModal, setActiveModal } = props;
+  const { openModal, setOpenModal } = props;
 
   return (
     <>
-      <Backdrop close={toggleModal} />
+      <Backdrop close={() => setOpenModal(null)} />
       <div className="modal">
-        <Button additionalClasses="modal__close" click={toggleModal}><i className="fa fa-times" aria-hidden="true"></i></Button>
+        <Button additionalClasses="modal__close" click={() => setOpenModal(null)}><i className="fa fa-times" aria-hidden="true"></i></Button>
         <div className="modal__content">
-          {activeModal === 'login' && (
-            <Login setActiveModal={setActiveModal} />
+          {openModal === 'login' && (
+            <Login setOpenModal={setOpenModal} />
           )}
-          {activeModal === 'register' && (
-            <Register setActiveModal={setActiveModal} />
+          {openModal === 'register' && (
+            <Register setOpenModal={setOpenModal} />
           )}
         </div>
       </div>
