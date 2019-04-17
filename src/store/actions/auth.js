@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { setOpenModal } from './modal';
+import { toggleModal } from './modal';
 
 export const authStart = () => {
   return {
@@ -70,7 +70,7 @@ export const auth = (email, password, isRegister) => {
 
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
-        dispatch(setOpenModal(null));
+        dispatch(toggleModal());
       })
       .catch((error) => {
         dispatch(authFail(error.response.data.error));

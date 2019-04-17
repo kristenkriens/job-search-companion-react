@@ -2,12 +2,21 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-  openModal: null
+  isModalOpen: false,
+  activeModal: ''
 }
 
-const setOpenModal = (state, action) => {
+const toggleModal = (state, action) => {
   const updatedState = {
-    openModal: action.openModal
+    isModalOpen: !state.isModalOpen
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const setActiveModal = (state, action) => {
+  const updatedState = {
+    activeModal: action.activeModal
   };
 
   return updateObject(state, updatedState);
@@ -15,8 +24,10 @@ const setOpenModal = (state, action) => {
 
 const modalReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionTypes.SET_OPEN_MODAL:
-      return setOpenModal(state, action);
+    case actionTypes.TOGGLE_MODAL:
+      return toggleModal(state, action);
+    case actionTypes.SET_ACTIVE_MODAL:
+      return setActiveModal(state, action);
     default: return state;
   }
 }

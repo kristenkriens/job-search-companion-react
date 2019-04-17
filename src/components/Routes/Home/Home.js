@@ -4,7 +4,7 @@ import Button from '../../UI/Button/Button';
 
 class Home extends Component {
   render() {
-    const { isAuthenticated, setOpenModal } = this.props;
+    const { isAuthenticated, toggleAndSetActiveModal } = this.props;
 
     return (
       <>
@@ -14,7 +14,7 @@ class Home extends Component {
         ) : (
           <>
             <p>Log in to get started!</p>
-            <Button click={() => setOpenModal('login')}>Log In</Button>
+            <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
           </>
         )}
       </>

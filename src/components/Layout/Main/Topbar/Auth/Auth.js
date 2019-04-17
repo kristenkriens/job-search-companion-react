@@ -5,14 +5,14 @@ import * as actions from '../../../../../store/actions/index';
 
 class Auth extends Component {
   render() {
-    const { isAuthenticated, logout, setOpenModal } = this.props;
+    const { isAuthenticated, logout, toggleAndSetActiveModal } = this.props;
 
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
           <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
         ) : (
-          <button onClick={() => setOpenModal('login')}>Login / Create Account</button>
+          <button onClick={() => toggleAndSetActiveModal('login')}>Login / Create Account</button>
         )}
       </div>
     )
@@ -28,7 +28,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.authLogout()),
-    setOpenModal: (openModal) => dispatch(actions.setOpenModal(openModal))
+    toggleModal: () => dispatch(actions.toggleModal()),
+    setActiveModal: (activeModal) => dispatch(actions.setActiveModal(activeModal)),
+    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
   }
 }
 

@@ -8,31 +8,22 @@ import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { openModal, setOpenModal } = props;
-
-  const isOpen = openModal !== null;
+  const { activeModal, toggleModal, setActiveModal } = props;
 
   return (
     <>
-      <Backdrop isOpen={isOpen} close={() => setOpenModal(null)} />
-      <CSSTransition
-        in={isOpen}
-        timeout={500}
-        classNames="modal"
-        unmountOnExit
-      >
-        <div className="modal">
-          <Button additionalClasses="modal__close" click={() => setOpenModal(null)}><i className="fa fa-times" aria-hidden="true"></i></Button>
-          <div className="modal__content">
-            {openModal === 'login' && (
-              <Login setOpenModal={setOpenModal} />
-            )}
-            {openModal === 'register' && (
-              <Register setOpenModal={setOpenModal} />
-            )}
-          </div>
+      <Backdrop close={toggleModal} />
+      <div className="modal">
+        <Button additionalClasses="modal__close" click={toggleModal}><i className="fa fa-times" aria-hidden="true"></i></Button>
+        <div className="modal__content">
+          {activeModal === 'login' && (
+            <Login setActiveModal={setActiveModal} />
+          )}
+          {activeModal === 'register' && (
+            <Register setActiveModal={setActiveModal} />
+          )}
         </div>
-      </CSSTransition>
+      </div>
     </>
   )
 }
