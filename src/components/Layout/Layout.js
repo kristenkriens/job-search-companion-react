@@ -17,9 +17,7 @@ class Layout extends Component {
       <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
         <Skipnav />
         <Sidebar />
-        {isModalOpen && (
-          <Modal activeModal={activeModal} toggleModal={toggleModal} setActiveModal={setActiveModal} />
-        )}
+        <Modal isModalOpen={isModalOpen} activeModal={activeModal} toggleModal={toggleModal} setActiveModal={setActiveModal} />
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
       </div>
