@@ -69,3 +69,11 @@ export const submitSearchForm = (that, event) => {
 
   console.log('Search Form Submitted');
 }
+
+export const normalizeErrorString = (string) => {
+  for(let i = 0; i < string.length; i++) {
+    string = string.replace("_", " ").toLowerCase();
+  }
+
+  return string;
+}

@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import * as forms from '../../../shared/forms';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, extras, elementType, value, error, shouldValidate, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, extras, elementType, value, error, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -48,7 +48,14 @@ const FormElement = (props) => {
       formElement = <input id={id} {...elementConfig} value={value} onChange={changed} />;
   }
 
-  const valid = shouldValidate && !error;
+  let elementError = null;
+  if(error) {
+    let errorMessage = forms.normalizeErrorString(error.message);
+
+    if(errorMessage.indexOf(id) !== -1) {
+      elementError = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+    }
+  }
 
   let widthClasses = '';
   if(widths) {
@@ -81,14 +88,19 @@ const FormElement = (props) => {
   }
 
   return (
-    <div className={`form__element ${valid ? 'form__element--valid' : ''} ${widthClasses}`}>
+    <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
       {isCheckboxOrRadio ? (
         <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
       ) : (
         <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
       )}
-      {formElement}
-      {extraElement}
+      <div className="form__element-inner">
+        {formElement}
+        {extraElement}
+      </div>
+      {elementError && (
+        <div className="form__element-message">{elementError}</div>
+      )}
     </div>
   )
 }

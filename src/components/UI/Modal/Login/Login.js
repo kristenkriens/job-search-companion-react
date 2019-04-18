@@ -42,7 +42,7 @@ class Login extends Component {
   }
 
   render() {
-    const { setActiveModal, loading } = this.props;
+    const { setActiveModal, loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -59,8 +59,7 @@ class Login extends Component {
                 elementConfig={formElement.config.elementConfig}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                error={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
+                error={error}
                 changed={(event) => forms.inputChanged(this, event, formElement.id)}
               />
             )

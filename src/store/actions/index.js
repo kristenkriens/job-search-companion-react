@@ -1,4 +1,5 @@
 export {
+  clearAuthError,
   auth,
   authLogout,
   authCheckState

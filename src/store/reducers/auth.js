@@ -8,6 +8,14 @@ const initialState = {
   loading: false
 }
 
+const clearAuthError = (state, action) => {
+  const updatedState = {
+    error: null
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const authStart = (state, action) => {
   const updatedState = {
     error: null,
@@ -48,6 +56,7 @@ const authLogout = (state, action) => {
 
 const authReducer = (state = initialState, action) => {
   switch(action.type) {
+    case actionTypes.CLEAR_AUTH_ERROR: return clearAuthError(state, action);
     case actionTypes.AUTH_START: return authStart(state, action);
     case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
     case actionTypes.AUTH_FAIL: return authFail(state, action);

@@ -10,8 +10,8 @@ const Button = (props) => {
       {children}
       {loading && (
         <>
-          <i class="fa fa-spinner fa-pulse fa-fw"></i>
-          <span class="accessible">Loading...</span>
+          <i className="fa fa-spinner fa-pulse fa-fw"></i>
+          <span className="accessible">Loading...</span>
         </>
       )}
     </button>

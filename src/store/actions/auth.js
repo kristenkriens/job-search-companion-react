@@ -3,6 +3,12 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { toggleModal } from './modal';
 
+export const clearAuthError = () => {
+  return {
+    type: actionTypes.CLEAR_AUTH_ERROR
+  }
+};
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
@@ -79,7 +85,7 @@ export const auth = (email, password, isRegister) => {
 };
 
 export const authCheckState = () => {
-  return dispatch => {
+  return (dispatch) => {
     const token = localStorage.getItem('token');
 
     if(!token) {

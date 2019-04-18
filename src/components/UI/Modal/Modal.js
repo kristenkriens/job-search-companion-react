@@ -8,11 +8,16 @@ import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { isModalOpen, activeModal, toggleModal, setActiveModal } = props;
+  const { isModalOpen, activeModal, toggleModal, setActiveModal, clearAuthError } = props;
+
+  const toggleModalAndClearAuthError = () => {
+    clearAuthError();
+    toggleModal();
+  }
 
   return (
     <>
-      <Backdrop isModalOpen={isModalOpen} close={toggleModal} />
+      <Backdrop isModalOpen={isModalOpen} close={toggleModalAndClearAuthError} />
       <CSSTransition
         in={isModalOpen}
         timeout={500}
@@ -20,7 +25,7 @@ const Modal = (props) => {
         unmountOnExit
       >
         <div className="modal">
-          <Button additionalClasses="modal__close" click={toggleModal}><i className="fa fa-times" aria-hidden="true"></i></Button>
+          <Button additionalClasses="modal__close" click={toggleModalAndClearAuthError}><i className="fa fa-times" aria-hidden="true"></i></Button>
           <div className="modal__content">
             {activeModal === 'login' && (
               <Login setActiveModal={setActiveModal} />
