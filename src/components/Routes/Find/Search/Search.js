@@ -61,7 +61,8 @@ class Search extends Component {
           choices: {
             noPreference: {
               label: 'No Preference',
-              value: 'nopreference'
+              value: 'nopreference',
+              checked: true
             },
             fullTime: {
               label: 'Full Time',
@@ -85,8 +86,7 @@ class Search extends Component {
             }
           }
         },
-        label: 'Job Type',
-        value: 'nopreference'
+        label: 'Job Type'
       }
     }
   }

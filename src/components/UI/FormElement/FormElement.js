@@ -36,7 +36,7 @@ const FormElement = (props) => {
           {choices.map((choice) => {
             return (
               <li key={choice.id}>
-                <input type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.value === value} onChange={changed} />
+                <input type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.checked} onChange={changed} />
                 <label htmlFor={choice.id}>{choice.config.label}</label>
               </li>
             )
