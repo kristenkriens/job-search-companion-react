@@ -37,20 +37,6 @@ class Register extends Component {
           minLength: 6
         },
         valid: false
-      },
-      confirmPassword: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'password',
-          placeholder: ''
-        },
-        label: 'Confirm Password',
-        value: '',
-        validation: {
-          required: true,
-          minLength: 6
-        },
-        valid: false
       }
     },
     isRegister: true
