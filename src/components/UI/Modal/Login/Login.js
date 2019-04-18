@@ -42,7 +42,7 @@ class Login extends Component {
   }
 
   render() {
-    const { setActiveModal } = this.props;
+    const { setActiveModal, loading } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -65,11 +65,18 @@ class Login extends Component {
               />
             )
           })}
-          <Button type="submit" additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+          <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
         </form>
         <button className="modal__link" onClick={() => setActiveModal('register')}>New user? Create an account</button>
       </>
     )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error
   }
 }
 
@@ -79,4 +86,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
