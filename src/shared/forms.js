@@ -50,7 +50,7 @@ export const checkSubmitButtonDisabled = (form) => {
 export const inputChanged = (that, event, inputName) => {
   const updatedForm = updateObject(that.state.form, {
     [inputName]: updateObject(that.state.form[inputName], {
-      value: event.target.value,
+      value: that.state.form[inputName].value !== event.target.value ? event.target.value : '',
       valid: that.state.form[inputName].validation ? checkValidity(event.target.value, that.state.form[inputName].validation) : true
     })
   });
