@@ -23,7 +23,9 @@ class Search extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'text',
-          placeholder: 'e.g. Toronto, ON',
+          placeholder: 'e.g. Toronto, ON'
+        },
+        extras: {
           hasGeolocate: true
         },
         label: 'Location',
@@ -45,6 +47,8 @@ class Search extends Component {
         elementConfig: {
           type: 'number',
           placeholder: 'e.g. 10',
+        },
+        extras: {
           hasUnits: true
         },
         label: 'Search Radius',
@@ -103,6 +107,7 @@ class Search extends Component {
                 widths={formElement.config.widths}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
+                extras={formElement.config.extras}
                 label={formElement.config.label}
                 value={formElement.config.value}
                 changed={(event) => forms.inputChanged(this, event, formElement.id)}

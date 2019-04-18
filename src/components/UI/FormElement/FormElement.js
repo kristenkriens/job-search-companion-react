@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import * as forms from '../../../shared/forms';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, elementType, value, error, shouldValidate, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, extras, elementType, value, error, shouldValidate, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -59,23 +59,25 @@ const FormElement = (props) => {
 
   const isCheckboxOrRadio = elementType === 'checkboxRadio';
 
-  let extras = '';
-  if(elementConfig.hasGeolocate) {
-    extras = (
-      <Button additionalClasses="extras extras--square">
-        <i className="fa fa-location-arrow" aria-hidden="true"></i>
-        <span className="accessible">Get Geolocation</span>
-      </Button>
-    )
-  } else if(elementConfig.hasUnits) {
-    extras = (
-      <div className="extras extras--select">
-        <select id="radiusUnits">
-          <option defaultValue value="km">km</option>
-          <option value="mi">mi</option>
-        </select>
-      </div>
-    )
+  let extraElement = '';
+  if(extras) {
+    if(extras.hasGeolocate) {
+      extraElement = (
+        <Button additionalClasses="extras extras--square">
+          <i className="fa fa-location-arrow" aria-hidden="true"></i>
+          <span className="accessible">Get Geolocation</span>
+        </Button>
+      )
+    } else if(extras.hasUnits) {
+      extraElement = (
+        <div className="extras extras--select">
+          <select id="radiusUnits">
+            <option defaultValue value="km">km</option>
+            <option value="mi">mi</option>
+          </select>
+        </div>
+      )
+    }
   }
 
   return (
@@ -86,7 +88,7 @@ const FormElement = (props) => {
         <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
       )}
       {formElement}
-      {extras}
+      {extraElement}
     </div>
   )
 }
