@@ -30,7 +30,7 @@ class Content extends Component {
             classNames="content-inner"
             timeout={{
               enter: 1000,
-              exit: 0,
+              exit: 0
             }}
           >
             <div className={`content-inner content-inner--${dashedComponent}`}>
