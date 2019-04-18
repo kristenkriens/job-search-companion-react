@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import * as forms from '../../../shared/forms';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, extras, elementType, value, error, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, extras, elementType, value, error, changed, that, checkboxRadioFormElementChanged } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -36,7 +36,9 @@ const FormElement = (props) => {
           {choices.map((choice) => {
             return (
               <li key={choice.id}>
-                <input type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.checked} onChange={changed} />
+                <input type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.checked} onChange={(event) => {
+                  checkboxRadioFormElementChanged(that, event, id, choice.id)}
+                } />
                 <label htmlFor={choice.id}>{choice.config.label}</label>
               </li>
             )

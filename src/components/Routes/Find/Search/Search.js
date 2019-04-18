@@ -66,23 +66,28 @@ class Search extends Component {
             },
             fullTime: {
               label: 'Full Time',
-              value: 'fulltime'
+              value: 'fulltime',
+              checked: false
             },
             partTime: {
               label: 'Part Time',
-              value: 'parttime'
+              value: 'parttime',
+              checked: false
             },
             contract: {
               label: 'Contract',
-              value: 'contract'
+              value: 'contract',
+              checked: false
             },
             internship: {
               label: 'Internship',
-              value: 'internship'
+              value: 'internship',
+              checked: false
             },
             temporary: {
               label: 'Temporary',
-              value: 'temporary'
+              value: 'temporary',
+              checked: false
             }
           }
         },
@@ -110,7 +115,9 @@ class Search extends Component {
                 extras={formElement.config.extras}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                changed={(event) => forms.inputChanged(this, event, formElement.id)}
+                changed={(event) => forms.basicFormElementChanged(this, event, formElement.id)}
+                that={this}
+                checkboxRadioFormElementChanged={forms.checkboxRadioFormElementChanged}
               />
             )
           })}

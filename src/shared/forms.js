@@ -47,11 +47,27 @@ export const checkSubmitButtonDisabled = (form) => {
   return submitButtonDisabled;
 }
 
-export const inputChanged = (that, event, inputName) => {
+export const basicFormElementChanged = (that, event, inputName) => {
   const updatedForm = updateObject(that.state.form, {
     [inputName]: updateObject(that.state.form[inputName], {
       value: event.target.value,
       valid: that.state.form[inputName].validation ? checkValidity(event.target.value, that.state.form[inputName].validation) : true
+    })
+  });
+
+  that.setState({form: updatedForm});
+}
+
+export const checkboxRadioFormElementChanged = (that, event, inputName, checkboxRadioName) => {
+  const updatedForm = updateObject(that.state.form, {
+    [inputName]: updateObject(that.state.form[inputName], {
+      elementConfig: updateObject(that.state.form[inputName].elementConfig, {
+        choices: updateObject(that.state.form[inputName].elementConfig.choices, {
+          [checkboxRadioName]: updateObject(that.state.form[inputName].elementConfig.choices[checkboxRadioName], {
+            checked: !that.state.form[inputName].elementConfig.choices[checkboxRadioName].checked
+          })
+        })
+      })
     })
   });
 
