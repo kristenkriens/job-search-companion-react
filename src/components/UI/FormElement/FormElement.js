@@ -31,15 +31,12 @@ const FormElement = (props) => {
     case ('checkboxRadio'):
       const choices = forms.createFormElementsArray(elementConfig.choices);
 
-      console.log(elementConfig);
-
       formElement = (
         <ul>
           {choices.map((choice) => {
-            console.log(choice);
             return (
-              <li>
-                <input key={choice.id} type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.value === value} />
+              <li key={choice.id}>
+                <input type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.value === value} onChange={changed} />
                 <label htmlFor={choice.id}>{choice.config.label}</label>
               </li>
             )
@@ -60,6 +57,8 @@ const FormElement = (props) => {
     });
   }
 
+  const isCheckboxOrRadio = elementType === 'checkboxRadio';
+
   let extras = '';
   if(elementConfig.hasGeolocate) {
     extras = (
@@ -79,12 +78,10 @@ const FormElement = (props) => {
     )
   }
 
-  const isCheckboxOrRadio = elementType === 'checkbox' || elementType === 'radio';
-
   return (
     <div className={`form__element ${valid ? 'form__element--valid' : ''} ${widthClasses}`}>
       {isCheckboxOrRadio ? (
-        <legend>{hiddenLabel ? hiddenLabel : label}</legend>
+        <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
       ) : (
         <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
       )}

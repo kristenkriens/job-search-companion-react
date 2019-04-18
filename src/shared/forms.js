@@ -51,7 +51,7 @@ export const inputChanged = (that, event, inputName) => {
   const updatedForm = updateObject(that.state.form, {
     [inputName]: updateObject(that.state.form[inputName], {
       value: event.target.value,
-      valid: checkValidity(event.target.value, that.state.form[inputName].validation)
+      valid: that.state.form[inputName].validation ? checkValidity(event.target.value, that.state.form[inputName].validation) : true
     })
   });
 
