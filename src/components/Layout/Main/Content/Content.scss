@@ -4,7 +4,6 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
 
   &, &-inner {
     padding: 30px;
@@ -14,20 +13,12 @@
     }
   }
 
-  .transition-group {
-    position: relative;
-  }
-
   &-inner {
     justify-content: center;
     align-items: center;
     background-color: $white;
     box-shadow: 0 0 5px 0 rgba($grey, 0.5);
     min-height: calc(100vh - 120px);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 
     @media (max-width: 650px) {

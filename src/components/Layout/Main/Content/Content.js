@@ -24,7 +24,7 @@ class Content extends Component {
 
     return (
       <div className="content">
-        <TransitionGroup className="transition-group">
+        <TransitionGroup>
           <CSSTransition
             key={location.pathname}
             classNames="content-inner"
