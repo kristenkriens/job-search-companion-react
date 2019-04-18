@@ -7,7 +7,8 @@ import * as actions from '../../../../store/actions/index';
 
 class Content extends Component {
   componentDidMount = () => {
-    this.props.handleSidebarNavGroupItemLoaded(this.props.group);
+    const group = this.props.location.pathname.split('/')[1];
+    this.props.handleSidebarNavGroupItemLoaded(group);
 
     this.props.getSetBreadcrumb(this.props.sidebarNav);
   }
