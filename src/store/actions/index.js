@@ -17,5 +17,6 @@ export {
 } from './modal';
 
 export {
+  getUserIp,
   search
 } from './search';

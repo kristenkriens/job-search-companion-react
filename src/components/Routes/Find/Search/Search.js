@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 
 import * as forms from '../../../../shared/forms';
+import * as actions from '../../../../store/actions/index';
 
 class Search extends Component {
   state = {
@@ -91,8 +93,12 @@ class Search extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.props.getUserIp();
+  }
+
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, userIp } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -116,7 +122,7 @@ class Search extends Component {
               />
             )
           })}
-          <Button type="submit">Search</Button>
+          <Button type="submit" disabled={!userIp}>Search</Button>
         </form>
         {isAuthenticated && (
           <>
@@ -132,4 +138,16 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapStateToProps = (state) => {
+  return {
+    userIp: state.search.userIp
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserIp: () => dispatch(actions.getUserIp())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

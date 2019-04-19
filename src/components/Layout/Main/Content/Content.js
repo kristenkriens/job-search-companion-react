@@ -20,8 +20,6 @@ class Content extends Component {
   render() {
     const { component, location } = this.props;
 
-    let dashedComponent = component.type.name.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
-
     return (
       <div className="content">
         <TransitionGroup>
@@ -33,7 +31,7 @@ class Content extends Component {
               exit: 0
             }}
           >
-            <div className={`content-inner content-inner--${dashedComponent}`}>
+            <div className="content-inner">
               {component}
             </div>
           </CSSTransition>
