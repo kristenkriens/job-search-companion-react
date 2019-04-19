@@ -55,22 +55,28 @@ export const searchFail = (error) => {
   }
 }
 
-export const search = (email, password, isRegister) => {
+export const search = (userAgent, userIp, query, location, country, radius, jobType, limit, age) => {
   return (dispatch) => {
     dispatch(searchStart());
 
-    const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
+    const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`;
-
-    if(isRegister) {
-      url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${apiKey}`;
-    }
+    let url = `http://api.indeed.com/ads/apisearch?publisher=${apiKey}`;
 
     const searchData = {
-      email: email,
-      password: password,
-      returnSecureToken: true
+      v: 2,
+      userip: userIp,
+      useragent: userAgent,
+      format: 'json',
+      q: query,
+      l: location,
+      radius: radius,
+      jt: jobType,
+      limit: 25,
+      fromage: age,
+      highlight: 1,
+      latlong: 1,
+      co: country
     }
 
     axios.post(url, searchData)

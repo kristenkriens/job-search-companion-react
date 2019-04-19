@@ -54,7 +54,7 @@ class Search extends Component {
       jobType: {
         elementType: 'checkboxRadio',
         elementConfig: {
-          type: 'checkbox',
+          type: 'radio',
           choices: {
             noPreference: {
               label: 'No Preference',
