@@ -94,8 +94,15 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
-    this.props.getUserAgent();
-    this.props.getUserIp();
+    const { userAgent, userIp, getUserAgent, getUserIp } = this.props;
+
+    if(!userAgent) {
+      getUserAgent();
+    }
+
+    if(!userIp) {
+      getUserIp();
+    }
   }
 
   render() {
