@@ -15,3 +15,7 @@ export {
   setActiveModal,
   toggleAndSetActiveModal
 } from './modal';
+
+export {
+  search
+} from './search';

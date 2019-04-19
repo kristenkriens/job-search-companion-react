@@ -25,9 +25,7 @@ class Search extends Component {
           type: 'text',
           placeholder: 'e.g. Toronto, ON'
         },
-        extras: {
-          hasGeolocate: true
-        },
+        hasGeolocate: true,
         label: 'Location',
         value: '',
       },
@@ -48,10 +46,7 @@ class Search extends Component {
           type: 'number',
           placeholder: 'e.g. 10',
         },
-        extras: {
-          hasUnits: true
-        },
-        label: 'Search Radius',
+        label: 'Search Radius (km)',
         value: '',
       },
       jobType: {
@@ -112,7 +107,7 @@ class Search extends Component {
                 widths={formElement.config.widths}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
-                extras={formElement.config.extras}
+                hasGeolocate={formElement.config.hasGeolocate}
                 label={formElement.config.label}
                 value={formElement.config.value}
                 changed={(event) => forms.basicFormElementChanged(this, event, formElement.id)}

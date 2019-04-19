@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import * as forms from '../../../shared/forms';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, extras, elementType, value, error, changed, that, checkboxRadioFormElementChanged } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, changed, that, checkboxRadioFormElementChanged } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -68,25 +68,14 @@ const FormElement = (props) => {
 
   const isCheckboxOrRadio = elementType === 'checkboxRadio';
 
-  let extraElement = '';
-  if(extras) {
-    if(extras.hasGeolocate) {
-      extraElement = (
-        <Button additionalClasses="extras extras--square">
-          <i className="fa fa-location-arrow" aria-hidden="true"></i>
-          <span className="accessible">Get Geolocation</span>
-        </Button>
-      )
-    } else if(extras.hasUnits) {
-      extraElement = (
-        <div className="extras extras--select">
-          <select id="radiusUnits">
-            <option defaultValue value="km">km</option>
-            <option value="mi">mi</option>
-          </select>
-        </div>
-      )
-    }
+  let geolocateElement = '';
+  if(hasGeolocate) {
+    geolocateElement = (
+      <Button additionalClasses="geolocate">
+        <i className="fa fa-location-arrow" aria-hidden="true"></i>
+        <span className="accessible">Get Geolocation</span>
+      </Button>
+    )
   }
 
   return (
@@ -98,7 +87,7 @@ const FormElement = (props) => {
       )}
       <div className="form__element-inner">
         {formElement}
-        {extraElement}
+        {geolocateElement}
       </div>
       {elementError && (
         <div className="form__element-message">{elementError}</div>

@@ -9,3 +9,7 @@ export const GET_SET_BREADCRUMB = 'GET_SET_BREADCRUMB';
 
 export const TOGGLE_MODAL = 'TOGGLE_MODAL';
 export const SET_ACTIVE_MODAL = 'SET_ACTIVE_MODAL';
+
+export const SEARCH_START = 'SEARCH_START';
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const SEARCH_FAIL = 'SEARCH_FAIL';

@@ -11,13 +11,15 @@ import * as serviceWorker from './serviceWorker';
 import authReducer from './store/reducers/auth';
 import navigationReducer from './store/reducers/navigation';
 import modalReducer from './store/reducers/modal';
+import searchReducer from './store/reducers/search';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
   navigation: navigationReducer,
-  modal: modalReducer
+  modal: modalReducer,
+  search: searchReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(

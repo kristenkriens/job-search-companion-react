@@ -131,43 +131,18 @@
 	    }
 	  }
 
-	  .extras {
+	  .geolocate {
 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
+      background-color: $grey-blue;
 	    color: $white;
 	    font-size: 16px;
 	    position: absolute;
 	    bottom: 0;
 	    right: 0;
 	    height: 40px;
-
-	    &--square {
-	      width: 40px;
-	    }
-
-	    &--select {
-	      select {
-	        height: 40px;
-	        color: $white;
-	        border: none;
-	        background-color: $grey-blue;
-	        transition: 200ms background-color ease;
-
-	        &:hover {
-	          background-color: $blurple;
-	        }
-	      }
-
-	      &:after {
-	        position: absolute;
-	        right: 10px;
-	        bottom: 10px;
-	        content: '\f107';
-	        font-family: 'FontAwesome';
-	        pointer-events: none;
-	      }
-	    }
+      width: 40px;
 	  }
 
 		label, legend {
