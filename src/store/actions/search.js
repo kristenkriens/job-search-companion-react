@@ -71,7 +71,7 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
       q: query,
       l: location,
       radius: radius,
-      jt: jobType,
+      jt: jobType !== 'nopreference' ? jobType : undefined,
       limit: 25,
       fromage: age,
       highlight: 1,
