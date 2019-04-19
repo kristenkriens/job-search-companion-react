@@ -5,8 +5,8 @@ const initialState = {
   userAgent: null,
   userIp: null,
   error: null,
-  loading: false,
-  results: null
+  results: null,
+  loading: false
 }
 
 const getUserAgent = (state, action) => {
