@@ -131,7 +131,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUserIp: () => dispatch(actions.getUserIp()),
-    getUserAgent: () => dispatch(actions.getUserAgent())
+    getUserAgent: () => dispatch(actions.getUserAgent()),
+    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.auth(userAgent, userIp, query, location, country, radius, jobType, age))
   }
 }
 
