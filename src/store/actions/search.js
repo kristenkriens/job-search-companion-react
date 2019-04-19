@@ -2,6 +2,13 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
+export const getUserAgent = () => {
+  return {
+    type: actionTypes.GET_USER_AGENT,
+    userAgent: navigator.userAgent
+  }
+};
+
 export const getUserIpStart = () => {
   return {
     type: actionTypes.GET_USER_IP_START

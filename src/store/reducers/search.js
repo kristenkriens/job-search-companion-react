@@ -2,10 +2,19 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
+  userAgent: null,
   userIp: null,
   error: null,
   loading: false,
   results: null
+}
+
+const getUserAgent = (state, action) => {
+  const updatedState = {
+    userAgent: action.userAgent
+  };
+
+  return updateObject(state, updatedState);
 }
 
 const getUserIpStart = (state, action) => {
@@ -53,6 +62,7 @@ const searchFail = (state, action) => {
 
 const searchReducer = (state = initialState, action) => {
   switch(action.type) {
+    case actionTypes.GET_USER_AGENT: return getUserAgent(state, action);
     case actionTypes.GET_USER_IP_START: return getUserIpStart(state, action);
     case actionTypes.GET_USER_IP_SUCCESS: return getUserIpSuccess(state, action);
     case actionTypes.SEARCH_START: return searchStart(state, action);

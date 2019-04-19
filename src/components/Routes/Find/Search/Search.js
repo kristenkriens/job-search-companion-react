@@ -94,11 +94,12 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getUserAgent();
     this.props.getUserIp();
   }
 
   render() {
-    const { isAuthenticated, userIp } = this.props;
+    const { isAuthenticated, userAgent, userIp } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -122,7 +123,7 @@ class Search extends Component {
               />
             )
           })}
-          <Button type="submit" disabled={!userIp}>Search</Button>
+          <Button type="submit" disabled={!userAgent && !userIp}>Search</Button>
         </form>
         {isAuthenticated && (
           <>
@@ -140,12 +141,14 @@ class Search extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    userAgent: state.search.userAgent,
     userIp: state.search.userIp
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getUserAgent: () => dispatch(actions.getUserAgent()),
     getUserIp: () => dispatch(actions.getUserIp())
   }
 }

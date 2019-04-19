@@ -18,5 +18,6 @@ export {
 
 export {
   getUserIp,
+  getUserAgent,
   search
 } from './search';
