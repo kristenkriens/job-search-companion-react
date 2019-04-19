@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import * as forms from '../../../shared/forms';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, changed, that, checkboxRadioFormElementChanged } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -28,18 +28,14 @@ const FormElement = (props) => {
         </select>
       );
       break;
-    case ('checkboxRadio'):
-      const choices = forms.createFormElementsArray(elementConfig.choices);
-
+    case ('radio'):
       formElement = (
         <ul>
-          {choices.map((choice) => {
+          {elementConfig.choices.map((choice) => {
             return (
-              <li key={choice.id}>
-                <input type={elementConfig.type} id={choice.id} value={choice.config.value} name={'name'} className="accessible" checked={choice.config.checked} onChange={(event) => {
-                  checkboxRadioFormElementChanged(that, event, id, choice.id)}
-                } />
-                <label htmlFor={choice.id}>{choice.config.label}</label>
+              <li key={choice.value}>
+                <input type="radio" id={choice.value} value={choice.value} name={id} className="accessible" checked={choice.value === value} onChange={changed} />
+                <label htmlFor={choice.value}>{choice.label}</label>
               </li>
             )
           })}
@@ -66,8 +62,6 @@ const FormElement = (props) => {
     });
   }
 
-  const isCheckboxOrRadio = elementType === 'checkboxRadio';
-
   let geolocateElement = '';
   if(hasGeolocate) {
     geolocateElement = (
@@ -80,7 +74,7 @@ const FormElement = (props) => {
 
   return (
     <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
-      {isCheckboxOrRadio ? (
+      {elementType === 'radio' ? (
         <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
       ) : (
         <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>

@@ -47,27 +47,11 @@ export const checkSubmitButtonDisabled = (form) => {
   return submitButtonDisabled;
 }
 
-export const basicFormElementChanged = (that, event, inputName) => {
+export const formElementChanged = (that, event, formElementName) => {
   const updatedForm = updateObject(that.state.form, {
-    [inputName]: updateObject(that.state.form[inputName], {
+    [formElementName]: updateObject(that.state.form[formElementName], {
       value: event.target.value,
-      valid: that.state.form[inputName].validation ? checkValidity(event.target.value, that.state.form[inputName].validation) : true
-    })
-  });
-
-  that.setState({form: updatedForm});
-}
-
-export const checkboxRadioFormElementChanged = (that, event, inputName, checkboxRadioName) => {
-  const updatedForm = updateObject(that.state.form, {
-    [inputName]: updateObject(that.state.form[inputName], {
-      elementConfig: updateObject(that.state.form[inputName].elementConfig, {
-        choices: updateObject(that.state.form[inputName].elementConfig.choices, {
-          [checkboxRadioName]: updateObject(that.state.form[inputName].elementConfig.choices[checkboxRadioName], {
-            checked: !that.state.form[inputName].elementConfig.choices[checkboxRadioName].checked
-          })
-        })
-      })
+      valid: that.state.form[formElementName].validation ? checkValidity(event.target.value, that.state.form[formElementName].validation) : true
     })
   });
 
@@ -80,10 +64,10 @@ export const submitAuthForm = (that, event) => {
   that.props.auth(that.state.form.email.value, that.state.form.password.value, that.state.isRegister);
 }
 
-export const submitSearchForm = (that, event) => {
+export const submitSearchForm = (that, event, userIp, userAgent) => {
   event.preventDefault();
 
-  console.log('Search Form Submitted');
+  that.props.search(userAgent, userIp, that.state.form.query.value, that.state.form.location.value, 'ca', that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
 }
 
 export const normalizeErrorString = (string) => {

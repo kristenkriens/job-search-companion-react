@@ -61,7 +61,7 @@ class Register extends Component {
                 label={formElement.config.label}
                 value={formElement.config.value}
                 error={error}
-                changed={(event) => forms.basicFormElementChanged(this, event, formElement.id)}
+                changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
           })}

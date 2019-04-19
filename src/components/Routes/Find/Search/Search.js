@@ -31,7 +31,7 @@ class Search extends Component {
         label: 'Location',
         value: '',
       },
-      postAge: {
+      age: {
         widths: ['half', 'half-small'],
         elementType: 'input',
         elementConfig: {
@@ -52,43 +52,19 @@ class Search extends Component {
         value: '',
       },
       jobType: {
-        elementType: 'checkboxRadio',
+        elementType: 'radio',
         elementConfig: {
-          type: 'radio',
-          choices: {
-            noPreference: {
-              label: 'No Preference',
-              value: 'nopreference',
-              checked: true
-            },
-            fullTime: {
-              label: 'Full Time',
-              value: 'fulltime',
-              checked: false
-            },
-            partTime: {
-              label: 'Part Time',
-              value: 'parttime',
-              checked: false
-            },
-            contract: {
-              label: 'Contract',
-              value: 'contract',
-              checked: false
-            },
-            internship: {
-              label: 'Internship',
-              value: 'internship',
-              checked: false
-            },
-            temporary: {
-              label: 'Temporary',
-              value: 'temporary',
-              checked: false
-            }
-          }
+          choices: [
+            { value: 'nopreference', label: 'No Preference' },
+            { value: 'fulltime', label: 'Full Time' },
+            { value: 'parttime', label: 'Part Time' },
+            { value: 'contract', label: 'Contract' },
+            { value: 'internship', label: 'Internship' },
+            { value: 'temporary', label: 'Temporary' }
+          ]
         },
-        label: 'Job Type'
+        label: 'Job Type',
+        value: 'nopreference'
       }
     }
   }
@@ -112,7 +88,7 @@ class Search extends Component {
 
     return (
       <>
-        <form onSubmit={(event) => forms.submitSearchForm(this, event)} className="form">
+        <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -124,9 +100,7 @@ class Search extends Component {
                 hasGeolocate={formElement.config.hasGeolocate}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                changed={(event) => forms.basicFormElementChanged(this, event, formElement.id)}
-                that={this}
-                checkboxRadioFormElementChanged={forms.checkboxRadioFormElementChanged}
+                changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
           })}

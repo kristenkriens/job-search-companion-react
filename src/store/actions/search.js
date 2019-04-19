@@ -55,7 +55,7 @@ export const searchFail = (error) => {
   }
 }
 
-export const search = (userAgent, userIp, query, location, country, radius, jobType, limit, age) => {
+export const search = (userAgent, userIp, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
     dispatch(searchStart());
 
