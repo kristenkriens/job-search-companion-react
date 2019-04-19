@@ -70,19 +70,19 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
-    const { userAgent, userIp, getUserAgent, getUserIp } = this.props;
-
-    if(!userAgent) {
-      getUserAgent();
-    }
+    const { userIp, userAgent, getUserAgent, getUserIp } = this.props;
 
     if(!userIp) {
       getUserIp();
     }
+
+    if(!userAgent) {
+      getUserAgent();
+    }
   }
 
   render() {
-    const { isAuthenticated, userAgent, userIp } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -104,7 +104,7 @@ class Search extends Component {
               />
             )
           })}
-          <Button type="submit" disabled={!userAgent && !userIp}>Search</Button>
+          <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
         </form>
         {isAuthenticated && (
           <>
@@ -122,15 +122,16 @@ class Search extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    userIp: state.search.userIp,
     userAgent: state.search.userAgent,
-    userIp: state.search.userIp
+    loading: state.search.loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUserAgent: () => dispatch(actions.getUserAgent()),
-    getUserIp: () => dispatch(actions.getUserIp())
+    getUserIp: () => dispatch(actions.getUserIp()),
+    getUserAgent: () => dispatch(actions.getUserAgent())
   }
 }
 
