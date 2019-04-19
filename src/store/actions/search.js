@@ -26,7 +26,7 @@ export const search = (email, password, isRegister) => {
   return (dispatch) => {
     dispatch(searchStart());
 
-    const apiKey = 'AIzaSyD8o9rQ1n2v-6uMZ3NRWpiGUUb38AKryNc';
+    const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 
     let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`;
 
