@@ -134,7 +134,8 @@ const mapStateToProps = (state) => {
     lat: state.user.lat,
     lng: state.user.lng,
     loading: state.search.loading,
-    geolocateLoading: state.geolocate.loading
+    geolocateLoading: state.geolocate.loading,
+    location: state.geolocate.location
   }
 }
 
