@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Geolocate from '../Button/Geolocate/Geolocate';
+import Geocode from '../Button/Geocode/Geocode';
 
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, geolocateLoading, geolocateDisabled, geolocate, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeocode, elementType, value, error, geocodeLoading, geocodeDisabled, geocode, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -71,7 +71,7 @@ const FormElement = (props) => {
       )}
       <div className="form__element-inner">
         {formElement}
-        {hasGeolocate && <Geolocate loading={geolocateLoading} disabled={geolocateDisabled} geolocate={geolocate} />}
+        {hasGeocode && <Geocode loading={geocodeLoading} disabled={geocodeDisabled} geocode={geocode} />}
       </div>
       {elementError && (
         <div className="form__element-message">{elementError}</div>

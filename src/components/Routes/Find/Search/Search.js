@@ -27,7 +27,7 @@ class Search extends Component {
           type: 'text',
           placeholder: 'e.g. Toronto, ON'
         },
-        hasGeolocate: true,
+        hasGeocode: true,
         label: 'Location',
         value: '',
       },
@@ -86,7 +86,7 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, lat, lng, loading, geolocateLoading } = this.props;
+    const { isAuthenticated, userIp, userAgent, lat, lng, loading, geocodeLoading } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -101,12 +101,12 @@ class Search extends Component {
                 widths={formElement.config.widths}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
-                hasGeolocate={formElement.config.hasGeolocate}
+                hasGeocode={formElement.config.hasGeocode}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                geolocateLoading={geolocateLoading}
-                geolocateDisabled={!lat && !lng}
-                geolocate={(event) => forms.geolocationClick(this, event, lat, lng)}
+                geocodeLoading={geocodeLoading}
+                geocodeDisabled={!lat && !lng}
+                geocode={(event) => forms.geolocationClick(this, event, lat, lng)}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
@@ -134,8 +134,8 @@ const mapStateToProps = (state) => {
     lat: state.user.lat,
     lng: state.user.lng,
     loading: state.search.loading,
-    geolocateLoading: state.geolocate.loading,
-    location: state.geolocate.location
+    geocodeLoading: state.geocode.loading,
+    location: state.geocode.location
   }
 }
 
@@ -145,7 +145,7 @@ const mapDispatchToProps = (dispatch) => {
     getUserAgent: () => dispatch(actions.getUserAgent()),
     getUserLatLng: () => dispatch(actions.getUserLatLng()),
     search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
-    geolocate: (lat, lng) => dispatch(actions.geolocate(lat, lng)),
+    geocode: (lat, lng) => dispatch(actions.geocode(lat, lng)),
   }
 }
 

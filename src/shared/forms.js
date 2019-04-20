@@ -73,5 +73,5 @@ export const submitSearchForm = (that, event, userIp, userAgent) => {
 export const geolocationClick = (that, event, lat, lng) => {
   event.preventDefault();
 
-  that.props.geolocate(lat, lng);
+  that.props.geocode(lat, lng);
 }

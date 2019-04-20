@@ -2,29 +2,29 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
-export const geolocateStart = () => {
+export const geocodeStart = () => {
   return {
-    type: actionTypes.GEOLOCATE_START
+    type: actionTypes.GEOCODE_START
   }
 };
 
-export const geolocateSuccess = (location) => {
+export const geocodeSuccess = (location) => {
   return {
-    type: actionTypes.GEOLOCATE_SUCCESS,
+    type: actionTypes.GEOCODE_SUCCESS,
     location: location
   }
 };
 
-export const geolocateFail = (error) => {
+export const geocodeFail = (error) => {
   return {
-    type: actionTypes.GEOLOCATE_FAIL,
+    type: actionTypes.GEOCODE_FAIL,
     error: error
   }
 }
 
-export const geolocate = (lat, lng) => {
+export const geocode = (lat, lng) => {
   return (dispatch) => {
-    dispatch(geolocateStart());
+    dispatch(geocodeStart());
 
     const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -38,10 +38,10 @@ export const geolocate = (lat, lng) => {
 
     axios.post(url, config)
       .then((response) => {
-        dispatch(geolocateSuccess(response));
+        dispatch(geocodeSuccess(response));
       })
       .catch((error) => {
-        dispatch(geolocateFail(error));
+        dispatch(geocodeFail(error));
       });
   }
 };

@@ -2,11 +2,11 @@ import React from 'react';
 
 import '../Button.scss';
 
-const Geolocate = (props) => {
-  const { loading, disabled, geolocate } = props;
+const Geocode = (props) => {
+  const { loading, disabled, geocode } = props;
 
   return (
-    <button className="button geolocate" disabled={disabled} onClick={geolocate}>
+    <button className="button geocode" disabled={disabled} onClick={geocode}>
       {loading ? (
         <>
           <i className="fa fa-spinner fa-pulse fa-fw"></i>
@@ -22,4 +22,4 @@ const Geolocate = (props) => {
   )
 }
 
-export default Geolocate;
+export default Geocode;

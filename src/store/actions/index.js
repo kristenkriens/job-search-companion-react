@@ -23,8 +23,8 @@ export {
 } from './user';
 
 export {
-  geolocate
-} from './geolocate';
+  geocode
+} from './geocode';
 
 export {
   search

@@ -7,7 +7,7 @@ const initialState = {
   location: null
 }
 
-const geolocateStart = (state, action) => {
+const geocodeStart = (state, action) => {
   const updatedState = {
     error: null,
     loading: true
@@ -16,7 +16,7 @@ const geolocateStart = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-const geolocateSuccess = (state, action) => {
+const geocodeSuccess = (state, action) => {
   const updatedState = {
     error: null,
     loading: false,
@@ -26,7 +26,7 @@ const geolocateSuccess = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-const geolocateFail = (state, action) => {
+const geocodeFail = (state, action) => {
   const updatedState = {
     error: action.error,
     loading: false
@@ -35,13 +35,13 @@ const geolocateFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-const geolocateReducer = (state = initialState, action) => {
+const geocodeReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionTypes.GEOLOCATE_START: return geolocateStart(state, action);
-    case actionTypes.GEOLOCATE_SUCCESS: return geolocateSuccess(state, action);
-    case actionTypes.GEOLOCATE_FAIL: return geolocateFail(state, action);
+    case actionTypes.GEOCODE_START: return geocodeStart(state, action);
+    case actionTypes.GEOCODE_SUCCESS: return geocodeSuccess(state, action);
+    case actionTypes.GEOCODE_FAIL: return geocodeFail(state, action);
     default: return state;
   }
 }
 
-export default geolocateReducer;
+export default geocodeReducer;
