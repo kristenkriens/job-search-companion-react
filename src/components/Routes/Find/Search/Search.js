@@ -70,7 +70,7 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
-    const { userIp, userAgent, getUserAgent, getUserIp } = this.props;
+    const { userIp, userAgent, lat, lng, getUserIp, getUserAgent, getUserLatLng } = this.props;
 
     if(!userIp) {
       getUserIp();
@@ -79,12 +79,18 @@ class Search extends Component {
     if(!userAgent) {
       getUserAgent();
     }
+
+    if(!lat && !lng) {
+      getUserLatLng();
+    }
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading } = this.props;
+    const { isAuthenticated, userIp, userAgent, lat, lng, loading, geolocateLoading } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
+
+    console.log(lat, lng);
 
     return (
       <>
@@ -101,7 +107,7 @@ class Search extends Component {
                 label={formElement.config.label}
                 value={formElement.config.value}
                 geolocateLoading={geolocateLoading}
-                geolocate={(event) => forms.geolocationClick(this, event)}
+                geolocate={(event) => forms.geolocationClick(this, event, lat, lng)}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
@@ -126,6 +132,8 @@ const mapStateToProps = (state) => {
   return {
     userIp: state.user.userIp,
     userAgent: state.user.userAgent,
+    lat: state.user.lat,
+    lng: state.user.lng,
     loading: state.search.loading,
     geolocateLoading: state.geolocate.loading
   }
@@ -135,8 +143,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUserIp: () => dispatch(actions.getUserIp()),
     getUserAgent: () => dispatch(actions.getUserAgent()),
+    getUserLatLng: () => dispatch(actions.getUserLatLng()),
     search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
-    geolocate: () => dispatch(actions.geolocate()),
+    geolocate: (lat, lng) => dispatch(actions.geolocate(lat, lng)),
   }
 }
 

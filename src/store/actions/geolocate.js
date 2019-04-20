@@ -21,17 +21,9 @@ export const geolocateFail = (error) => {
   }
 }
 
-export const geolocate = () => {
+export const geolocate = (lat, lng) => {
   return (dispatch) => {
     dispatch(geolocateStart());
-
-    // TODO
-    let lat = null;
-    let lng = null;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      lat = position.coords.latitude;
-      lng = position.coords.lngitude;
-    });
 
     const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 

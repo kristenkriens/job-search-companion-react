@@ -18,7 +18,8 @@ export {
 
 export {
   getUserIp,
-  getUserAgent
+  getUserAgent,
+  getUserLatLng
 } from './user';
 
 export {
