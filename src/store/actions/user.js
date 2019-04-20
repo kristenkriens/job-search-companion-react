@@ -20,7 +20,7 @@ export const getUserIp = () => {
   return (dispatch) => {
     dispatch(getUserIpStart());
 
-    let url = `https://ipapi.co/json`;
+    const url = `https://ipapi.co/json`;
 
     axios.post(url)
       .then((response) => {

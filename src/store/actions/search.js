@@ -29,7 +29,7 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
 
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
-    let url = `http://api.indeed.com/ads/apisearch?publisher=${apiKey}`;
+    const url = `http://api.indeed.com/ads/apisearch?publisher=${apiKey}`;
 
     const searchData = {
       v: 2,
