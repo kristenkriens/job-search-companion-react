@@ -10,10 +10,11 @@ export const geolocateStart = () => {
   }
 };
 
-export const geolocateSuccess = (results) => {
+export const geolocateSuccess = (lat, lng) => {
   return {
     type: actionTypes.GEOLOCATE_SUCCESS,
-    results: results
+    lat: lat,
+    lng: lng
   }
 };
 
