@@ -17,6 +17,10 @@ export {
 } from './modal';
 
 export {
+  geolocate
+} from './geolocate';
+
+export {
   getUserIp,
   getUserAgent,
   search

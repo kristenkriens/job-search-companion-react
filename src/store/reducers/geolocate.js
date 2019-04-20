@@ -4,8 +4,7 @@ import { updateObject } from '../../shared/utilities';
 const initialState = {
   error: null,
   loading: false,
-  lat: null,
-  lng: null
+  location: null
 }
 
 const geolocateStart = (state, action) => {
@@ -21,8 +20,7 @@ const geolocateSuccess = (state, action) => {
   const updatedState = {
     error: null,
     loading: false,
-    lat: action.lat,
-    lng: action.lng
+    location: action.location
   };
 
   return updateObject(state, updatedState);

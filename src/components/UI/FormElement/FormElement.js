@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Button from '../Button/Button';
-
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, geolocateLoading, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, geolocateLoading, geolocate, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -50,7 +48,7 @@ const FormElement = (props) => {
   if(error) {
     let errorMessage = normalizeErrorString(error.message);
 
-    if(errorMessage.toLowerCase().indexOf(id) != -1) {
+    if(errorMessage.toLowerCase().indexOf(id) !== -1) {
       elementError = errorMessage;
     }
   }
@@ -65,7 +63,7 @@ const FormElement = (props) => {
   let geolocateElement = '';
   if(hasGeolocate) {
     geolocateElement = (
-      <Button additionalClasses="geolocate">
+      <button className="geolocate" onClick={geolocate}>
         {geolocateLoading ? (
           <>
             <i className="fa fa-spinner fa-pulse fa-fw"></i>
@@ -77,7 +75,7 @@ const FormElement = (props) => {
             <span className="accessible">Get Geolocation</span>
           </>
         )}
-      </Button>
+      </button>
     )
   }
 

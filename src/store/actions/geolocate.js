@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { turnSpacesIntoPlusses } from '../../shared/utilities';
-
 
 export const geolocateStart = () => {
   return {
@@ -10,11 +8,9 @@ export const geolocateStart = () => {
   }
 };
 
-export const geolocateSuccess = (lat, lng) => {
+export const geolocateSuccess = (location) => {
   return {
-    type: actionTypes.GEOLOCATE_SUCCESS,
-    lat: lat,
-    lng: lng
+    type: actionTypes.GEOLOCATE_SUCCESS
   }
 };
 
@@ -29,9 +25,15 @@ export const geolocate = () => {
   return (dispatch) => {
     dispatch(geolocateStart());
 
+    // Function for getting current lat and lng is needed!
+    console.log(navigator.geolocation); // Use to get lat and lng
+
+    const lat = null;
+    const lng = null;
+
     const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 
-    let url = `http://api.indeed.com/ads/apisearch?publisher=${apiKey}`;
+    let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lng}.json?access_token=${apiKey}`;
 
     const searchData = {}
 

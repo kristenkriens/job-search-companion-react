@@ -82,12 +82,9 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, error, geolocateLoading, geolocateError } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
-
-    console.log('error', error);
-    console.log('geolocateError', geolocateError);
 
     return (
       <>
@@ -104,6 +101,7 @@ class Search extends Component {
                 label={formElement.config.label}
                 value={formElement.config.value}
                 geolocateLoading={geolocateLoading}
+                geolocate={(event) => forms.geolocationClick(this, event)}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
@@ -129,9 +127,7 @@ const mapStateToProps = (state) => {
     userIp: state.search.userIp,
     userAgent: state.search.userAgent,
     loading: state.search.loading,
-    error: state.search.error,
-    geolocateLoading: state.geolocate.loading,
-    geolocateError: state.geolocate.error
+    geolocateLoading: state.geolocate.loading
   }
 }
 
@@ -139,7 +135,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUserIp: () => dispatch(actions.getUserIp()),
     getUserAgent: () => dispatch(actions.getUserAgent()),
-    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age))
+    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
+    geolocate: () => dispatch(actions.geolocate()),
   }
 }
 
