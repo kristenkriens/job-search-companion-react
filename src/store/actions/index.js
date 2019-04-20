@@ -17,11 +17,14 @@ export {
 } from './modal';
 
 export {
+  getUserIp,
+  getUserAgent
+} from './user';
+
+export {
   geolocate
 } from './geolocate';
 
 export {
-  getUserIp,
-  getUserAgent,
   search
 } from './search';

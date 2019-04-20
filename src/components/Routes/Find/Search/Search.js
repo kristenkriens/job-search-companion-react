@@ -124,8 +124,8 @@ class Search extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userIp: state.search.userIp,
-    userAgent: state.search.userAgent,
+    userIp: state.user.userIp,
+    userAgent: state.user.userAgent,
     loading: state.search.loading,
     geolocateLoading: state.geolocate.loading
   }
