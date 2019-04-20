@@ -42,10 +42,9 @@ export const searchStart = () => {
   }
 };
 
-export const searchSuccess = (results) => {
+export const searchSuccess = () => {
   return {
-    type: actionTypes.SEARCH_SUCCESS,
-    results: results
+    type: actionTypes.SEARCH_SUCCESS
   }
 };
 
