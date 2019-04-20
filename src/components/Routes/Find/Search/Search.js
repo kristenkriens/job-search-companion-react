@@ -86,7 +86,8 @@ class Search extends Component {
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
-    console.log(geolocateError);
+    console.log('error', error);
+    console.log('geolocateError', geolocateError);
 
     return (
       <>
@@ -102,7 +103,6 @@ class Search extends Component {
                 hasGeolocate={formElement.config.hasGeolocate}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                error={error}
                 geolocateLoading={geolocateLoading}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
