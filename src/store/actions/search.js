@@ -79,12 +79,14 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
       co: country
     }
 
+    // http://api.indeed.com/ads/apisearch?publisher=1211867702868069&latlong=1&co=ca&format=json&userip=99.245.198.187&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
+
     axios.post(url, searchData)
       .then((response) => {
-        dispatch(searchSuccess(response.data));
+        dispatch(searchSuccess(response));
       })
       .catch((error) => {
-        dispatch(searchFail(error.response.data.error));
+        dispatch(searchFail(error));
       });
   }
 };
