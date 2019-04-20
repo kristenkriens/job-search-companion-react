@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, geolocateLoading, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -66,8 +66,17 @@ const FormElement = (props) => {
   if(hasGeolocate) {
     geolocateElement = (
       <Button additionalClasses="geolocate">
-        <i className="fa fa-location-arrow" aria-hidden="true"></i>
-        <span className="accessible">Get Geolocation</span>
+        {geolocateLoading ? (
+          <>
+            <i className="fa fa-spinner fa-pulse fa-fw"></i>
+            <span className="accessible">Loading...</span>
+          </>
+        ) : (
+          <>
+            <i className="fa fa-location-arrow" aria-hidden="true"></i>
+            <span className="accessible">Get Geolocation</span>
+          </>
+        )}
       </Button>
     )
   }

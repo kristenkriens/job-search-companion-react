@@ -42,21 +42,21 @@ const searchStart = (state, action) => {
 }
 
 const searchSuccess = (state, action) => {
-  const updatedState2 = {
+  const updatedState = {
     error: null,
     loading: false
   };
 
-  return updateObject(state, updatedState2);
+  return updateObject(state, updatedState);
 }
 
 const searchFail = (state, action) => {
-  const updatedState3 = {
+  const updatedState = {
     error: action.error,
     loading: false
   };
 
-  return updateObject(state, updatedState3);
+  return updateObject(state, updatedState);
 }
 
 const searchReducer = (state = initialState, action) => {

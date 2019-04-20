@@ -82,9 +82,11 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, loading } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, error, geolocateLoading, geolocateError } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
+
+    console.log(geolocateError);
 
     return (
       <>
@@ -100,6 +102,8 @@ class Search extends Component {
                 hasGeolocate={formElement.config.hasGeolocate}
                 label={formElement.config.label}
                 value={formElement.config.value}
+                error={error}
+                geolocateLoading={geolocateLoading}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
@@ -124,7 +128,10 @@ const mapStateToProps = (state) => {
   return {
     userIp: state.search.userIp,
     userAgent: state.search.userAgent,
-    loading: state.search.loading
+    loading: state.search.loading,
+    error: state.search.error,
+    geolocateLoading: state.geolocate.loading,
+    geolocateError: state.geolocate.error
   }
 }
 
