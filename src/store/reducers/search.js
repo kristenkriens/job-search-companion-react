@@ -5,7 +5,6 @@ const initialState = {
   userAgent: null,
   userIp: null,
   error: null,
-  results: null,
   loading: false
 }
 
