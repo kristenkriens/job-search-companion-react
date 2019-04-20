@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from '../Button/Button';
+
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
@@ -63,7 +65,7 @@ const FormElement = (props) => {
   let geolocateElement = '';
   if(hasGeolocate) {
     geolocateElement = (
-      <button className="geolocate" onClick={geolocate}>
+      <Button additionalClasses="geolocate" click={geolocate}>
         {geolocateLoading ? (
           <>
             <i className="fa fa-spinner fa-pulse fa-fw"></i>
@@ -75,7 +77,7 @@ const FormElement = (props) => {
             <span className="accessible">Get Geolocation</span>
           </>
         )}
-      </button>
+      </Button>
     )
   }
 
