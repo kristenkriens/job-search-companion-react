@@ -26,32 +26,32 @@ const authStart = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-  const updatedState2 = {
+  const updatedState = {
     token: action.idToken,
     userId: action.userId,
     error: null,
     loading: false
   };
 
-  return updateObject(state, updatedState2);
+  return updateObject(state, updatedState);
 }
 
 const authFail = (state, action) => {
-  const updatedState3 = {
+  const updatedState = {
     error: action.error,
     loading: false
   };
 
-  return updateObject(state, updatedState3);
+  return updateObject(state, updatedState);
 }
 
 const authLogout = (state, action) => {
-  const updatedState4 = {
+  const updatedState = {
     token: null,
     userId: null
   };
 
-  return updateObject(state, updatedState4);
+  return updateObject(state, updatedState);
 }
 
 const authReducer = (state = initialState, action) => {
