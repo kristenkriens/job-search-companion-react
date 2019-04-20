@@ -25,19 +25,19 @@ export const geolocate = () => {
   return (dispatch) => {
     dispatch(geolocateStart());
 
-    // Function for getting current lat and lng is needed!
-    console.log(navigator.geolocation); // Use to get lat and lng
-
-    const lat = null;
-    const lng = null;
+    // TODO
+    let lat = null;
+    let lng = null;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      lat = position.coords.latitude;
+      lng = position.coords.lngitude;
+    });
 
     const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 
     let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lng}.json?access_token=${apiKey}`;
 
-    const searchData = {}
-
-    axios.post(url, searchData)
+    axios.post(url)
       .then((response) => {
         dispatch(geolocateSuccess(response));
       })
