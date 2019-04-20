@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Button from '../Button/Button';
+import Geolocate from '../Button/Geolocate/Geolocate';
 
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, geolocateLoading, geolocate, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, geolocateLoading, geolocateDisabled, geolocate, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -62,25 +63,6 @@ const FormElement = (props) => {
     });
   }
 
-  let geolocateElement = '';
-  if(hasGeolocate) {
-    geolocateElement = (
-      <Button additionalClasses="geolocate" click={geolocate}>
-        {geolocateLoading ? (
-          <>
-            <i className="fa fa-spinner fa-pulse fa-fw"></i>
-            <span className="accessible">Loading...</span>
-          </>
-        ) : (
-          <>
-            <i className="fa fa-location-arrow" aria-hidden="true"></i>
-            <span className="accessible">Get Geolocation</span>
-          </>
-        )}
-      </Button>
-    )
-  }
-
   return (
     <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
       {elementType === 'radio' ? (
@@ -90,7 +72,7 @@ const FormElement = (props) => {
       )}
       <div className="form__element-inner">
         {formElement}
-        {geolocateElement}
+        {hasGeolocate && <Geolocate loading={geolocateLoading} disabled={geolocateDisabled} geolocate={geolocate} />}
       </div>
       {elementError && (
         <div className="form__element-message">{elementError}</div>

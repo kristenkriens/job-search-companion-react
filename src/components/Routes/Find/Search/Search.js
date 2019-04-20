@@ -107,6 +107,7 @@ class Search extends Component {
                 label={formElement.config.label}
                 value={formElement.config.value}
                 geolocateLoading={geolocateLoading}
+                geolocateDisabled={!lat && !lng}
                 geolocate={(event) => forms.geolocationClick(this, event, lat, lng)}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
