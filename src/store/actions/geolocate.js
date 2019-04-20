@@ -27,9 +27,15 @@ export const geolocate = (lat, lng) => {
 
     const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lng}.json?access_token=${apiKey}`;
+    const url = `http://proxy.hackeryou.com/?reqUrl=https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lng}.json?access_token=${apiKey}`;
 
-    axios.post(url)
+    const config = {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
+
+    axios.post(url, config)
       .then((response) => {
         dispatch(geolocateSuccess(response));
       })
