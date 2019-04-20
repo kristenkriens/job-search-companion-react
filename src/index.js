@@ -32,7 +32,7 @@ const store = createStore(rootReducer, composeEnhancers(
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter basename="/job-search-companion">
+    <BrowserRouter basename="/job-search-companion-react">
       <App />
     </BrowserRouter>
   </Provider>
