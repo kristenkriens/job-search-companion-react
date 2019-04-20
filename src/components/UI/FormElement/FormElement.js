@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../Button/Button';
 
-import * as forms from '../../../shared/forms';
+import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
   const { id, widths, label, hiddenLabel, elementConfig, hasGeolocate, elementType, value, error, changed } = props;
@@ -48,10 +48,10 @@ const FormElement = (props) => {
 
   let elementError = null;
   if(error) {
-    let errorMessage = forms.normalizeErrorString(error.message);
+    let errorMessage = normalizeErrorString(error.message);
 
-    if(errorMessage.indexOf(id) !== -1) {
-      elementError = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+    if(errorMessage.toLowerCase().indexOf(id) != -1) {
+      elementError = errorMessage;
     }
   }
 

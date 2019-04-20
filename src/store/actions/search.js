@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
+import { turnSpacesIntoPlusses } from '../../shared/utilities';
 
 export const getUserAgent = () => {
   return {
@@ -68,8 +69,8 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
       userip: userIp,
       useragent: userAgent,
       format: 'json',
-      q: query,
-      l: location,
+      q: turnSpacesIntoPlusses(query),
+      l: turnSpacesIntoPlusses(location),
       radius: radius,
       jt: jobType !== 'nopreference' ? jobType : undefined,
       limit: 25,
