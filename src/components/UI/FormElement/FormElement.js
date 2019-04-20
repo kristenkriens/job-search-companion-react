@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Button from '../Button/Button';
 import Geolocate from '../Button/Geolocate/Geolocate';
 
 import { normalizeErrorString } from '../../../shared/utilities';

@@ -36,17 +36,26 @@ export const getUserAgent = () => {
   }
 };
 
-export const getUserLatLng = () => {
-  let lat = null;
-  let lng = null;
-  navigator.geolocation.getCurrentPosition(function(position) {
-    lat = position.coords.latitude;
-    lng = position.coords.lngitude;
-  });
-
+export const getUserLatLngStart = () => {
   return {
-    type: actionTypes.GET_USER_LAT_LNG,
-    lat: lat,
-    lng: lng
+    type: actionTypes.GET_USER_LAT_LNG_START
+  }
+};
+
+export const getUserLatLngSuccess = (coordinates) => {
+  return {
+    type: actionTypes.GET_USER_LAT_LNG_SUCCESS,
+    lat: coordinates.latitude,
+    lng: coordinates.longitude
+  }
+};
+
+export const getUserLatLng = () => {
+  return (dispatch) => {
+    dispatch(getUserLatLngStart());
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      dispatch(getUserLatLngSuccess(position.coords));
+    });
   }
 };

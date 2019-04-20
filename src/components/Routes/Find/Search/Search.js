@@ -90,8 +90,6 @@ class Search extends Component {
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
-    console.log(lat, lng);
-
     return (
       <>
         <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent)} className="form">
