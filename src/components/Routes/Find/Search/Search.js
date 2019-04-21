@@ -31,7 +31,7 @@ class Search extends Component {
         },
         hasGeolocateButton: true,
         label: 'Location',
-        value: '',
+        value: this.props.location,
       },
       country: {
         widths: ['third', 'half-small'],

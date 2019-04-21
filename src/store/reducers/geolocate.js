@@ -6,7 +6,7 @@ const initialState = {
   loading: false,
   lat: null,
   lng: null,
-  location: null,
+  location: '',
   countryCode: 'ca'
 }
 
