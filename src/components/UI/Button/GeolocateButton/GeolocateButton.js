@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../Button.scss';
 
-const Geolocate = (props) => {
+const GeolocateButton = (props) => {
   const { loading, disabled, geolocate } = props;
 
   return (
@@ -22,4 +22,4 @@ const Geolocate = (props) => {
   )
 }
 
-export default Geolocate;
+export default GeolocateButton;

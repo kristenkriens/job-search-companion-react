@@ -27,7 +27,7 @@ class Search extends Component {
           type: 'text',
           placeholder: 'e.g. Toronto, ON'
         },
-        hasGeolocate: true,
+        hasGeolocateButton: true,
         label: 'Location',
         value: '',
       },
@@ -97,7 +97,7 @@ class Search extends Component {
                 widths={formElement.config.widths}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
-                hasGeolocate={formElement.config.hasGeolocate}
+                hasGeolocateButton={formElement.config.hasGeolocateButton}
                 label={formElement.config.label}
                 value={formElement.config.value}
                 geolocateLoading={geolocateLoading}
