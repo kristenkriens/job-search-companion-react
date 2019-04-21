@@ -5,12 +5,12 @@ import Geocode from '../Button/Geocode/Geocode';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeocode, elementType, value, error, geocodeLoading, geocodeDisabled, geocode, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeocode, elementType, value, error, geocodeLoading, geocodeDisabled, geocode, location, changed } = props;
 
   let formElement = null;
   switch(elementType) {
     case ('input'):
-      formElement = <input id={id} {...elementConfig} value={value} onChange={changed} />;
+      formElement = <input id={id} {...elementConfig} value={hasGeocode && location ? location : value} onChange={changed} />;
       break;
     case ('textarea'):
       formElement = <textarea id={id} {...elementConfig} value={value} onChange={changed} />;

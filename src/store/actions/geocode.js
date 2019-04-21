@@ -28,11 +28,14 @@ export const geocode = (lat, lng) => {
 
     const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
 
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lng}.json?access_token=${apiKey}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?types=place,country&access_token=${apiKey}`;
 
     axios.get(url)
       .then((response) => {
-        dispatch(geocodeSuccess(response));
+        const country = response.data.features[1].place_name;
+        const location = response.data.features[0].place_name.replace(`, ${country}`, '');
+
+        dispatch(geocodeSuccess(location));
       })
       .catch((error) => {
         dispatch(geocodeFail(error));

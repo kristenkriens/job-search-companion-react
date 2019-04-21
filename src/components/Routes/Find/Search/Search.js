@@ -86,7 +86,7 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, lat, lng, loading, geocodeLoading } = this.props;
+    const { isAuthenticated, userIp, userAgent, lat, lng, loading, geocodeLoading, location } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -107,6 +107,7 @@ class Search extends Component {
                 geocodeLoading={geocodeLoading}
                 geocodeDisabled={!lat && !lng}
                 geocode={(event) => forms.geolocationClick(this, event, lat, lng)}
+                location={location}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
