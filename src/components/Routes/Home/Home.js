@@ -13,7 +13,7 @@ class Home extends Component {
           <p>Click on the items in the navigation to get started!</p>
         ) : (
           <>
-            <p>Log in to get started!</p>
+            <p>Log in or click on the items in the navigation to get started!</p>
             <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
           </>
         )}
