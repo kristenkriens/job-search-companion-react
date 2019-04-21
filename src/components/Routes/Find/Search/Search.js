@@ -5,6 +5,7 @@ import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 
 import { countries } from '../../../../shared/countries';
+import { updateObject } from '../../../../shared/utilities';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
@@ -39,7 +40,7 @@ class Search extends Component {
           options: countries
         },
         label: 'Country',
-        value: 'ca',
+        value: this.props.countryCode,
       },
       age: {
         widths: ['third', 'third-small'],
@@ -91,8 +92,22 @@ class Search extends Component {
     }
   }
 
+  componentDidUpdate = () => {
+    const { countryCode } = this.props;
+
+    const updatedForm = updateObject(this.state.form, {
+      country: updateObject(this.state.form.country, {
+        value: countryCode
+      })
+    });
+
+    if(this.state.form.country.value !== countryCode) {
+      this.setState({form: updatedForm});
+    }
+  }
+
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, geolocation } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -112,7 +127,7 @@ class Search extends Component {
                 value={formElement.config.value}
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => forms.geolocateClick(this, event)}
-                geolocation={geolocation}
+                location={location}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
@@ -138,7 +153,8 @@ const mapStateToProps = (state) => {
     userIp: state.user.userIp,
     userAgent: state.user.userAgent,
     geolocateLoading: state.geolocate.loading,
-    geolocation: state.geolocate.geolocation,
+    location: state.geolocate.location,
+    countryCode: state.geolocate.countryCode,
     loading: state.search.loading
   }
 }

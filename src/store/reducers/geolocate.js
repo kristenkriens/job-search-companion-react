@@ -6,7 +6,8 @@ const initialState = {
   loading: false,
   lat: null,
   lng: null,
-  geolocation: null
+  location: null,
+  countryCode: 'ca'
 }
 
 const geolocateLatLngStart = (state, action) => {
@@ -40,7 +41,8 @@ const geolocateGeocodeSuccess = (state, action) => {
   const updatedState = {
     error: null,
     loading: false,
-    geolocation: action.geolocation
+    location: action.location,
+    countryCode: action.countryCode
   };
 
   return updateObject(state, updatedState);

@@ -36,10 +36,11 @@ export const geolocateGeocodeStart = () => {
   }
 };
 
-export const geolocateGeocodeSuccess = (geolocation) => {
+export const geolocateGeocodeSuccess = (location, countryCode) => {
   return {
     type: actionTypes.GEOLOCATE_GEOCODE_SUCCESS,
-    geolocation: geolocation
+    location: location,
+    countryCode: countryCode
   }
 };
 
@@ -61,9 +62,10 @@ export const geolocateGeocode = (lat, lng) => {
     axios.get(url)
       .then((response) => {
         const country = response.data.features[1].place_name;
-        const place = response.data.features[0].place_name.replace(`, ${country}`, '');
+        const countryCode = response.data.features[1].properties.short_code;
+        const location = response.data.features[0].place_name.replace(`, ${country}`, '');
 
-        dispatch(geolocateGeocodeSuccess(place));
+        dispatch(geolocateGeocodeSuccess(location, countryCode));
       })
       .catch((error) => {
         dispatch(geolocateGeocodeFail(error));
