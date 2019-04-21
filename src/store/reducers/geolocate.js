@@ -7,7 +7,7 @@ const initialState = {
   lat: null,
   lng: null,
   location: '',
-  countryCode: 'ca'
+  countryCode: ''
 }
 
 const geolocateLatLngStart = (state, action) => {

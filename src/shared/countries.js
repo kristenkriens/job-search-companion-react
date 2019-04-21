@@ -1,7 +1,8 @@
 export const countries = [
+  { value: '', displayValue: 'Please select a Country', disabled: true },
   { value: 'ca', displayValue: 'Canada' },
   { value: 'us', displayValue: 'United States' },
-  { value: '', displayValue: '----------', disabled: true },
+  { value: 'dashes', displayValue: '----------', disabled: true },
   { value: 'ar', displayValue: 'Argentina' },
   { value: 'au', displayValue: 'Australia' },
   { value: 'at', displayValue: 'Austria' },
