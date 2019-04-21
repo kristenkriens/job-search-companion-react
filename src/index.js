@@ -12,7 +12,7 @@ import authReducer from './store/reducers/auth';
 import navigationReducer from './store/reducers/navigation';
 import modalReducer from './store/reducers/modal';
 import userReducer from './store/reducers/user';
-import geocodeReducer from './store/reducers/geocode';
+import geolocateReducer from './store/reducers/geolocate';
 import searchReducer from './store/reducers/search';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   navigation: navigationReducer,
   modal: modalReducer,
   user: userReducer,
-  geocode: geocodeReducer,
+  geolocate: geolocateReducer,
   search: searchReducer
 })
 

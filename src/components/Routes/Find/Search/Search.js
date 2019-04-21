@@ -27,7 +27,7 @@ class Search extends Component {
           type: 'text',
           placeholder: 'e.g. Toronto, ON'
         },
-        hasGeocode: true,
+        hasGeolocate: true,
         label: 'Location',
         value: '',
       },
@@ -70,7 +70,7 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
-    const { userIp, userAgent, lat, lng, getUserIp, getUserAgent, getUserLatLng } = this.props;
+    const { userIp, userAgent, getUserIp, getUserAgent } = this.props;
 
     if(!userIp) {
       getUserIp();
@@ -79,14 +79,10 @@ class Search extends Component {
     if(!userAgent) {
       getUserAgent();
     }
-
-    if(!lat && !lng) {
-      getUserLatLng();
-    }
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, lat, lng, loading, geocodeLoading, location } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -101,12 +97,11 @@ class Search extends Component {
                 widths={formElement.config.widths}
                 elementType={formElement.config.elementType}
                 elementConfig={formElement.config.elementConfig}
-                hasGeocode={formElement.config.hasGeocode}
+                hasGeolocate={formElement.config.hasGeolocate}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                geocodeLoading={geocodeLoading}
-                geocodeDisabled={!lat && !lng}
-                geocode={(event) => forms.geolocationClick(this, event, lat, lng)}
+                geolocateLoading={geolocateLoading}
+                geolocate={(event) => forms.geolocateClick(this, event)}
                 location={location}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
@@ -132,11 +127,9 @@ const mapStateToProps = (state) => {
   return {
     userIp: state.user.userIp,
     userAgent: state.user.userAgent,
-    lat: state.user.lat,
-    lng: state.user.lng,
-    loading: state.search.loading,
-    geocodeLoading: state.geocode.loading,
-    location: state.geocode.location
+    geolocateLoading: state.geolocate.loading,
+    location: state.geolocate.location,
+    loading: state.search.loading
   }
 }
 
@@ -144,9 +137,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUserIp: () => dispatch(actions.getUserIp()),
     getUserAgent: () => dispatch(actions.getUserAgent()),
-    getUserLatLng: () => dispatch(actions.getUserLatLng()),
-    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
-    geocode: (lat, lng) => dispatch(actions.geocode(lat, lng)),
+    geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
+    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age))
   }
 }
 

@@ -18,13 +18,13 @@ export {
 
 export {
   getUserIp,
-  getUserAgent,
-  getUserLatLng
+  getUserAgent
 } from './user';
 
 export {
-  geocode
-} from './geocode';
+  geolocateLatLng,
+  geolocateGeocode
+} from './geolocate';
 
 export {
   search

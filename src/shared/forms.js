@@ -70,8 +70,8 @@ export const submitSearchForm = (that, event, userIp, userAgent) => {
   that.props.search(userAgent, userIp, that.state.form.query.value, that.state.form.location.value, 'ca', that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
 }
 
-export const geolocationClick = (that, event, lat, lng) => {
+export const geolocateClick = (that, event) => {
   event.preventDefault();
 
-  that.props.geocode(lat, lng);
+  that.props.geolocateLatLng();
 }

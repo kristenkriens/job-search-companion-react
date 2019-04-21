@@ -35,27 +35,3 @@ export const getUserAgent = () => {
     userAgent: navigator.userAgent
   }
 };
-
-export const getUserLatLngStart = () => {
-  return {
-    type: actionTypes.GET_USER_LAT_LNG_START
-  }
-};
-
-export const getUserLatLngSuccess = (coordinates) => {
-  return {
-    type: actionTypes.GET_USER_LAT_LNG_SUCCESS,
-    lat: coordinates.latitude,
-    lng: coordinates.longitude
-  }
-};
-
-export const getUserLatLng = () => {
-  return (dispatch) => {
-    dispatch(getUserLatLngStart());
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      dispatch(getUserLatLngSuccess(position.coords));
-    });
-  }
-};
