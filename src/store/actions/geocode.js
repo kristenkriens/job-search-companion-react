@@ -30,13 +30,7 @@ export const geocode = (lat, lng) => {
 
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lng}.json?access_token=${apiKey}`;
 
-    const config = {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    };
-
-    axios.post(url, config)
+    axios.get(url)
       .then((response) => {
         dispatch(geocodeSuccess(response));
       })
