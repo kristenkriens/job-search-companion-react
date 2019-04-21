@@ -34,7 +34,7 @@ class Search extends Component {
         value: '',
       },
       country: {
-        widths: ['third'],
+        widths: ['third', 'half-small'],
         elementType: 'select',
         elementConfig: {
           options: countries
@@ -43,7 +43,7 @@ class Search extends Component {
         value: this.props.countryCode,
       },
       age: {
-        widths: ['third', 'third-small'],
+        widths: ['third', 'half-small'],
         elementType: 'input',
         elementConfig: {
           type: 'number',
@@ -53,7 +53,7 @@ class Search extends Component {
         value: '',
       },
       radius: {
-        widths: ['third', 'third-small'],
+        widths: ['third', 'half-small'],
         elementType: 'input',
         elementConfig: {
           type: 'number',
