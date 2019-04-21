@@ -8,7 +8,7 @@ export const changeOpenSidebarNavGroup = (sidebarNavGroup) => {
 };
 
 export const getSetBreadcrumb = (sidebarNav) => {
-  const path = window.location.pathname.replace('/job-search-companion', '');
+  const path = window.location.pathname.replace('/job-search-companion-react', '');
   const pathItems = path.split('/');
 
   let breadcrumb = {};
