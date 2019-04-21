@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 
+import { countries } from '../../../../shared/countries';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
@@ -31,8 +32,17 @@ class Search extends Component {
         label: 'Location',
         value: '',
       },
+      country: {
+        widths: ['third'],
+        elementType: 'select',
+        elementConfig: {
+          options: countries
+        },
+        label: 'Country',
+        value: 'ca',
+      },
       age: {
-        widths: ['half', 'half-small'],
+        widths: ['third', 'third-small'],
         elementType: 'input',
         elementConfig: {
           type: 'number',
@@ -42,7 +52,7 @@ class Search extends Component {
         value: '',
       },
       radius: {
-        widths: ['half', 'half-small'],
+        widths: ['third', 'third-small'],
         elementType: 'input',
         elementConfig: {
           type: 'number',

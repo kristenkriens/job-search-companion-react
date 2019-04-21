@@ -67,7 +67,7 @@ export const submitAuthForm = (that, event) => {
 export const submitSearchForm = (that, event, userIp, userAgent) => {
   event.preventDefault();
 
-  that.props.search(userAgent, userIp, that.state.form.query.value, that.state.form.location.value, 'ca', that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
+  that.props.search(userAgent, userIp, that.state.form.query.value, that.state.form.location.value, that.state.form.country.value, that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
 }
 
 export const geolocateClick = (that, event) => {

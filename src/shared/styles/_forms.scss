@@ -79,6 +79,16 @@
 	    @media (max-width: $md-width) {
 	      width: 100%;
 	    }
+
+      &-small {
+	      @media (max-width: $md-width) {
+	        width: calc(33.33% - 10px);
+	      }
+
+	      @media (max-width: $sm-width) {
+	        width: 100%;
+	      }
+	    }
 	  }
 
 	  &--two-thirds {
@@ -89,16 +99,18 @@
 	    }
 	  }
 
-	  &--select {
-	    &:after {
-	      position: absolute;
-	      right: 10px;
-	      bottom: 10px;
-	      content: '\f107';
-	      font-family: 'FontAwesome';
-	      pointer-events: none;
-	    }
-	  }
+    .form__element-inner--select {
+      position: relative;
+      
+      &:after {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        content: '\f107';
+        font-family: 'FontAwesome';
+        pointer-events: none;
+      }
+    }
 
 	  ul {
 	    display: flex;

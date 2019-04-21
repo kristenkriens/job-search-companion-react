@@ -20,7 +20,7 @@ const FormElement = (props) => {
         <select id={id} value={value} onChange={changed}>
           {elementConfig.options.map((option) => {
             return (
-              <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value} disabled={option.disabled}>
                 {option.displayValue}
               </option>
             )
@@ -69,7 +69,7 @@ const FormElement = (props) => {
       ) : (
         <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
       )}
-      <div className="form__element-inner">
+      <div className={`form__element-inner ${formElement.type === 'select' ? 'form__element-inner--select' : null}`}>
         {formElement}
         {hasGeolocateButton && <GeolocateButton loading={geolocateLoading} geolocate={geolocate} />}
       </div>
