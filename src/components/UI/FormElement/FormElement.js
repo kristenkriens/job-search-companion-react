@@ -5,7 +5,9 @@ import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, handledByRedux, changed } = props;
+
+  console.log(handledByRedux);
 
   let formElement = null;
   switch(elementType) {

@@ -32,6 +32,7 @@ class Search extends Component {
         hasGeolocateButton: true,
         label: 'Location',
         value: this.props.location,
+        handledByRedux: true
       },
       country: {
         widths: ['third', 'half-small'],
@@ -41,6 +42,7 @@ class Search extends Component {
         },
         label: 'Country',
         value: this.props.countryCode,
+        handledByRedux: true
       },
       age: {
         widths: ['third', 'half-small'],
@@ -92,19 +94,7 @@ class Search extends Component {
     }
   }
 
-  componentDidUpdate = () => {
-    const { countryCode } = this.props;
-
-    const updatedForm = updateObject(this.state.form, {
-      country: updateObject(this.state.form.country, {
-        value: countryCode
-      })
-    });
-
-    if(this.state.form.country.value !== countryCode) {
-      this.setState({form: updatedForm});
-    }
-  }
+  // Make redux update functions for onChange of redux handled form elements
 
   render() {
     const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location } = this.props;
@@ -128,6 +118,7 @@ class Search extends Component {
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => forms.geolocateClick(this, event)}
                 location={location}
+                handledByRedux={formElement.config.handledByRedux}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
