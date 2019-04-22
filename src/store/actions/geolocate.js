@@ -37,11 +37,17 @@ export const geolocateGeocodeStart = () => {
   }
 };
 
-export const geolocateGeocodeSuccess = (location, country) => {
+export const geolocateGeocodeSuccess = () => {
+  return {
+    type: actionTypes.GEOLOCATE_GEOCODE_SUCCESS,
+    loading: false
+  }
+};
+
+export const geolocateGeocodeSuccessUpdateReduxHandledFormElement = (location, country) => {
   return (dispatch) => {
-    // Why don't these work?
-    dispatch(updateReduxHandledFormElement(location));
-    dispatch(updateReduxHandledFormElement(country));
+    dispatch(updateReduxHandledFormElement('location', location));
+    dispatch(updateReduxHandledFormElement('country', country));
   }
 };
 
@@ -66,7 +72,8 @@ export const geolocateGeocode = (lat, lng) => {
         const country = response.data.features[1].properties.short_code;
         const location = response.data.features[0].place_name.replace(`, ${countryFull}`, '');
 
-        dispatch(geolocateGeocodeSuccess(location, country));
+        dispatch(geolocateGeocodeSuccess());
+        dispatch(geolocateGeocodeSuccessUpdateReduxHandledFormElement(location, country));
       })
       .catch((error) => {
         dispatch(geolocateGeocodeFail(error));
