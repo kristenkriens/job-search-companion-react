@@ -29,29 +29,11 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
 
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
-    const url = `http://api.indeed.com/ads/apisearch?publisher=${apiKey}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apisearch?publisher=${apiKey}&v=2&userip=${userIp}&useragent=${userAgent}&format=json&q=${turnSpacesIntoPlusses(query)}&l=${turnSpacesIntoPlusses(location)}&radius=${radius}&jt=${jobType === 'nopreference' ? undefined : jobType}&limit=25&fromage=${age}&highlight=1&latlong=1&co=${country}`;
 
-    // http://api.indeed.com/ads/apisearch?publisher=1211867702868069&latlong=1&co=ca&format=json&userip=99.245.198.187&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
-
-    const searchData = {
-      v: 2,
-      userip: userIp,
-      useragent: userAgent,
-      format: 'json',
-      q: turnSpacesIntoPlusses(query),
-      l: turnSpacesIntoPlusses(location),
-      radius: radius,
-      jt: jobType === 'nopreference' ? undefined : jobType,
-      limit: 25,
-      fromage: age,
-      highlight: 1,
-      latlong: 1,
-      co: country
-    }
-
-    axios.get(url, searchData)
+    axios.get(url)
       .then((response) => {
-        dispatch(searchSuccess(response));
+        dispatch(searchSuccess(response.data.results));
       })
       .catch((error) => {
         dispatch(searchFail(error));
