@@ -93,8 +93,6 @@ class Search extends Component {
     }
   }
 
-  // Make redux update functions for onChange of redux handled form elements
-
   render() {
     const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, updateReduxHandledFormElement } = this.props;
 
