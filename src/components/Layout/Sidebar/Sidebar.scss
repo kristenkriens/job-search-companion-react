@@ -10,6 +10,7 @@
   height: 100%;
   padding-bottom: 60px;
   position: fixed;
+  overflow-y: overlay;
 
   @media (max-width: 650px) {
     background: linear-gradient(to bottom, $blue 0%, $blurple 100%);
