@@ -22,46 +22,46 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, location, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated, location, history, toggleAndSetActiveModal } = this.props;
 
     let routes = (
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} pathname={location.pathname} />}
         />
         <Route
           path="/find/results"
-          render={() => <Content component={<Results isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Results isAuthenticated={isAuthenticated} />} pathname={location.pathname} />}
         />
         <Route
           path="/find/listing/:id"
-          render={() => <Content component={<Listing isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Listing isAuthenticated={isAuthenticated} />} pathname={location.pathname} />}
         />
         <Route
           path="/track/overview"
-          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
+          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} pathname={location.pathname} />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
+          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} pathname={location.pathname} />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
+          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} pathname={location.pathname} />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
+          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} pathname={location.pathname} />}
         />
         <Route
           path="/analyze/correspondence"
-          render={() => <Content component={<Correspondence isAuthenticated={isAuthenticated} />} location={location} />}
+          render={() => <Content component={<Correspondence isAuthenticated={isAuthenticated} />} pathname={location.pathname} />}
         />
         <Route
           path="/"
           exact
-          render={() => <Content component={<Home isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} location={location} />}
+          render={() => <Content component={<Home isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} pathname={location.pathname} />}
         />
         <Redirect to="/" />
       </Switch>

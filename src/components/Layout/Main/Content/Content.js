@@ -7,7 +7,7 @@ import * as actions from '../../../../store/actions/index';
 
 class Content extends Component {
   componentDidMount = () => {
-    const group = this.props.location.pathname.split('/')[1];
+    const group = this.props.pathname.split('/')[1];
     this.props.handleSidebarNavGroupItemLoaded(group);
 
     this.props.getSetBreadcrumb(this.props.sidebarNav);
@@ -18,13 +18,13 @@ class Content extends Component {
   }
 
   render() {
-    const { component, location } = this.props;
+    const { component, pathname } = this.props;
 
     return (
       <div className="content">
         <TransitionGroup>
           <CSSTransition
-            key={location.pathname}
+            key={pathname}
             classNames="content-inner"
             timeout={{
               enter: 1000,
