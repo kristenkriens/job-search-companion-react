@@ -60,7 +60,7 @@ class Search extends Component {
           type: 'number',
           placeholder: 'e.g. 10',
         },
-        label: 'Search Radius (km)',
+        label: 'Search Radius',
         value: '',
       },
       jobType: {
