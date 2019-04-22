@@ -2,13 +2,11 @@
 
 .main {
   min-height: 100vh;
-  width: calc(100% - 250px);
+  padding-left: 250px;
+  width: 100%;
 
   @media (max-width: 650px) {
     min-height: auto;
-  }
-
-  @media (max-width: 650px) {
-    width: 100%;
+    padding-left: 0;
   }
 }

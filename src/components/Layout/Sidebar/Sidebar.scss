@@ -7,13 +7,17 @@
   background-position: bottom center, center center;
   color: $white;
   width: 250px;
+  height: 100%;
   padding-bottom: 60px;
+  position: fixed;
 
   @media (max-width: 650px) {
     background: linear-gradient(to bottom, $blue 0%, $blurple 100%);
     background-position: center center;
     width: 100%;
+    height: auto;
     padding-bottom: 0;
+    position: static;
   }
 
   a, button {
