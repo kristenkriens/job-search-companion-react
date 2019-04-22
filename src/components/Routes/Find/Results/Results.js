@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class MapView extends Component {
+class Results extends Component {
   render() {
     const { isAuthenticated } = this.props;
 
@@ -12,4 +12,4 @@ class MapView extends Component {
   }
 }
 
-export default MapView;
+export default Results;

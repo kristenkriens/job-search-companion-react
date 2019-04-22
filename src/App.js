@@ -6,8 +6,7 @@ import Content from './components/Layout/Main/Content/Content';
 import Layout from './components/Layout/Layout';
 import Home from './components/Routes/Home/Home';
 import Search from './components/Routes/Find/Search/Search';
-import MapView from './components/Routes/Find/MapView/MapView';
-import ListView from './components/Routes/Find/ListView/ListView';
+import Results from './components/Routes/Find/Results/Results';
 import Listing from './components/Routes/Find/Listing/Listing';
 import Overview from './components/Routes/Track/Overview/Overview';
 import FollowUps from './components/Routes/Track/FollowUps/FollowUps';
@@ -32,12 +31,8 @@ class App extends Component {
           render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
-          path="/find/map-view"
-          render={() => <Content component={<MapView isAuthenticated={isAuthenticated} />} location={location} />}
-        />
-        <Route
-          path="/find/list-view"
-          render={() => <Content component={<ListView isAuthenticated={isAuthenticated} />} location={location} />}
+          path="/find/results"
+          render={() => <Content component={<Results isAuthenticated={isAuthenticated} />} location={location} />}
         />
         <Route
           path="/find/listing/:id"

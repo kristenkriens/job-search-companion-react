@@ -12,8 +12,7 @@ const initialState = {
       },
       secondaryItems: [
         { title: 'Search', link: '/find/search', exact: false },
-        { title: 'Map View', link: '/find/map-view', exact: false },
-        { title: 'List View', link: '/find/list-view', exact: false }
+        { title: 'Results', link: '/find/results', exact: false }
       ]
     },
     {
