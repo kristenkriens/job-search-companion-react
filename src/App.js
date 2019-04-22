@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Content from './components/Layout/Main/Content/Content';
 import Layout from './components/Layout/Layout';
 import Home from './components/Routes/Home/Home';
 import Search from './components/Routes/Find/Search/Search';
