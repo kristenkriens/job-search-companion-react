@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Main.scss';
 import Topbar from './Topbar/Topbar';
+import Content from './Content/Content';
 
 const Main = (props) => {
   const { routes, breadcrumb } = props;
@@ -9,7 +10,9 @@ const Main = (props) => {
   return (
     <main id="main" className="main">
       <Topbar breadcrumb={breadcrumb} />
-      {routes}
+      <Content>
+        {routes}
+      </Content>
     </main>
   )
 }

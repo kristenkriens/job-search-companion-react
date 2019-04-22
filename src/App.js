@@ -28,40 +28,40 @@ class App extends Component {
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Content component={<Search isAuthenticated={isAuthenticated} />} />}
+          render={() => <Search isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/find/results"
-          render={() => <Content component={<Results isAuthenticated={isAuthenticated} />} />}
+          render={() => <Results isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/find/listing/:id"
-          render={() => <Content component={<Listing isAuthenticated={isAuthenticated} />} />}
+          render={() => <Listing isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/track/overview"
-          render={() => <Content component={<Overview isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} />}
+          render={() => <Overview isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <Content component={<FollowUps isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} />}
+          render={() => <FollowUps isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Content component={<Interviews isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} />}
+          render={() => <Interviews isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Content component={<Applications isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} />}
+          render={() => <Applications isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
         />
         <Route
           path="/analyze/correspondence"
-          render={() => <Content component={<Correspondence isAuthenticated={isAuthenticated} />} />}
+          render={() => <Correspondence isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/"
           exact
-          render={() => <Content component={<Home isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />} />}
+          render={() => <Home isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
         />
         <Redirect to="/" />
       </Switch>

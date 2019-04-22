@@ -10,15 +10,15 @@ class Content extends Component {
     const group = this.props.pathname.split('/')[1];
     this.props.handleSidebarNavGroupItemLoaded(group);
 
-    this.props.getSetBreadcrumb(this.props.sidebarNav);
+    this.props.getSetBreadcrumb(this.props.sidebarNav, this.props.pathname);
   }
 
   componentDidUpdate = () => {
-    this.props.getSetBreadcrumb(this.props.sidebarNav);
+    this.props.getSetBreadcrumb(this.props.sidebarNav, this.props.pathname);
   }
 
   render() {
-    const { component, pathname } = this.props;
+    const { children, pathname } = this.props;
 
     return (
       <div className="content">
@@ -32,7 +32,7 @@ class Content extends Component {
             }}
           >
             <div className="content-inner">
-              {component}
+              {children}
             </div>
           </CSSTransition>
         </TransitionGroup>
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleSidebarNavGroupItemLoaded: (sidebarNavGroup) => dispatch(actions.changeOpenSidebarNavGroup(sidebarNavGroup)),
-    getSetBreadcrumb: (sidebarNav) => dispatch(actions.getSetBreadcrumb(sidebarNav))
+    getSetBreadcrumb: (sidebarNav, pathname) => dispatch(actions.getSetBreadcrumb(sidebarNav, pathname))
   }
 }
 

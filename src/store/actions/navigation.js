@@ -7,9 +7,8 @@ export const changeOpenSidebarNavGroup = (sidebarNavGroup) => {
   }
 };
 
-export const getSetBreadcrumb = (sidebarNav) => {
-  const path = window.location.pathname.replace('/job-search-companion-react', '');
-  const pathItems = path.split('/');
+export const getSetBreadcrumb = (sidebarNav, pathname) => {
+  const pathItems = pathname.split('/');
 
   let breadcrumb = {};
   sidebarNav.forEach((sidebarNavItem) => {
@@ -17,7 +16,7 @@ export const getSetBreadcrumb = (sidebarNav) => {
       breadcrumb.group = sidebarNavItem.primaryItem.title;
 
       sidebarNavItem.secondaryItems.forEach((secondarySidebarNavItem) => {
-        if(secondarySidebarNavItem.link === path) {
+        if(secondarySidebarNavItem.link === pathname) {
           breadcrumb.current = secondarySidebarNavItem.title;
         }
       });
