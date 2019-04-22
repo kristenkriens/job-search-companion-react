@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Results extends Component {
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, results } = this.props;
+
+    console.log(results);
 
     return (
       <>
@@ -12,4 +15,10 @@ class Results extends Component {
   }
 }
 
-export default Results;
+const mapStateToProps = (state) => {
+  return {
+    results: state.search.results
+  }
+}
+
+export default connect(mapStateToProps)(Results);
