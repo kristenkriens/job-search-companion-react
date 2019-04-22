@@ -3,7 +3,8 @@ import { updateObject } from '../../shared/utilities';
 
 const initialState = {
   error: null,
-  loading: false
+  loading: false,
+  results: null
 }
 
 const searchStart = (state, action) => {
@@ -18,7 +19,8 @@ const searchStart = (state, action) => {
 const searchSuccess = (state, action) => {
   const updatedState = {
     error: null,
-    loading: false
+    loading: false,
+    results: action.results
   };
 
   return updateObject(state, updatedState);

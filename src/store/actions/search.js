@@ -10,9 +10,10 @@ export const searchStart = () => {
   }
 };
 
-export const searchSuccess = () => {
+export const searchSuccess = (results) => {
   return {
-    type: actionTypes.SEARCH_SUCCESS
+    type: actionTypes.SEARCH_SUCCESS,
+    results: results
   }
 };
 
