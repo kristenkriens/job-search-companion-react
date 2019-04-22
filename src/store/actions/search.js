@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 import { turnSpacesIntoPlusses } from '../../shared/utilities';
+import { history } from '../reducers/index';
 
 
 export const searchStart = () => {
@@ -35,6 +36,7 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
     axios.get(url)
       .then((response) => {
         dispatch(searchSuccess(response.data.results));
+        history.push('/find/results');
       })
       .catch((error) => {
         dispatch(searchFail(error));

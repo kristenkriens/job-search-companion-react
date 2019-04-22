@@ -22,4 +22,4 @@ export const rootReducer = combineReducers({
   user: userReducer,
   geolocate: geolocateReducer,
   search: searchReducer
-})
+});
