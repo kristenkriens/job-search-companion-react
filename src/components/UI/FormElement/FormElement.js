@@ -7,17 +7,22 @@ import { normalizeErrorString } from '../../../shared/utilities';
 const FormElement = (props) => {
   const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, handledByRedux, updateReduxHandledFormElement, changed } = props;
 
+  let onChange = changed;
+  if(handledByRedux) {
+    onChange = updateReduxHandledFormElement;
+  }
+
   let formElement = null;
   switch(elementType) {
     case ('input'):
-      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={handledByRedux ? updateReduxHandledFormElement : changed} />;
+      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={onChange} />;
       break;
     case ('textarea'):
-      formElement = <textarea id={id} {...elementConfig} value={value} onChange={changed} />;
+      formElement = <textarea id={id} {...elementConfig} value={value} onChange={onChange} />;
       break;
     case ('select'):
       formElement = (
-        <select id={id} value={country ? country : value} onChange={handledByRedux ? updateReduxHandledFormElement : changed}>
+        <select id={id} value={country ? country : value} onChange={onChange}>
           {elementConfig.options.map((option) => {
             return (
               <option key={option.value} value={option.value} disabled={option.disabled}>
@@ -34,7 +39,7 @@ const FormElement = (props) => {
           {elementConfig.choices.map((choice) => {
             return (
               <li key={choice.value}>
-                <input type="radio" id={choice.value} value={choice.value} name={id} className="accessible" checked={choice.value === value} onChange={changed} />
+                <input type="radio" id={choice.value} value={choice.value} name={id} className="accessible" checked={choice.value === value} onChange={onChange} />
                 <label htmlFor={choice.value}>{choice.label}</label>
               </li>
             )
