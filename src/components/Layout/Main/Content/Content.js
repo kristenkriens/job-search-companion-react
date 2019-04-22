@@ -43,7 +43,8 @@ class Content extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    sidebarNav: state.navigation.sidebarNav
+    sidebarNav: state.navigation.sidebarNav,
+    pathname: state.router.location.pathname
   }
 }
 
