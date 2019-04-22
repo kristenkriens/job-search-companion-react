@@ -20,6 +20,8 @@ class Content extends Component {
   render() {
     const { children, pathname } = this.props;
 
+    const componentName = pathname.split('/')[2];
+
     return (
       <div className="content">
         <TransitionGroup>
@@ -31,7 +33,7 @@ class Content extends Component {
               exit: 0
             }}
           >
-            <div className="content-inner">
+            <div className={`content-inner content-inner--${componentName}`}>
               {children}
             </div>
           </CSSTransition>
