@@ -29,7 +29,7 @@ class Content extends Component {
             key={pathname}
             classNames="content-inner"
             timeout={{
-              enter: 1000,
+              enter: 750,
               exit: 0
             }}
           >
