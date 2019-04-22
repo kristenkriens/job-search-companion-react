@@ -62,11 +62,11 @@ export const geolocateGeocode = (lat, lng) => {
 
     axios.get(url)
       .then((response) => {
-        const country = response.data.features[1].place_name;
-        const countryCode = response.data.features[1].properties.short_code;
-        const location = response.data.features[0].place_name.replace(`, ${country}`, '');
+        const countryFull = response.data.features[1].place_name;
+        const country = response.data.features[1].properties.short_code;
+        const location = response.data.features[0].place_name.replace(`, ${countryFull}`, '');
 
-        dispatch(geolocateGeocodeSuccess(location, countryCode));
+        dispatch(geolocateGeocodeSuccess(location, country));
       })
       .catch((error) => {
         dispatch(geolocateGeocodeFail(error));
