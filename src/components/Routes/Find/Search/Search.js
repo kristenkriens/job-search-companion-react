@@ -93,6 +93,18 @@ class Search extends Component {
     }
   }
 
+  componentDidUpdate = () => {
+    const { location, country } = this.props;
+
+    if(this.state.form.location.value !== location) {
+      forms.formElementChangedNoEvent(this, 'location', location);
+    }
+
+    if(this.state.form.country.value !== country) {
+      forms.formElementChangedNoEvent(this, 'country', country);
+    }
+  }
+
   render() {
     const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, updateReduxHandledFormElement } = this.props;
 
@@ -117,10 +129,7 @@ class Search extends Component {
                 location={location}
                 country={country}
                 handledByRedux={formElement.config.handledByRedux}
-                updateReduxHandledFormElement={(event) => {
-                  updateReduxHandledFormElement(formElement.id, event.target.value);
-                  forms.formElementChanged(this, event, formElement.id);
-                }}
+                updateReduxHandledFormElement={(event) => updateReduxHandledFormElement(formElement.id, event.target.value)}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
