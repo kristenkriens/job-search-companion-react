@@ -3,7 +3,7 @@ import { updateObject } from '../../shared/utilities';
 
 const initialState = {
   location: '',
-  country: ''
+  country: 'ca'
 }
 
 const updateReduxHandledFormElement = (state, action) => {
