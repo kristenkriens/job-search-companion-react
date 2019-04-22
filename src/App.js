@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, location, history, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated, location, toggleAndSetActiveModal } = this.props;
 
     let routes = (
       <Switch>
