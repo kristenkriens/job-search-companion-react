@@ -31,6 +31,8 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
 
     const url = `http://api.indeed.com/ads/apisearch?publisher=${apiKey}`;
 
+    // http://api.indeed.com/ads/apisearch?publisher=1211867702868069&latlong=1&co=ca&format=json&userip=99.245.198.187&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
+
     const searchData = {
       v: 2,
       userip: userIp,
@@ -39,15 +41,13 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
       q: turnSpacesIntoPlusses(query),
       l: turnSpacesIntoPlusses(location),
       radius: radius,
-      jt: jobType !== 'nopreference' ? jobType : undefined,
+      jt: jobType === 'nopreference' ? undefined : jobType,
       limit: 25,
       fromage: age,
       highlight: 1,
       latlong: 1,
       co: country
     }
-
-    // http://api.indeed.com/ads/apisearch?publisher=1211867702868069&latlong=1&co=ca&format=json&userip=99.245.198.187&useragent=Mozilla/%2F4.0%28Firefox%29&v=2
 
     axios.get(url, searchData)
       .then((response) => {
