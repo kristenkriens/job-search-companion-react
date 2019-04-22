@@ -33,7 +33,7 @@ class Content extends Component {
               exit: 0
             }}
           >
-            <div className={`content-inner content-inner--${componentName}`}>
+            <div className={`content-inner content-inner--${componentName !== undefined ? componentName : 'home'}`}>
               {children}
             </div>
           </CSSTransition>
