@@ -65,7 +65,9 @@ class Register extends Component {
               />
             )
           })}
-          <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+          <div class="form__footer form__footer--center">
+            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+          </div>
         </form>
         <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
       </>

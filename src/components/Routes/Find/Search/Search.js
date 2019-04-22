@@ -134,11 +134,15 @@ class Search extends Component {
               />
             )
           })}
-          <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
+          <div class="form__footer">
+            <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
+            {isAuthenticated && (
+              <button className="form__save">Save Search</button>
+            )}
+          </div>
         </form>
         {isAuthenticated && (
           <>
-            <p className="form__save">Save Search</p>
             <div className="saved-searches">
               <h2>Saved Searches</h2>
               <p>You don't have any saved searches.</p>

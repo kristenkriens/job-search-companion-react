@@ -4,19 +4,21 @@
   justify-content: space-between;
   align-items: flex-end;
 
-  button[type="submit"] {
+  &__footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
     margin-top: 10px;
+
+    &--center {
+      justify-content: center;
+    }
   }
 
   &__save {
-    position: relative;
-    top: -33px;
-    left: 140px;
+    padding-left: 20px;
     font-weight: 400;
-    width: 90px;
     text-decoration: underline;
-    transition: 200ms color ease;
-    cursor: pointer;
 
     &:hover {
       color: $blurple;
