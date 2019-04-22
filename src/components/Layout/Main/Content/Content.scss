@@ -4,8 +4,17 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 90px 30px 30px;
 
-  &, &-inner {
+  @media (max-width: 650px) {
+    padding: 30px;
+  }
+
+  @media (max-width: $sm-width) {
+    padding: 20px;
+  }
+
+  &-inner {
     padding: 30px;
 
     @media (max-width: $sm-width) {

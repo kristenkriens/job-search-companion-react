@@ -8,8 +8,16 @@
   font-weight: 400;
   box-shadow: 0 0 5px 0 rgba($grey, 0.5);
   overflow: hidden;
+  position: fixed;
   height: 60px;
+  width: calc(100% - 250px);
   padding: 20px 30px;
+  z-index: 100;
+
+  @media (max-width: 650px) {
+    width: auto;
+    position: static;
+  }
 
   @media (max-width: $sm-width) {
     padding: 20px;
