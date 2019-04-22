@@ -7,7 +7,9 @@ const Button = (props) => {
 
   return (
     <button className={`button ${additionalClasses ? additionalClasses : ''}`} type={type} disabled={disabled} onClick={click}>
-      {children}
+      <span>
+        {children}
+      </span>
       {loading && (
         <>
           <i className="fa fa-spinner fa-pulse fa-fw"></i>
