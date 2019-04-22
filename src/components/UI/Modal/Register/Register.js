@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
+import LinkButton from '../../Button/LinkButton/LinkButton';
 
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
@@ -69,7 +70,7 @@ class Register extends Component {
             <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
           </div>
         </form>
-        <button className="modal__link" onClick={() => setActiveModal('login')}>Already have an account? Log In</button>
+        <LinkButton additionalClasses="modal__link" click={() => setActiveModal('login')}>Already have an account? Log In</LinkButton>
       </>
     )
   }

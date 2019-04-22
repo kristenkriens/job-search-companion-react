@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
+import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
 import { countries } from '../../../../shared/countries';
 import * as forms from '../../../../shared/forms';
@@ -137,7 +138,7 @@ class Search extends Component {
           <div class="form__footer">
             <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
             {isAuthenticated && (
-              <button className="form__save">Save Search</button>
+              <LinkButton additionalClasses="form__save">Save Search</LinkButton>
             )}
           </div>
         </form>

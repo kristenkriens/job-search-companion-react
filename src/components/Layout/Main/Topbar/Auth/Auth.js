@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../../../../store/actions/index';
+import LinkButton from '../.././../../UI/Button/LinkButton/LinkButton';
 
 class Auth extends Component {
   render() {
@@ -10,9 +11,9 @@ class Auth extends Component {
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
-          <div>Welcome! <button className="underline" onClick={logout}>(Logout)</button></div>
+          <div>Welcome! <LinkButton click={logout}>(Logout)</LinkButton></div>
         ) : (
-          <button onClick={() => toggleAndSetActiveModal('login')}>Log In / Create Account</button>
+          <LinkButton click={() => toggleAndSetActiveModal('login')}>Log In / Create Account</LinkButton>
         )}
       </div>
     )
