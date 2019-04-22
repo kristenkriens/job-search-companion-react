@@ -5,7 +5,6 @@ import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 
 import { countries } from '../../../../shared/countries';
-import { updateObject } from '../../../../shared/utilities';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
@@ -41,7 +40,7 @@ class Search extends Component {
           options: countries
         },
         label: 'Country',
-        value: this.props.countryCode,
+        value: this.props.country,
         handledByRedux: true
       },
       age: {
@@ -97,7 +96,7 @@ class Search extends Component {
   // Make redux update functions for onChange of redux handled form elements
 
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, updateReduxHandledFormElement } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -118,7 +117,12 @@ class Search extends Component {
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => forms.geolocateClick(this, event)}
                 location={location}
+                country={country}
                 handledByRedux={formElement.config.handledByRedux}
+                updateReduxHandledFormElement={(event) => {
+                  updateReduxHandledFormElement(formElement.id, event.target.value);
+                  forms.formElementChanged(this, event, formElement.id);
+                }}
                 changed={(event) => forms.formElementChanged(this, event, formElement.id)}
               />
             )
@@ -144,8 +148,8 @@ const mapStateToProps = (state) => {
     userIp: state.user.userIp,
     userAgent: state.user.userAgent,
     geolocateLoading: state.geolocate.loading,
-    location: state.geolocate.location,
-    countryCode: state.geolocate.countryCode,
+    location: state.general.location,
+    country: state.general.country,
     loading: state.search.loading
   }
 }
@@ -155,6 +159,7 @@ const mapDispatchToProps = (dispatch) => {
     getUserIp: () => dispatch(actions.getUserIp()),
     getUserAgent: () => dispatch(actions.getUserAgent()),
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
+    updateReduxHandledFormElement: (formElementName, value) => dispatch(actions.updateReduxHandledFormElement(formElementName, value)),
     search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age))
   }
 }

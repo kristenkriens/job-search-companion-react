@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
+import { updateReduxHandledFormElement } from './general';
 
 export const geolocateLatLngStart = () => {
   return {
@@ -36,11 +37,11 @@ export const geolocateGeocodeStart = () => {
   }
 };
 
-export const geolocateGeocodeSuccess = (location, countryCode) => {
-  return {
-    type: actionTypes.GEOLOCATE_GEOCODE_SUCCESS,
-    location: location,
-    countryCode: countryCode
+export const geolocateGeocodeSuccess = (location, country) => {
+  return (dispatch) => {
+    // Why don't these work?
+    dispatch(updateReduxHandledFormElement(location));
+    dispatch(updateReduxHandledFormElement(country));
   }
 };
 

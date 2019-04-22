@@ -29,3 +29,7 @@ export {
 export {
   search
 } from './search';
+
+export {
+  updateReduxHandledFormElement
+} from './general';

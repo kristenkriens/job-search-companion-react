@@ -5,21 +5,19 @@ import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, handledByRedux, changed } = props;
-
-  console.log(handledByRedux);
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, handledByRedux, updateReduxHandledFormElement, changed } = props;
 
   let formElement = null;
   switch(elementType) {
     case ('input'):
-      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={changed} />;
+      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={handledByRedux ? updateReduxHandledFormElement : changed} />;
       break;
     case ('textarea'):
       formElement = <textarea id={id} {...elementConfig} value={value} onChange={changed} />;
       break;
     case ('select'):
       formElement = (
-        <select id={id} value={value} onChange={changed}>
+        <select id={id} value={country ? country : value} onChange={handledByRedux ? updateReduxHandledFormElement : changed}>
           {elementConfig.options.map((option) => {
             return (
               <option key={option.value} value={option.value} disabled={option.disabled}>

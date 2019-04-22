@@ -14,6 +14,7 @@ import modalReducer from './store/reducers/modal';
 import userReducer from './store/reducers/user';
 import geolocateReducer from './store/reducers/geolocate';
 import searchReducer from './store/reducers/search';
+import generalReducer from './store/reducers/general';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   user: userReducer,
   geolocate: geolocateReducer,
-  search: searchReducer
+  search: searchReducer,
+  general: generalReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(
