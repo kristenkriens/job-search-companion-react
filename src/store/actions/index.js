@@ -13,7 +13,8 @@ export {
 export {
   toggleModal,
   setActiveModal,
-  toggleAndSetActiveModal
+  toggleAndSetActiveModal,
+  toggleAndSetErrorMessage
 } from './modal';
 
 export {
