@@ -1,0 +1,30 @@
+@import '../../../../../shared/styles/variables';
+
+.topbar__breadcrumb {
+  padding-right: 10px;
+
+  @media (max-width: $sm-width) {
+    display: none;
+  }
+
+  &-group {
+    position: relative;
+    margin-right: 35px;
+
+    &:after {
+      cursor: auto;
+      position: absolute;
+      right: -20px;
+      content: '\f105';
+      font-family: 'FontAwesome';
+    }
+
+    @media (max-width: $md-width) {
+      display: none;
+    }
+  }
+
+  &-current {
+    font-weight: 500;
+  }
+}

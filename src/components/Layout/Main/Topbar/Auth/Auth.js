@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import './Auth.scss';
+
 import * as actions from '../../../../../store/actions/index';
 import LinkButton from '../.././../../UI/Button/LinkButton/LinkButton';
 

@@ -28,11 +28,8 @@
     background-color: $white;
     box-shadow: 0 0 5px 0 rgba($grey, 0.5);
     min-height: calc(100vh - 120px);
+    position: relative;
     transition: opacity 750ms ease-in-out, transform 750ms ease-in-out;
-
-    @media (max-width: 650px) {
-      position: static;
-    }
 
     &-enter {
       opacity: 0;
@@ -56,9 +53,8 @@
       text-align: center;
     }
 
-    h2, .h3 {
-      width: 100%;
-      text-align: center;
+    &--results {
+      padding-bottom: 75px;
     }
   }
 }

@@ -1,6 +1,7 @@
 @import '../../../shared/styles/variables';
 
 .button {
+	display: inline-block;
 	background-color: $grey-blue;
 	color: $white;
 	border: none;

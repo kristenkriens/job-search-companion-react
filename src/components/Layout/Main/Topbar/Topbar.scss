@@ -22,45 +22,4 @@
   @media (max-width: $sm-width) {
     padding: 20px;
   }
-
-  &__breadcrumb {
-    padding-right: 10px;
-
-    @media (max-width: $sm-width) {
-      display: none;
-    }
-
-    &-group {
-      position: relative;
-      margin-right: 25px;
-
-      &:after {
-        cursor: auto;
-        position: absolute;
-        right: -15px;
-        top: 10px;
-        content: '\f111';
-        font-family: 'FontAwesome';
-        font-size: 5px;
-      }
-
-      @media (max-width: $md-width) {
-        display: none;
-      }
-    }
-
-    &-current {
-      font-weight: 500;
-    }
-  }
-
-  &__auth {
-    padding-left: 10px;
-
-    @media (max-width: $sm-width) {
-      text-align: center;
-      width: 100%;
-      padding: 0;
-    }
-  }
 }

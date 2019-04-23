@@ -9,19 +9,23 @@ button {
 }
 
 a {
-  color: $grey-blue;
-  text-decoration: underline;
-  transition: 200ms opacity ease, 200ms color ease;
+  text-decoration: none;
+  transition: 200ms all ease, 200ms color ease;
 
-  &:hover, &:active, &:focus {
-    color: $blurple;
+  &:not(.button) {
+    color: $grey-blue;
+    text-decoration: underline;
+
+    &:hover, &:active, &:focus {
+      color: $blurple;
+    }
   }
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   font-family: $heading-font;
   font-weight: 400;
-  margin: 0 0 10px;
+  margin: 0;
   text-transform: uppercase;
 
   & + button.button {
@@ -31,13 +35,24 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
 h1, .h1 {
   font-size: 32px;
-  margin-bottom: 0;
+  text-align: center;
 }
 
-h2, .h1, h3, .h3 {
+h2, .h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h3, .h3 {
   font-size: 24px;
+  margin-bottom: 10px;
 }
 
 p {
   margin: 0 0 20px;
+
+  b {
+    font-weight: 400;
+  }
 }

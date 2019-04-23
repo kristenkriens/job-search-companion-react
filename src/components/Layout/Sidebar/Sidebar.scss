@@ -28,11 +28,14 @@
     width: 100%;
     color: $white;
     opacity: 1;
+
+    &:hover, &:active, &:focus {
+      color: $white;
+    }
   }
 
   h1 {
     padding: 20px;
-    text-align: center;
   }
 
   ul {
@@ -80,12 +83,16 @@
       padding: 10px 20px 10px 50px;
       transition: 200ms background-color ease;
 
-      &:hover {
+      &:hover, &:active, &:focus {
         background-color: darken($blue-blurple, 2%);
       }
 
       &--active {
         background-color: $dark-blue-blurple;
+
+        &:hover, &:active, &:focus {
+          background-color: $dark-blue-blurple;
+        }
       }
     }
   }

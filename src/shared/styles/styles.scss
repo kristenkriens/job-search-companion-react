@@ -3,14 +3,11 @@
 @import './fontawesome';
 @import './fonts';
 @import './utilities';
+@import './miscellaneous';
 @import './animations';
 @import './typography';
 @import './forms';
-
-
-// TODO
-@import './components/other';
-@import './components/table';
+@import './tables';
 
 
 html, body {

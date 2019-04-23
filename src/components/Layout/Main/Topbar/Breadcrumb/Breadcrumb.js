@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Breadcrumb.scss';
+
 const Breadcrumb = (props) => {
   const { breadcrumb } = props;
 
