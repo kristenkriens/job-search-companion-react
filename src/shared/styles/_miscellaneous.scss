@@ -3,6 +3,7 @@
 	left: 30px;
 	bottom: 30px;
 	width: calc(100% - 60px);
+	text-align: center;
 
 	@media (max-width: $sm-width) {
 		left: 20px;
@@ -12,10 +13,6 @@
 
 .saved-searches {
   margin-top: 40px;
-
-  h3 {
-    text-align: left;
-  }
 }
 
 .applications-chart {
