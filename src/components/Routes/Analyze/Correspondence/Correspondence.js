@@ -11,7 +11,7 @@ class Correspondence extends Component {
             <label htmlFor="correspondence">Please enter the text you would like to analyze below:</label>
             <textarea id="correspondence"></textarea>
           </div>
-          <div class="form__footer">
+          <div className="form__footer">
             <Button type="submit">Analyze</Button>
           </div>
         </form>

@@ -135,7 +135,7 @@ class Search extends Component {
               />
             )
           })}
-          <div class="form__footer">
+          <div className="form__footer">
             <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
             {isAuthenticated && (
               <LinkButton additionalClasses="form__save">Save Search</LinkButton>

@@ -65,7 +65,7 @@ class Login extends Component {
               />
             )
           })}
-          <div class="form__footer form__footer--center">
+          <div className="form__footer form__footer--center">
             <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
           </div>
         </form>
