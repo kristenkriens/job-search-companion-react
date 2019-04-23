@@ -9,7 +9,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin-top: 10px;
     margin: 0 -10px -10px;
 
     button, .button {
@@ -17,10 +16,6 @@
     }
 
     @media (max-width: $sm-width) {
-      justify-content: center;
-    }
-
-    &--center {
       justify-content: center;
     }
   }

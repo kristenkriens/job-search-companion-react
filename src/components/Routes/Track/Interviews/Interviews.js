@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '../../../UI/Button/Button';
+import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
 class Interviews extends Component {
   render() {
@@ -43,7 +44,7 @@ class Interviews extends Component {
             <div className="table__delete"><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
             <div className="button-wrapper">
               <Button>Add New</Button>
-              <Button>Save</Button>
+              <LinkButton>Save</LinkButton>
             </div>
           </>
         ) : (
