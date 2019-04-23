@@ -31,10 +31,10 @@
 }
 
 .button-wrapper {
-  margin: -5px;
+  margin: -10px;
 
-  .button {
-    margin: 5px;
+  button, .button {
+    margin: 10px;
   }
 
   @media (max-width: $sm-width) {

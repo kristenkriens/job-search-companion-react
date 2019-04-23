@@ -7,15 +7,25 @@
   &__footer {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-top: 10px;
+    margin: 0 -10px -10px;
+
+    button, .button {
+      margin: 10px;
+    }
+
+    @media (max-width: $sm-width) {
+      justify-content: center;
+    }
 
     &--center {
       justify-content: center;
     }
   }
 
-  &__save {
+  &__link {
     padding-left: 20px;
   }
 
