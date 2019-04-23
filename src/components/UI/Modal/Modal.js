@@ -4,20 +4,24 @@ import { CSSTransition } from 'react-transition-group';
 import './Modal.scss';
 import Login from './Login/Login';
 import Register from './Register/Register';
+import Error from './Error/Error';
 import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { isModalOpen, activeModal, toggleModal, setActiveModal, clearAuthError } = props;
+  const { isModalOpen, activeModal, errorMessage, toggleModal, setActiveModal, clearAuthError } = props;
 
-  const toggleModalAndClearAuthError = () => {
-    clearAuthError();
+  const click = () => {
     toggleModal();
+
+    if(activeModal === 'login' || activeModal === 'register') {
+      clearAuthError();
+    }
   }
 
   return (
     <>
-      <Backdrop isModalOpen={isModalOpen} close={toggleModalAndClearAuthError} />
+      <Backdrop isModalOpen={isModalOpen} close={click} />
       <CSSTransition
         in={isModalOpen}
         timeout={500}
@@ -25,13 +29,16 @@ const Modal = (props) => {
         unmountOnExit
       >
         <div className="modal">
-          <Button additionalClasses="modal__close" click={toggleModalAndClearAuthError}><i className="fa fa-times" aria-hidden="true"></i></Button>
+          <Button additionalClasses="modal__close" click={click}><i className="fa fa-times" aria-hidden="true"></i></Button>
           <div className="modal__content">
             {activeModal === 'login' && (
               <Login setActiveModal={setActiveModal} />
             )}
             {activeModal === 'register' && (
               <Register setActiveModal={setActiveModal} />
+            )}
+            {activeModal === 'error' && (
+              <Error errorMessage={errorMessage} />
             )}
           </div>
         </div>

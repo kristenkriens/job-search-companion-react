@@ -15,7 +15,21 @@ export const setActiveModal = (activeModal) => {
 
 export const toggleAndSetActiveModal = (activeModal) => {
   return (dispatch) => {
-    dispatch(toggleModal());
     dispatch(setActiveModal(activeModal));
+    dispatch(toggleModal());
+  }
+};
+
+export const setErrorMessage = (errorMessage) => {
+  return {
+    type: actionTypes.SET_ACTIVE_MODAL,
+    errorMessage: errorMessage
+  }
+};
+
+export const toggleAndSetErrorMessage = (errorMessage) => {
+  return (dispatch) => {
+    dispatch(setErrorMessage(errorMessage));
+    dispatch(toggleModal());
   }
 };
