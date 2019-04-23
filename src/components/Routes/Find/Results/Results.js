@@ -10,7 +10,7 @@ class Results extends Component {
         {results ? (
           <pre>{JSON.stringify(results)}</pre>
         ) : (
-          <h3>Please fill out the search form first!</h3>
+          <div className="h3">Please fill out the search form first!</div>
         )}
       </>
     )

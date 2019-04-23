@@ -4,7 +4,7 @@ button.link {
 	color: $grey-blue;
 	text-decoration: underline;
 
-  &:hover {
-    color: $blue-blurple;
+	&:hover, &:active, &:focus {
+    color: $blurple;
   }
 }

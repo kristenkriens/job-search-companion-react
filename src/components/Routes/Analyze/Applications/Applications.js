@@ -12,7 +12,7 @@ class Applications extends Component {
           <div id="applications-chart" className="applications-chart"></div>
         ) : (
           <>
-            <h3>You need to be logged in to view this page!</h3>
+            <div className="h3">You need to be logged in to view this page!</div>
             <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
           </>
         )}

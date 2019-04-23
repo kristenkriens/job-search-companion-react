@@ -8,7 +8,7 @@ class Home extends Component {
 
     return (
       <>
-        <h3>Job Search Companion</h3>
+        <h2>Job Search Companion</h2>
         {isAuthenticated ? (
           <p>Click on the items in the navigation to get started!</p>
         ) : (

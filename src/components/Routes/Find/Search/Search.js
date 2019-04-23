@@ -145,7 +145,7 @@ class Search extends Component {
         {isAuthenticated && (
           <>
             <div className="saved-searches">
-              <h2>Saved Searches</h2>
+              <h3>Saved Searches</h3>
               <p>You don't have any saved searches.</p>
             </div>
           </>

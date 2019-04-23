@@ -1,5 +1,4 @@
 button {
-  color: $grey-blue;
   text-align: left;
   background-color: transparent;
   border: none;
@@ -10,27 +9,32 @@ button {
 }
 
 a {
-  color: $blurple;
-  text-decoration: none;
+  color: $grey-blue;
+  text-decoration: underline;
   transition: 200ms opacity ease, 200ms color ease;
 
-  &:hover {
-    opacity: 0.7;
+  &:hover, &:active, &:focus {
+    color: $blurple;
   }
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   font-family: $heading-font;
   font-weight: 400;
-  margin: 0;
+  margin: 0 0 10px;
   text-transform: uppercase;
+
+  & + button.button {
+    margin-top: 10px;
+  }
 }
 
-h1 {
+h1, .h1 {
   font-size: 32px;
+  margin-bottom: 0;
 }
 
-h2, h3 {
+h2, .h1, h3, .h3 {
   font-size: 24px;
 }
 
