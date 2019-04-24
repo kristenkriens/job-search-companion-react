@@ -19,10 +19,11 @@ export const searchStart = () => {
   }
 };
 
-export const searchSuccess = (results) => {
+export const searchSuccess = (data) => {
   return {
     type: actionTypes.SEARCH_SUCCESS,
-    results: results
+    results: data.results,
+    totalResults: data.totalResults
   }
 };
 
@@ -43,7 +44,7 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
 
     axios.get(url)
       .then((response) => {
-        dispatch(searchSuccess(response.data.results));
+        dispatch(searchSuccess(response.data));
         history.push('/find/results');
       })
       .catch((error) => {

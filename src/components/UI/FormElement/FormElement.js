@@ -65,7 +65,7 @@ const FormElement = (props) => {
   let moreInfoMarker = '';
   if(moreInfo) {
     moreInfoMarker = (
-      <i class="fa fa-question-circle" onClick={() => toggleAndSetActiveModalAndMessage('general', moreInfo)}></i>
+      <i className="fa fa-question-circle" onClick={() => toggleAndSetActiveModalAndMessage('general', moreInfo)}></i>
     )
   }
 

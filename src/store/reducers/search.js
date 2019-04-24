@@ -10,7 +10,8 @@ const initialState = {
   jobType: 'nopreference',
   error: null,
   loading: false,
-  results: null
+  results: null,
+  totalResults: 0
 }
 
 const searchFormUpdateElement = (state, action) => {
@@ -34,7 +35,8 @@ const searchSuccess = (state, action) => {
   const updatedState = {
     error: null,
     loading: false,
-    results: action.results
+    results: action.results,
+    totalResults: action.totalResults
   };
 
   return updateObject(state, updatedState);
