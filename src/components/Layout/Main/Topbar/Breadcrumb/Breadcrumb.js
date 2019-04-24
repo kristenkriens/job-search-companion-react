@@ -10,7 +10,7 @@ const Breadcrumb = (props) => {
       {breadcrumb.group && (
         <span className="topbar__breadcrumb-group">{breadcrumb.group}</span>
       )}
-      <span className="topbar__breadcrumb-current">{breadcrumb.current}</span>
+      <span className="topbar__breadcrumb-current"><span class="accessible">Current:</span>{breadcrumb.current}</span>
     </div>
   )
 }
