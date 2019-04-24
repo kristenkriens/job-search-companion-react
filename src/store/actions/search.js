@@ -51,3 +51,9 @@ export const search = (userAgent, userIp, query, location, country, radius, jobT
       });
   }
 };
+
+export const searchClear = () => {
+  return {
+    type: actionTypes.SEARCH_CLEAR
+  }
+};

@@ -49,12 +49,19 @@ const searchFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const searchClear = (state, action) => {
+  const updatedState = initialState;
+
+  return updateObject(state, updatedState);
+}
+
 const searchReducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.SEARCH_FORM_UPDATE_ELEMENT: return searchFormUpdateElement(state, action);
     case actionTypes.SEARCH_START: return searchStart(state, action);
     case actionTypes.SEARCH_SUCCESS: return searchSuccess(state, action);
     case actionTypes.SEARCH_FAIL: return searchFail(state, action);
+    case actionTypes.SEARCH_CLEAR: return searchClear(state, action);
     default: return state;
   }
 }

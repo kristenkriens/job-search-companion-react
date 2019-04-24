@@ -95,15 +95,21 @@ class Search extends Component {
   }
 
   componentDidUpdate = () => {
-    const { location, country } = this.props;
+    const formElementsArray = forms.createFormElementsArray(this.state.form);
 
-    if(this.state.form.location.value !== location) {
-      forms.formElementReduxChanged(this, 'location', location);
-    }
+    formElementsArray.map((formElement) => {
+      if(this.state.form[formElement.id].value !== this.props[formElement.id]) {
+        return forms.formElementReduxChanged(this, formElement.id, this.props[formElement.id]);
+      } else {
+        return false;
+      }
+    })
+  }
 
-    if(this.state.form.country.value !== country) {
-      forms.formElementReduxChanged(this, 'country', country);
-    }
+  clear = (event) => {
+    event.preventDefault();
+
+    this.props.searchClear();
   }
 
 
@@ -111,8 +117,6 @@ class Search extends Component {
     const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, searchFormUpdateElement } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
-
-    console.log(this.props.query);
 
     return (
       <>
@@ -142,7 +146,7 @@ class Search extends Component {
           })}
           <div className="form__footer">
             <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
-            <LinkButton>Clear</LinkButton>
+            <LinkButton click={(event) => this.clear(event)}>Clear</LinkButton>
             {isAuthenticated && (
               <LinkButton>Save</LinkButton>
             )}
@@ -182,7 +186,8 @@ const mapDispatchToProps = (dispatch) => {
     getUserAgent: () => dispatch(actions.getUserAgent()),
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
-    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age))
+    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
+    searchClear: () => dispatch(actions.searchClear())
   }
 }
 

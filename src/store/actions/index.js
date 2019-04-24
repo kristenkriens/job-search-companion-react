@@ -29,5 +29,6 @@ export {
 
 export {
   searchFormUpdateElement,
-  search
+  search,
+  searchClear
 } from './search';
