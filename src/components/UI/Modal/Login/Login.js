@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    auth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
+    authGo: (email, password, isRegister) => dispatch(actions.authGo(email, password, isRegister))
   }
 }
 

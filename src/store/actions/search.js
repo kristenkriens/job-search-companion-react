@@ -34,7 +34,7 @@ export const searchFail = (error) => {
   }
 }
 
-export const search = (userAgent, userIp, start, query, location, country, radius, jobType, age) => {
+export const searchGo = (userAgent, userIp, start, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
     dispatch(searchStart());
 

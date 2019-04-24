@@ -4,11 +4,14 @@ import { CSSTransition } from 'react-transition-group';
 import './Pagination.scss';
 
 const Pagination = (props) => {
-  const { totalResults, search } = props;
+  const { totalResults } = props;
+
+  const totalPages = Math.floor(totalResults / 10);
 
   return (
     <div className="pagination">
-      {totalResults}
+    <button className="pagination__item"></button>
+      {totalPages} Pages
     </div>
   )
 }

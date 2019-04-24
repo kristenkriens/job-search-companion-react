@@ -188,7 +188,7 @@ const mapDispatchToProps = (dispatch) => {
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
-    search: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, start, query, location, country, radius, jobType, age)),
+    searchGo: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, query, location, country, radius, jobType, age)),
     searchClear: () => dispatch(actions.searchClear())
   }
 }

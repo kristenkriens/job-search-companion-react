@@ -1,6 +1,6 @@
 export {
   clearAuthError,
-  auth,
+  authGo,
   authLogout,
   authCheckState
 } from './auth';
@@ -30,6 +30,6 @@ export {
 
 export {
   searchFormUpdateElement,
-  search,
+  searchGo,
   searchClear
 } from './search';

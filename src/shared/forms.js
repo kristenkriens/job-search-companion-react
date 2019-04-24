@@ -78,11 +78,11 @@ export const geolocateClick = (that, event) => {
 export const submitAuthForm = (that, event) => {
   event.preventDefault();
 
-  that.props.auth(that.state.form.email.value, that.state.form.password.value, that.state.isRegister);
+  that.props.authGo(that.state.form.email.value, that.state.form.password.value, that.state.isRegister);
 }
 
 export const submitSearchForm = (that, event, userIp, userAgent, start) => {
   event.preventDefault();
 
-  that.props.search(userAgent, userIp, start, that.state.form.query.value, that.state.form.location.value, that.state.form.country.value, that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
+  that.props.searchGo(userAgent, userIp, start, that.state.form.query.value, that.state.form.location.value, that.state.form.country.value, that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
 }

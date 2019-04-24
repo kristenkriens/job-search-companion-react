@@ -59,7 +59,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    search: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, start, query, location, country, radius, jobType, age))
+    searchGo: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, query, location, country, radius, jobType, age))
   }
 }
 
