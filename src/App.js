@@ -21,7 +21,7 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated } = this.props;
 
     let routes = (
       <Switch>
@@ -39,19 +39,19 @@ class App extends Component {
         />
         <Route
           path="/track/overview"
-          render={() => <Overview isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
+          render={() => <Overview isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/track/follow-ups"
-          render={() => <FollowUps isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
+          render={() => <FollowUps isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/track/interviews"
-          render={() => <Interviews isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
+          render={() => <Interviews isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/analyze/applications"
-          render={() => <Applications isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
+          render={() => <Applications isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/analyze/correspondence"
@@ -60,7 +60,7 @@ class App extends Component {
         <Route
           path="/"
           exact
-          render={() => <Home isAuthenticated={isAuthenticated} toggleAndSetActiveModal={toggleAndSetActiveModal} />}
+          render={() => <Home isAuthenticated={isAuthenticated} />}
         />
         <Redirect to="/" />
       </Switch>
@@ -80,8 +80,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tryAutoSignup: () => dispatch(actions.authCheckState()),
-    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
+    tryAutoSignup: () => dispatch(actions.authCheckState())
   }
 }
 

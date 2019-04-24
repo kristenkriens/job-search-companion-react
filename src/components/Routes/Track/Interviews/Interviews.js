@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
+import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
 class Interviews extends Component {
   render() {
-    const { isAuthenticated, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated } = this.props;
 
     return (
       <>
@@ -49,10 +50,7 @@ class Interviews extends Component {
             </div>
           </>
         ) : (
-          <div className="absolute-center">
-            <div className="h3">You need to be logged in to view this page!</div>
-            <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
-          </div>
+          <LoginRequired />
         )}
       </>
     )

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import Button from '../../../UI/Button/Button';
+import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 
 class Applications extends Component {
   render() {
-    const { isAuthenticated, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated } = this.props;
 
     return (
       <>
@@ -12,10 +12,7 @@ class Applications extends Component {
         {isAuthenticated ? (
           <div id="applications-chart" className="applications-chart"></div>
         ) : (
-          <div className="absolute-center">
-            <div className="h3">You need to be logged in to view this page!</div>
-            <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
-          </div>
+          <LoginRequired />
         )}
       </>
     )
