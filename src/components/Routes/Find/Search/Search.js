@@ -60,6 +60,7 @@ class Search extends Component {
           placeholder: 'e.g. 10',
         },
         label: 'Search Radius',
+        moreInfo: true,
         value: this.props.radius
       },
       jobType: {
@@ -112,7 +113,7 @@ class Search extends Component {
 
 
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, searchFormUpdateElement } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -131,6 +132,8 @@ class Search extends Component {
                 hasGeolocateButton={formElement.config.hasGeolocateButton}
                 label={formElement.config.label}
                 value={formElement.config.value}
+                moreInfo={formElement.config.moreInfo}
+                toggleAndSetActiveModalAndMessage={toggleAndSetActiveModalAndMessage}
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => forms.geolocateClick(this, event)}
                 location={location}
@@ -183,6 +186,7 @@ const mapDispatchToProps = (dispatch) => {
     getUserIp: () => dispatch(actions.getUserIp()),
     getUserAgent: () => dispatch(actions.getUserAgent()),
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
+    toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
     searchClear: () => dispatch(actions.searchClear())

@@ -9,7 +9,7 @@ import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { isModalOpen, activeModal, errorMessage, toggleModal, setActiveModal, clearAuthError } = props;
+  const { isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = props;
 
   const click = () => {
     toggleModal();
@@ -38,7 +38,10 @@ const Modal = (props) => {
               <Register setActiveModal={setActiveModal} />
             )}
             {activeModal === 'error' && (
-              <Error errorMessage={errorMessage} />
+              <Error message={message} />
+            )}
+            {activeModal === 'general' && (
+              <div>{message}</div>
             )}
           </div>
         </div>

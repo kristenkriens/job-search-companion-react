@@ -5,7 +5,7 @@ import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, moreInfo, toggleAndSetActiveModalAndMessage, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -68,6 +68,9 @@ const FormElement = (props) => {
         <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
       ) : (
         <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
+      )}
+      {moreInfo && (
+        <i class="fa fa-question-circle" onClick={() => toggleAndSetActiveModalAndMessage('general', 'Units are local to the country')}></i>
       )}
       <div className={`form__element-inner ${formElement.type === 'select' ? 'form__element-inner--select' : null}`}>
         {formElement}

@@ -13,6 +13,13 @@ export const setActiveModal = (activeModal) => {
   }
 };
 
+export const setModalMessage = (message) => {
+  return {
+    type: actionTypes.SET_MODAL_MESSAGE,
+    message: message
+  }
+};
+
 export const toggleAndSetActiveModal = (activeModal) => {
   return (dispatch) => {
     dispatch(setActiveModal(activeModal));
@@ -20,16 +27,10 @@ export const toggleAndSetActiveModal = (activeModal) => {
   }
 };
 
-export const setErrorMessage = (errorMessage) => {
-  return {
-    type: actionTypes.SET_ACTIVE_MODAL,
-    errorMessage: errorMessage
-  }
-};
-
-export const toggleAndSetErrorMessage = (errorMessage) => {
+export const toggleAndSetActiveModalAndMessage = (activeModal, message) => {
   return (dispatch) => {
-    dispatch(setErrorMessage(errorMessage));
+    dispatch(setActiveModal(activeModal));
+    dispatch(setModalMessage(message));
     dispatch(toggleModal());
   }
 };

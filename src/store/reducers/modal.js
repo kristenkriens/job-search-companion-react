@@ -4,7 +4,7 @@ import { updateObject } from '../../shared/utilities';
 const initialState = {
   isModalOpen: false,
   activeModal: '',
-  errorMessage: ''
+  message: ''
 }
 
 const toggleModal = (state, action) => {
@@ -23,9 +23,9 @@ const setActiveModal = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-const setErrorMessage = (state, action) => {
+const setModalMessage = (state, action) => {
   const updatedState = {
-    errorMessage: action.errorMessage
+    message: action.message
   };
 
   return updateObject(state, updatedState);
@@ -37,8 +37,8 @@ const modalReducer = (state = initialState, action) => {
       return toggleModal(state, action);
     case actionTypes.SET_ACTIVE_MODAL:
       return setActiveModal(state, action);
-    case actionTypes.SET_ERROR_MESSAGE:
-      return setErrorMessage(state, action);
+    case actionTypes.SET_MODAL_MESSAGE:
+      return setModalMessage(state, action);
     default: return state;
   }
 }
