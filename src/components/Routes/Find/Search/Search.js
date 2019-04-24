@@ -60,7 +60,7 @@ class Search extends Component {
           placeholder: 'e.g. 10',
         },
         label: 'Search Radius',
-        moreInfo: true,
+        moreInfo: 'Units are local to the country.',
         value: this.props.radius
       },
       jobType: {

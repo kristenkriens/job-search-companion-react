@@ -62,15 +62,19 @@ const FormElement = (props) => {
     });
   }
 
+  let moreInfoMarker = '';
+  if(moreInfo) {
+    moreInfoMarker = (
+      <i class="fa fa-question-circle" onClick={() => toggleAndSetActiveModalAndMessage('general', moreInfo)}></i>
+    )
+  }
+
   return (
     <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
       {elementType === 'radio' ? (
-        <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
+        <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label} {moreInfoMarker}</legend>
       ) : (
-        <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
-      )}
-      {moreInfo && (
-        <i class="fa fa-question-circle" onClick={() => toggleAndSetActiveModalAndMessage('general', 'Units are local to the country')}></i>
+        <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label} {moreInfoMarker}</label>
       )}
       <div className={`form__element-inner ${formElement.type === 'select' ? 'form__element-inner--select' : null}`}>
         {formElement}
