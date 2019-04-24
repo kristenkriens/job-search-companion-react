@@ -25,7 +25,7 @@ class Results extends Component {
                   })}
                 </div>
                 <div className="indeed-attribution">
-                  <span id="indeed_at"><a href="http://www.indeed.com/" rell="nofollow" target="_blank" rel="noopener noreferrer">jobs</a> by <a href="http://www.indeed.com/" rell="nofollow" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
+                  <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
                 </div>
               </>
             ) : (

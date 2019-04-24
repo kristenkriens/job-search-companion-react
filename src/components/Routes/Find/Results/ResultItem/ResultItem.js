@@ -6,8 +6,6 @@ const ResultItem = (props) => {
   const { result } = props;
   const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime } = result;
 
-  console.log(result);
-
   return (
     <div className="result__item">
       <div className="result__item-top">
