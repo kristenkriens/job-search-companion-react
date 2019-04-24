@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
-import withErrorHandler from '../../../../hoc/withErrorHandler/withErrorHandler';
 import { countries } from '../../../../shared/countries';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
@@ -191,4 +189,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(Search, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
