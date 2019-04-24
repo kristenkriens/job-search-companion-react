@@ -16,10 +16,19 @@
   &-top {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+
+    @media (max-width: 480px), (min-width: 650px) and (max-width: $md-width) {
+      flex-wrap: wrap;
+    }
 
     &-left {
+      margin-bottom: 5px;
       padding-right: 20px;
+
+      @media (max-width: 480px), (min-width: 650px) and (max-width: $md-width) {
+        padding-right: 0;
+      }
 
       h3 {
         font-size: 18px;
@@ -49,8 +58,15 @@
     }
 
     &-right {
+      margin-bottom: 5px;
       width: 100px;
       text-align: right;
+      font-size: 14px;
+
+      @media (max-width: 480px), (min-width: 650px) and (max-width: $md-width) {
+        width: 100%;
+        text-align: left;
+      }
     }
   }
 }
