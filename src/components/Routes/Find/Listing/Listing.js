@@ -6,7 +6,7 @@ class Listing extends Component {
 
     return (
       <>
-        <h2>Listing</h2>
+        <h1>Listing</h1>
       </>
     )
   }

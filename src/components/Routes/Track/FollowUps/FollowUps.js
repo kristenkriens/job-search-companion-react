@@ -9,6 +9,7 @@ class FollowUps extends Component {
 
     return (
       <>
+        <h1 className="accessible">Follow Ups</h1>
         {isAuthenticated ? (
           <>
             <div className="table">

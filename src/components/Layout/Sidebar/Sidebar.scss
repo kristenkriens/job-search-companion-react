@@ -23,18 +23,21 @@
 
   a, button {
     text-decoration: none;
-    font-weight: 300;
     display: block;
     width: 100%;
     color: $white;
     opacity: 1;
+
+    &:not(.h1) {
+      font-weight: 300;
+    }
 
     &:hover, &:active, &:focus {
       color: $white;
     }
   }
 
-  h1 {
+  .h1 {
     padding: 20px;
   }
 

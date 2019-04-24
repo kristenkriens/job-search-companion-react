@@ -8,6 +8,7 @@ class Applications extends Component {
 
     return (
       <>
+        <h1 className="accessible">Analyze Applications</h1>
         {isAuthenticated ? (
           <div id="applications-chart" className="applications-chart"></div>
         ) : (

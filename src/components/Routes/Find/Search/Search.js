@@ -115,6 +115,7 @@ class Search extends Component {
 
     return (
       <>
+        <h1 className="accessible">Search</h1>
         <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent)} className="form">
           {formElementsArray.map((formElement) => {
             return (

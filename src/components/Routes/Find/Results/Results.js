@@ -11,7 +11,7 @@ class Results extends Component {
       <>
         {results ? (
           <>
-            <h2>Search Results</h2>
+            <h1>Search Results</h1>
             {results.length > 0 ? (
               <>
                 {results.map((result) => {
@@ -30,7 +30,7 @@ class Results extends Component {
                 <Result key={result.jobkey} result={result} />
               )
             })}
-            <div class="indeed-attribution">
+            <div className="indeed-attribution">
               <span id="indeed_at"><a href="http://www.indeed.com/" rell="nofollow" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rell="nofollow" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
             </div>
           </>

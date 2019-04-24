@@ -9,6 +9,7 @@ class Interviews extends Component {
 
     return (
       <>
+        <h1 className="accessible">Interviews</h1>
         {isAuthenticated ? (
           <>
             <div className="table">

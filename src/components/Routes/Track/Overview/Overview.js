@@ -9,6 +9,7 @@ class Overview extends Component {
 
     return (
       <>
+        <h1 className="accessible">Overview</h1>
         {isAuthenticated ? (
           <>
             <div className="table">

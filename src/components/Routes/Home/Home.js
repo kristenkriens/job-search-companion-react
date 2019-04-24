@@ -8,12 +8,12 @@ class Home extends Component {
 
     return (
       <>
-        <h2>Job Search Companion</h2>
+        <h1 className="accessible">Home</h1>
         {isAuthenticated ? (
-          <p>Click on the items in the navigation to get started!</p>
+          <div className="h3">Click on the items in the navigation to get started!</div>
         ) : (
           <>
-            <p>Log in or click on the items in the navigation to get started!</p>
+            <div className="h3">Log in or click on the items in the navigation to get started!</div>
             <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
           </>
         )}

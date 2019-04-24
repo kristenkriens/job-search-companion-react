@@ -12,8 +12,8 @@ class Sidebar extends Component {
 
     return (
       <header className="sidebar">
-        <NavLink to='/' exact onClick={() => handleSidebarNavClick('')}>
-          <h1>Job Search Companion</h1>
+        <NavLink to='/' exact onClick={() => handleSidebarNavClick('')} className="h1">
+          Job Search Companion
         </NavLink>
         <SidebarNav openSidebarNavGroup={openSidebarNavGroup} sidebarNav={sidebarNav} handleSidebarNavClick={handleSidebarNavClick} />
       </header>
