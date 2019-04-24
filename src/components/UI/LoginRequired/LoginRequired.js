@@ -1,21 +1,22 @@
-import React,  { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Button from '../Button/Button';
 
 import * as actions from '../../../store/actions/index';
 
-const LoginRequired = (props) => {
-  const { toggleAndSetActiveModal } = props;
+class LoginRequired extends Component {
+  render() {
+    const { toggleAndSetActiveModal } = this.props;
 
-  return (
-    <div className="absolute-center">
-      <div className="h3">You need to be logged in to view this page!</div>
-      <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
-    </div>
-  )
+    return (
+      <div className="absolute-center">
+        <div className="h3">You need to be logged in to view this page!</div>
+        <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
+      </div>
+    )
+  }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
