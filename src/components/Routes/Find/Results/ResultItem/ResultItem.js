@@ -1,28 +1,28 @@
 import React from 'react';
 
-import './Result.scss';
+import './ResultItem.scss';
 
-const Result = (props) => {
+const ResultItem = (props) => {
   const { result } = props;
   const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime } = result;
 
   console.log(result);
 
   return (
-    <div className="result">
-      <div className="result__top">
-        <div className="result__top-left">
+    <div className="result__item">
+      <div className="result__item-top">
+        <div className="result__item-top-left">
           <h3>{jobtitle}</h3>
           <div>
             <span className="company">{company}</span>
             <span className="location">{formattedLocationFull}</span>
           </div>
         </div>
-        <div className="result__top-right">
+        <div className="result__item-top-right">
           <div>{formattedRelativeTime}</div>
         </div>
       </div>
-      <div className="result__bottom">
+      <div className="result__item-bottom">
         <p dangerouslySetInnerHTML={{__html: snippet}}></p>
         <a href={url} className="button" target="_blank" rel="noopener noreferrer">More</a>
       </div>
@@ -30,4 +30,4 @@ const Result = (props) => {
   )
 }
 
-export default Result;
+export default ResultItem;

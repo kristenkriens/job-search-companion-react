@@ -25,8 +25,7 @@
   &-inner {
     background-color: $white;
     box-shadow: 0 0 5px 0 rgba($grey, 0.5);
-    height: calc(100vh - 120px);
-    min-height: 280px;
+    min-height: calc(100vh - 120px);
     position: relative;
     transition: opacity 750ms ease-in-out, transform 750ms ease-in-out;
 
@@ -46,10 +45,6 @@
 
     &-exit {
       opacity: 0;
-    }
-
-    &--results {
-      padding-bottom: 75px;
     }
 
     .absolute-center {

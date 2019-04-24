@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import Result from './Result/Result';
+import './Results.scss';
+
+import ResultItem from './ResultItem/ResultItem';
+import Button from '../../../UI/Button/Button';
 
 class Results extends Component {
   render() {
@@ -14,25 +18,29 @@ class Results extends Component {
             {results.length > 0 ? (
               <>
                 <h1>Search Results</h1>
-                {results.map((result) => {
-                  return (
-                    <Result key={result.jobkey} result={result} />
-                  )
-                })}
+                <div className="results">
+                  {results.map((result) => {
+                    return (
+                      <ResultItem key={result.jobkey} result={result} />
+                    )
+                  })}
+                </div>
+                <div className="indeed-attribution">
+                  <span id="indeed_at"><a href="http://www.indeed.com/" rell="nofollow" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rell="nofollow" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
+                </div>
               </>
             ) : (
               <div className="absolute-center">
                 <h1 className="accessible">Search Results</h1>
-                <div className="h3">Sorry, your search returned 0 results. Please try again!</div>
+                <div className="h3">Sorry, your search returned <span className="red">0</span> results. Please try again!</div>
+                <Link to="/find/search" className="button">Try Again</Link>
               </div>
             )}
-            <div className="indeed-attribution">
-              <span id="indeed_at"><a href="http://www.indeed.com/" rell="nofollow" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rell="nofollow" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
-            </div>
           </>
         ) : (
           <div className="absolute-center">
             <div className="h3">Please fill out the search form first!</div>
+            <Link to="/find/search" className="button">Let's Go!</Link>
           </div>
         )}
       </>
