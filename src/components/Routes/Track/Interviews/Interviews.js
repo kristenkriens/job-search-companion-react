@@ -49,10 +49,10 @@ class Interviews extends Component {
             </div>
           </>
         ) : (
-          <>
+          <div className="absolute-center">
             <div className="h3">You need to be logged in to view this page!</div>
             <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
-          </>
+          </div>
         )}
       </>
     )

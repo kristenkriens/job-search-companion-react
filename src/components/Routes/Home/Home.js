@@ -9,14 +9,16 @@ class Home extends Component {
     return (
       <>
         <h1 className="accessible">Home</h1>
-        {isAuthenticated ? (
-          <div className="h3">Click on the items in the navigation to get started!</div>
-        ) : (
-          <>
-            <div className="h3">Log in or click on the items in the navigation to get started!</div>
-            <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
-          </>
-        )}
+        <div className="absolute-center">
+          {isAuthenticated ? (
+            <div className="h3">Click on the items in the navigation to get started!</div>
+          ) : (
+            <>
+              <div className="h3">Log in or click on the items in the navigation to get started!</div>
+              <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
+            </>
+          )}
+        </div>
       </>
     )
   }

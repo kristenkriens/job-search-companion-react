@@ -23,11 +23,10 @@
   }
 
   &-inner {
-    justify-content: center;
-    align-items: center;
     background-color: $white;
     box-shadow: 0 0 5px 0 rgba($grey, 0.5);
-    min-height: calc(100vh - 120px);
+    height: calc(100vh - 120px);
+    min-height: 280px;
     position: relative;
     transition: opacity 750ms ease-in-out, transform 750ms ease-in-out;
 
@@ -49,12 +48,21 @@
       opacity: 0;
     }
 
-    &--home, .logged-out &, .h3 {
-      text-align: center;
-    }
-
     &--results {
       padding-bottom: 75px;
+    }
+
+    .absolute-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 60px);
+      text-align: center;
+
+      @media (max-width: $sm-width) {
+        width: calc(100% - 40px);
+      }
     }
   }
 }

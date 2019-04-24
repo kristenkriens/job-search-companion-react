@@ -18,6 +18,10 @@
     @media (max-width: $sm-width) {
       justify-content: center;
     }
+
+    &--center {
+      justify-content: center;
+    }
   }
 
   &__link {

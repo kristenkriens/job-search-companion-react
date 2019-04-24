@@ -11,9 +11,9 @@ class Results extends Component {
       <>
         {results ? (
           <>
-            <h1>Search Results</h1>
             {results.length > 0 ? (
               <>
+                <h1>Search Results</h1>
                 {results.map((result) => {
                   return (
                     <Result key={result.jobkey} result={result} />
@@ -21,21 +21,19 @@ class Results extends Component {
                 })}
               </>
             ) : (
-              <>
-                <p className="center">Sorry, your search returned 0 results. Please try again!</p>
-              </>
+              <div className="absolute-center">
+                <h1 className="accessible">Search Results</h1>
+                <div className="h3">Sorry, your search returned 0 results. Please try again!</div>
+              </div>
             )}
-            {results.map((result) => {
-              return (
-                <Result key={result.jobkey} result={result} />
-              )
-            })}
             <div className="indeed-attribution">
               <span id="indeed_at"><a href="http://www.indeed.com/" rell="nofollow" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rell="nofollow" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
             </div>
           </>
         ) : (
-          <div className="h3">Please fill out the search form first!</div>
+          <div className="absolute-center">
+            <div className="h3">Please fill out the search form first!</div>
+          </div>
         )}
       </>
     )
