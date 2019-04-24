@@ -34,13 +34,13 @@ export const searchFail = (error) => {
   }
 }
 
-export const search = (userAgent, userIp, query, location, country, radius, jobType, age) => {
+export const search = (userAgent, userIp, start, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
     dispatch(searchStart());
 
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
-    const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apisearch?publisher=${apiKey}&v=2&userip=${userIp}&useragent=${userAgent}&format=json&q=${turnSpacesIntoPlusses(query)}&l=${turnSpacesIntoPlusses(location)}&radius=${radius}&jt=${jobType === 'nopreference' ? undefined : jobType}&limit=25&fromage=${age}&highlight=1&latlong=1&co=${country}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apisearch?publisher=${apiKey}&v=2&userip=${userIp}&useragent=${userAgent}&format=json&q=${turnSpacesIntoPlusses(query)}&l=${turnSpacesIntoPlusses(location)}&radius=${radius}&jt=${jobType === 'nopreference' ? undefined : jobType}&start=${start}&limit=15&fromage=${age}&highlight=1&latlong=1&co=${country}`;
 
     axios.get(url)
       .then((response) => {

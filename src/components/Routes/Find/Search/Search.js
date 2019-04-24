@@ -120,7 +120,7 @@ class Search extends Component {
     return (
       <>
         <h1 className="accessible">Search</h1>
-        <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent)} className="form">
+        <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent, 0)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -188,7 +188,7 @@ const mapDispatchToProps = (dispatch) => {
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
-    search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age)),
+    search: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, start, query, location, country, radius, jobType, age)),
     searchClear: () => dispatch(actions.searchClear())
   }
 }
