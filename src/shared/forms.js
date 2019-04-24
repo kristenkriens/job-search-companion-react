@@ -58,7 +58,7 @@ export const formElementChanged = (that, event, formElementName) => {
   that.setState({form: updatedForm});
 }
 
-export const formElementChangedNoEvent = (that, formElementName, value) => {
+export const formElementReduxChanged = (that, formElementName, value) => {
   const updatedForm = updateObject(that.state.form, {
     [formElementName]: updateObject(that.state.form[formElementName], {
       value: value,
@@ -67,6 +67,12 @@ export const formElementChangedNoEvent = (that, formElementName, value) => {
   });
 
   that.setState({form: updatedForm});
+}
+
+export const geolocateClick = (that, event) => {
+  event.preventDefault();
+
+  that.props.geolocateLatLng();
 }
 
 export const submitAuthForm = (that, event) => {
@@ -79,10 +85,4 @@ export const submitSearchForm = (that, event, userIp, userAgent) => {
   event.preventDefault();
 
   that.props.search(userAgent, userIp, that.state.form.query.value, that.state.form.location.value, that.state.form.country.value, that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
-}
-
-export const geolocateClick = (that, event) => {
-  event.preventDefault();
-
-  that.props.geolocateLatLng();
 }

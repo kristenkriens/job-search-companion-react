@@ -22,7 +22,7 @@ class Search extends Component {
           placeholder: 'e.g. Front End Developer'
         },
         label: 'Job Title / Keywords / Company',
-        value: '',
+        value: this.props.query
       },
       location: {
         widths: ['half'],
@@ -33,8 +33,7 @@ class Search extends Component {
         },
         hasGeolocateButton: true,
         label: 'Location',
-        value: this.props.location,
-        handledByRedux: true
+        value: this.props.location
       },
       country: {
         widths: ['third', 'half-small'],
@@ -43,8 +42,7 @@ class Search extends Component {
           options: countries
         },
         label: 'Country',
-        value: this.props.country,
-        handledByRedux: true
+        value: this.props.country
       },
       age: {
         widths: ['third', 'half-small'],
@@ -54,7 +52,7 @@ class Search extends Component {
           placeholder: 'e.g. 7'
         },
         label: 'Max Days Old',
-        value: '',
+        value: this.props.age,
       },
       radius: {
         widths: ['third', 'half-small'],
@@ -64,7 +62,7 @@ class Search extends Component {
           placeholder: 'e.g. 10',
         },
         label: 'Search Radius',
-        value: '',
+        value: this.props.radius
       },
       jobType: {
         elementType: 'radio',
@@ -79,7 +77,7 @@ class Search extends Component {
           ]
         },
         label: 'Job Type',
-        value: 'nopreference'
+        value: this.props.jobType
       }
     }
   }
@@ -100,18 +98,21 @@ class Search extends Component {
     const { location, country } = this.props;
 
     if(this.state.form.location.value !== location) {
-      forms.formElementChangedNoEvent(this, 'location', location);
+      forms.formElementReduxChanged(this, 'location', location);
     }
 
     if(this.state.form.country.value !== country) {
-      forms.formElementChangedNoEvent(this, 'country', country);
+      forms.formElementReduxChanged(this, 'country', country);
     }
   }
 
+
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, updateReduxHandledFormElement } = this.props;
+    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, searchFormUpdateElement } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
+
+    console.log(this.props.query);
 
     return (
       <>
@@ -132,9 +133,10 @@ class Search extends Component {
                 geolocate={(event) => forms.geolocateClick(this, event)}
                 location={location}
                 country={country}
-                handledByRedux={formElement.config.handledByRedux}
-                updateReduxHandledFormElement={(event) => updateReduxHandledFormElement(formElement.id, event.target.value)}
-                changed={(event) => forms.formElementChanged(this, event, formElement.id)}
+                changed={(event) => {
+                  searchFormUpdateElement(formElement.id, event.target.value);
+                  forms.formElementReduxChanged(this, formElement.id, event.target.value);
+                }}
               />
             )
           })}
@@ -164,9 +166,13 @@ const mapStateToProps = (state) => {
     userIp: state.user.userIp,
     userAgent: state.user.userAgent,
     geolocateLoading: state.geolocate.loading,
-    location: state.general.location,
-    country: state.general.country,
-    loading: state.search.loading
+    loading: state.search.loading,
+    location: state.search.location,
+    query: state.search.query,
+    age: state.search.age,
+    radius: state.search.radius,
+    jobType: state.search.jobType,
+    country: state.search.country
   }
 }
 
@@ -175,7 +181,7 @@ const mapDispatchToProps = (dispatch) => {
     getUserIp: () => dispatch(actions.getUserIp()),
     getUserAgent: () => dispatch(actions.getUserAgent()),
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
-    updateReduxHandledFormElement: (formElementName, value) => dispatch(actions.updateReduxHandledFormElement(formElementName, value)),
+    searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     search: (userAgent, userIp, query, location, country, radius, jobType, age) => dispatch(actions.search(userAgent, userIp, query, location, country, radius, jobType, age))
   }
 }

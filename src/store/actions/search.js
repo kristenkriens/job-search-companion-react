@@ -5,6 +5,14 @@ import { turnSpacesIntoPlusses } from '../../shared/utilities';
 import { history } from '../reducers/index';
 
 
+export const searchFormUpdateElement = (formElementName, value) => {
+  return {
+    type: actionTypes.SEARCH_FORM_UPDATE_ELEMENT,
+    formElementName: formElementName,
+    value: value
+  }
+};
+
 export const searchStart = () => {
   return {
     type: actionTypes.SEARCH_START

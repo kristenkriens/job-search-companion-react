@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { updateReduxHandledFormElement } from './general';
+import { searchFormUpdateElement } from './search';
 
 export const geolocateLatLngStart = () => {
   return {
@@ -46,8 +46,8 @@ export const geolocateGeocodeSuccess = () => {
 
 export const geolocateGeocodeSuccessUpdateReduxHandledFormElement = (location, country) => {
   return (dispatch) => {
-    dispatch(updateReduxHandledFormElement('location', location));
-    dispatch(updateReduxHandledFormElement('country', country));
+    dispatch(searchFormUpdateElement('location', location));
+    dispatch(searchFormUpdateElement('country', country));
   }
 };
 

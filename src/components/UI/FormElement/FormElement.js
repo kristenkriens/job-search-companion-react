@@ -5,24 +5,19 @@ import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, handledByRedux, updateReduxHandledFormElement, changed } = props;
-
-  let onChange = changed;
-  if(handledByRedux) {
-    onChange = updateReduxHandledFormElement;
-  }
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed } = props;
 
   let formElement = null;
   switch(elementType) {
     case ('input'):
-      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={onChange} />;
+      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={changed} />;
       break;
     case ('textarea'):
-      formElement = <textarea id={id} {...elementConfig} value={value} onChange={onChange} />;
+      formElement = <textarea id={id} {...elementConfig} value={value} onChange={changed} />;
       break;
     case ('select'):
       formElement = (
-        <select id={id} value={country ? country : value} onChange={onChange}>
+        <select id={id} value={country ? country : value} onChange={changed}>
           {elementConfig.options.map((option) => {
             return (
               <option key={option.value} value={option.value} disabled={option.disabled}>
@@ -39,7 +34,7 @@ const FormElement = (props) => {
           {elementConfig.choices.map((choice) => {
             return (
               <li key={choice.value}>
-                <input type="radio" id={choice.value} value={choice.value} name={id} className="accessible" checked={choice.value === value} onChange={onChange} />
+                <input type="radio" id={choice.value} value={choice.value} name={id} className="accessible" checked={choice.value === value} onChange={changed} />
                 <label htmlFor={choice.value}>{choice.label}</label>
               </li>
             )

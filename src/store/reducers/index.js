@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
-import generalReducer from './general';
 import authReducer from './auth';
 import navigationReducer from './navigation';
 import modalReducer from './modal';
@@ -15,7 +14,6 @@ export const history = createBrowserHistory({ basename: '/job-search-companion-r
 
 export const rootReducer = combineReducers({
   router: connectRouter(history),
-  general: generalReducer,
   auth: authReducer,
   navigation: navigationReducer,
   modal: modalReducer,

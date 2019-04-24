@@ -28,9 +28,6 @@ export {
 } from './geolocate';
 
 export {
+  searchFormUpdateElement,
   search
 } from './search';
-
-export {
-  updateReduxHandledFormElement
-} from './general';
