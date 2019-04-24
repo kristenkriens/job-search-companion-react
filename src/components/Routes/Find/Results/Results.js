@@ -11,7 +11,7 @@ import * as actions from '../../../../store/actions/index';
 
 class Results extends Component {
   render() {
-    const { isAuthenticated, results, totalResults, search  } = this.props;
+    const { isAuthenticated, results, totalResults, searchGo } = this.props;
 
     return (
       <>
@@ -27,7 +27,7 @@ class Results extends Component {
                     )
                   })}
                 </div>
-                <Pagination totalResults={totalResults} search={search} />
+                <Pagination totalResults={totalResults} searchGo={searchGo} />
                 <div className="indeed-attribution">
                   <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
                 </div>
