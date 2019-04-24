@@ -6,7 +6,6 @@ import Layout from './components/Layout/Layout';
 import Home from './components/Routes/Home/Home';
 import Search from './components/Routes/Find/Search/Search';
 import Results from './components/Routes/Find/Results/Results';
-import Listing from './components/Routes/Find/Listing/Listing';
 import Overview from './components/Routes/Track/Overview/Overview';
 import FollowUps from './components/Routes/Track/FollowUps/FollowUps';
 import Interviews from './components/Routes/Track/Interviews/Interviews';
@@ -32,10 +31,6 @@ class App extends Component {
         <Route
           path="/find/results"
           render={() => <Results isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/find/listing/:id"
-          render={() => <Listing isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/track/overview"
