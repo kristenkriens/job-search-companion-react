@@ -86,3 +86,11 @@ export const submitSearchForm = (that, event, userIp, userAgent, start) => {
 
   that.props.searchGo(userAgent, userIp, start, that.state.form.query.value, that.state.form.location.value, that.state.form.country.value, that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
 }
+
+export const clickSearchPagination = (that, event, start) => {
+  event.preventDefault();
+
+  const { userIp, userAgent, query, location, country, radius, jobType, age } = that.props;
+
+  that.props.searchGo(userAgent, userIp, start, query, location, country, radius, jobType, age);
+}

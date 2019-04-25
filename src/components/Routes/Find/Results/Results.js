@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 import './Results.scss';
 
 import ResultItem from './ResultItem/ResultItem';
-import Pagination from '../../../UI/Pagination/Pagination';
-
-import * as actions from '../../../../store/actions/index';
+import Pagination from './Pagination/Pagination';
 
 class Results extends Component {
   render() {
-    const { isAuthenticated, results, totalResults, searchGo } = this.props;
+    const { isAuthenticated, results } = this.props;
 
     return (
       <>
@@ -27,7 +25,7 @@ class Results extends Component {
                     )
                   })}
                 </div>
-                <Pagination totalResults={totalResults} searchGo={searchGo} />
+                <Pagination />
                 <div className="indeed-attribution">
                   <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
                 </div>
@@ -53,14 +51,8 @@ class Results extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    results: state.search.results,
-    totalResults: state.search.totalResults
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    searchGo: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, query, location, country, radius, jobType, age))
+    results: state.search.results
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(mapStateToProps)(Results);
