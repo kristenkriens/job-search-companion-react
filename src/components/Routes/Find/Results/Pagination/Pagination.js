@@ -8,7 +8,7 @@ import './Pagination.scss';
 
 class Pagination extends Component {
   render() {
-    const { totalResults, limit, currentPage } = this.props;
+    const { totalResults, limit, currentPage, loading } = this.props;
 
     const totalPages = Math.floor(totalResults / limit);
     const totalPagesArray = new Array(totalPages).fill().map((page,i) => {
@@ -19,7 +19,18 @@ class Pagination extends Component {
 
     const paginationItem = (item) => {
       return item === currentPage ? (
-        <div className="pagination__item pagination__item--current"><span className="accessible">Current: </span>{item}</div>
+        <div className="pagination__item pagination__item--current">
+          {loading ? (
+            <>
+              <i className="fa fa-spinner fa-pulse fa-fw"></i>
+              <span className="accessible">Loading...</span>
+            </>
+          ) : (
+            <>
+              <span className="accessible">Current: </span>{item}
+            </>
+          )}
+        </div>
       ) : (
         <button className="pagination__item" onClick={(event) => clickSearchPagination(this, event, item)}>{item}</button>
       )

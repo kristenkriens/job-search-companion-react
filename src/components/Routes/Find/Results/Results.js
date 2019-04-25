@@ -9,7 +9,7 @@ import Pagination from './Pagination/Pagination';
 
 class Results extends Component {
   render() {
-    const { isAuthenticated, results } = this.props;
+    const { isAuthenticated, results, loading } = this.props;
 
     return (
       <>
@@ -18,14 +18,14 @@ class Results extends Component {
             {results.length > 0 ? (
               <>
                 <h1>Search Results</h1>
-                <div className="results">
+                <div className={`results ${loading ? 'results--loading' : ''}`}>
                   {results.map((result) => {
                     return (
                       <ResultItem key={result.jobkey} result={result} />
                     )
                   })}
                 </div>
-                <Pagination />
+                <Pagination loading={loading} />
                 <div className="indeed-attribution">
                   <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
                 </div>
@@ -51,7 +51,8 @@ class Results extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    results: state.search.results
+    results: state.search.results,
+    loading: state.search.loading
   }
 }
 
