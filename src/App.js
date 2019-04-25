@@ -16,21 +16,31 @@ import * as actions from './store/actions/index';
 
 class App extends Component {
   componentDidMount = () => {
+    const { userIp, userAgent, getUserIp, getUserAgent } = this.props;
+
     this.props.tryAutoSignup();
+
+    if(!userIp) {
+      getUserIp();
+    }
+
+    if(!userAgent) {
+      getUserAgent();
+    }
   }
 
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, userIp, userAgent } = this.props;
 
     let routes = (
       <Switch>
         <Route
           path="/find/search"
-          render={() => <Search isAuthenticated={isAuthenticated} />}
+          render={() => <Search isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
           path="/find/results"
-          render={() => <Results isAuthenticated={isAuthenticated} />}
+          render={() => <Results isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
           path="/track/overview"
@@ -69,13 +79,17 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null
+    isAuthenticated: state.auth.token !== null,
+    userIp: state.user.userIp,
+    userAgent: state.user.userAgent
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tryAutoSignup: () => dispatch(actions.authCheckState())
+    tryAutoSignup: () => dispatch(actions.authCheckState()),
+    getUserIp: () => dispatch(actions.getUserIp()),
+    getUserAgent: () => dispatch(actions.getUserAgent())
   }
 }
 

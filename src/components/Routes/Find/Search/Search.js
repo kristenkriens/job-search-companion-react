@@ -81,18 +81,6 @@ class Search extends Component {
     }
   }
 
-  componentDidMount = () => {
-    const { userIp, userAgent, getUserIp, getUserAgent } = this.props;
-
-    if(!userIp) {
-      getUserIp();
-    }
-
-    if(!userAgent) {
-      getUserAgent();
-    }
-  }
-
   componentDidUpdate = () => {
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -113,17 +101,6 @@ class Search extends Component {
 
   submitSearchForm = (event, userIp, userAgent, start, limit) => {
     event.preventDefault();
-
-    console.log('userAgent', userAgent);
-    console.log('userIp', userIp);
-    console.log('start', start);
-    console.log('limit', limit);
-    console.log('this.state.form.query.value', this.state.form.query.value);
-    console.log('this.state.form.location.value', this.state.form.location.value);
-    console.log('this.state.form.country.value', this.state.form.country.value);
-    console.log('this.state.form.radius.value', this.state.form.radius.value);
-    console.log('this.state.form.jobType.value', this.state.form.jobType.value);
-    console.log('this.state.form.age.value', this.state.form.age.value);
 
     this.props.searchGo(userIp, userAgent, start, limit, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
   }
@@ -190,8 +167,6 @@ class Search extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userIp: state.user.userIp,
-    userAgent: state.user.userAgent,
     geolocateLoading: state.geolocate.loading,
     loading: state.search.loading,
     location: state.search.location,
@@ -207,8 +182,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUserIp: () => dispatch(actions.getUserIp()),
-    getUserAgent: () => dispatch(actions.getUserAgent()),
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
