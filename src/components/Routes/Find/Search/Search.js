@@ -113,11 +113,19 @@ class Search extends Component {
 
   submitSearchForm = (event, userIp, userAgent, start, limit) => {
     event.preventDefault();
-    
-    const { searchGo, searchPaginationChange } = this.props;
 
-    searchGo(userAgent, userIp, start, limit, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
-    searchPaginationChange(0, 1);
+    console.log('userAgent', userAgent);
+    console.log('userIp', userIp);
+    console.log('start', start);
+    console.log('limit', limit);
+    console.log('this.state.form.query.value', this.state.form.query.value);
+    console.log('this.state.form.location.value', this.state.form.location.value);
+    console.log('this.state.form.country.value', this.state.form.country.value);
+    console.log('this.state.form.radius.value', this.state.form.radius.value);
+    console.log('this.state.form.jobType.value', this.state.form.jobType.value);
+    console.log('this.state.form.age.value', this.state.form.age.value);
+
+    this.props.searchGo(userAgent, userIp, start, limit, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
   }
 
   clear = (event) => {
@@ -205,10 +213,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (userAgent, userIp, start, limit, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age)),
-    searchClear: () => dispatch(actions.searchClear()),
-    searchPaginationChange: (start, currentPage) => {
-      dispatch(actions.searchPaginationChange(start, currentPage))
-    }
+    searchClear: () => dispatch(actions.searchClear())
   }
 }
 

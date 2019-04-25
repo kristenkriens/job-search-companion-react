@@ -11,7 +11,7 @@ import * as actions from '../../../../store/actions/index';
 
 class Results extends Component {
   render() {
-    const { isAuthenticated, user, search, searchGo, searchPaginationChange } = this.props;
+    const { isAuthenticated, user, search, searchPaginationChange } = this.props;
     const { results, loading } = search;
 
     return (
@@ -28,7 +28,7 @@ class Results extends Component {
                     )
                   })}
                 </div>
-                <Pagination user={user} search={search} searchGo={searchGo} searchPaginationChange={searchPaginationChange} />
+                <Pagination user={user} search={search} searchPaginationChange={searchPaginationChange} />
                 <div className="indeed-attribution">
                   <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
                 </div>
@@ -61,9 +61,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchGo: (userAgent, userIp, start, limit, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age)),
-    searchPaginationChange: (start, currentPage) => {
-      dispatch(actions.searchPaginationChange(start, currentPage))
+    searchPaginationChange: (start, limit, currentPage, userAgent, userIp, query, location, country, radius, jobType, age) => {
+      dispatch(actions.searchPaginationChange(start, limit, currentPage, userAgent, userIp, query, location, country, radius, jobType, age))
     }
   }
 }

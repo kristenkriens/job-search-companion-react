@@ -5,7 +5,7 @@ import './Pagination.scss';
 import PaginationArrow from './PaginationArrow/PaginationArrow';
 
 const Pagination = (props) => {
-  const { search, searchGo, searchPaginationChange } = props;
+  const { search, searchPaginationChange } = props;
   const { totalResults, currentPage, limit, userIp, userAgent, query, location, country, radius, jobType, age } = search;
 
   const totalPages = Math.floor(totalResults / limit);
@@ -13,14 +13,15 @@ const Pagination = (props) => {
   const clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
+    console.log('currentPage', currentPage);
+
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
-    searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age);
-    searchPaginationChange(start, currentPage);
+    searchPaginationChange(start, limit, currentPage, userAgent, userIp, query, location, country, radius, jobType, age);
   }
 
   const pressEnter = (event) => {
-    if(event.key === 'Enter'){
+    if(event.key === 'Enter') {
       console.log('enter');
     }
   }
