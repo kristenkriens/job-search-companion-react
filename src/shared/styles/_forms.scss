@@ -107,7 +107,7 @@
     .fa-question-circle {
       font-size: 16px;
       cursor: pointer;
-      transition: 200ms color ease-in-out;
+      transition: 250ms color ease-in-out;
 
       &:hover, &:active, &:focus {
         color: $blurple;
@@ -275,7 +275,7 @@ input[type="file"] {
 		overflow: hidden;
 		cursor: pointer;
 		position: relative;
-		transition: 200ms opacity ease;
+		transition: 250ms opacity ease;
 
 		.fa {
 			position: absolute;

@@ -5,12 +5,12 @@ button {
   outline: none;
   padding: 0;
   margin: 0;
-  transition: 200ms background-color ease, 200ms color ease, 200ms font-weight ease;
+  transition: 250ms background-color ease, 250ms color ease, 250ms font-weight ease;
 }
 
 a {
   text-decoration: none;
-  transition: 200ms all ease, 200ms color ease;
+  transition: 250ms all ease, 250ms color ease;
 
   &:not(.button) {
     color: $grey-blue;

@@ -1,8 +1,8 @@
 .results {
   margin-bottom: 40px;
+  transition: opacity 250ms ease-in-out;
 
   &--loading {
-    opacity: 0.65;
     pointer-events: none;
   }
 }

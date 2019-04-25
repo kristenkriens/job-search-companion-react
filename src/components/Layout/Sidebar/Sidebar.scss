@@ -84,7 +84,7 @@
 
     &-item {
       padding: 10px 20px 10px 50px;
-      transition: 200ms background-color ease;
+      transition: 250ms background-color ease;
 
       &:hover, &:active, &:focus {
         background-color: darken($blue-blurple, 2%);

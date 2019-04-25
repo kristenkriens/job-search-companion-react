@@ -18,7 +18,7 @@ class Results extends Component {
             {results.length > 0 ? (
               <>
                 <h1>Search Results</h1>
-                <div className={`results ${loading ? 'results--loading' : ''}`}>
+                <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result) => {
                     return (
                       <ResultItem key={result.jobkey} result={result} />
