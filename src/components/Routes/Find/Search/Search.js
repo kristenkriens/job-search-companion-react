@@ -57,7 +57,7 @@ class Search extends Component {
         elementType: 'input',
         elementConfig: {
           type: 'number',
-          placeholder: 'e.g. 10',
+          placeholder: 'e.g. 10 (Default is 25)',
         },
         label: 'Search Radius',
         moreInfo: 'Units are local to the country.',
