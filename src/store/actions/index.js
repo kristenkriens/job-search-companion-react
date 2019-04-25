@@ -32,5 +32,6 @@ export {
   searchFormUpdateElement,
   searchGo,
   searchClear,
-  searchPaginationChange
+  searchPaginationChange,
+  searchPaginationChangeAlter
 } from './search';

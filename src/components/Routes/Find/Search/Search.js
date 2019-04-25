@@ -99,10 +99,11 @@ class Search extends Component {
     this.props.geolocateLatLng();
   }
 
-  submitSearchForm = (event, userIp, userAgent, start, limit) => {
+  submitSearchForm = (event, userIp, userAgent, limit) => {
     event.preventDefault();
 
-    this.props.searchGo(userIp, userAgent, start, limit, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
+    this.props.searchPaginationChangeAlter(0, 1);
+    this.props.searchGo(userIp, userAgent, 0, limit, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
   }
 
   clear = (event) => {
@@ -112,14 +113,14 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, start, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
         <h1 className="accessible">Search</h1>
-        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, start, limit)} className="form">
+        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, limit)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -175,7 +176,6 @@ const mapStateToProps = (state) => {
     radius: state.search.radius,
     jobType: state.search.jobType,
     country: state.search.country,
-    start: state.search.start,
     limit: state.search.limit
   }
 }
@@ -186,7 +186,8 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (userIp, userAgent, start, limit, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userIp, userAgent, start, limit, query, location, country, radius, jobType, age)),
-    searchClear: () => dispatch(actions.searchClear())
+    searchPaginationChangeAlter: (start, currentPage) => dispatch(actions.searchPaginationChangeAlter(start, currentPage)),
+    searchClear: () => dispatch(actions.searchClear()),
   }
 }
 
