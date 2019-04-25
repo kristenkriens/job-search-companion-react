@@ -11,8 +11,8 @@ import * as actions from '../../../../store/actions/index';
 
 class Results extends Component {
   render() {
-    const { isAuthenticated, user, search } = this.props;
-    const { results, loading, searchGo, searchPaginationChange } = search;
+    const { isAuthenticated, user, search, searchGo, searchPaginationChange } = this.props;
+    const { results, loading } = search;
 
     return (
       <>

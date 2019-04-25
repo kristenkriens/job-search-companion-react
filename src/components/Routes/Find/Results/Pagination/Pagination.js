@@ -10,7 +10,7 @@ const Pagination = (props) => {
 
   const totalPages = Math.floor(totalResults / limit);
 
-  const clickSearchPaginationArrow = (event, currentPage, type) => {
+  const clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
@@ -19,19 +19,19 @@ const Pagination = (props) => {
     searchPaginationChange(start, currentPage);
   }
 
-  const onEnter = (e) => {
-    if(e.key === 'Enter'){
+  const pressEnter = (event) => {
+    if(event.key === 'Enter'){
       console.log('enter');
     }
   }
 
   return (
     <div className="pagination">
-      <PaginationArrow currentPage={currentPage} type="prev" click={clickSearchPaginationArrow} />
+      <PaginationArrow type="prev" click={(event) => clickSearchPaginationArrow(event, 'prev')} />
       <div className="pagination__inner">
-        <input type="number" min="1" max={totalPages} value={currentPage} onKeyPress={onEnter} /> / <span>{totalPages}</span>
+        <input type="number" min="1" max={totalPages} value={currentPage} onKeyPress={pressEnter} /> / <span>{totalPages}</span>
       </div>
-      <PaginationArrow currentPage={currentPage} type="next" click={clickSearchPaginationArrow} />
+      <PaginationArrow type="next" click={(event) => clickSearchPaginationArrow(event, 'next')} />
     </div>
   )
 }
