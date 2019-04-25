@@ -17,7 +17,7 @@ const Pagination = (props) => {
 
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
-    searchPaginationChange(start, limit, currentPage, userAgent, userIp, query, location, country, radius, jobType, age);
+    searchPaginationChange(start, limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age);
   }
 
   const pressEnter = (event) => {

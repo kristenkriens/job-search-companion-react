@@ -34,7 +34,7 @@ export const searchFail = (error) => {
   }
 }
 
-export const searchGo = (userAgent, userIp, start, limit, query, location, country, radius, jobType, age) => {
+export const searchGo = (userIp, userAgent, start, limit, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
     dispatch(searchStart());
 
@@ -67,9 +67,9 @@ export const searchPaginationChangeDone = (start, currentPage) => {
   }
 };
 
-export const searchPaginationChange = (start, limit, currentPage, userAgent, userIp, query, location, country, radius, jobType, age) => {
+export const searchPaginationChange = (start, limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
-    dispatch(searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age));
+    dispatch(searchGo(userIp, userAgent, start, limit, query, location, country, radius, jobType, age));
     dispatch(searchPaginationChangeDone(start, currentPage));
   }
 };
