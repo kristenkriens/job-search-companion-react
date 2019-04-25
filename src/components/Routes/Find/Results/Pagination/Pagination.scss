@@ -4,5 +4,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 60px;
+  margin: 0 -5px 60px;
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    margin: 0 5px;
+    background-color: $white;
+    border: 1px solid $light-grey;
+
+    &:hover, &:active, &:focus {
+      background-color: $light-grey;
+    }
+
+    &--current {
+      background-color: $grey-blue;
+      border-color: $grey-blue;
+      color: $white;
+
+      &:hover, &:active, &:focus {
+        background-color: $grey-blue;
+      }
+    }
+  }
+
+  div.pagination__item:not(.pagination__item--current) {
+    &:hover, &:active, &:focus {
+      background-color: $white;
+    }
+  }
 }

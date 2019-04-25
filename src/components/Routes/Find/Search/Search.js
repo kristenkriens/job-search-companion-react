@@ -113,14 +113,14 @@ class Search extends Component {
 
 
   render() {
-    const { isAuthenticated, userIp, userAgent, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, start, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
         <h1 className="accessible">Search</h1>
-        <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent, 0)} className="form">
+        <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent, start, limit)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -177,7 +177,9 @@ const mapStateToProps = (state) => {
     age: state.search.age,
     radius: state.search.radius,
     jobType: state.search.jobType,
-    country: state.search.country
+    country: state.search.country,
+    start: state.search.start,
+    limit: state.search.limit
   }
 }
 
@@ -188,8 +190,11 @@ const mapDispatchToProps = (dispatch) => {
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
-    searchGo: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, query, location, country, radius, jobType, age)),
-    searchClear: () => dispatch(actions.searchClear())
+    searchGo: (userAgent, userIp, start, limit, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age)),
+    searchClear: () => dispatch(actions.searchClear()),
+    searchPaginationChange: (start, currentPage) => {
+      dispatch(actions.searchPaginationChange(start, currentPage))
+    }
   }
 }
 

@@ -10,8 +10,11 @@ const initialState = {
   jobType: 'nopreference',
   error: null,
   loading: false,
+  start: 0,
+  currentPage: 1,
+  limit: 15,
   results: null,
-  totalResults: 0
+  totalResults: 0,
 }
 
 const searchFormUpdateElement = (state, action) => {
@@ -57,6 +60,15 @@ const searchClear = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const searchPaginationChange = (state, action) => {
+  const updatedState = {
+    start: action.start,
+    currentPage: action.currentPage
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const searchReducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.SEARCH_FORM_UPDATE_ELEMENT: return searchFormUpdateElement(state, action);
@@ -64,6 +76,7 @@ const searchReducer = (state = initialState, action) => {
     case actionTypes.SEARCH_SUCCESS: return searchSuccess(state, action);
     case actionTypes.SEARCH_FAIL: return searchFail(state, action);
     case actionTypes.SEARCH_CLEAR: return searchClear(state, action);
+    case actionTypes.SEARCH_PAGINATION_CHANGE: return searchPaginationChange(state, action);
     default: return state;
   }
 }

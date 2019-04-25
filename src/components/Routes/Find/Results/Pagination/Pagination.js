@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { clickSearchPagination } from '../../../../../shared/forms';
@@ -8,22 +8,34 @@ import './Pagination.scss';
 
 class Pagination extends Component {
   render() {
-    const { totalResults } = this.props;
+    const { totalResults, limit, currentPage } = this.props;
 
-    const totalPages = Math.floor(totalResults / 10);
-    const totalPagesArray = new Array(totalPages - 1).fill().map((v,i)=>i);
+    const totalPages = Math.floor(totalResults / limit);
+    const totalPagesArray = new Array(totalPages).fill().map((page,i) => {
+      return i;
+    }).filter((page) => {
+      return page !== 0;
+    });
 
-    console.log(totalPagesArray);
+    const paginationItem = (item) => {
+      return item === currentPage ? (
+        <div className="pagination__item pagination__item--current"><span className="accessible">Current: </span>{item}</div>
+      ) : (
+        <button className="pagination__item" onClick={(event) => clickSearchPagination(this, event, item)}>{item}</button>
+      )
+    };
 
     return (
       <div className="pagination">
-        {totalPagesArray.map((pageNumber) => {
+        {totalPagesArray.map((page) => {
           return (
-            <button className="pagination__item" onClick={(event) => clickSearchPagination(this, event, pageNumber)}>{pageNumber + 1}</button>
+            <Fragment key={page}>
+              {paginationItem(page)}
+            </Fragment>
           )
         })}
-        ...
-        <button className="pagination__item" onClick={(event) => clickSearchPagination(this, event, totalPages)}>{totalPages}</button>
+        <div className="pagination__item">...</div>
+        {paginationItem(totalPages)}
       </div>
     )
   }
@@ -39,13 +51,19 @@ const mapStateToProps = (state) => {
     age: state.search.age,
     radius: state.search.radius,
     jobType: state.search.jobType,
-    country: state.search.country
+    country: state.search.country,
+    start: state.search.start,
+    currentPage: state.search.currentPage,
+    limit: state.search.limit
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchGo: (userAgent, userIp, start, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, query, location, country, radius, jobType, age))
+    searchGo: (userAgent, userIp, start, limit, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age)),
+    searchPaginationChange: (start, currentPage) => {
+      dispatch(actions.searchPaginationChange(start, currentPage))
+    }
   }
 }
 
