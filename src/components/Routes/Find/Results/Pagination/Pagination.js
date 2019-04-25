@@ -35,6 +35,12 @@ class Pagination extends Component {
     if(event.key === 'Enter') {
       const { limit, query, location, country, radius, jobType, age } = this.props.search;
 
+      if(newCurrentPage === '') {
+        newCurrentPage = this.props.search.currentPage;
+
+        this.changeInputValue(newCurrentPage);
+      }
+
       this.props.searchPaginationChange(limit, newCurrentPage, this.props.userIp, this.props.userAgent, query, location, country, radius, jobType, age);
     }
   }
@@ -44,8 +50,6 @@ class Pagination extends Component {
     const { totalResults, limit, currentPage } = search;
 
     const totalPages = Math.floor(totalResults / limit);
-
-    console.log(this.state.inputValue);
 
     return (
       <div className="pagination">
