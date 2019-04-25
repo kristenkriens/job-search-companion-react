@@ -27,7 +27,7 @@ class Pagination extends Component {
 
   changeInputValue = (value) => {
     this.setState({
-      inputValue: Number(value)
+      inputValue: Number(value) === 0 ? '' : Number(value)
     });
   }
 
@@ -44,6 +44,8 @@ class Pagination extends Component {
     const { totalResults, limit, currentPage } = search;
 
     const totalPages = Math.floor(totalResults / limit);
+
+    console.log(this.state.inputValue);
 
     return (
       <div className="pagination">
