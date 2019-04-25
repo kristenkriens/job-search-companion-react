@@ -9,6 +9,10 @@ class Pagination extends Component {
     inputValue: this.props.search.currentPage
   }
 
+  getTotalPages = () => {
+    return Math.floor(this.props.search.totalResults / this.props.search.limit)
+  }
+
   clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
@@ -33,14 +37,14 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { totalResults, limit, query, location, country, radius, jobType, age } = this.props.search;
+      const { limit, query, location, country, radius, jobType, age } = this.props.search;
 
       if(newCurrentPage === '') {
         newCurrentPage = this.props.search.currentPage;
       } else if(newCurrentPage < 0) {
         newCurrentPage = 1;
-      } else if(newCurrentPage > 0) {
-        newCurrentPage = Math.floor(totalResults / limit);
+      } else if(newCurrentPage > this.getTotalPages()) {
+        newCurrentPage = this.getTotalPages();
       }
 
       this.changeInputValue(newCurrentPage);
@@ -50,9 +54,11 @@ class Pagination extends Component {
 
   render() {
     const { search } = this.props;
-    const { totalResults, limit, currentPage } = search;
+    const { currentPage } = search;
 
-    const totalPages = Math.floor(totalResults / limit);
+    const totalPages = this.getTotalPages();
+
+    // Still need to get what's left over so last page doesn't have the total limit (unless it actually does)
 
     return (
       <div className="pagination">
