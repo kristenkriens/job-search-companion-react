@@ -28,7 +28,7 @@ class Results extends Component {
                     )
                   })}
                 </div>
-                <Pagination user={userIp} userAgent={userAgent} search={search} searchPaginationChange={searchPaginationChange} />
+                <Pagination userIp={userIp} userAgent={userAgent} search={search} searchPaginationChange={searchPaginationChange} />
                 <div className="indeed-attribution">
                   <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
                 </div>
@@ -60,8 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchPaginationChange: (start, limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
-      dispatch(actions.searchPaginationChange(start, limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age))
+    searchPaginationChange: (limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
+      dispatch(actions.searchPaginationChange(limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age))
     }
   }
 }

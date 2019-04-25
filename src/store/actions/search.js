@@ -67,8 +67,10 @@ export const searchPaginationChangeDone = (start, currentPage) => {
   }
 };
 
-export const searchPaginationChange = (start, limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
+export const searchPaginationChange = (limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
+    const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
+
     dispatch(searchGo(userIp, userAgent, start, limit, query, location, country, radius, jobType, age));
     dispatch(searchPaginationChangeDone(start, currentPage));
   }

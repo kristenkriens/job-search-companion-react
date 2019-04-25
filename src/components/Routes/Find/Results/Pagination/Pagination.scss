@@ -8,18 +8,28 @@
   margin: 0 -5px 60px;
 
   &__arrow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     height: 40px;
     width: 40px;
-    padding: 5px;
+    padding: 10px;
     margin: 5px;
-    background-color: $grey-blue;
-    color: $white;
 
-    &:hover, &:active, &:focus {
-      background-color: $blurple;
+    .fa {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &--prev {
+      .fa {
+        left: 47.5%;
+      }
+    }
+
+    &--next {
+      .fa {
+        left: 55%;
+      }
     }
   }
 

@@ -1,40 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './Pagination.scss';
 
 import PaginationArrow from './PaginationArrow/PaginationArrow';
 
-const Pagination = (props) => {
-  const { search, searchPaginationChange } = props;
-  const { totalResults, currentPage, limit, userIp, userAgent, query, location, country, radius, jobType, age } = search;
-
-  const totalPages = Math.floor(totalResults / limit);
-
-  const clickSearchPaginationArrow = (event, type) => {
-    event.preventDefault();
-
-    console.log('currentPage', currentPage);
-
-    const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
-
-    searchPaginationChange(start, limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age);
+class Pagination extends Component {
+  state = {
+    inputValue: this.props.search.currentPage
   }
 
-  const pressEnter = (event) => {
+  clickSearchPaginationArrow = (event, type) => {
+    event.preventDefault();
+
+    const { currentPage, limit, query, location, country, radius, jobType, age } = this.props.search;
+
+    let newCurrentPage = '';
+    if(type === 'prev') {
+      newCurrentPage = currentPage - 1;
+    } else {
+      newCurrentPage = currentPage + 1;
+    }
+
+    this.props.searchPaginationChange(limit, newCurrentPage, this.props.userIp, this.props.userAgent, query, location, country, radius, jobType, age);
+  }
+
+  changeInputValue = (event) => {
+    this.setState({
+      inputValue: event.target.value
+    });
+  }
+
+  pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      console.log('enter');
+      const { limit, query, location, country, radius, jobType, age } = this.props.search;
+
+      this.props.searchPaginationChange(limit, newCurrentPage, this.props.userIp, this.props.userAgent, query, location, country, radius, jobType, age);
     }
   }
 
-  return (
-    <div className="pagination">
-      <PaginationArrow type="prev" click={(event) => clickSearchPaginationArrow(event, 'prev')} />
-      <div className="pagination__inner">
-        <input type="number" min="1" max={totalPages} value={currentPage} onKeyPress={pressEnter} /> / <span>{totalPages}</span>
+  render() {
+    const { search } = this.props;
+    const { totalResults, limit, currentPage } = search;
+
+    const totalPages = Math.floor(totalResults / limit);
+
+    return (
+      <div className="pagination">
+        <PaginationArrow type="prev" disabled={currentPage === 1} click={(event) => this.clickSearchPaginationArrow(event, 'prev')} />
+        <div className="pagination__inner">
+          <input type="number" min="1" max={totalPages} value={currentPage} onChange={this.changeInputValue} onKeyPress={(event) => this.pressEnter(event, this.state.inputValue)} /> / <span>{totalPages}</span>
+        </div>
+        <PaginationArrow type="next" disabled={currentPage === totalResults} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
       </div>
-      <PaginationArrow type="next" click={(event) => clickSearchPaginationArrow(event, 'next')} />
-    </div>
-  )
+    )
+  }
 }
 
 export default Pagination;
