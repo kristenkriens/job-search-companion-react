@@ -33,14 +33,17 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { limit, query, location, country, radius, jobType, age } = this.props.search;
+      const { totalResults, limit, query, location, country, radius, jobType, age } = this.props.search;
 
       if(newCurrentPage === '') {
         newCurrentPage = this.props.search.currentPage;
-
-        this.changeInputValue(newCurrentPage);
+      } else if(newCurrentPage < 0) {
+        newCurrentPage = 1;
+      } else if(newCurrentPage > 0) {
+        newCurrentPage = Math.floor(totalResults / limit);
       }
 
+      this.changeInputValue(newCurrentPage);
       this.props.searchPaginationChange(limit, newCurrentPage, this.props.userIp, this.props.userAgent, query, location, country, radius, jobType, age);
     }
   }
@@ -57,7 +60,7 @@ class Pagination extends Component {
         <div className="pagination__inner">
           <input type="number" min="1" max={totalPages} value={this.state.inputValue} onChange={(event) => this.changeInputValue(event.target.value)} onKeyPress={(event) => this.pressEnter(event, this.state.inputValue)} /> / <span>{totalPages}</span>
         </div>
-        <PaginationArrow type="next" disabled={currentPage === totalResults} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
+        <PaginationArrow type="next" disabled={currentPage === totalPages} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
       </div>
     )
   }
