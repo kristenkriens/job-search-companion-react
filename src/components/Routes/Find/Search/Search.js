@@ -105,12 +105,26 @@ class Search extends Component {
     })
   }
 
+  geolocateClick = (event) => {
+    event.preventDefault();
+
+    this.props.geolocateLatLng();
+  }
+
+  submitSearchForm = (event, userIp, userAgent, start, limit) => {
+    event.preventDefault();
+    
+    const { searchGo, searchPaginationChange } = this.props;
+
+    searchGo(userAgent, userIp, start, limit, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
+    searchPaginationChange(0, 1);
+  }
+
   clear = (event) => {
     event.preventDefault();
 
     this.props.searchClear();
   }
-
 
   render() {
     const { isAuthenticated, userIp, userAgent, start, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
@@ -120,7 +134,7 @@ class Search extends Component {
     return (
       <>
         <h1 className="accessible">Search</h1>
-        <form onSubmit={(event) => forms.submitSearchForm(this, event, userIp, userAgent, start, limit)} className="form">
+        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, start, limit)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -135,7 +149,7 @@ class Search extends Component {
                 moreInfo={formElement.config.moreInfo}
                 toggleAndSetActiveModalAndMessage={toggleAndSetActiveModalAndMessage}
                 geolocateLoading={geolocateLoading}
-                geolocate={(event) => forms.geolocateClick(this, event)}
+                geolocate={(event) => this.geolocateClick(event)}
                 location={location}
                 country={country}
                 changed={(event) => {

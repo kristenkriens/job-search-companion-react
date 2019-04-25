@@ -69,34 +69,8 @@ export const formElementReduxChanged = (that, formElementName, value) => {
   that.setState({form: updatedForm});
 }
 
-export const geolocateClick = (that, event) => {
-  event.preventDefault();
-
-  that.props.geolocateLatLng();
-}
-
 export const submitAuthForm = (that, event) => {
   event.preventDefault();
 
   that.props.authGo(that.state.form.email.value, that.state.form.password.value, that.state.isRegister);
-}
-
-export const submitSearchForm = (that, event, userIp, userAgent, start, limit) => {
-  const { searchGo, searchPaginationChange } = that.props;
-
-  event.preventDefault();
-
-  searchGo(userAgent, userIp, start, limit, that.state.form.query.value, that.state.form.location.value, that.state.form.country.value, that.state.form.radius.value, that.state.form.jobType.value, that.state.form.age.value);
-  searchPaginationChange(0, 1);
-}
-
-export const clickSearchPagination = (that, event, page) => {
-  const { userIp, userAgent, query, location, country, radius, jobType, age, limit, searchGo, searchPaginationChange } = that.props;
-
-  const start = page === 0 ? page * limit : (page - 1) * limit;
-
-  event.preventDefault();
-
-  searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age);
-  searchPaginationChange(start, page);
 }
