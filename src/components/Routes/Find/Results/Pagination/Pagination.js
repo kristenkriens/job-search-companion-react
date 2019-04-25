@@ -1,81 +1,39 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-
-import { clickSearchPagination } from '../../../../../shared/forms';
-import * as actions from '../../../../../store/actions/index';
+import React from 'react';
 
 import './Pagination.scss';
 
-class Pagination extends Component {
-  render() {
-    const { totalResults, limit, currentPage, loading } = this.props;
+import PaginationArrow from './PaginationArrow/PaginationArrow';
 
-    const totalPages = Math.floor(totalResults / limit);
-    const totalPagesArray = new Array(totalPages).fill().map((page,i) => {
-      return i;
-    }).filter((page) => {
-      return page !== 0;
-    });
+const Pagination = (props) => {
+  const { search, searchGo, searchPaginationChange } = props;
+  const { totalResults, currentPage, limit, userIp, userAgent, query, location, country, radius, jobType, age } = search;
 
-    const paginationItem = (item) => {
-      return item === currentPage ? (
-        <div className="pagination__item pagination__item--current">
-          {loading ? (
-            <>
-              <i className="fa fa-spinner fa-pulse fa-fw"></i>
-              <span className="accessible">Loading...</span>
-            </>
-          ) : (
-            <>
-              <span className="accessible">Current: </span>{item}
-            </>
-          )}
-        </div>
-      ) : (
-        <button className="pagination__item" onClick={(event) => clickSearchPagination(this, event, item)}>{item}</button>
-      )
-    };
+  const totalPages = Math.floor(totalResults / limit);
 
-    return (
-      <div className="pagination">
-        {totalPagesArray.map((page) => {
-          return (
-            <Fragment key={page}>
-              {paginationItem(page)}
-            </Fragment>
-          )
-        })}
-        <div className="pagination__item">...</div>
-        {paginationItem(totalPages)}
-      </div>
-    )
+  const clickSearchPaginationArrow = (event, currentPage, type) => {
+    event.preventDefault();
+
+    const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
+
+    searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age);
+    searchPaginationChange(start, currentPage);
   }
-}
 
-const mapStateToProps = (state) => {
-  return {
-    totalResults: state.search.totalResults,
-    userIp: state.user.userIp,
-    userAgent: state.user.userAgent,
-    location: state.search.location,
-    query: state.search.query,
-    age: state.search.age,
-    radius: state.search.radius,
-    jobType: state.search.jobType,
-    country: state.search.country,
-    start: state.search.start,
-    currentPage: state.search.currentPage,
-    limit: state.search.limit
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    searchGo: (userAgent, userIp, start, limit, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userAgent, userIp, start, limit, query, location, country, radius, jobType, age)),
-    searchPaginationChange: (start, currentPage) => {
-      dispatch(actions.searchPaginationChange(start, currentPage))
+  const onEnter = (e) => {
+    if(e.key === 'Enter'){
+      console.log('enter');
     }
   }
+
+  return (
+    <div className="pagination">
+      <PaginationArrow currentPage={currentPage} type="prev" click={clickSearchPaginationArrow} />
+      <div className="pagination__inner">
+        <input type="number" min="1" max={totalPages} value={currentPage} onKeyPress={onEnter} /> / <span>{totalPages}</span>
+      </div>
+      <PaginationArrow currentPage={currentPage} type="next" click={clickSearchPaginationArrow} />
+    </div>
+  )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
+export default Pagination;

@@ -7,35 +7,31 @@
   flex-wrap: wrap;
   margin: 0 -5px 60px;
 
-  &__item {
+  &__arrow {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 40px;
-    min-width: 40px;
-    padding: 8px 10px;
+    width: 40px;
+    padding: 5px;
     margin: 5px;
-    background-color: $white;
-    border: 1px solid $light-grey;
+    background-color: $grey-blue;
+    color: $white;
 
     &:hover, &:active, &:focus {
-      background-color: $light-grey;
-    }
-
-    &--current {
-      background-color: $grey-blue;
-      border-color: $grey-blue;
-      color: $white;
-
-      &:hover, &:active, &:focus {
-        background-color: $grey-blue;
-      }
+      background-color: $blurple;
     }
   }
 
-  div.pagination__item:not(.pagination__item--current) {
-    &:hover, &:active, &:focus {
-      background-color: $white;
+  &__inner {
+    input, span {
+      margin: 5px;
+    }
+
+    input {
+      width: 60px;
+      margin-right: 5px;
+      text-align: center;
     }
   }
 }
