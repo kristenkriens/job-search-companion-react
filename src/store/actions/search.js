@@ -67,11 +67,20 @@ export const searchPaginationChangeDone = (start, currentPage) => {
   }
 };
 
-export const searchPaginationChange = (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
+export const searchPaginationChange = (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults) => {
   return (dispatch) => {
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
-    dispatch(searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age));
+    const totalPages = Math.ceil(totalResults / limit);
+
+    let newLimit = null;
+    if(currentPage === totalPages) {
+      newLimit = totalResults - (limit * (totalPages - 1));
+    } else {
+      newLimit = limit;
+    }
+
+    dispatch(searchGo(userIp, userAgent, start, newLimit, sortBy, query, location, country, radius, jobType, age));
     dispatch(searchPaginationChangeDone(start, currentPage));
   }
 };

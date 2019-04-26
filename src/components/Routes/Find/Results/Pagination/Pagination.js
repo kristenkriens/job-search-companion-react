@@ -12,14 +12,12 @@ class Pagination extends Component {
     inputValue: this.props.search.currentPage
   }
 
-  getTotalPages = () => {
-    return Math.floor(this.props.search.totalResults / this.props.search.limit)
-  }
+  totalPages = Math.ceil(this.props.search.totalResults / this.props.search.limit);
 
   clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
-    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = this.props.search;
+    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults } = this.props.search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
@@ -29,7 +27,7 @@ class Pagination extends Component {
     }
 
     this.changeInputValue(newCurrentPage);
-    this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age);
+    this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age, totalResults);
   }
 
   changeInputValue = (value) => {
@@ -40,18 +38,18 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = this.props.search;
+      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults } = this.props.search;
 
       if(newCurrentPage === '') {
         newCurrentPage = currentPage;
       } else if(newCurrentPage < 0) {
         newCurrentPage = 1;
-      } else if(newCurrentPage > this.getTotalPages()) {
-        newCurrentPage = this.getTotalPages();
+      } else if(newCurrentPage > this.totalPages) {
+        newCurrentPage = this.totalPages;
       }
 
       this.changeInputValue(newCurrentPage);
-      this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age);
+      this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age, totalResults);
     }
   }
 
@@ -59,17 +57,13 @@ class Pagination extends Component {
     const { search } = this.props;
     const { currentPage, loading } = search;
 
-    const totalPages = this.getTotalPages();
-
-    // Still need to get what's left over so last page doesn't have the total limit (unless it actually does)
-
     return (
       <div className="pagination">
         <PaginationArrow type="prev" disabled={currentPage === 1} click={(event) => this.clickSearchPaginationArrow(event, 'prev')} />
         <div className="pagination__inner">
-          <input type="number" value={this.state.inputValue} disabled={loading} onChange={(event) => this.changeInputValue(event.target.value)} onKeyPress={(event) => this.pressEnter(event, this.state.inputValue)} /> / <span>{totalPages}</span>
+          <input type="number" value={this.state.inputValue} disabled={loading} onChange={(event) => this.changeInputValue(event.target.value)} onKeyPress={(event) => this.pressEnter(event, this.state.inputValue)} /> / <span>{this.totalPages}</span>
         </div>
-        <PaginationArrow type="next" disabled={currentPage === totalPages} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
+        <PaginationArrow type="next" disabled={currentPage === this.totalPages} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
       </div>
     )
   }
@@ -77,8 +71,8 @@ class Pagination extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchPaginationChange: (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
-      dispatch(actions.searchPaginationChange(userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age))
+    searchPaginationChange: (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults) => {
+      dispatch(actions.searchPaginationChange(userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults))
     }
   }
 }
