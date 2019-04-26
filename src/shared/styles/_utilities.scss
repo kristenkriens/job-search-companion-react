@@ -5,3 +5,21 @@
 .center {
   text-align: center;
 }
+
+.date {
+  display: inline-block;
+  color: white;
+  padding: 5px 8px;
+
+  &--green {
+    background-color: $green;
+  }
+
+  &--yellow {
+    background-color: $yellow;
+  }
+
+  &--red {
+    background-color: $red;
+  }
+}
