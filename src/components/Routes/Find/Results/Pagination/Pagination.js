@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import './Pagination.scss';
 
 import PaginationArrow from './PaginationArrow/PaginationArrow';
+
+import * as actions from '../../../../../store/actions/index';
 
 class Pagination extends Component {
   state = {
@@ -37,10 +40,10 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { limit, sortBy, query, location, country, radius, jobType, age } = this.props.search;
+      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = this.props.search;
 
       if(newCurrentPage === '') {
-        newCurrentPage = this.props.search.currentPage;
+        newCurrentPage = currentPage;
       } else if(newCurrentPage < 0) {
         newCurrentPage = 1;
       } else if(newCurrentPage > this.getTotalPages()) {
@@ -72,4 +75,12 @@ class Pagination extends Component {
   }
 }
 
-export default Pagination;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchPaginationChange: (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
+      dispatch(actions.searchPaginationChange(userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Pagination);

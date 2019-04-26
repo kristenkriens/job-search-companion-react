@@ -33,5 +33,5 @@ export {
   searchGo,
   searchClear,
   searchPaginationChange,
-  searchPaginationChangeAlter
+  searchPaginationChangeDone
 } from './search';

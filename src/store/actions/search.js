@@ -59,9 +59,9 @@ export const searchClear = () => {
   }
 };
 
-export const searchPaginationChangeAlter = (start, currentPage) => {
+export const searchPaginationChangeDone = (start, currentPage) => {
   return {
-    type: actionTypes.SEARCH_PAGINATION_CHANGE_ALTER,
+    type: actionTypes.SEARCH_PAGINATION_CHANGE_DONE,
     start: start,
     currentPage: currentPage
   }
@@ -72,6 +72,6 @@ export const searchPaginationChange = (userIp, userAgent, limit, sortBy, current
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
     dispatch(searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age));
-    dispatch(searchPaginationChangeAlter(start, currentPage));
+    dispatch(searchPaginationChangeDone(start, currentPage));
   }
 };

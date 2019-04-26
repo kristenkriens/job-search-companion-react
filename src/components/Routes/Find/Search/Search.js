@@ -102,7 +102,7 @@ class Search extends Component {
   submitSearchForm = (event, userIp, userAgent, limit, sortBy) => {
     event.preventDefault();
 
-    this.props.searchPaginationChangeAlter(0, 1);
+    this.props.searchPaginationChangeDone(0, 1);
     this.props.searchGo(userIp, userAgent, 0, limit, sortBy, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
   }
 
@@ -187,7 +187,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age)),
-    searchPaginationChangeAlter: (start, currentPage) => dispatch(actions.searchPaginationChangeAlter(start, currentPage)),
+    searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
     searchClear: () => dispatch(actions.searchClear()),
   }
 }

@@ -61,7 +61,7 @@ const searchClear = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-const searchPaginationChangeAlter = (state, action) => {
+const searchPaginationChangeDone = (state, action) => {
   const updatedState = {
     start: action.start,
     currentPage: action.currentPage
@@ -77,7 +77,7 @@ const searchReducer = (state = initialState, action) => {
     case actionTypes.SEARCH_SUCCESS: return searchSuccess(state, action);
     case actionTypes.SEARCH_FAIL: return searchFail(state, action);
     case actionTypes.SEARCH_CLEAR: return searchClear(state, action);
-    case actionTypes.SEARCH_PAGINATION_CHANGE_ALTER: return searchPaginationChangeAlter(state, action);
+    case actionTypes.SEARCH_PAGINATION_CHANGE_DONE: return searchPaginationChangeDone(state, action);
     default: return state;
   }
 }
