@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../../UI/Button/Button';
+
+import * as actions from '../../../store/actions/index';
 
 class Home extends Component {
   render() {
@@ -24,4 +27,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Home);
