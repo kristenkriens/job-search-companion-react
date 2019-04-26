@@ -60,8 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchPaginationChange: (limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
-      dispatch(actions.searchPaginationChange(limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age))
+    searchPaginationChange: (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
+      dispatch(actions.searchPaginationChange(userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age))
     }
   }
 }

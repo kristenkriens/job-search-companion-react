@@ -15,6 +15,7 @@ const initialState = {
   limit: 15,
   results: null,
   totalResults: 0,
+  sortBy: 'relevance'
 }
 
 const searchFormUpdateElement = (state, action) => {

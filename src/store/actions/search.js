@@ -34,13 +34,13 @@ export const searchFail = (error) => {
   }
 }
 
-export const searchGo = (userIp, userAgent, start, limit, query, location, country, radius, jobType, age) => {
+export const searchGo = (userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
     dispatch(searchStart());
 
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
-    const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apisearch?publisher=${apiKey}&v=2&userip=${userIp}&useragent=${userAgent}&format=json&q=${turnSpacesIntoPlusses(query)}&l=${turnSpacesIntoPlusses(location)}&radius=${radius}&jt=${jobType === 'nopreference' ? undefined : jobType}&start=${start}&limit=${limit}&fromage=${age}&highlight=1&latlong=1&co=${country}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apisearch?publisher=${apiKey}&v=2&userip=${userIp}&useragent=${userAgent}&format=json&q=${turnSpacesIntoPlusses(query)}&l=${turnSpacesIntoPlusses(location)}&sort=${sortBy}&radius=${radius}&jt=${jobType === 'nopreference' ? undefined : jobType}&start=${start}&limit=${limit}&fromage=${age}&highlight=1&latlong=1&co=${country}`;
 
     axios.get(url)
       .then((response) => {
@@ -67,11 +67,11 @@ export const searchPaginationChangeAlter = (start, currentPage) => {
   }
 };
 
-export const searchPaginationChange = (limit, currentPage, userIp, userAgent, query, location, country, radius, jobType, age) => {
+export const searchPaginationChange = (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
-    dispatch(searchGo(userIp, userAgent, start, limit, query, location, country, radius, jobType, age));
+    dispatch(searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age));
     dispatch(searchPaginationChangeAlter(start, currentPage));
   }
 };

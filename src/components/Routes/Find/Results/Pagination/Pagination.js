@@ -16,7 +16,7 @@ class Pagination extends Component {
   clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
-    const { currentPage, limit, query, location, country, radius, jobType, age } = this.props.search;
+    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = this.props.search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
@@ -26,7 +26,7 @@ class Pagination extends Component {
     }
 
     this.changeInputValue(newCurrentPage);
-    this.props.searchPaginationChange(limit, newCurrentPage, this.props.userIp, this.props.userAgent, query, location, country, radius, jobType, age);
+    this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age);
   }
 
   changeInputValue = (value) => {
@@ -37,7 +37,7 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { limit, query, location, country, radius, jobType, age } = this.props.search;
+      const { limit, sortBy, query, location, country, radius, jobType, age } = this.props.search;
 
       if(newCurrentPage === '') {
         newCurrentPage = this.props.search.currentPage;
@@ -48,7 +48,7 @@ class Pagination extends Component {
       }
 
       this.changeInputValue(newCurrentPage);
-      this.props.searchPaginationChange(limit, newCurrentPage, this.props.userIp, this.props.userAgent, query, location, country, radius, jobType, age);
+      this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age);
     }
   }
 
