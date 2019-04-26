@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './Results.scss';
 
+import SortBy from './SortBy/SortBy';
 import ResultItem from './ResultItem/ResultItem';
 import Pagination from './Pagination/Pagination';
 
@@ -19,6 +20,7 @@ class Results extends Component {
             {results.length > 0 ? (
               <>
                 <h1>Search Results</h1>
+                <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result) => {
                     return (
