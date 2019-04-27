@@ -35,3 +35,8 @@ export {
   searchPaginationChange,
   searchPaginationChangeDone
 } from './search';
+
+export {
+  setSavedSearch,
+  getSavedSearches
+} from './savedSearches';
