@@ -7,9 +7,10 @@ export const setSavedSearchStart = () => {
   }
 }
 
-export const setSavedSearchSuccess = (savedSearch) => {
+export const setSavedSearchSuccess = (id, savedSearch) => {
   return {
     type: actionTypes.SET_SAVED_SEARCH_SUCCESS,
+    id: id,
     savedSearch: savedSearch
   }
 }
@@ -25,7 +26,7 @@ export const setSavedSearch = (savedSearch, token) => {
   return (dispatch) => {
     dispatch(setSavedSearchStart());
 
-    firebaseAxios.post(`/savedSearches.json?auth=${token}`, savedSearch)
+    firebaseAxios.post(`/saved-searches.json?auth=${token}`, savedSearch)
       .then((response) => {
         dispatch(setSavedSearchSuccess(savedSearch));
       }).catch((error) => {
@@ -60,7 +61,7 @@ export const getSavedSearches = (token, userId) => {
 
     const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
 
-    firebaseAxios.get(`/savedSearches.json${queryParams}`)
+    firebaseAxios.get(`/saved-searches.json${queryParams}`)
       .then((response) => {
         const savedSearches = [];
         for(let key in response.data) {

@@ -18,6 +18,7 @@ const setSavedSearchStart = (state, action) => {
 const setSavedSearchSuccess = (state, action) => {
   const updatedState = {
     loading: false,
+    id: action.id,
     savedSearches: state.savedSearches.concat(action.savedSearch)
   };
 
