@@ -12,9 +12,7 @@ class Pagination extends Component {
     inputValue: this.props.search.currentPage
   }
 
-  getTotalPages = () => {
-    return Math.floor(this.props.search.totalResults / this.props.search.limit)
-  }
+  totalPages = Math.ceil(this.props.search.totalResults / this.props.search.limit);
 
   clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
@@ -46,8 +44,8 @@ class Pagination extends Component {
         newCurrentPage = currentPage;
       } else if(newCurrentPage < 0) {
         newCurrentPage = 1;
-      } else if(newCurrentPage > this.getTotalPages()) {
-        newCurrentPage = this.getTotalPages();
+      } else if(newCurrentPage > this.totalPages) {
+        newCurrentPage = this.totalPages;
       }
 
       this.changeInputValue(newCurrentPage);
@@ -59,15 +57,13 @@ class Pagination extends Component {
     const { search } = this.props;
     const { currentPage, loading } = search;
 
-    const totalPages = this.getTotalPages();
-
     return (
       <div className="pagination">
         <PaginationArrow type="prev" disabled={currentPage === 1} click={(event) => this.clickSearchPaginationArrow(event, 'prev')} />
         <div className="pagination__inner">
-          <input type="number" value={this.state.inputValue} disabled={loading} onChange={(event) => this.changeInputValue(event.target.value)} onKeyPress={(event) => this.pressEnter(event, this.state.inputValue)} /> / <span>{totalPages}</span>
+          <input type="number" value={this.state.inputValue} disabled={loading} onChange={(event) => this.changeInputValue(event.target.value)} onKeyPress={(event) => this.pressEnter(event, this.state.inputValue)} /> / <span>{this.totalPages}</span>
         </div>
-        <PaginationArrow type="next" disabled={currentPage === totalPages} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
+        <PaginationArrow type="next" disabled={currentPage === this.totalPages} click={(event) => this.clickSearchPaginationArrow(event, 'next')} />
       </div>
     )
   }
