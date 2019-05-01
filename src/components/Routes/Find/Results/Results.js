@@ -19,8 +19,10 @@ class Results extends Component {
           <>
             {results.length > 0 ? (
               <>
-                <h1>Search Results</h1>
-                <SortBy userIp={userIp} userAgent={userAgent} search={search} />
+                <div className="results__heading">
+                  <h1>Search Results</h1>
+                  <SortBy userIp={userIp} userAgent={userAgent} search={search} />
+                </div>
                 <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result) => {
                     return (
