@@ -85,8 +85,6 @@ export const searchSortByChangeDone = (sortBy) => {
 
 export const searchSortByChange = (userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age) => {
   return (dispatch) => {
-    // props aren't coming through here for some reason...
-
     dispatch(searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age));
     dispatch(searchSortByChangeDone(sortBy));
   }

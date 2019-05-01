@@ -44,7 +44,7 @@ class SortBy extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     searchSortByChange: (userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age) => {
-      dispatch(actions.searchSortByChange((userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age)))
+      dispatch(actions.searchSortByChange(userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age))
     }
   }
 }

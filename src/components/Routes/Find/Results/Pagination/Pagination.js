@@ -61,8 +61,6 @@ class Pagination extends Component {
 
     const totalPages = this.getTotalPages();
 
-    // Still need to get what's left over so last page doesn't have the total limit (unless it actually does)
-
     return (
       <div className="pagination">
         <PaginationArrow type="prev" disabled={currentPage === 1} click={(event) => this.clickSearchPaginationArrow(event, 'prev')} />
