@@ -99,7 +99,7 @@ class Search extends Component {
     this.props.geolocateLatLng();
   }
 
-  submitSearchForm = (event, userIp, userAgent, limit, sortBy) => {
+  submitSearchForm = (event, userIp, userAgent, limit) => {
     event.preventDefault();
 
     const formValues = {};
@@ -112,7 +112,7 @@ class Search extends Component {
     this.props.searchGo({
       userIp,
       userAgent,
-      limit: 0,
+      limit,
       sortBy: 'relevance',
       start: 0,
       ...formValues,
