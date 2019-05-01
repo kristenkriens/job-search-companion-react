@@ -22,7 +22,7 @@ class SortBy extends Component {
       userIp,
       userAgent,
       limit,
-      value,
+      sortBy: value,
       start,
       query,
       location,
