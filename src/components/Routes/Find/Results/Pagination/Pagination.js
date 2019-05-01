@@ -17,7 +17,8 @@ class Pagination extends Component {
   clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
-    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = this.props.search;
+    const { userIp, userAgent, search } = this.props;
+    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
@@ -27,7 +28,19 @@ class Pagination extends Component {
     }
 
     this.changeInputValue(newCurrentPage);
-    this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age);
+    this.props.searchPaginationChange({
+      userIp,
+      userAgent,
+      limit,
+      sortBy,
+      currentPage: newCurrentPage,
+      query,
+      location,
+      country,
+      radius,
+      jobType,
+      age
+   });
   }
 
   changeInputValue = (value) => {
@@ -38,7 +51,8 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = this.props.search;
+      const { userIp, userAgent, search } = this.props;
+      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = search;
 
       if(newCurrentPage === '') {
         newCurrentPage = currentPage;
@@ -49,13 +63,24 @@ class Pagination extends Component {
       }
 
       this.changeInputValue(newCurrentPage);
-      this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age);
+      this.props.searchPaginationChange({
+        userIp,
+        userAgent,
+        limit,
+        sortBy,
+        currentPage: newCurrentPage,
+        query,
+        location,
+        country,
+        radius,
+        jobType,
+        age
+     });
     }
   }
 
   render() {
-    const { search } = this.props;
-    const { currentPage, loading } = search;
+    const { currentPage, loading } = this.props.search;
 
     return (
       <div className="pagination">
@@ -71,8 +96,8 @@ class Pagination extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchPaginationChange: (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
-      dispatch(actions.searchPaginationChange(userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age))
+    searchPaginationChange: (searchCriteria) => {
+      dispatch(actions.searchPaginationChange(searchCriteria))
     }
   }
 }

@@ -34,9 +34,11 @@ export const searchFail = (error) => {
   }
 }
 
-export const searchGo = (userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age) => {
+export const searchGo = (searchCriteria) => {
   return (dispatch) => {
     dispatch(searchStart());
+
+    const { userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age } = searchCriteria;
 
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
@@ -67,11 +69,13 @@ export const searchPaginationChangeDone = (start, currentPage) => {
   }
 };
 
-export const searchPaginationChange = (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age) => {
+export const searchPaginationChange = (searchCriteria) => {
   return (dispatch) => {
+    const { currentPage, limit } = searchCriteria;
+
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
-    dispatch(searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age));
+    dispatch(searchGo(searchCriteria));
     dispatch(searchPaginationChangeDone(start, currentPage));
   }
 };
@@ -83,9 +87,11 @@ export const searchSortByChangeDone = (sortBy) => {
   }
 };
 
-export const searchSortByChange = (userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age) => {
+export const searchSortByChange = (searchCriteria) => {
   return (dispatch) => {
-    dispatch(searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age));
+    const { sortBy } = searchCriteria;
+
+    dispatch(searchGo(searchCriteria));
     dispatch(searchSortByChangeDone(sortBy));
   }
 };

@@ -102,9 +102,21 @@ class Search extends Component {
   submitSearchForm = (event, userIp, userAgent, limit, sortBy) => {
     event.preventDefault();
 
+    const formValues = {};
+    for(let key in this.state.form) {
+      formValues[key] = this.state.form[key].value;
+    }
+
     this.props.searchPaginationChangeDone(0, 1);
     this.props.searchSortByChangeDone('relevance');
-    this.props.searchGo(userIp, userAgent, 0, limit, 'relevance', this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
+    this.props.searchGo({
+      userIp,
+      userAgent,
+      limit: 0,
+      sortBy: 'relevance',
+      start: 0,
+      ...formValues,
+    });
   }
 
   clear = (event) => {
@@ -187,7 +199,7 @@ const mapDispatchToProps = (dispatch) => {
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
-    searchGo: (userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age)),
+    searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
     searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
     searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
     searchClear: () => dispatch(actions.searchClear()),

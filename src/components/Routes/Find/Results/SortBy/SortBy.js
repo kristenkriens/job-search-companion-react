@@ -11,13 +11,26 @@ class SortBy extends Component {
   }
 
   changeSelectValue = (value) => {
-    const { limit, start, query, location, country, radius, jobType, age } = this.props.search;
+    const { userIp, userAgent, search } = this.props;
+    const { limit, start, query, location, country, radius, jobType, age } = search;
 
     this.setState({
       selectValue: value
     });
 
-    this.props.searchSortByChange(this.props.userIp, this.props.userAgent, limit, value, start, query, location, country, radius, jobType, age);
+    this.props.searchSortByChange({
+      userIp,
+      userAgent,
+      limit,
+      value,
+      start,
+      query,
+      location,
+      country,
+      radius,
+      jobType,
+      age
+    });
   }
 
   render() {
@@ -43,8 +56,8 @@ class SortBy extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchSortByChange: (userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age) => {
-      dispatch(actions.searchSortByChange(userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age))
+    searchSortByChange: (searchCriteria) => {
+      dispatch(actions.searchSortByChange(searchCriteria))
     }
   }
 }
