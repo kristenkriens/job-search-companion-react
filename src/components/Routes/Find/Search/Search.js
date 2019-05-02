@@ -107,7 +107,7 @@ class Search extends Component {
       formValues[key] = this.state.form[key].value;
     }
 
-    this.props.searchPaginationChangeDone(0, 1);
+    this.props.searchPaginationChangeDone(0, 1, limit);
     this.props.searchSortByChangeDone('relevance');
     this.props.searchGo({
       userIp,
@@ -159,7 +159,7 @@ class Search extends Component {
             )
           })}
           <div className="form__footer">
-            <Button type="submit" loading={loading} disabled={!userAgent && !userIp}>Search</Button>
+            <Button type="submit" loading={loading} disabled={!userIp && !userAgent}>Search</Button>
             <LinkButton click={(event) => this.clear(event)}>Clear</LinkButton>
             {isAuthenticated && (
               <LinkButton>Save</LinkButton>
@@ -199,7 +199,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
-    searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
+    searchPaginationChangeDone: (start, currentPage, limit) => dispatch(actions.searchPaginationChangeDone(start, currentPage, limit)),
     searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
     searchClear: () => dispatch(actions.searchClear()),
   }

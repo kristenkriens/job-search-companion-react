@@ -26,7 +26,7 @@ class Results extends Component {
                 <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result) => {
                     return (
-                      <ResultItem key={result.jobkey} result={result} />
+                      <ResultItem key={result.jobkey} result={result} isAuthenticated={isAuthenticated} />
                     )
                   })}
                 </div>

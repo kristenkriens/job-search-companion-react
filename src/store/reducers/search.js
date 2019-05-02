@@ -64,7 +64,8 @@ const searchClear = (state, action) => {
 const searchPaginationChangeDone = (state, action) => {
   const updatedState = {
     start: action.start,
-    currentPage: action.currentPage
+    currentPage: action.currentPage,
+    limit: action.limit
   };
 
   return updateObject(state, updatedState);

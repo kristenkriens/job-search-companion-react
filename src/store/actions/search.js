@@ -61,22 +61,32 @@ export const searchClear = () => {
   }
 };
 
-export const searchPaginationChangeDone = (start, currentPage) => {
+export const searchPaginationChangeDone = (start, currentPage, limit) => {
   return {
     type: actionTypes.SEARCH_PAGINATION_CHANGE_DONE,
     start: start,
-    currentPage: currentPage
+    currentPage: currentPage,
+    limit: limit
   }
 };
 
 export const searchPaginationChange = (searchCriteria) => {
   return (dispatch) => {
-    const { currentPage, limit } = searchCriteria;
+    const { currentPage, limit, totalResults } = searchCriteria;
 
     const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
 
+    const totalPages = Math.ceil(totalResults / limit);
+
+    let newLimit = null;
+    if(currentPage === totalPages) {
+      newLimit = totalResults - (limit * (totalPages - 1));
+    } else {
+      newLimit = limit;
+    }
+
     dispatch(searchGo(searchCriteria));
-    dispatch(searchPaginationChangeDone(start, currentPage));
+    dispatch(searchPaginationChangeDone(start, currentPage, newLimit));
   }
 };
 

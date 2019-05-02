@@ -18,12 +18,13 @@ class Pagination extends Component {
     event.preventDefault();
 
     const { userIp, userAgent, search } = this.props;
+    const { currentPage } = search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
-      newCurrentPage = search.currentPage - 1;
+      newCurrentPage = currentPage - 1;
     } else {
-      newCurrentPage = search.currentPage + 1;
+      newCurrentPage = currentPage + 1;
     }
 
     this.changeInputValue(newCurrentPage);
@@ -44,6 +45,7 @@ class Pagination extends Component {
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
       const { userIp, userAgent, search } = this.props;
+      const { currentPage } = search;
 
       if(newCurrentPage === '') {
         newCurrentPage = search.currentPage;
@@ -64,7 +66,8 @@ class Pagination extends Component {
   }
 
   render() {
-    const { currentPage, loading } = this.props.search;
+    const { search } = this.props;
+    const { currentPage, loading } = search;
 
     return (
       <div className="pagination">
