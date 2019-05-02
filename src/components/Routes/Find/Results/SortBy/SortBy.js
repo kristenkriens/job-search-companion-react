@@ -12,7 +12,6 @@ class SortBy extends Component {
 
   changeSelectValue = (value) => {
     const { userIp, userAgent, search } = this.props;
-    const { limit, start, query, location, country, radius, jobType, age } = search;
 
     this.setState({
       selectValue: value
@@ -21,15 +20,8 @@ class SortBy extends Component {
     this.props.searchSortByChange({
       userIp,
       userAgent,
-      limit,
       sortBy: value,
-      start,
-      query,
-      location,
-      country,
-      radius,
-      jobType,
-      age
+      ...search
     });
   }
 

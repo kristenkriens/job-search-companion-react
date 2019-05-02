@@ -18,7 +18,6 @@ class Pagination extends Component {
     event.preventDefault();
 
     const { userIp, userAgent, search } = this.props;
-    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
@@ -31,15 +30,8 @@ class Pagination extends Component {
     this.props.searchPaginationChange({
       userIp,
       userAgent,
-      limit,
-      sortBy,
       currentPage: newCurrentPage,
-      query,
-      location,
-      country,
-      radius,
-      jobType,
-      age
+      ...search
    });
   }
 

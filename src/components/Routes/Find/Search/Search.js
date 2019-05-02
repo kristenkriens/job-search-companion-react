@@ -115,7 +115,7 @@ class Search extends Component {
       limit,
       sortBy: 'relevance',
       start: 0,
-      ...formValues,
+      ...formValues
     });
   }
 
