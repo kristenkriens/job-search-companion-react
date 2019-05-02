@@ -44,10 +44,9 @@ class Pagination extends Component {
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
       const { userIp, userAgent, search } = this.props;
-      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age } = search;
 
       if(newCurrentPage === '') {
-        newCurrentPage = currentPage;
+        newCurrentPage = search.currentPage;
       } else if(newCurrentPage < 0) {
         newCurrentPage = 1;
       } else if(newCurrentPage > this.totalPages) {
@@ -58,15 +57,8 @@ class Pagination extends Component {
       this.props.searchPaginationChange({
         userIp,
         userAgent,
-        limit,
-        sortBy,
         currentPage: newCurrentPage,
-        query,
-        location,
-        country,
-        radius,
-        jobType,
-        age
+        ...search
      });
     }
   }
