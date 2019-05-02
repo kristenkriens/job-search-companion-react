@@ -18,7 +18,7 @@ class Pagination extends Component {
     event.preventDefault();
 
     const { userIp, userAgent, search } = this.props;
-    const { currentPage } = search;
+    const { currentPage, results, ...newSearch } = search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
@@ -27,15 +27,13 @@ class Pagination extends Component {
       newCurrentPage = currentPage + 1;
     }
 
-    const searchCriteria = {
+    this.changeInputValue(newCurrentPage);
+    this.props.searchPaginationChange({
       userIp,
       userAgent,
-      ...search
-    };
-    searchCriteria.currentPage = newCurrentPage;
-
-    this.changeInputValue(newCurrentPage);
-    this.props.searchPaginationChange(searchCriteria);
+      currentPage: newCurrentPage,
+      ...newSearch
+    });
   }
 
   changeInputValue = (value) => {
@@ -47,7 +45,7 @@ class Pagination extends Component {
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
       const { userIp, userAgent, search } = this.props;
-      const { currentPage } = search;
+      const { currentPage, results, ...newSearch } = search;
 
       if(newCurrentPage === '') {
         newCurrentPage = currentPage;
@@ -57,21 +55,21 @@ class Pagination extends Component {
         newCurrentPage = this.totalPages;
       }
 
-      const searchCriteria = {
+      this.changeInputValue(newCurrentPage);
+      this.props.searchPaginationChange({
         userIp,
         userAgent,
-        ...search
-      };
-      searchCriteria.currentPage = newCurrentPage;
-
-      this.changeInputValue(newCurrentPage);
-      this.props.searchPaginationChange(searchCriteria);
+        currentPage: newCurrentPage,
+        ...newSearch
+      });
     }
   }
 
   render() {
     const { search } = this.props;
     const { currentPage, loading } = search;
+
+    console.log(this.props.search);
 
     return (
       <div className="pagination">
