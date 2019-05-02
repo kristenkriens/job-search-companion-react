@@ -21,9 +21,9 @@ class Pagination extends Component {
 
     let newCurrentPage = null;
     if(type === 'prev') {
-      newCurrentPage = currentPage - 1;
+      newCurrentPage = search.currentPage - 1;
     } else {
-      newCurrentPage = currentPage + 1;
+      newCurrentPage = search.currentPage + 1;
     }
 
     this.changeInputValue(newCurrentPage);
