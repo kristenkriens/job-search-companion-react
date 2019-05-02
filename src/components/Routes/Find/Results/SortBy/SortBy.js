@@ -17,12 +17,14 @@ class SortBy extends Component {
       selectValue: value
     });
 
-    this.props.searchSortByChange({
+    const searchCriteria = {
       userIp,
       userAgent,
-      sortBy: value,
       ...search
-    });
+    };
+    searchCriteria.sortBy = value;
+
+    this.props.searchSortByChange(searchCriteria);
   }
 
   render() {
@@ -48,9 +50,7 @@ class SortBy extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchSortByChange: (searchCriteria) => {
-      dispatch(actions.searchSortByChange(searchCriteria))
-    }
+    searchSortByChange: (searchCriteria) => dispatch(actions.searchSortByChange(searchCriteria))
   }
 }
 

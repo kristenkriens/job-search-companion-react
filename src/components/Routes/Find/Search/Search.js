@@ -107,7 +107,7 @@ class Search extends Component {
       formValues[key] = this.state.form[key].value;
     }
 
-    this.props.searchPaginationChangeDone(0, 1, limit);
+    this.props.searchPaginationChangeDone(0, 1);
     this.props.searchSortByChangeDone('relevance');
     this.props.searchGo({
       userIp,
@@ -199,9 +199,9 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
-    searchPaginationChangeDone: (start, currentPage, limit) => dispatch(actions.searchPaginationChangeDone(start, currentPage, limit)),
+    searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
     searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
-    searchClear: () => dispatch(actions.searchClear()),
+    searchClear: () => dispatch(actions.searchClear())
   }
 }
 

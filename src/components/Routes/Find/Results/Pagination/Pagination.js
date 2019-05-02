@@ -27,13 +27,15 @@ class Pagination extends Component {
       newCurrentPage = currentPage + 1;
     }
 
-    this.changeInputValue(newCurrentPage);
-    this.props.searchPaginationChange({
+    const searchCriteria = {
       userIp,
       userAgent,
-      currentPage: newCurrentPage,
       ...search
-   });
+    };
+    searchCriteria.currentPage = newCurrentPage;
+
+    this.changeInputValue(newCurrentPage);
+    this.props.searchPaginationChange(searchCriteria);
   }
 
   changeInputValue = (value) => {
@@ -48,20 +50,22 @@ class Pagination extends Component {
       const { currentPage } = search;
 
       if(newCurrentPage === '') {
-        newCurrentPage = search.currentPage;
+        newCurrentPage = currentPage;
       } else if(newCurrentPage < 0) {
         newCurrentPage = 1;
       } else if(newCurrentPage > this.totalPages) {
         newCurrentPage = this.totalPages;
       }
 
-      this.changeInputValue(newCurrentPage);
-      this.props.searchPaginationChange({
+      const searchCriteria = {
         userIp,
         userAgent,
-        currentPage: newCurrentPage,
         ...search
-     });
+      };
+      searchCriteria.currentPage = newCurrentPage;
+
+      this.changeInputValue(newCurrentPage);
+      this.props.searchPaginationChange(searchCriteria);
     }
   }
 
@@ -83,9 +87,7 @@ class Pagination extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchPaginationChange: (searchCriteria) => {
-      dispatch(actions.searchPaginationChange(searchCriteria))
-    }
+    searchPaginationChange: (searchCriteria) => dispatch(actions.searchPaginationChange(searchCriteria))
   }
 }
 
