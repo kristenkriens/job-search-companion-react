@@ -126,14 +126,14 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, limit, sortBy, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
         <h1 className="accessible">Search</h1>
-        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, limit, sortBy)} className="form">
+        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, limit)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -189,8 +189,7 @@ const mapStateToProps = (state) => {
     radius: state.search.radius,
     jobType: state.search.jobType,
     country: state.search.country,
-    limit: state.search.limit,
-    sortBy: state.search.sortBy
+    limit: state.search.limit
   }
 }
 
