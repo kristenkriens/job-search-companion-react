@@ -1,8 +1,49 @@
+@import '../../../../shared/styles/variables';
+
 .results {
   margin-bottom: 40px;
   transition: opacity 250ms ease-in-out;
 
   &--loading {
     pointer-events: none;
+  }
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    @media (max-width: 650px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      margin-right: 15px;
+      text-align: left;
+
+      @media (max-width: 650px) {
+        width: 100%;
+        margin-right: 0;
+        text-align: center;
+      }
+    }
+
+    .sort-by {
+      text-align: right;
+
+      @media (max-width: 650px) {
+        text-align: center;
+      }
+
+      .form__element {
+        justify-content: flex-end;
+
+        @media (max-width: 650px) {
+          justify-content: center;
+        }
+      }
+    }
   }
 }

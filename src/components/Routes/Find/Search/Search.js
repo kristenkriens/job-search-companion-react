@@ -99,11 +99,24 @@ class Search extends Component {
     this.props.geolocateLatLng();
   }
 
-  submitSearchForm = (event, userIp, userAgent, limit, sortBy) => {
+  submitSearchForm = (event, userIp, userAgent, limit) => {
     event.preventDefault();
 
+    const formValues = {};
+    for(let key in this.state.form) {
+      formValues[key] = this.state.form[key].value;
+    }
+
     this.props.searchPaginationChangeDone(0, 1);
-    this.props.searchGo(userIp, userAgent, 0, limit, sortBy, this.state.form.query.value, this.state.form.location.value, this.state.form.country.value, this.state.form.radius.value, this.state.form.jobType.value, this.state.form.age.value);
+    this.props.searchSortByChangeDone('relevance');
+    this.props.searchGo({
+      userIp,
+      userAgent,
+      limit,
+      sortBy: 'relevance',
+      start: 0,
+      ...formValues
+    });
   }
 
   clear = (event) => {
@@ -113,14 +126,14 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, limit, sortBy, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
         <h1 className="accessible">Search</h1>
-        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, limit, sortBy)} className="form">
+        <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, limit)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -176,8 +189,7 @@ const mapStateToProps = (state) => {
     radius: state.search.radius,
     jobType: state.search.jobType,
     country: state.search.country,
-    limit: state.search.limit,
-    sortBy: state.search.sortBy
+    limit: state.search.limit
   }
 }
 
@@ -186,9 +198,10 @@ const mapDispatchToProps = (dispatch) => {
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
-    searchGo: (userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age) => dispatch(actions.searchGo(userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age)),
+    searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
     searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
-    searchClear: () => dispatch(actions.searchClear()),
+    searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
+    searchClear: () => dispatch(actions.searchClear())
   }
 }
 

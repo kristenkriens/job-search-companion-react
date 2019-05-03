@@ -17,7 +17,8 @@ class Pagination extends Component {
   clickSearchPaginationArrow = (event, type) => {
     event.preventDefault();
 
-    const { limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults } = this.props.search;
+    const { userIp, userAgent, search } = this.props;
+    const { currentPage, results, ...newSearch } = search;
 
     let newCurrentPage = null;
     if(type === 'prev') {
@@ -27,7 +28,12 @@ class Pagination extends Component {
     }
 
     this.changeInputValue(newCurrentPage);
-    this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age, totalResults);
+    this.props.searchPaginationChange({
+      userIp,
+      userAgent,
+      currentPage: newCurrentPage,
+      ...newSearch
+    });
   }
 
   changeInputValue = (value) => {
@@ -38,7 +44,8 @@ class Pagination extends Component {
 
   pressEnter = (event, newCurrentPage) => {
     if(event.key === 'Enter') {
-      const { limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults } = this.props.search;
+      const { userIp, userAgent, search } = this.props;
+      const { currentPage, results, ...newSearch } = search;
 
       if(newCurrentPage === '') {
         newCurrentPage = currentPage;
@@ -49,7 +56,12 @@ class Pagination extends Component {
       }
 
       this.changeInputValue(newCurrentPage);
-      this.props.searchPaginationChange(this.props.userIp, this.props.userAgent, limit, sortBy, newCurrentPage, query, location, country, radius, jobType, age, totalResults);
+      this.props.searchPaginationChange({
+        userIp,
+        userAgent,
+        currentPage: newCurrentPage,
+        ...newSearch
+      });
     }
   }
 
@@ -71,9 +83,7 @@ class Pagination extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchPaginationChange: (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults) => {
-      dispatch(actions.searchPaginationChange(userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults))
-    }
+    searchPaginationChange: (searchCriteria) => dispatch(actions.searchPaginationChange(searchCriteria))
   }
 }
 

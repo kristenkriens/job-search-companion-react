@@ -34,9 +34,11 @@ export const searchFail = (error) => {
   }
 }
 
-export const searchGo = (userIp, userAgent, start, limit, sortBy, query, location, country, radius, jobType, age) => {
+export const searchGo = (searchCriteria) => {
   return (dispatch) => {
     dispatch(searchStart());
+
+    const { userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age } = searchCriteria;
 
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
@@ -67,20 +69,40 @@ export const searchPaginationChangeDone = (start, currentPage) => {
   }
 };
 
-export const searchPaginationChange = (userIp, userAgent, limit, sortBy, currentPage, query, location, country, radius, jobType, age, totalResults) => {
+export const searchPaginationChange = (searchCriteria) => {
   return (dispatch) => {
-    const start = currentPage === 0 ? currentPage * limit : (currentPage - 1) * limit;
+    const { currentPage, limit } = searchCriteria;
+    const { start, ...filteredSearchCriteria } = searchCriteria;
 
-    const totalPages = Math.ceil(totalResults / limit);
-
-    let newLimit = null;
-    if(currentPage === totalPages) {
-      newLimit = totalResults - (limit * (totalPages - 1));
+    let newStart = 0;
+    if(currentPage <= 1) {
+      newStart = 0;
     } else {
-      newLimit = limit;
+      newStart = (currentPage - 1) * limit;
     }
 
-    dispatch(searchGo(userIp, userAgent, start, newLimit, sortBy, query, location, country, radius, jobType, age));
-    dispatch(searchPaginationChangeDone(start, currentPage));
+    const newSearchCriteria = {
+      start: newStart,
+      ...filteredSearchCriteria
+    }
+
+    dispatch(searchGo(newSearchCriteria));
+    dispatch(searchPaginationChangeDone(newStart, currentPage));
+  }
+};
+
+export const searchSortByChangeDone = (sortBy) => {
+  return {
+    type: actionTypes.SEARCH_SORT_BY_CHANGE_DONE,
+    sortBy: sortBy
+  }
+};
+
+export const searchSortByChange = (searchCriteria) => {
+  return (dispatch) => {
+    const { sortBy } = searchCriteria;
+
+    dispatch(searchGo(searchCriteria));
+    dispatch(searchSortByChangeDone(sortBy));
   }
 };
