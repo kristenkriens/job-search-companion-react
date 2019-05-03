@@ -22,7 +22,7 @@ export const setSavedSearchFail = (error) => {
   }
 }
 
-export const setSavedSearch = (savedSearch, token) => {
+export const setSavedSearch = (token, savedSearch) => {
   return (dispatch) => {
     dispatch(setSavedSearchStart());
 
@@ -59,9 +59,7 @@ export const getSavedSearches = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedSearchesStart());
 
-    const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
-
-    firebaseAxios.get(`/saved-searches.json${queryParams}`)
+    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`)
       .then((response) => {
         const savedSearches = [];
         for(let key in response.data) {
@@ -74,6 +72,7 @@ export const getSavedSearches = (token, userId) => {
         dispatch(getSavedSearchesSuccess(savedSearches));
       })
       .catch((error) => {
+        console.log(error);
         dispatch(getSavedSearchesFail(error));
       });
   }

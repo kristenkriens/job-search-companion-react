@@ -90,7 +90,11 @@ class Search extends Component {
       } else {
         return false;
       }
-    })
+    });
+
+    if(this.props.isAuthenticated) {
+      this.props.getSavedSearches(this.props.token, this.props.userId);
+    }
   }
 
   geolocateClick = (event) => {
@@ -125,8 +129,28 @@ class Search extends Component {
     this.props.searchClear();
   }
 
+  saveSearch = (event) => {
+    event.preventDefault();
+
+    const savedSearch = {
+      userIp: this.props.userIp,
+      userAgent: this.props.userAgent,
+      start: 0,
+      limit: this.props.limit,
+      sortBy: 'relevance',
+      query: this.state.form.query.value,
+      location: this.state.form.location.value,
+      country: this.state.form.country.value,
+      radius: this.state.form.radius.value,
+      jobType: this.state.form.jobType.value,
+      age: this.state.form.age.value
+    }
+
+    this.props.setSavedSearch(this.props.token, savedSearch);
+  }
+
   render() {
-    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, savedSearches, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -162,7 +186,7 @@ class Search extends Component {
             <Button type="submit" loading={loading} disabled={!userIp && !userAgent}>Search</Button>
             <LinkButton click={(event) => this.clear(event)}>Clear</LinkButton>
             {isAuthenticated && (
-              <LinkButton>Save</LinkButton>
+              <LinkButton click={(event) => this.saveSearch(event)}>Save</LinkButton>
             )}
           </div>
         </form>
@@ -170,7 +194,11 @@ class Search extends Component {
           <>
             <div className="saved-searches">
               <h3>Saved Searches</h3>
-              <p>You don't have any saved searches.</p>
+              {savedSearches.length > 0 ? (
+                console.log(savedSearches)
+              ) : (
+                <p>You don't have any saved searches.</p>
+              )}
             </div>
           </>
         )}
@@ -189,7 +217,11 @@ const mapStateToProps = (state) => {
     radius: state.search.radius,
     jobType: state.search.jobType,
     country: state.search.country,
-    limit: state.search.limit
+    limit: state.search.limit,
+    sortBy: state.search.sortBy,
+    token: state.auth.token,
+    userId: state.auth.userId,
+    savedSearches: state.savedSearches.savedSearches
   }
 }
 
@@ -199,9 +231,11 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
+    searchClear: () => dispatch(actions.searchClear()),
+    setSavedSearch: (token, savedSearch) => dispatch(actions.setSavedSearch(token, savedSearch)),
+    getSavedSearches: (token, userId) => dispatch(actions.getSavedSearches(token, userId)),
     searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
     searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
-    searchClear: () => dispatch(actions.searchClear())
   }
 }
 
