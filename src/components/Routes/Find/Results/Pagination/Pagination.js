@@ -69,8 +69,6 @@ class Pagination extends Component {
     const { search } = this.props;
     const { currentPage, loading } = search;
 
-    console.log(this.props.search);
-
     return (
       <div className="pagination">
         <PaginationArrow type="prev" disabled={currentPage === 1} click={(event) => this.clickSearchPaginationArrow(event, 'prev')} />
