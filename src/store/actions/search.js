@@ -71,19 +71,23 @@ export const searchPaginationChangeDone = (start, currentPage) => {
 
 export const searchPaginationChange = (searchCriteria) => {
   return (dispatch) => {
-    const { currentPage } = searchCriteria;
+    const { currentPage, limit } = searchCriteria;
+    const { start, ...filteredSearchCriteria } = searchCriteria;
 
-    let start = 0;
-    if(currentPage === '') {
-      start = currentPage * 15;
-    } else if(currentPage <= 1) {
-      start = 0;
+    let newStart = 0;
+    if(currentPage <= 1) {
+      newStart = 0;
     } else {
-      start = (currentPage - 1) * 15;
+      newStart = (currentPage - 1) * limit;
     }
 
-    dispatch(searchGo(searchCriteria));
-    dispatch(searchPaginationChangeDone(start, currentPage));
+    const newSearchCriteria = {
+      start: newStart,
+      ...filteredSearchCriteria
+    }
+
+    dispatch(searchGo(newSearchCriteria));
+    dispatch(searchPaginationChangeDone(newStart, currentPage));
   }
 };
 
