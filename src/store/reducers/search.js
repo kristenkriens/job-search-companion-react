@@ -70,6 +70,14 @@ const searchPaginationChangeDone = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const searchSortByChangeDone = (state, action) => {
+  const updatedState = {
+    sortBy: action.sortBy
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const searchReducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.SEARCH_FORM_UPDATE_ELEMENT: return searchFormUpdateElement(state, action);
@@ -78,6 +86,7 @@ const searchReducer = (state = initialState, action) => {
     case actionTypes.SEARCH_FAIL: return searchFail(state, action);
     case actionTypes.SEARCH_CLEAR: return searchClear(state, action);
     case actionTypes.SEARCH_PAGINATION_CHANGE_DONE: return searchPaginationChangeDone(state, action);
+    case actionTypes.SEARCH_SORT_BY_CHANGE_DONE: return searchSortByChangeDone(state, action);
     default: return state;
   }
 }

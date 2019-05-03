@@ -33,5 +33,7 @@ export {
   searchGo,
   searchClear,
   searchPaginationChange,
-  searchPaginationChangeDone
+  searchPaginationChangeDone,
+  searchSortByChange,
+  searchSortByChangeDone
 } from './search';
