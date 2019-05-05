@@ -2,8 +2,10 @@ import React from 'react';
 
 import LinkButton from '../../../../UI/Button/LinkButton/LinkButton';
 
+import { countries } from '../../../../../shared/countries';
+
 const SavedSearches = (props) => {
-  const { savedSearches } = props;
+  const { savedSearches, jobTypes } = props;
 
   return (
     <>
@@ -21,7 +23,13 @@ const SavedSearches = (props) => {
                     <span>{search.location}</span>
                   )}
                   {search.country && (
-                    <span>{search.country}</span>
+                    countries.map((country) => {
+                      if(country.value == search.country) {
+                        return (
+                          <span>{country.displayValue}</span>
+                        )
+                      }
+                    })
                   )}
                   {search.age && (
                     <span>{search.age} days</span>
@@ -30,7 +38,13 @@ const SavedSearches = (props) => {
                     <span>{search.radius} {search.country !== 'us' ? 'km' : 'mi'}</span>
                   )}
                   {search.jobType && search.jobType !== 'nopreference' && (
-                    <span>{search.jobType}</span>
+                    jobTypes.map((jobType) => {
+                      if(jobType.value == search.jobType) {
+                        return (
+                          <span>{jobType.label}</span>
+                        )
+                      }
+                    })
                   )}
                   <div className="button-wrapper button-wrapper--inline">
                     <LinkButton>Use</LinkButton>

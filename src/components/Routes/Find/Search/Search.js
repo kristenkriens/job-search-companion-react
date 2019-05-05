@@ -205,7 +205,7 @@ class Search extends Component {
           </div>
         </form>
         {isAuthenticated && (
-          <SavedSearches savedSearches={savedSearches} />
+          <SavedSearches savedSearches={savedSearches} jobTypes={this.state.form.jobType.elementConfig.choices} />
         )}
       </>
     )
