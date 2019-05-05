@@ -61,6 +61,33 @@ const getSavedSearchesFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const useSavedSearchStart = (state, action) => {
+  const updatedState = {
+    loading: true
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const useSavedSearchSuccess = (state, action) => {
+  // add to state of form
+
+  const updatedState = {
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const useSavedSearchFail = (state, action) => {
+  const updatedState = {
+    error: action.error,
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const removeSavedSearchStart = (state, action) => {
   const updatedState = {
     loading: true
@@ -70,6 +97,8 @@ const removeSavedSearchStart = (state, action) => {
 }
 
 const removeSavedSearchSuccess = (state, action) => {
+  // call get function again and/or update savedSearches array
+  
   const updatedState = {
     loading: false
   };
@@ -94,6 +123,9 @@ const savedSearchesReducer = (state = initialState, action) => {
     case actionTypes.GET_SAVED_SEARCHES_START: return getSavedSearchesStart(state, action);
     case actionTypes.GET_SAVED_SEARCHES_SUCCESS: return getSavedSearchesSuccess(state, action);
     case actionTypes.GET_SAVED_SEARCHES_FAIL: return getSavedSearchesFail(state, action);
+    case actionTypes.USE_SAVED_SEARCH_START: return useSavedSearchStart(state, action);
+    case actionTypes.USE_SAVED_SEARCH_SUCCESS: return useSavedSearchSuccess(state, action);
+    case actionTypes.USE_SAVED_SEARCH_FAIL: return useSavedSearchFail(state, action);
     case actionTypes.REMOVE_SAVED_SEARCH_START: return removeSavedSearchStart(state, action);
     case actionTypes.REMOVE_SAVED_SEARCH_SUCCESS: return removeSavedSearchSuccess(state, action);
     case actionTypes.REMOVE_SAVED_SEARCH_FAIL: return removeSavedSearchFail(state, action);

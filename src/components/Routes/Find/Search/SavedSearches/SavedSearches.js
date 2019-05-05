@@ -8,6 +8,12 @@ import { countries } from '../../../../../shared/countries';
 import * as actions from '../../../../../store/actions/index';
 
 class SavedSearches extends Component {
+  use = (event, id) => {
+    event.preventDefault();
+
+    this.props.useSavedSearch(this.props.token, id);
+  }
+
   remove = (event, id) => {
     event.preventDefault();
 
@@ -61,7 +67,7 @@ class SavedSearches extends Component {
                       })
                     )}
                     <div className="button-wrapper button-wrapper--inline">
-                      <LinkButton>Use</LinkButton>
+                      <LinkButton click={(event) => this.use(event, search.id)}>Use</LinkButton>
                       <LinkButton click={(event) => this.remove(event, search.id)}>Remove</LinkButton>
                     </div>
                   </li>
@@ -85,6 +91,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    useSavedSearch: (token, id) => dispatch(actions.useSavedSearch(token, id)),
     removeSavedSearch: (token, id) => dispatch(actions.removeSavedSearch(token, id))
   }
 }

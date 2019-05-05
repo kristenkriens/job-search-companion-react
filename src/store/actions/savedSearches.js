@@ -77,13 +77,50 @@ export const getSavedSearches = (token, userId) => {
   }
 }
 
+export const useSavedSearchStart = () => {
+  return {
+    type: actionTypes.USE_SAVED_SEARCH_START
+  }
+}
+
+export const useSavedSearchSuccess = (response) => {
+  // add to state of form
+
+  return {
+    type: actionTypes.USE_SAVED_SEARCH_SUCCESS
+  }
+}
+
+export const useSavedSearchFail = (error) => {
+  return {
+    type: actionTypes.USE_SAVED_SEARCH_FAIL,
+    error: error
+  }
+}
+
+export const useSavedSearch = (token, id) => {
+  return (dispatch) => {
+    dispatch(useSavedSearchStart());
+
+    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="id"&equalTo="${id}"`)
+      .then((response) => {
+        console.log(response.data);
+        dispatch(useSavedSearchSuccess(response.data));
+      }).catch((error) => {
+        dispatch(useSavedSearchFail(error));
+      });
+  }
+}
+
 export const removeSavedSearchStart = () => {
   return {
     type: actionTypes.REMOVE_SAVED_SEARCH_START
   }
 }
 
-export const removeSavedSearchSuccess = () => {
+export const removeSavedSearchSuccess = (response) => {
+  // call get function again and/or update savedSearches array
+
   return {
     type: actionTypes.REMOVE_SAVED_SEARCH_SUCCESS
   }
@@ -100,10 +137,12 @@ export const removeSavedSearch = (token, id) => {
   return (dispatch) => {
     dispatch(removeSavedSearchStart());
 
+    console.log(id);
+
     firebaseAxios.delete(`/saved-searches.json?auth=${token}&orderBy="id"&equalTo="${id}"`)
       .then((response) => {
-        console.log(response);
-        dispatch(removeSavedSearchSuccess());
+        console.log(response.data);
+        dispatch(removeSavedSearchSuccess(response.data));
       }).catch((error) => {
         dispatch(removeSavedSearchFail(error));
       });

@@ -41,5 +41,6 @@ export {
 export {
   setSavedSearch,
   getSavedSearches,
+  useSavedSearch,
   removeSavedSearch
 } from './savedSearches';
