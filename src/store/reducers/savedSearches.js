@@ -20,7 +20,7 @@ const setSavedSearchSuccess = (state, action) => {
 
   const updatedState = {
     loading: false,
-    savedSearches: state.orders.concat(newSavedSearch)
+    savedSearches: state.savedSearches.concat(newSavedSearch)
   };
 
   return updateObject(state, updatedState);
