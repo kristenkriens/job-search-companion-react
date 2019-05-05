@@ -5,6 +5,8 @@ import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
+import './Search.scss';
+
 import { countries } from '../../../../shared/countries';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
@@ -59,8 +61,7 @@ class Search extends Component {
           type: 'number',
           placeholder: 'e.g. 10 (Default is 25)',
         },
-        label: 'Search Radius',
-        moreInfo: 'Units are local to the country.',
+        label: `Search Radius ${this.props.country !== 'us' ? '(km)' : '(mi)'}`,
         value: this.props.radius
       },
       jobType: {
@@ -81,7 +82,8 @@ class Search extends Component {
     }
   }
 
-  componentDidUpdate = () => {
+  count = 0;
+  componentDidUpdate = (prevProps) => {
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     formElementsArray.map((formElement) => {
@@ -92,9 +94,18 @@ class Search extends Component {
       }
     });
 
-    if(this.props.isAuthenticated) {
+    let lengths = true;
+    let notEqual = true;
+    if(this.count > 0) {
+      lengths = prevProps.savedSearches.length === 0 && this.props.savedSearches.length === 0;
+      notEqual = prevProps.savedSearches === this.props.savedSearches;
+    }
+
+    if(this.props.isAuthenticated && lengths && notEqual) {
       this.props.getSavedSearches(this.props.token, this.props.userId);
     }
+
+    this.count++;
   }
 
   geolocateClick = (event) => {
@@ -133,6 +144,7 @@ class Search extends Component {
     event.preventDefault();
 
     const savedSearch = {
+      userId: this.props.userId,
       userIp: this.props.userIp,
       userAgent: this.props.userAgent,
       start: 0,
@@ -143,7 +155,8 @@ class Search extends Component {
       country: this.state.form.country.value,
       radius: this.state.form.radius.value,
       jobType: this.state.form.jobType.value,
-      age: this.state.form.age.value
+      age: this.state.form.age.value,
+      date: Date.now()
     }
 
     this.props.setSavedSearch(this.props.token, savedSearch);
@@ -195,7 +208,36 @@ class Search extends Component {
             <div className="saved-searches">
               <h3>Saved Searches</h3>
               {savedSearches.length > 0 ? (
-                console.log(savedSearches)
+                <ul className="saved-searches__list">
+                  {savedSearches.map((search) => {
+                    return (
+                      <li key={search.date}>
+                        {search.query && (
+                          <span>{search.query}</span>
+                        )}
+                        {search.location && (
+                          <span>{search.location}</span>
+                        )}
+                        {search.country && (
+                          <span>{search.country}</span>
+                        )}
+                        {search.age && (
+                          <span>{search.age} days</span>
+                        )}
+                        {search.radius && (
+                          <span>{search.radius} {search.country !== 'us' ? 'km' : 'mi'}</span>
+                        )}
+                        {search.jobType && search.jobType !== 'nopreference' && (
+                          <span>{search.jobType}</span>
+                        )}
+                        <div className="button-wrapper button-wrapper--inline">
+                          <LinkButton>Use</LinkButton>
+                          <LinkButton>Remove</LinkButton>
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
               ) : (
                 <p>You don't have any saved searches.</p>
               )}

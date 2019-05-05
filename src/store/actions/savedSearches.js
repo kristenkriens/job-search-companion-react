@@ -7,10 +7,9 @@ export const setSavedSearchStart = () => {
   }
 }
 
-export const setSavedSearchSuccess = (id, savedSearch) => {
+export const setSavedSearchSuccess = (savedSearch) => {
   return {
     type: actionTypes.SET_SAVED_SEARCH_SUCCESS,
-    id: id,
     savedSearch: savedSearch
   }
 }
@@ -69,10 +68,11 @@ export const getSavedSearches = (token, userId) => {
           });
         }
 
+        console.log(response.data);
+
         dispatch(getSavedSearchesSuccess(savedSearches));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(getSavedSearchesFail(error));
       });
   }

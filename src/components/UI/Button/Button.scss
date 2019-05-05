@@ -48,4 +48,13 @@
 	&--center {
 		justify-content: center;
 	}
+
+	&--inline {
+		width: auto;
+		display: inline-flex;
+
+		@media (max-width: $sm-width) {
+			justify-content: flex-start;
+		}
+	}
 }
