@@ -11,7 +11,7 @@ class SavedSearches extends Component {
   use = (event, id) => {
     event.preventDefault();
 
-    this.props.useSavedSearch(this.props.token, id);
+    this.props.useSavedSearch(this.props.token, id, this.props.userIp, this.props.userAgent);
   }
 
   remove = (event, id) => {
@@ -85,13 +85,15 @@ class SavedSearches extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.token
+    token: state.auth.token,
+    userIp: state.user.userIp,
+    userAgent: state.user.userAgent
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    useSavedSearch: (token, id) => dispatch(actions.useSavedSearch(token, id)),
+    useSavedSearch: (token, id, userIp, userAgent) => dispatch(actions.useSavedSearch(token, id, userIp, userAgent)),
     removeSavedSearch: (token, id) => dispatch(actions.removeSavedSearch(token, id))
   }
 }

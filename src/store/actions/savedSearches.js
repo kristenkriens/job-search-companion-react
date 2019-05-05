@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import firebaseAxios from '../../shared/firebaseAxios';
+import { searchFormUpdateElement } from './search';
 
 export const setSavedSearchStart = () => {
   return {
@@ -83,12 +84,17 @@ export const useSavedSearchStart = () => {
   }
 }
 
-export const useSavedSearchSuccess = (response) => {
-  // add response to state of search form (excluding userIp and userAgent)
-  console.log(response);
-
+export const useSavedSearchSuccess = (savedSearch) => {
   return {
     type: actionTypes.USE_SAVED_SEARCH_SUCCESS
+  }
+}
+
+export const useSavedSearchDone = (savedSearch) => {
+  return (dispatch) => {
+    for(let key in savedSearch) {
+      dispatch(searchFormUpdateElement(key, savedSearch[key]));
+    }
   }
 }
 
@@ -99,13 +105,23 @@ export const useSavedSearchFail = (error) => {
   }
 }
 
-export const useSavedSearch = (token, id) => {
+export const useSavedSearch = (token, id, userIp, userAgent) => {
   return (dispatch) => {
     dispatch(useSavedSearchStart());
 
-    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="id"&equalTo="${id}"`)
+    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="id"`)
       .then((response) => {
-        dispatch(useSavedSearchSuccess(response.data));
+        let savedSearch = '';
+        for (let key in response.data) {
+          if(key === id) {
+            savedSearch = response.data[key];
+          }
+        }
+        savedSearch.userIp = userIp;
+        savedSearch.userAgent = userAgent;
+
+        dispatch(useSavedSearchSuccess());
+        dispatch(useSavedSearchDone(savedSearch));
       }).catch((error) => {
         dispatch(useSavedSearchFail(error));
       });
