@@ -70,8 +70,6 @@ const useSavedSearchStart = (state, action) => {
 }
 
 const useSavedSearchSuccess = (state, action) => {
-  // add to state of form
-
   const updatedState = {
     loading: false
   };
@@ -97,8 +95,6 @@ const removeSavedSearchStart = (state, action) => {
 }
 
 const removeSavedSearchSuccess = (state, action) => {
-  // call get function again and/or update savedSearches array
-  
   const updatedState = {
     loading: false
   };
