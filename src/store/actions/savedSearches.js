@@ -7,9 +7,10 @@ export const setSavedSearchStart = () => {
   }
 }
 
-export const setSavedSearchSuccess = (savedSearch) => {
+export const setSavedSearchSuccess = (id, savedSearch) => {
   return {
     type: actionTypes.SET_SAVED_SEARCH_SUCCESS,
+    id: id,
     savedSearch: savedSearch
   }
 }
@@ -27,7 +28,7 @@ export const setSavedSearch = (token, savedSearch) => {
 
     firebaseAxios.post(`/saved-searches.json?auth=${token}`, savedSearch)
       .then((response) => {
-        dispatch(setSavedSearchSuccess(savedSearch));
+        dispatch(setSavedSearchSuccess(response.data.name, savedSearch));
       }).catch((error) => {
         dispatch(setSavedSearchFail(error));
       });
@@ -68,12 +69,43 @@ export const getSavedSearches = (token, userId) => {
           });
         }
 
-        console.log(response.data);
-
         dispatch(getSavedSearchesSuccess(savedSearches));
       })
       .catch((error) => {
         dispatch(getSavedSearchesFail(error));
+      });
+  }
+}
+
+export const removeSavedSearchStart = () => {
+  return {
+    type: actionTypes.REMOVE_SAVED_SEARCH_START
+  }
+}
+
+export const removeSavedSearchSuccess = () => {
+  return {
+    type: actionTypes.REMOVE_SAVED_SEARCH_SUCCESS
+  }
+}
+
+export const removeSavedSearchFail = (error) => {
+  return {
+    type: actionTypes.REMOVE_SAVED_SEARCH_FAIL,
+    error: error
+  }
+}
+
+export const removeSavedSearch = (token, id) => {
+  return (dispatch) => {
+    dispatch(removeSavedSearchStart());
+
+    firebaseAxios.delete(`/saved-searches.json?auth=${token}&orderBy="id"&equalTo="${id}"`)
+      .then((response) => {
+        console.log(response);
+        dispatch(removeSavedSearchSuccess());
+      }).catch((error) => {
+        dispatch(removeSavedSearchFail(error));
       });
   }
 }

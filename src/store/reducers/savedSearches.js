@@ -16,10 +16,11 @@ const setSavedSearchStart = (state, action) => {
 }
 
 const setSavedSearchSuccess = (state, action) => {
+  const newSavedSearch = updateObject(action.savedSearch, { id: action.id });
+
   const updatedState = {
     loading: false,
-    id: action.id,
-    savedSearches: state.savedSearches.concat(action.savedSearch)
+    savedSearches: state.orders.concat(newSavedSearch)
   };
 
   return updateObject(state, updatedState);
@@ -60,6 +61,31 @@ const getSavedSearchesFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const removeSavedSearchStart = (state, action) => {
+  const updatedState = {
+    loading: true
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const removeSavedSearchSuccess = (state, action) => {
+  const updatedState = {
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const removeSavedSearchFail = (state, action) => {
+  const updatedState = {
+    error: action.error,
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const savedSearchesReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_SAVED_SEARCH_START: return setSavedSearchStart(state, action);
@@ -68,6 +94,9 @@ const savedSearchesReducer = (state = initialState, action) => {
     case actionTypes.GET_SAVED_SEARCHES_START: return getSavedSearchesStart(state, action);
     case actionTypes.GET_SAVED_SEARCHES_SUCCESS: return getSavedSearchesSuccess(state, action);
     case actionTypes.GET_SAVED_SEARCHES_FAIL: return getSavedSearchesFail(state, action);
+    case actionTypes.REMOVE_SAVED_SEARCH_START: return removeSavedSearchStart(state, action);
+    case actionTypes.REMOVE_SAVED_SEARCH_SUCCESS: return removeSavedSearchSuccess(state, action);
+    case actionTypes.REMOVE_SAVED_SEARCH_FAIL: return removeSavedSearchFail(state, action);
     default: return state;
   }
 }

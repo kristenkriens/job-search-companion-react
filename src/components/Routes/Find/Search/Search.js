@@ -240,7 +240,7 @@ const mapDispatchToProps = (dispatch) => {
     setSavedSearch: (token, savedSearch) => dispatch(actions.setSavedSearch(token, savedSearch)),
     getSavedSearches: (token, userId) => dispatch(actions.getSavedSearches(token, userId)),
     searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
-    searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
+    searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy))
   }
 }
 
