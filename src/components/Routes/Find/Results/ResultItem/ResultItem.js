@@ -6,7 +6,7 @@ import LinkButton from '../../../../UI/Button/LinkButton/LinkButton';
 
 const ResultItem = (props) => {
   const { result, isAuthenticated } = props;
-  const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, expired } = result;
+  const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = result;
 
   const todayUnix = new Date().getTime();
   const resultDateUnix = new Date(date).getTime();
@@ -34,9 +34,6 @@ const ResultItem = (props) => {
         </div>
         <div className="result__item-top-right">
           <div className={`date date--${colourClass}`}>{formattedRelativeTime}</div>
-          {expired && (
-            <div>(Expired)</div>
-          )}
         </div>
       </div>
       <div className="result__item-bottom">
