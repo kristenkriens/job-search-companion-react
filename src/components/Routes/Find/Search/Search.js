@@ -83,6 +83,12 @@ class Search extends Component {
     }
   }
 
+  componentDidMount = () => {
+    if(this.props.isAuthenticated) {
+      this.props.getSavedSearches(this.props.token, this.props.userId);
+    }
+  }
+
   count = 0;
   componentDidUpdate = (prevProps) => {
     const formElementsArray = forms.createFormElementsArray(this.state.form);

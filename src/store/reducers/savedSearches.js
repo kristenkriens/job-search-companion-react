@@ -16,11 +16,12 @@ const setSavedSearchStart = (state, action) => {
 }
 
 const setSavedSearchSuccess = (state, action) => {
-  const newSavedSearch = updateObject(action.savedSearch, { searchId: action.searchId });
+  const newSavedSearch = [];
+  newSavedSearch.push(updateObject(action.savedSearch, { searchId: action.searchId }));
 
   const updatedState = {
     loading: false,
-    savedSearches: state.savedSearches.concat(newSavedSearch)
+    savedSearches: newSavedSearch.concat(state.savedSearches)
   };
 
   return updateObject(state, updatedState);

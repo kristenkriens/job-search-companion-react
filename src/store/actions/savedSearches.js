@@ -69,6 +69,7 @@ export const getSavedSearches = (token, userId) => {
             searchId: key
           });
         }
+        savedSearches.reverse();
 
         dispatch(getSavedSearchesSuccess(savedSearches));
       })
