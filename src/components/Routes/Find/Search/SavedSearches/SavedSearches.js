@@ -8,13 +8,13 @@ import { countries } from '../../../../../shared/countries';
 import * as actions from '../../../../../store/actions/index';
 
 class SavedSearches extends Component {
-  use = (event, searchId) => {
+  useSearch = (event, searchId) => {
     event.preventDefault();
 
     this.props.useSavedSearch(this.props.token, this.props.userId, searchId);
   }
 
-  remove = (event, searchId) => {
+  removeSearch = (event, searchId) => {
     event.preventDefault();
 
     this.props.removeSavedSearch(this.props.token, this.props.userId, searchId);
@@ -72,8 +72,8 @@ class SavedSearches extends Component {
                       })
                     )}
                     <div className="button-wrapper button-wrapper--inline button-wrapper--inline-left">
-                      <LinkButton click={(event) => this.use(event, search.searchId)}>Use</LinkButton>
-                      <LinkButton click={(event) => this.remove(event, search.searchId)}>Remove</LinkButton>
+                      <LinkButton click={(event) => this.useSearch(event, search.searchId)}>Use</LinkButton>
+                      <LinkButton click={(event) => this.removeSearch(event, search.searchId)}>Remove</LinkButton>
                     </div>
                   </li>
                 )
