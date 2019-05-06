@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './Results.scss';
 
 import SortBy from './SortBy/SortBy';
-import ResultItem from './ResultItem/ResultItem';
+import SearchItem from '../SearchItem/SearchItem';
 import Pagination from './Pagination/Pagination';
 
 class Results extends Component {
@@ -32,7 +32,7 @@ class Results extends Component {
                 <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result) => {
                     return (
-                      <ResultItem key={result.jobkey} result={result} isAuthenticated={isAuthenticated} />
+                      <SearchItem key={result.jobkey} item={result} isAuthenticated={isAuthenticated} />
                     )
                   })}
                 </div>

@@ -1,17 +1,17 @@
 import React from 'react';
 
-import './ResultItem.scss';
+import './SearchItem.scss';
 
-import LinkButton from '../../../../UI/Button/LinkButton/LinkButton';
+import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
-const ResultItem = (props) => {
-  const { result, isAuthenticated } = props;
-  const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = result;
+const SearchItem = (props) => {
+  const { item, isAuthenticated } = props;
+  const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = item;
 
   const todayUnix = new Date().getTime();
-  const resultDateUnix = new Date(date).getTime();
+  const itemDateUnix = new Date(date).getTime();
 
-  const difference = todayUnix - resultDateUnix;
+  const difference = todayUnix - itemDateUnix;
 
   let colourClass = '';
   if(difference <= 604800000) { // 7 days
@@ -23,20 +23,20 @@ const ResultItem = (props) => {
   }
 
   return (
-    <div className="result__item">
-      <div className="result__item-top">
-        <div className="result__item-top-left">
+    <div className="search-item">
+      <div className="search-item__top">
+        <div className="search-item__top-left">
           <h3>{jobtitle}</h3>
           <div>
             <span className="company">{company}</span>
             <span className="location">{formattedLocationFull}</span>
           </div>
         </div>
-        <div className="result__item-top-right">
+        <div className="search-item__top-right">
           <div className={`date date--${colourClass}`}>{formattedRelativeTime}</div>
         </div>
       </div>
-      <div className="result__item-bottom">
+      <div className="search-item__bottom">
         <p dangerouslySetInnerHTML={{__html: snippet}}></p>
         <div className="button-wrapper">
           <a href={url} className="button" target="_blank" rel="noopener noreferrer">More / Apply</a>
@@ -52,4 +52,4 @@ const ResultItem = (props) => {
   )
 }
 
-export default ResultItem;
+export default SearchItem;
