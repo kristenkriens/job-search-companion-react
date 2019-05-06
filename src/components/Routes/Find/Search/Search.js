@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
+import SavedSearches from './SavedSearches/SavedSearches';
+
+import './Search.scss';
 
 import { countries } from '../../../../shared/countries';
 import * as forms from '../../../../shared/forms';
@@ -59,8 +62,7 @@ class Search extends Component {
           type: 'number',
           placeholder: 'e.g. 10 (Default is 25)',
         },
-        label: 'Search Radius',
-        moreInfo: 'Units are local to the country.',
+        label: `Search Radius ${this.props.country !== 'us' ? '(km)' : '(mi)'}`,
         value: this.props.radius
       },
       jobType: {
@@ -81,7 +83,8 @@ class Search extends Component {
     }
   }
 
-  componentDidUpdate = () => {
+  count = 0;
+  componentDidUpdate = (prevProps) => {
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     formElementsArray.map((formElement) => {
@@ -90,7 +93,20 @@ class Search extends Component {
       } else {
         return false;
       }
-    })
+    });
+
+    let lengths = true;
+    let notEqual = true;
+    if(this.count > 0) {
+      lengths = prevProps.savedSearches.length === 0 && this.props.savedSearches.length === 0;
+      notEqual = prevProps.savedSearches === this.props.savedSearches;
+    }
+
+    if(this.props.isAuthenticated && lengths && notEqual) {
+      this.props.getSavedSearches(this.props.token, this.props.userId);
+    }
+
+    this.count++;
   }
 
   geolocateClick = (event) => {
@@ -125,8 +141,24 @@ class Search extends Component {
     this.props.searchClear();
   }
 
+  saveSearch = (event) => {
+    event.preventDefault();
+
+    const savedSearch = {
+      query: this.state.form.query.value,
+      location: this.state.form.location.value,
+      country: this.state.form.country.value,
+      radius: this.state.form.radius.value,
+      jobType: this.state.form.jobType.value,
+      age: this.state.form.age.value,
+      date: Date.now()
+    }
+
+    this.props.setSavedSearch(this.props.token, this.props.userId, savedSearch);
+  }
+
   render() {
-    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, savedSearches, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -162,17 +194,12 @@ class Search extends Component {
             <Button type="submit" loading={loading} disabled={!userIp && !userAgent}>Search</Button>
             <LinkButton click={(event) => this.clear(event)}>Clear</LinkButton>
             {isAuthenticated && (
-              <LinkButton>Save</LinkButton>
+              <LinkButton click={(event) => this.saveSearch(event)}>Save</LinkButton>
             )}
           </div>
         </form>
         {isAuthenticated && (
-          <>
-            <div className="saved-searches">
-              <h3>Saved Searches</h3>
-              <p>You don't have any saved searches.</p>
-            </div>
-          </>
+          <SavedSearches savedSearches={savedSearches} jobTypes={this.state.form.jobType.elementConfig.choices} />
         )}
       </>
     )
@@ -189,7 +216,11 @@ const mapStateToProps = (state) => {
     radius: state.search.radius,
     jobType: state.search.jobType,
     country: state.search.country,
-    limit: state.search.limit
+    limit: state.search.limit,
+    sortBy: state.search.sortBy,
+    token: state.auth.token,
+    userId: state.auth.userId,
+    savedSearches: state.savedSearches.savedSearches
   }
 }
 
@@ -199,9 +230,11 @@ const mapDispatchToProps = (dispatch) => {
     toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
+    searchClear: () => dispatch(actions.searchClear()),
+    setSavedSearch: (token, userId, savedSearch) => dispatch(actions.setSavedSearch(token, userId, savedSearch)),
+    getSavedSearches: (token, userId) => dispatch(actions.getSavedSearches(token, userId)),
     searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
-    searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy)),
-    searchClear: () => dispatch(actions.searchClear())
+    searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy))
   }
 }
 

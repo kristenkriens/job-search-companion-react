@@ -37,3 +37,10 @@ export {
   searchSortByChange,
   searchSortByChangeDone
 } from './search';
+
+export {
+  setSavedSearch,
+  getSavedSearches,
+  useSavedSearch,
+  removeSavedSearch
+} from './savedSearches';
