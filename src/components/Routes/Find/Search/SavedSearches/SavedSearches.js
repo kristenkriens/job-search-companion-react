@@ -26,7 +26,12 @@ class SavedSearches extends Component {
     return (
       <>
         <div className="saved-searches">
-          <h3>Saved Searches</h3>
+          <div className="saved-searches__heading">
+            <h3>Saved Searches</h3>
+            {savedSearches.length >= 10 && (
+              <div>(10 most recent)</div>
+            )}
+          </div>
           {savedSearches.length > 0 ? (
             <ul className="saved-searches__list">
               {savedSearches.map((search) => {

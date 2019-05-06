@@ -60,7 +60,7 @@ export const getSavedSearches = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedSearchesStart());
 
-    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="userId"&equalTo="${userId}"`)
+    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="userId"&equalTo="${userId}"&limitToLast=10`)
       .then((response) => {
         const savedSearches = [];
         for(let key in response.data) {
@@ -109,7 +109,7 @@ export const useSavedSearch = (token, id, userIp, userAgent) => {
   return (dispatch) => {
     dispatch(useSavedSearchStart());
 
-    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="id"`)
+    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="id"&limitToLast=10`)
       .then((response) => {
         let savedSearch = '';
         for (let key in response.data) {
