@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../../../../../store/actions/index';
+import SearchItem from '../SearchItem/SearchItem';
+
+import * as actions from '../../../../store/actions/index';
 
 class SavedJobs extends Component {
-  remove = (event, searchId) => {
+  remove = (event, jobId) => {
     event.preventDefault();
 
-    this.props.removeSavedSearch(this.props.token, this.props.userId, searchId);
+    this.props.removeSavedJob(this.props.token, this.props.userId, jobId);
   }
 
   render() {
@@ -18,9 +20,15 @@ class SavedJobs extends Component {
         <div className="saved-jobs">
           <h1>Saved Jobs</h1>
           {savedJobs.length > 0 ? (
-            {savedJobs.map((job) => {
-              console.log(job);
-            })}
+            <>
+              {savedJobs.map((job) => {
+                console.log(job);
+
+                return (
+                  <SearchItem key={job.jobkey} item={job} isAuthenticated={isAuthenticated} />
+                )
+              })}
+            </>
           ) : (
             <p>You don't have any saved jobs.</p>
           )}

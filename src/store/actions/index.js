@@ -44,3 +44,9 @@ export {
   useSavedSearch,
   removeSavedSearch
 } from './savedSearches';
+
+export {
+  setSavedJob,
+  getSavedJobs,
+  removeSavedJob
+} from './savedJobs';
