@@ -62,7 +62,7 @@ class Search extends Component {
           type: 'number',
           placeholder: 'e.g. 10 (Default is 25)',
         },
-        label: `Search Radius ${this.props.country !== 'us' ? '(km)' : '(mi)'}`,
+        label: 'Search Radius (km)',
         value: this.props.radius
       },
       jobType: {
@@ -192,6 +192,10 @@ class Search extends Component {
                 changed={(event) => {
                   searchFormUpdateElement(formElement.id, event.target.value);
                   forms.formElementReduxChanged(this, formElement.id, event.target.value);
+
+                  if(formElement.id === 'country') {
+                    forms.countryReduxChangedRadiusLabel(this, event.target.value)
+                  }
                 }}
               />
             )

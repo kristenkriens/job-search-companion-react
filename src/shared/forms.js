@@ -69,6 +69,16 @@ export const formElementReduxChanged = (that, formElementName, value) => {
   that.setState({form: updatedForm});
 }
 
+export const countryReduxChangedRadiusLabel = (that, value) => {
+  const updatedForm = updateObject(that.state.form, {
+    radius: updateObject(that.state.form.radius, {
+      label: `Search Radius (${value !== 'us' ? 'km' : 'mi'})`
+    })
+  });
+
+  that.setState({form: updatedForm});
+}
+
 export const submitAuthForm = (that, event) => {
   event.preventDefault();
 
