@@ -53,8 +53,10 @@
 		width: auto;
 		display: inline-flex;
 
-		@media (max-width: $sm-width) {
-			justify-content: flex-start;
+		&-left {
+			@media (max-width: $sm-width) {
+				justify-content: flex-start;
+			}
 		}
 	}
 }

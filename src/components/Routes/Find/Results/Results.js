@@ -32,7 +32,7 @@ class Results extends Component {
                 <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result) => {
                     return (
-                      <SearchItem key={result.jobkey} item={result} isAuthenticated={isAuthenticated} />
+                      <SearchItem key={result.jobkey} item={result} type="result" isAuthenticated={isAuthenticated} />
                     )
                   })}
                 </div>

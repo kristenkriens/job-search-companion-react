@@ -5,7 +5,7 @@ import './SearchItem.scss';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
 const SearchItem = (props) => {
-  const { item, isAuthenticated } = props;
+  const { item, type, isAuthenticated } = props;
   const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = item;
 
   const todayUnix = new Date().getTime();
@@ -38,13 +38,26 @@ const SearchItem = (props) => {
       </div>
       <div className="search-item__bottom">
         <p dangerouslySetInnerHTML={{__html: snippet}}></p>
-        <div className="button-wrapper">
+        <div className="button-wrapper button-wrapper--inline">
           <a href={url} className="button" target="_blank" rel="noopener noreferrer">More / Apply</a>
           {isAuthenticated && (
-            // TODO: Add click handler
-            <LinkButton>
-              Track Application
-            </LinkButton>
+            <>
+              {type === 'result' && (
+                <>
+                  <LinkButton>
+                    Save
+                  </LinkButton>
+                  <LinkButton>
+                    Track Application
+                  </LinkButton>
+                </>
+              )}
+              {type === 'saved' && (
+                <LinkButton>
+                  Remove
+                </LinkButton>
+              )}
+            </>
           )}
         </div>
       </div>

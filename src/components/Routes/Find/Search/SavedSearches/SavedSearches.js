@@ -71,7 +71,7 @@ class SavedSearches extends Component {
                         }
                       })
                     )}
-                    <div className="button-wrapper button-wrapper--inline">
+                    <div className="button-wrapper button-wrapper--inline button-wrapper--inline-left">
                       <LinkButton click={(event) => this.use(event, search.searchId)}>Use</LinkButton>
                       <LinkButton click={(event) => this.remove(event, search.searchId)}>Remove</LinkButton>
                     </div>

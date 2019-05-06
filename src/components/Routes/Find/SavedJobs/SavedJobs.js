@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 import SearchItem from '../SearchItem/SearchItem';
 
 import * as actions from '../../../../store/actions/index';
@@ -17,22 +19,30 @@ class SavedJobs extends Component {
 
     return (
       <>
-        <div className="saved-jobs">
-          <h1>Saved Jobs</h1>
-          {savedJobs.length > 0 ? (
-            <>
-              {savedJobs.map((job) => {
-                console.log(job);
+        {isAuthenticated ? (
+          <div className="saved-jobs">
+            {savedJobs.length > 0 ? (
+              <>
+                <h1>Saved Jobs</h1>
+                {savedJobs.map((savedJob) => {
+                  console.log(savedJob);
 
-                return (
-                  <SearchItem key={job.jobkey} item={job} isAuthenticated={isAuthenticated} />
-                )
-              })}
-            </>
-          ) : (
-            <p>You don't have any saved jobs.</p>
-          )}
-        </div>
+                  return (
+                    <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" isAuthenticated />
+                  )
+                })}
+              </>
+            ) : (
+              <div className="absolute-center">
+                <h1 className="accessible">Saved Jobs</h1>
+                <div className="h3">Please save some jobs first!</div>
+                <Link to="/find/search" className="button">Let's Go!</Link>
+              </div>
+            )}
+          </div>
+        ) : (
+          <LoginRequired />
+        )}
       </>
     )
   }
