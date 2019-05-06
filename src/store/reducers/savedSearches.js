@@ -16,7 +16,7 @@ const setSavedSearchStart = (state, action) => {
 }
 
 const setSavedSearchSuccess = (state, action) => {
-  const newSavedSearch = updateObject(action.savedSearch, { id: action.id });
+  const newSavedSearch = updateObject(action.savedSearch, { searchId: action.searchId });
 
   const updatedState = {
     loading: false,

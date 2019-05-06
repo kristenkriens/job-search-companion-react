@@ -145,16 +145,16 @@ class Search extends Component {
     event.preventDefault();
 
     const savedSearch = {
-      userId: this.props.userId,
       query: this.state.form.query.value,
       location: this.state.form.location.value,
       country: this.state.form.country.value,
       radius: this.state.form.radius.value,
       jobType: this.state.form.jobType.value,
-      age: this.state.form.age.value
+      age: this.state.form.age.value,
+      date: Date.now()
     }
 
-    this.props.setSavedSearch(this.props.token, savedSearch);
+    this.props.setSavedSearch(this.props.token, this.props.userId, savedSearch);
   }
 
   render() {
@@ -231,7 +231,7 @@ const mapDispatchToProps = (dispatch) => {
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
     searchClear: () => dispatch(actions.searchClear()),
-    setSavedSearch: (token, savedSearch) => dispatch(actions.setSavedSearch(token, savedSearch)),
+    setSavedSearch: (token, userId, savedSearch) => dispatch(actions.setSavedSearch(token, userId, savedSearch)),
     getSavedSearches: (token, userId) => dispatch(actions.getSavedSearches(token, userId)),
     searchPaginationChangeDone: (start, currentPage) => dispatch(actions.searchPaginationChangeDone(start, currentPage)),
     searchSortByChangeDone: (sortBy) => dispatch(actions.searchSortByChangeDone(sortBy))

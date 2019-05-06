@@ -8,10 +8,10 @@ export const setSavedSearchStart = () => {
   }
 }
 
-export const setSavedSearchSuccess = (id, savedSearch) => {
+export const setSavedSearchSuccess = (searchId, savedSearch) => {
   return {
     type: actionTypes.SET_SAVED_SEARCH_SUCCESS,
-    id: id,
+    searchId: searchId,
     savedSearch: savedSearch
   }
 }
@@ -23,11 +23,11 @@ export const setSavedSearchFail = (error) => {
   }
 }
 
-export const setSavedSearch = (token, savedSearch) => {
+export const setSavedSearch = (token, userId, savedSearch) => {
   return (dispatch) => {
     dispatch(setSavedSearchStart());
 
-    firebaseAxios.post(`/saved-searches.json?auth=${token}`, savedSearch)
+    firebaseAxios.post(`/${userId}/saved-searches.json?auth=${token}`, savedSearch)
       .then((response) => {
         dispatch(setSavedSearchSuccess(response.data.name, savedSearch));
       }).catch((error) => {
@@ -60,13 +60,13 @@ export const getSavedSearches = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedSearchesStart());
 
-    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="userId"&equalTo="${userId}"&limitToLast=10`)
+    firebaseAxios.get(`/${userId}/saved-searches.json?auth=${token}&orderBy="date"&limitToLast=10`)
       .then((response) => {
         const savedSearches = [];
         for(let key in response.data) {
           savedSearches.push({
             ...response.data[key],
-            id: key
+            searchId: key
           });
         }
 
@@ -105,15 +105,15 @@ export const useSavedSearchFail = (error) => {
   }
 }
 
-export const useSavedSearch = (token, id) => {
+export const useSavedSearch = (token, userId, searchId) => {
   return (dispatch) => {
     dispatch(useSavedSearchStart());
 
-    firebaseAxios.get(`/saved-searches.json?auth=${token}&orderBy="id"&limitToLast=10`)
+    firebaseAxios.get(`/${userId}/saved-searches.json?auth=${token}`)
       .then((response) => {
         let savedSearch = '';
         for (let key in response.data) {
-          if(key === id) {
+          if(key === searchId) {
             savedSearch = response.data[key];
           }
         }
@@ -133,7 +133,7 @@ export const removeSavedSearchStart = () => {
 }
 
 export const removeSavedSearchSuccess = () => {
-  // call get function again so removal can be seen (might not be necessary)
+  // call get function again so removal can be seen
 
   return {
     type: actionTypes.REMOVE_SAVED_SEARCH_SUCCESS
@@ -147,11 +147,11 @@ export const removeSavedSearchFail = (error) => {
   }
 }
 
-export const removeSavedSearch = (token, id) => {
+export const removeSavedSearch = (token, userId, searchId) => {
   return (dispatch) => {
     dispatch(removeSavedSearchStart());
 
-    firebaseAxios.delete(`/saved-searches.json?auth=${token}&orderBy="id"&equalTo="${id}"`)
+    firebaseAxios.delete(`/${userId}/saved-searches.json?auth=${token}`)
       .then((response) => {
         dispatch(removeSavedSearchSuccess());
       }).catch((error) => {

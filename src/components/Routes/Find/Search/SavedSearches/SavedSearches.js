@@ -8,16 +8,16 @@ import { countries } from '../../../../../shared/countries';
 import * as actions from '../../../../../store/actions/index';
 
 class SavedSearches extends Component {
-  use = (event, id) => {
+  use = (event, searchId) => {
     event.preventDefault();
 
-    this.props.useSavedSearch(this.props.token, id);
+    this.props.useSavedSearch(this.props.token, this.props.userId, searchId);
   }
 
-  remove = (event, id) => {
+  remove = (event, searchId) => {
     event.preventDefault();
 
-    this.props.removeSavedSearch(this.props.token, id);
+    this.props.removeSavedSearch(this.props.token, this.props.userId, searchId);
   }
 
   render() {
@@ -36,7 +36,7 @@ class SavedSearches extends Component {
             <ul className="saved-searches__list">
               {savedSearches.map((search) => {
                 return (
-                  <li key={search.id}>
+                  <li key={search.searchId}>
                     {search.query && (
                       <span>{search.query}</span>
                     )}
@@ -72,8 +72,8 @@ class SavedSearches extends Component {
                       })
                     )}
                     <div className="button-wrapper button-wrapper--inline">
-                      <LinkButton click={(event) => this.use(event, search.id)}>Use</LinkButton>
-                      <LinkButton click={(event) => this.remove(event, search.id)}>Remove</LinkButton>
+                      <LinkButton click={(event) => this.use(event, search.searchId)}>Use</LinkButton>
+                      <LinkButton click={(event) => this.remove(event, search.searchId)}>Remove</LinkButton>
                     </div>
                   </li>
                 )
@@ -90,14 +90,15 @@ class SavedSearches extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.auth.token
+    token: state.auth.token,
+    userId: state.auth.userId
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    useSavedSearch: (token, id) => dispatch(actions.useSavedSearch(token, id)),
-    removeSavedSearch: (token, id) => dispatch(actions.removeSavedSearch(token, id))
+    useSavedSearch: (token, userId, searchId) => dispatch(actions.useSavedSearch(token, userId, searchId)),
+    removeSavedSearch: (token, userId, searchId) => dispatch(actions.removeSavedSearch(token, userId, searchId))
   }
 }
 
