@@ -133,8 +133,6 @@ export const removeSavedSearchStart = () => {
 }
 
 export const removeSavedSearchSuccess = () => {
-  // call get function again so removal can be seen
-
   return {
     type: actionTypes.REMOVE_SAVED_SEARCH_SUCCESS
   }
@@ -151,9 +149,10 @@ export const removeSavedSearch = (token, userId, searchId) => {
   return (dispatch) => {
     dispatch(removeSavedSearchStart());
 
-    firebaseAxios.delete(`/${userId}/saved-searches.json?auth=${token}`)
+    firebaseAxios.delete(`/${userId}/saved-searches/${searchId}.json?auth=${token}`)
       .then((response) => {
         dispatch(removeSavedSearchSuccess());
+        dispatch(getSavedSearches(token, userId));
       }).catch((error) => {
         dispatch(removeSavedSearchFail(error));
       });
