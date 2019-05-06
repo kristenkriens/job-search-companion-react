@@ -9,6 +9,12 @@ import ResultItem from './ResultItem/ResultItem';
 import Pagination from './Pagination/Pagination';
 
 class Results extends Component {
+  componentDidUpdate = (prevProps) => {
+    if (this.props.search !== prevProps.search) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
   render() {
     const { isAuthenticated, userIp, userAgent, search } = this.props;
     const { results, loading } = search;

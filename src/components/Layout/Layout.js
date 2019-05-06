@@ -10,6 +10,12 @@ import Footer from './Footer/Footer';
 import * as actions from '../../store/actions/index';
 
 class Layout extends Component {
+  componentDidUpdate = (prevProps) => {
+    if (this.props.pathname !== prevProps.pathname) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
   render() {
     const { routes, isAuthenticated, breadcrumb, isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = this.props;
 
@@ -28,6 +34,7 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
+    pathname: state.router.location.pathname,
     breadcrumb: state.navigation.breadcrumb,
     isModalOpen: state.modal.isModalOpen,
     activeModal: state.modal.activeModal,
