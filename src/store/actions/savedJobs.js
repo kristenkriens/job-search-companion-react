@@ -1,5 +1,8 @@
-import * as actionTypes from './actionTypes';
+import axios from 'axios';
+
 import firebaseAxios from '../../shared/firebaseAxios';
+import * as actionTypes from './actionTypes';
+import { history } from '../reducers/index';
 
 export const setSavedJobStart = () => {
   return {
@@ -29,6 +32,7 @@ export const setSavedJob = (token, userId, savedJob) => {
     firebaseAxios.post(`/${userId}/saved-jobs.json?auth=${token}`, savedJob)
       .then((response) => {
         dispatch(setSavedJobSuccess(response.data.name, savedJob));
+        history.push('/find/saved-jobs');
       }).catch((error) => {
         dispatch(setSavedJobFail(error));
       });
@@ -38,6 +42,22 @@ export const setSavedJob = (token, userId, savedJob) => {
 export const getSavedJobsStart = () => {
   return {
     type: actionTypes.GET_SAVED_JOBS_START
+  }
+}
+
+export const getSavedJobsFind = (savedJobsKeys) => {
+  return (dispatch) => {
+    const apiKey = process.env.REACT_APP_INDEED_API_KEY;
+
+    const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apigetjobs?publisher=${apiKey}&jobkeys=${savedJobsKeys}&v=2&format=json`;
+
+    axios.get(url)
+      .then((response) => {
+        dispatch(getSavedJobsSuccess(response.data.results));
+      })
+      .catch((error) => {
+        dispatch(getSavedJobsFail(error));
+      });
   }
 }
 
@@ -61,16 +81,13 @@ export const getSavedJobs = (token, userId) => {
 
     firebaseAxios.get(`/${userId}/saved-jobs.json?auth=${token}&orderBy="date"&limitToLast=10`)
       .then((response) => {
-        const savedJobs = [];
+        let savedJobsKeys = '';
         for(let key in response.data) {
-          savedJobs.push({
-            ...response.data[key],
-            jobId: key
-          });
+          savedJobsKeys += response.data[key].jobkey + ',';
         }
-        savedJobs.reverse();
+        savedJobsKeys = savedJobsKeys.substring(0, savedJobsKeys.length - 1);
 
-        dispatch(getSavedJobsSuccess(savedJobs));
+        dispatch(getSavedJobsFind(savedJobsKeys));
       })
       .catch((error) => {
         dispatch(getSavedJobsFail(error));

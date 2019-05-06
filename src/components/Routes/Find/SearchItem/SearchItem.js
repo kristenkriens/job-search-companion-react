@@ -8,10 +8,11 @@ import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import * as actions from '../../../../store/actions/index';
 
 class SearchItem extends Component {
-  saveJob = (event) => {
+  saveJob = (event, jobId) => {
     event.preventDefault();
 
     const savedJob = {
+      jobkey: jobId,
       date: Date.now()
     }
 
@@ -26,7 +27,7 @@ class SearchItem extends Component {
 
   render() {
     const { item, type, isAuthenticated } = this.props;
-    const { jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = item;
+    const { jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = item;
 
     const todayUnix = new Date().getTime();
     const itemDateUnix = new Date(date).getTime();
@@ -64,7 +65,7 @@ class SearchItem extends Component {
               <>
                 {type === 'result' && (
                   <>
-                    <LinkButton>
+                    <LinkButton click={(event) => this.saveJob(event, jobkey)}>
                       Save
                     </LinkButton>
                     <LinkButton>
@@ -73,7 +74,7 @@ class SearchItem extends Component {
                   </>
                 )}
                 {type === 'saved' && (
-                  <LinkButton>
+                  <LinkButton click={(event) => this.removeJob(event, jobkey)}>
                     Remove
                   </LinkButton>
                 )}

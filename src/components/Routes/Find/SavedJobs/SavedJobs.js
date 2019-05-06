@@ -41,8 +41,6 @@ class SavedJobs extends Component {
               <>
                 <h1>Saved Jobs</h1>
                 {savedJobs.map((savedJob) => {
-                  console.log(savedJob);
-
                   return (
                     <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" isAuthenticated />
                   )
