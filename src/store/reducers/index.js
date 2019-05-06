@@ -8,7 +8,7 @@ import modalReducer from './modal';
 import userReducer from './user';
 import geolocateReducer from './geolocate';
 import searchReducer from './search';
-
+import savedSearchesReducer from './savedSearches';
 
 export const history = createBrowserHistory({ basename: '/job-search-companion-react' });
 
@@ -19,5 +19,6 @@ export const rootReducer = combineReducers({
   modal: modalReducer,
   user: userReducer,
   geolocate: geolocateReducer,
-  search: searchReducer
+  search: searchReducer,
+  savedSearches: savedSearchesReducer
 });
