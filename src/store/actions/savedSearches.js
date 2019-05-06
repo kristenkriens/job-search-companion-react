@@ -105,7 +105,7 @@ export const useSavedSearchFail = (error) => {
   }
 }
 
-export const useSavedSearch = (token, id, userIp, userAgent) => {
+export const useSavedSearch = (token, id) => {
   return (dispatch) => {
     dispatch(useSavedSearchStart());
 
@@ -117,8 +117,6 @@ export const useSavedSearch = (token, id, userIp, userAgent) => {
             savedSearch = response.data[key];
           }
         }
-        savedSearch.userIp = userIp;
-        savedSearch.userAgent = userAgent;
 
         dispatch(useSavedSearchSuccess());
         dispatch(useSavedSearchDone(savedSearch));

@@ -146,11 +146,6 @@ class Search extends Component {
 
     const savedSearch = {
       userId: this.props.userId,
-      userIp: this.props.userIp,
-      userAgent: this.props.userAgent,
-      start: 0,
-      limit: this.props.limit,
-      sortBy: 'relevance',
       query: this.state.form.query.value,
       location: this.state.form.location.value,
       country: this.state.form.country.value,
