@@ -12,7 +12,7 @@ const initialState = {
   loading: false,
   start: 0,
   currentPage: 1,
-  limit: 15,
+  limit: 10,
   results: null,
   totalResults: 0,
   sortBy: 'relevance'
