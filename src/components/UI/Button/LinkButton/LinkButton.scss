@@ -4,7 +4,13 @@ button.link {
 	color: $grey-blue;
 	text-decoration: underline;
 
-	&:hover, &:active, &:focus {
-    color: $blurple;
-  }
+	&[disabled] {
+		color: $grey;
+	}
+
+	&:not([disabled]) {
+		&:hover, &:active, &:focus {
+	    color: $blurple;
+	  }
+	}
 }

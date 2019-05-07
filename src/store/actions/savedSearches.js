@@ -1,5 +1,5 @@
-import * as actionTypes from './actionTypes';
 import firebaseAxios from '../../shared/firebaseAxios';
+import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
 
 export const setSavedSearchStart = () => {

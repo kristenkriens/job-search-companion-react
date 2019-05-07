@@ -12,7 +12,8 @@ const initialState = {
       },
       secondaryItems: [
         { title: 'Search', link: '/find/search', exact: false },
-        { title: 'Results', link: '/find/results', exact: false }
+        { title: 'Results', link: '/find/results', exact: false },
+        { title: 'Saved Jobs', link: '/find/saved-jobs', exact: false }
       ]
     },
     {
