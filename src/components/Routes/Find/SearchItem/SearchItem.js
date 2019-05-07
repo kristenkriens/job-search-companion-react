@@ -27,7 +27,7 @@ class SearchItem extends Component {
 
   render() {
     const { item, type, isAuthenticated } = this.props;
-    const { jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, jobId } = item;
+    const { jobId, jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, expired } = item;
 
     const todayUnix = new Date().getTime();
     const itemDateUnix = new Date(date).getTime();
@@ -55,6 +55,9 @@ class SearchItem extends Component {
           </div>
           <div className="search-item__top-right">
             <div className={`date date--${colourClass}`}>{formattedRelativeTime}</div>
+            {expired && (
+              <div>(Expired)</div>
+            )}
           </div>
         </div>
         <div className="search-item__bottom">
