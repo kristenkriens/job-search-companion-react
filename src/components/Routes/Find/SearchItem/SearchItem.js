@@ -8,11 +8,11 @@ import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import * as actions from '../../../../store/actions/index';
 
 class SearchItem extends Component {
-  saveJob = (event, jobId) => {
+  saveJob = (event, jobkey) => {
     event.preventDefault();
 
     const savedJob = {
-      jobkey: jobId,
+      jobkey: jobkey,
       date: Date.now()
     }
 
@@ -27,7 +27,7 @@ class SearchItem extends Component {
 
   render() {
     const { item, type, isAuthenticated } = this.props;
-    const { jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date } = item;
+    const { jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, jobId } = item;
 
     const todayUnix = new Date().getTime();
     const itemDateUnix = new Date(date).getTime();
@@ -63,18 +63,16 @@ class SearchItem extends Component {
             <a href={url} className="button" target="_blank" rel="noopener noreferrer">More / Apply</a>
             {isAuthenticated && (
               <>
+                <LinkButton>
+                  Track Application
+                </LinkButton>
                 {type === 'result' && (
-                  <>
-                    <LinkButton click={(event) => this.saveJob(event, jobkey)}>
-                      Save
-                    </LinkButton>
-                    <LinkButton>
-                      Track Application
-                    </LinkButton>
-                  </>
+                  <LinkButton click={(event) => this.saveJob(event, jobkey)}>
+                    Save
+                  </LinkButton>
                 )}
                 {type === 'saved' && (
-                  <LinkButton click={(event) => this.removeJob(event, jobkey)}>
+                  <LinkButton click={(event) => this.removeJob(event, jobId)}>
                     Remove
                   </LinkButton>
                 )}

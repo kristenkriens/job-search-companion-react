@@ -45,14 +45,24 @@ export const getSavedJobsStart = () => {
   }
 }
 
-export const getSavedJobsFind = (savedJobsKeys) => {
+export const getSavedJobsFind = (savedJobs) => {
   return (dispatch) => {
+    let savedJobsKeys = '';
+    for(let key in savedJobs) {
+      savedJobsKeys += savedJobs[key].jobkey + ',';
+    }
+    savedJobsKeys = savedJobsKeys.substring(0, savedJobsKeys.length - 1);
+
     const apiKey = process.env.REACT_APP_INDEED_API_KEY;
 
     const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apigetjobs?publisher=${apiKey}&jobkeys=${savedJobsKeys}&v=2&format=json`;
 
     axios.get(url)
       .then((response) => {
+        for(let key in savedJobs) {
+          response.data.results[key].jobId = savedJobs[key].jobId;
+        }
+
         dispatch(getSavedJobsSuccess(response.data.results));
       })
       .catch((error) => {
@@ -81,13 +91,16 @@ export const getSavedJobs = (token, userId) => {
 
     firebaseAxios.get(`/${userId}/saved-jobs.json?auth=${token}&orderBy="date"&limitToLast=10`)
       .then((response) => {
-        let savedJobsKeys = '';
+        const savedJobs = [];
         for(let key in response.data) {
-          savedJobsKeys += response.data[key].jobkey + ',';
+          savedJobs.push({
+            ...response.data[key],
+            jobId: key
+          });
         }
-        savedJobsKeys = savedJobsKeys.substring(0, savedJobsKeys.length - 1);
+        savedJobs.reverse();
 
-        dispatch(getSavedJobsFind(savedJobsKeys));
+        dispatch(getSavedJobsFind(savedJobs));
       })
       .catch((error) => {
         dispatch(getSavedJobsFail(error));
