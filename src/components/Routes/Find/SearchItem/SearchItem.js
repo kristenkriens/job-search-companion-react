@@ -26,7 +26,7 @@ class SearchItem extends Component {
   }
 
   render() {
-    const { item, type, isAuthenticated } = this.props;
+    const { item, type, saved, isAuthenticated } = this.props;
     const { jobId, jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, expired } = item;
 
     const todayUnix = new Date().getTime();
@@ -70,9 +70,17 @@ class SearchItem extends Component {
                   Track Application
                 </LinkButton>
                 {type === 'result' && (
-                  <LinkButton click={(event) => this.saveJob(event, jobkey)}>
-                    Save
-                  </LinkButton>
+                  <>
+                    {saved ? (
+                      <LinkButton disabled={true}>
+                        Saved
+                      </LinkButton>
+                    ) : (
+                      <LinkButton click={(event) => this.saveJob(event, jobkey)}>
+                        Save
+                      </LinkButton>
+                    )}
+                  </>
                 )}
                 {type === 'saved' && (
                   <LinkButton click={(event) => this.removeJob(event, jobId)}>

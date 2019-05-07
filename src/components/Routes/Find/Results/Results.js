@@ -8,7 +8,15 @@ import SortBy from './SortBy/SortBy';
 import SearchItem from '../SearchItem/SearchItem';
 import Pagination from './Pagination/Pagination';
 
+import * as actions from '../../../../store/actions/index';
+
 class Results extends Component {
+  componentDidMount = () => {
+    if(this.props.isAuthenticated) {
+      this.props.getSavedJobs(this.props.token, this.props.userId);
+    }
+  }
+
   componentDidUpdate = (prevProps) => {
     if (this.props.search !== prevProps.search) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,7 +24,7 @@ class Results extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, search } = this.props;
+    const { isAuthenticated, userIp, userAgent, search, savedJobs } = this.props;
     const { results, loading } = search;
 
     return (
@@ -30,9 +38,16 @@ class Results extends Component {
                   <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 </div>
                 <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
-                  {results.map((result) => {
+                  {results.map((result, i) => {
+                    let savedArray = savedJobs.map((savedJob) => {
+                      return (
+                        savedJob['jobkey'] === result.jobkey
+                      )
+                    });
+                    const saved = savedArray.includes(true);
+
                     return (
-                      <SearchItem key={result.jobkey} item={result} type="result" isAuthenticated={isAuthenticated} />
+                      <SearchItem key={result.jobkey} item={result} type="result" saved={saved} isAuthenticated={isAuthenticated} />
                     )
                   })}
                 </div>
@@ -62,8 +77,17 @@ class Results extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    search: state.search
+    token: state.auth.token,
+    userId: state.auth.userId,
+    search: state.search,
+    savedJobs: state.savedJobs.savedJobs
   }
 }
 
-export default connect(mapStateToProps)(Results);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getSavedJobs: (token, userId) => dispatch(actions.getSavedJobs(token, userId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results);
