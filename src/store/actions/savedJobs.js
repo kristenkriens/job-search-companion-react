@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
-import { history } from '../reducers/index';
 
 export const setSavedJobStart = () => {
   return {
@@ -32,7 +31,6 @@ export const setSavedJob = (token, userId, savedJob) => {
     firebaseAxios.post(`/${userId}/saved-jobs.json?auth=${token}`, savedJob)
       .then((response) => {
         dispatch(setSavedJobSuccess(response.data.name, savedJob));
-        history.push('/find/saved-jobs');
       }).catch((error) => {
         dispatch(setSavedJobFail(error));
       });
