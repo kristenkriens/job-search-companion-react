@@ -11,7 +11,7 @@ import searchReducer from './search';
 import savedSearchesReducer from './savedSearches';
 import savedJobsReducer from './savedJobs';
 
-export const history = createBrowserHistory({ basename: '/job-search-companion-react' });
+export const history = createBrowserHistory();
 
 export const rootReducer = combineReducers({
   router: connectRouter(history),
