@@ -58,7 +58,9 @@ export const getSavedJobsFind = (savedJobs) => {
     axios.get(url)
       .then((response) => {
         for(let key in savedJobs) {
-          response.data.results[key].jobId = savedJobs[key].jobId;
+          if(response.data.results[key] !== undefined) {
+            response.data.results[key].jobId = savedJobs[key].jobId;
+          }
         }
 
         dispatch(getSavedJobsSuccess(response.data.results));
