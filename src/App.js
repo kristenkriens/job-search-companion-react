@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import Home from './components/Routes/Home/Home';
 import Search from './components/Routes/Find/Search/Search';
 import Results from './components/Routes/Find/Results/Results';
+import SavedJobs from './components/Routes/Find/SavedJobs/SavedJobs';
 import Overview from './components/Routes/Track/Overview/Overview';
 import FollowUps from './components/Routes/Track/FollowUps/FollowUps';
 import Interviews from './components/Routes/Track/Interviews/Interviews';
@@ -41,6 +42,10 @@ class App extends Component {
         <Route
           path="/find/results"
           render={() => <Results isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
+        />
+        <Route
+          path="/find/saved-jobs"
+          render={() => <SavedJobs isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
           path="/track/overview"

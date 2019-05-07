@@ -62,7 +62,7 @@ class Search extends Component {
           type: 'number',
           placeholder: 'e.g. 10 (Default is 25)',
         },
-        label: `Search Radius ${this.props.country !== 'us' ? '(km)' : '(mi)'}`,
+        label: 'Search Radius (km)',
         value: this.props.radius
       },
       jobType: {
@@ -80,6 +80,12 @@ class Search extends Component {
         label: 'Job Type',
         value: this.props.jobType
       }
+    }
+  }
+
+  componentDidMount = () => {
+    if(this.props.isAuthenticated) {
+      this.props.getSavedSearches(this.props.token, this.props.userId);
     }
   }
 
@@ -186,6 +192,10 @@ class Search extends Component {
                 changed={(event) => {
                   searchFormUpdateElement(formElement.id, event.target.value);
                   forms.formElementReduxChanged(this, formElement.id, event.target.value);
+
+                  if(formElement.id === 'country') {
+                    forms.countryReduxChangedRadiusLabel(this, event.target.value)
+                  }
                 }}
               />
             )

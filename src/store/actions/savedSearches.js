@@ -1,5 +1,5 @@
-import * as actionTypes from './actionTypes';
 import firebaseAxios from '../../shared/firebaseAxios';
+import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
 
 export const setSavedSearchStart = () => {
@@ -69,6 +69,7 @@ export const getSavedSearches = (token, userId) => {
             searchId: key
           });
         }
+        savedSearches.reverse();
 
         dispatch(getSavedSearchesSuccess(savedSearches));
       })

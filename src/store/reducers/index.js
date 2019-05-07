@@ -9,6 +9,7 @@ import userReducer from './user';
 import geolocateReducer from './geolocate';
 import searchReducer from './search';
 import savedSearchesReducer from './savedSearches';
+import savedJobsReducer from './savedJobs';
 
 export const history = createBrowserHistory({ basename: '/job-search-companion-react' });
 
@@ -20,5 +21,6 @@ export const rootReducer = combineReducers({
   user: userReducer,
   geolocate: geolocateReducer,
   search: searchReducer,
-  savedSearches: savedSearchesReducer
+  savedSearches: savedSearchesReducer,
+  savedJobs: savedJobsReducer
 });
