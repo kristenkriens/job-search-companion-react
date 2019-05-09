@@ -8,14 +8,14 @@ import LinkButton from '../.././../../UI/Button/LinkButton/LinkButton';
 
 class Auth extends Component {
   render() {
-    const { isAuthenticated, logout, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated, logout, openAndSetActiveModal } = this.props;
 
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
           <div>Welcome! <LinkButton click={logout}>(Logout)</LinkButton></div>
         ) : (
-          <LinkButton click={() => toggleAndSetActiveModal('login')}>Log In / Create Account</LinkButton>
+          <LinkButton click={() => openAndSetActiveModal('login')}>Log In / Create Account</LinkButton>
         )}
       </div>
     )
@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(actions.authLogout()),
-    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
+    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal))
   }
 }
 

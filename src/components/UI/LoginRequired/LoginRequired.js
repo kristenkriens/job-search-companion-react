@@ -7,12 +7,12 @@ import * as actions from '../../../store/actions/index';
 
 class LoginRequired extends Component {
   render() {
-    const { toggleAndSetActiveModal } = this.props;
+    const { openAndSetActiveModal } = this.props;
 
     return (
       <div className="absolute-center">
         <div className="h3">You need to be logged in to view this page!</div>
-        <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
+        <Button click={() => openAndSetActiveModal('login')}>Log In</Button>
       </div>
     )
   }
@@ -20,7 +20,7 @@ class LoginRequired extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
+    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal))
   }
 }
 

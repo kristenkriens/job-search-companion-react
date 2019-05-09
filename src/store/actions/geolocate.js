@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
+import { openAndSetErrorModalAndMessage } from './modal';
 
 export const geolocateLatLngStart = () => {
   return {
@@ -76,7 +77,10 @@ export const geolocateGeocode = (lat, lng) => {
         dispatch(geolocateGeocodeSuccessUpdateReduxHandledFormElement(location, country));
       })
       .catch((error) => {
-        dispatch(geolocateGeocodeFail(error));
+        const errorMessage = error.message;
+
+        dispatch(geolocateGeocodeFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 };

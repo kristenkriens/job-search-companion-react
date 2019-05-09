@@ -7,9 +7,17 @@ const initialState = {
   message: ''
 }
 
-const toggleModal = (state, action) => {
+const openModal = (state, action) => {
   const updatedState = {
-    isModalOpen: !state.isModalOpen
+    isModalOpen: true
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const closeModal = (state, action) => {
+  const updatedState = {
+    isModalOpen: false
   };
 
   return updateObject(state, updatedState);
@@ -33,8 +41,10 @@ const setModalMessage = (state, action) => {
 
 const modalReducer = (state = initialState, action) => {
   switch(action.type) {
-    case actionTypes.TOGGLE_MODAL:
-      return toggleModal(state, action);
+    case actionTypes.OPEN_MODAL:
+      return openModal(state, action);
+    case actionTypes.CLOSE_MODAL:
+      return closeModal(state, action);
     case actionTypes.SET_ACTIVE_MODAL:
       return setActiveModal(state, action);
     case actionTypes.SET_MODAL_MESSAGE:

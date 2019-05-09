@@ -17,13 +17,13 @@ class Layout extends Component {
   }
 
   render() {
-    const { routes, breadcrumb, isModalOpen, activeModal, message, toggleModal, toggleAndSetActiveModal, clearAuthError } = this.props;
+    const { routes, breadcrumb, isModalOpen, activeModal, message, closeModal, openAndSetActiveModal, clearAuthError } = this.props;
 
     return (
       <>
         <Skipnav />
         <Sidebar />
-        <Modal isModalOpen={isModalOpen} activeModal={activeModal} message={message} toggleModal={toggleModal} toggleAndSetActiveModal={toggleAndSetActiveModal} clearAuthError={clearAuthError} />
+        <Modal isModalOpen={isModalOpen} activeModal={activeModal} message={message} closeModal={closeModal} openAndSetActiveModal={openAndSetActiveModal} clearAuthError={clearAuthError} />
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
       </>
@@ -43,8 +43,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleModal: () => dispatch(actions.toggleModal()),
-    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal)),
+    closeModal: () => dispatch(actions.closeModal()),
+    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
     clearAuthError: () => dispatch(actions.clearAuthError())
   }
 }
