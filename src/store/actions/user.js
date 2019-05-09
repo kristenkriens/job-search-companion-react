@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-
+import { toggleAndSetErrorModalAndMessage } from './modal';
 
 export const getUserIpStart = () => {
   return {
@@ -16,6 +16,13 @@ export const getUserIpSuccess = (userIp) => {
   }
 };
 
+export const getUserIpFail = (error) => {
+  return {
+    type: actionTypes.GET_USER_IP_FAIL,
+    error: error
+  }
+};
+
 export const getUserIp = () => {
   return (dispatch) => {
     dispatch(getUserIpStart());
@@ -25,6 +32,11 @@ export const getUserIp = () => {
     axios.get(url)
       .then((response) => {
         dispatch(getUserIpSuccess(response.data.ip));
+      }).catch((error) => {
+        const errorMessage = error.message;
+
+        dispatch(getUserIpFail(errorMessage));
+        dispatch(toggleAndSetErrorModalAndMessage(errorMessage));
       })
   }
 };
