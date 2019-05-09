@@ -17,23 +17,22 @@ class Layout extends Component {
   }
 
   render() {
-    const { routes, isAuthenticated, breadcrumb, isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = this.props;
+    const { routes, breadcrumb, isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = this.props;
 
     return (
-      <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
+      <>
         <Skipnav />
         <Sidebar />
         <Modal isModalOpen={isModalOpen} activeModal={activeModal} message={message} toggleModal={toggleModal} setActiveModal={setActiveModal} clearAuthError={clearAuthError} />
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
-      </div>
+      </>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
     pathname: state.router.location.pathname,
     breadcrumb: state.navigation.breadcrumb,
     isModalOpen: state.modal.isModalOpen,
