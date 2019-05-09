@@ -7,8 +7,6 @@ import Modal from '../UI/Modal/Modal';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
 
-import * as actions from '../../store/actions/index';
-
 class Layout extends Component {
   componentDidUpdate = (prevProps) => {
     if (this.props.pathname !== prevProps.pathname) {
@@ -17,13 +15,13 @@ class Layout extends Component {
   }
 
   render() {
-    const { routes, breadcrumb, isModalOpen, activeModal, message, closeModal, openAndSetActiveModal, clearAuthError } = this.props;
+    const { routes, breadcrumb } = this.props;
 
     return (
       <>
         <Skipnav />
         <Sidebar />
-        <Modal isModalOpen={isModalOpen} activeModal={activeModal} message={message} closeModal={closeModal} openAndSetActiveModal={openAndSetActiveModal} clearAuthError={clearAuthError} />
+        <Modal />
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
       </>
@@ -34,19 +32,8 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
   return {
     pathname: state.router.location.pathname,
-    breadcrumb: state.navigation.breadcrumb,
-    isModalOpen: state.modal.isModalOpen,
-    activeModal: state.modal.activeModal,
-    message: state.modal.message
+    breadcrumb: state.navigation.breadcrumb
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    closeModal: () => dispatch(actions.closeModal()),
-    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
-    clearAuthError: () => dispatch(actions.clearAuthError())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+export default connect(mapStateToProps)(Layout);
