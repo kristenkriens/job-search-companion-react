@@ -74,9 +74,8 @@ export const geolocateGeocode = (lat, lng) => {
 
         dispatch(geolocateGeocodeSuccess());
         dispatch(geolocateGeocodeSuccessUpdateReduxHandledFormElement(location, country));
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
+      }).catch((error) => {
+        const errorMessage = 'Your location could not be found';
 
         dispatch(geolocateGeocodeFail(errorMessage));
         dispatch(openAndSetErrorModalAndMessage(errorMessage));
