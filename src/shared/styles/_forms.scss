@@ -193,6 +193,12 @@
 	    font-weight: 400;
 		}
 	}
+
+  &__error {
+    margin-bottom: 10px;
+    text-align: center;
+    color: $red;
+  }
 }
 
 input[type="text"], input[type="email"], input[type="number"], input[type="password"], input[type="date"], select, textarea {
