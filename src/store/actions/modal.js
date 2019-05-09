@@ -27,9 +27,9 @@ export const toggleAndSetActiveModal = (activeModal) => {
   }
 };
 
-export const toggleAndSetActiveModalAndMessage = (activeModal, message) => {
+export const toggleAndSetErrorModalAndMessage = (message) => {
   return (dispatch) => {
-    dispatch(setActiveModal(activeModal));
+    dispatch(setActiveModal('error'));
     dispatch(setModalMessage(message));
     dispatch(toggleModal());
   }

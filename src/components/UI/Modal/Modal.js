@@ -9,7 +9,7 @@ import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = props;
+  const { isModalOpen, activeModal, message, toggleModal, toggleAndSetActiveModal, clearAuthError } = props;
 
   const click = () => {
     toggleModal();
@@ -17,6 +17,14 @@ const Modal = (props) => {
     if(activeModal === 'login' || activeModal === 'register') {
       clearAuthError();
     }
+  }
+
+  const changeActive = (newActiveModal) => {
+    toggleModal();
+    setTimeout(() => {
+      clearAuthError();
+      toggleAndSetActiveModal(newActiveModal);
+    }, 250);
   }
 
   return (
@@ -32,16 +40,13 @@ const Modal = (props) => {
           <Button additionalClasses="modal__close" click={click}><i className="fa fa-times" aria-hidden="true"></i></Button>
           <div className="modal__content">
             {activeModal === 'login' && (
-              <Login setActiveModal={setActiveModal} />
+              <Login click={() => changeActive('register')} />
             )}
             {activeModal === 'register' && (
-              <Register setActiveModal={setActiveModal} />
+              <Register click={() => changeActive('login')} />
             )}
             {activeModal === 'error' && (
               <Error message={message} />
-            )}
-            {activeModal === 'general' && (
-              <div>{message}</div>
             )}
           </div>
         </div>
