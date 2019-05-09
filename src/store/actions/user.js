@@ -37,7 +37,7 @@ export const getUserIp = () => {
 
         dispatch(getUserIpFail(errorMessage));
         dispatch(openAndSetErrorModalAndMessage(errorMessage));
-      })
+      });
   }
 };
 
