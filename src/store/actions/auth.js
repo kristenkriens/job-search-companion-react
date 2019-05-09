@@ -80,7 +80,12 @@ export const authGo = (email, password, isRegister) => {
         dispatch(checkAuthTimeout(response.data.expiresIn));
         dispatch(closeModal());
       }).catch((error) => {
-        const errorMessage = normalizeErrorString(error.response.data.error.message);
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
 
         dispatch(authFail(errorMessage));
 
