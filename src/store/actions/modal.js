@@ -19,17 +19,17 @@ export const setActiveModal = (activeModal) => {
   }
 };
 
-export const setModalMessage = (message) => {
-  return {
-    type: actionTypes.SET_MODAL_MESSAGE,
-    message: message
-  }
-};
-
 export const openAndSetActiveModal = (activeModal) => {
   return (dispatch) => {
     dispatch(setActiveModal(activeModal));
     dispatch(openModal());
+  }
+};
+
+export const setModalMessage = (message) => {
+  return {
+    type: actionTypes.SET_MODAL_MESSAGE,
+    message: message
   }
 };
 
