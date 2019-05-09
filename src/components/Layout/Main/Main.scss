@@ -5,6 +5,10 @@
   padding-left: 250px;
   width: 100%;
 
+  @media (min-width: 1650px) {
+    padding-left: 300px;
+  }
+
   @media (max-width: 650px) {
     min-height: auto;
     padding-left: 0;

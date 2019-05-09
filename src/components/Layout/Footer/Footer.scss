@@ -9,13 +9,18 @@
   font-size: 14px;
   padding: 20px;
 
+  @media (min-width: 1650px) {
+    width: 300px;
+  }
+
   a {
     color: $white;
     text-decoration: none;
     transition: 250ms opacity ease;
 
     &:hover {
-      opacity: 0.85;
+      color: $white;
+      opacity: 0.75;
       text-decoration: underline;
     }
   }

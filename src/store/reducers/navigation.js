@@ -27,17 +27,6 @@ const initialState = {
         { title: 'Follow Ups', link: '/track/follow-ups', exact: false },
         { title: 'Interviews', link: '/track/interviews', exact: false }
       ]
-    },
-    {
-      type: 'analyze',
-      primaryItem: {
-        icon: 'line-chart',
-        title: 'Analyze'
-      },
-      secondaryItems: [
-        { title: 'Applications', link: '/analyze/applications', exact: false },
-        { title: 'Correspondence', link: '/analyze/correspondence', exact: false }
-      ]
     }
   ],
   breadcrumb: {

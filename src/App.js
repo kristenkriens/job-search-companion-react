@@ -10,8 +10,6 @@ import SavedJobs from './components/Routes/Find/SavedJobs/SavedJobs';
 import Overview from './components/Routes/Track/Overview/Overview';
 import FollowUps from './components/Routes/Track/FollowUps/FollowUps';
 import Interviews from './components/Routes/Track/Interviews/Interviews';
-import Applications from './components/Routes/Analyze/Applications/Applications';
-import Correspondence from './components/Routes/Analyze/Correspondence/Correspondence';
 
 import * as actions from './store/actions/index';
 
@@ -58,14 +56,6 @@ class App extends Component {
         <Route
           path="/track/interviews"
           render={() => <Interviews isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/analyze/applications"
-          render={() => <Applications isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/analyze/correspondence"
-          render={() => <Correspondence isAuthenticated={isAuthenticated} />}
         />
         <Route
           path="/"
