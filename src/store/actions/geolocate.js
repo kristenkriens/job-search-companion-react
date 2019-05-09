@@ -40,8 +40,7 @@ export const geolocateGeocodeStart = () => {
 
 export const geolocateGeocodeSuccess = () => {
   return {
-    type: actionTypes.GEOLOCATE_GEOCODE_SUCCESS,
-    loading: false
+    type: actionTypes.GEOLOCATE_GEOCODE_SUCCESS
   }
 };
 

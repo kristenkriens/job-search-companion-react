@@ -29,7 +29,8 @@ const geolocateLatLngSuccess = (state, action) => {
 
 const geolocateGeocodeStart = (state, action) => {
   const updatedState = {
-    error: null
+    error: null,
+    loading: true
   };
 
   return updateObject(state, updatedState);

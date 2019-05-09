@@ -2,15 +2,17 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utilities';
 
 const initialState = {
+  error: null,
+  loading: false,
   userIp: null,
   userAgent: null,
   lat: null,
-  lng: null,
-  error: null
+  lng: null
 }
 
 const getUserIpStart = (state, action) => {
   const updatedState = {
+    loading: true,
     userIp: null
   };
 
@@ -19,7 +21,8 @@ const getUserIpStart = (state, action) => {
 
 const getUserIpSuccess = (state, action) => {
   const updatedState = {
-    userIp: action.userIp
+    userIp: action.userIp,
+    loading: false
   };
 
   return updateObject(state, updatedState);
@@ -27,7 +30,8 @@ const getUserIpSuccess = (state, action) => {
 
 const getUserIpFail = (state, action) => {
   const updatedState = {
-    error: action.error
+    error: action.error,
+    loading: false
   };
 
   return updateObject(state, updatedState);
