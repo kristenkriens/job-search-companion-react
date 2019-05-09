@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
+import { openAndSetErrorModalAndMessage } from './modal';
+import { normalizeErrorString } from '../../shared/utilities';
 
 export const clearAuthError = () => {
   return {
@@ -77,9 +79,18 @@ export const authGo = (email, password, isRegister) => {
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
         dispatch(closeModal());
-      })
-      .catch((error) => {
-        dispatch(authFail(error.response.data.error));
+      }).catch((error) => {
+        const errorMessage = normalizeErrorString(error.response.data.error.message);
+
+        dispatch(authFail(errorMessage));
+
+        const notWord = (word) => errorMessage.toLowerCase().indexOf(word) === -1;
+        if(notWord('email') && notWord('password')) {
+          dispatch(closeModal());
+          setTimeout(() => {
+            dispatch(openAndSetErrorModalAndMessage(errorMessage));
+          }, 250);
+        }
       });
   }
 };
