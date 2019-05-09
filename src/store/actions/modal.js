@@ -1,8 +1,14 @@
 import * as actionTypes from './actionTypes';
 
-export const toggleModal = () => {
+export const openModal = () => {
   return {
-    type: actionTypes.TOGGLE_MODAL
+    type: actionTypes.OPEN_MODAL
+  }
+};
+
+export const closeModal = () => {
+  return {
+    type: actionTypes.CLOSE_MODAL
   }
 };
 
@@ -13,6 +19,13 @@ export const setActiveModal = (activeModal) => {
   }
 };
 
+export const openAndSetActiveModal = (activeModal) => {
+  return (dispatch) => {
+    dispatch(setActiveModal(activeModal));
+    dispatch(openModal());
+  }
+};
+
 export const setModalMessage = (message) => {
   return {
     type: actionTypes.SET_MODAL_MESSAGE,
@@ -20,17 +33,10 @@ export const setModalMessage = (message) => {
   }
 };
 
-export const toggleAndSetActiveModal = (activeModal) => {
+export const openAndSetErrorModalAndMessage = (message) => {
   return (dispatch) => {
-    dispatch(setActiveModal(activeModal));
-    dispatch(toggleModal());
-  }
-};
-
-export const toggleAndSetActiveModalAndMessage = (activeModal, message) => {
-  return (dispatch) => {
-    dispatch(setActiveModal(activeModal));
+    dispatch(setActiveModal('error'));
     dispatch(setModalMessage(message));
-    dispatch(toggleModal());
+    dispatch(openModal());
   }
 };

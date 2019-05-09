@@ -1,6 +1,7 @@
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
+import { openAndSetErrorModalAndMessage } from './modal';
 
 export const setSavedSearchStart = () => {
   return {
@@ -31,7 +32,10 @@ export const setSavedSearch = (token, userId, savedSearch) => {
       .then((response) => {
         dispatch(setSavedSearchSuccess(response.data.name, savedSearch));
       }).catch((error) => {
-        dispatch(setSavedSearchFail(error));
+        const errorMessage = error.message;
+
+        dispatch(setSavedSearchFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }
@@ -72,9 +76,11 @@ export const getSavedSearches = (token, userId) => {
         savedSearches.reverse();
 
         dispatch(getSavedSearchesSuccess(savedSearches));
-      })
-      .catch((error) => {
-        dispatch(getSavedSearchesFail(error));
+      }).catch((error) => {
+        const errorMessage = error.message;
+
+        dispatch(getSavedSearchesFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }
@@ -122,7 +128,10 @@ export const useSavedSearch = (token, userId, searchId) => {
         dispatch(useSavedSearchSuccess());
         dispatch(useSavedSearchDone(savedSearch));
       }).catch((error) => {
-        dispatch(useSavedSearchFail(error));
+        const errorMessage = error.message;
+
+        dispatch(useSavedSearchFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }
@@ -155,7 +164,10 @@ export const removeSavedSearch = (token, userId, searchId) => {
         dispatch(removeSavedSearchSuccess());
         dispatch(getSavedSearches(token, userId));
       }).catch((error) => {
-        dispatch(removeSavedSearchFail(error));
+        const errorMessage = error.message;
+
+        dispatch(removeSavedSearchFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }

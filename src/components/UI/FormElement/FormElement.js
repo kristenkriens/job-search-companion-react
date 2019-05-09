@@ -5,7 +5,7 @@ import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, moreInfo, toggleAndSetActiveModalAndMessage, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -62,19 +62,12 @@ const FormElement = (props) => {
     });
   }
 
-  let moreInfoMarker = '';
-  if(moreInfo) {
-    moreInfoMarker = (
-      <i className="fa fa-question-circle" onClick={() => toggleAndSetActiveModalAndMessage('general', moreInfo)}></i>
-    )
-  }
-
   return (
     <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
       {elementType === 'radio' ? (
-        <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label} {moreInfoMarker}</legend>
+        <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
       ) : (
-        <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label} {moreInfoMarker}</label>
+        <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
       )}
       <div className={`form__element-inner ${formElement.type === 'select' ? 'form__element-inner--select' : null}`}>
         {formElement}

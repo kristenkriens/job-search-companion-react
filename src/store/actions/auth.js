@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { toggleModal } from './modal';
+import { closeModal } from './modal';
 
 export const clearAuthError = () => {
   return {
@@ -76,7 +76,7 @@ export const authGo = (email, password, isRegister) => {
 
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
-        dispatch(toggleModal());
+        dispatch(closeModal());
       })
       .catch((error) => {
         dispatch(authFail(error.response.data.error));

@@ -9,19 +9,27 @@ import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
 const Modal = (props) => {
-  const { isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = props;
+  const { isModalOpen, activeModal, message, closeModal, openAndSetActiveModal, clearAuthError } = props;
 
-  const click = () => {
-    toggleModal();
+  const close = () => {
+    closeModal();
 
     if(activeModal === 'login' || activeModal === 'register') {
       clearAuthError();
     }
   }
 
+  const changeActive = (newActiveModal) => {
+    closeModal();
+    setTimeout(() => {
+      clearAuthError();
+      openAndSetActiveModal(newActiveModal);
+    }, 250);
+  }
+
   return (
     <>
-      <Backdrop isModalOpen={isModalOpen} close={click} />
+      <Backdrop isModalOpen={isModalOpen} close={close} />
       <CSSTransition
         in={isModalOpen}
         timeout={500}
@@ -29,19 +37,16 @@ const Modal = (props) => {
         unmountOnExit
       >
         <div className="modal">
-          <Button additionalClasses="modal__close" click={click}><i className="fa fa-times" aria-hidden="true"></i></Button>
+          <Button additionalClasses="modal__close" click={close}><i className="fa fa-times" aria-hidden="true"></i></Button>
           <div className="modal__content">
             {activeModal === 'login' && (
-              <Login setActiveModal={setActiveModal} />
+              <Login click={() => changeActive('register')} />
             )}
             {activeModal === 'register' && (
-              <Register setActiveModal={setActiveModal} />
+              <Register click={() => changeActive('login')} />
             )}
             {activeModal === 'error' && (
               <Error message={message} />
-            )}
-            {activeModal === 'general' && (
-              <div>{message}</div>
             )}
           </div>
         </div>

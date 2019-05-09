@@ -7,7 +7,7 @@ import * as actions from '../../../store/actions/index';
 
 class Home extends Component {
   render() {
-    const { isAuthenticated, toggleAndSetActiveModal } = this.props;
+    const { isAuthenticated, openAndSetActiveModal } = this.props;
 
     return (
       <>
@@ -18,7 +18,7 @@ class Home extends Component {
           ) : (
             <>
               <div className="h3">Log in or click on the items in the navigation to get started!</div>
-              <Button click={() => toggleAndSetActiveModal('login')}>Log In</Button>
+              <Button click={() => openAndSetActiveModal('login')}>Log In</Button>
             </>
           )}
         </div>
@@ -29,7 +29,7 @@ class Home extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleAndSetActiveModal: (activeModal) => dispatch(actions.toggleAndSetActiveModal(activeModal))
+    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal))
   }
 }
 

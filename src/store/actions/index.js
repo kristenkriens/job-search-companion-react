@@ -11,11 +11,8 @@ export {
 } from './navigation';
 
 export {
-  toggleModal,
-  setActiveModal,
-  setModalMessage,
-  toggleAndSetActiveModal,
-  toggleAndSetActiveModalAndMessage
+  closeModal,
+  openAndSetActiveModal
 } from './modal';
 
 export {

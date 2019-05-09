@@ -17,23 +17,22 @@ class Layout extends Component {
   }
 
   render() {
-    const { routes, isAuthenticated, breadcrumb, isModalOpen, activeModal, message, toggleModal, setActiveModal, clearAuthError } = this.props;
+    const { routes, breadcrumb, isModalOpen, activeModal, message, closeModal, openAndSetActiveModal, clearAuthError } = this.props;
 
     return (
-      <div className={isAuthenticated ? 'logged-in' : 'logged-out'}>
+      <>
         <Skipnav />
         <Sidebar />
-        <Modal isModalOpen={isModalOpen} activeModal={activeModal} message={message} toggleModal={toggleModal} setActiveModal={setActiveModal} clearAuthError={clearAuthError} />
+        <Modal isModalOpen={isModalOpen} activeModal={activeModal} message={message} closeModal={closeModal} openAndSetActiveModal={openAndSetActiveModal} clearAuthError={clearAuthError} />
         <Main routes={routes} breadcrumb={breadcrumb} />
         <Footer />
-      </div>
+      </>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.token !== null,
     pathname: state.router.location.pathname,
     breadcrumb: state.navigation.breadcrumb,
     isModalOpen: state.modal.isModalOpen,
@@ -44,8 +43,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleModal: () => dispatch(actions.toggleModal()),
-    setActiveModal: (activeModal) => dispatch(actions.setActiveModal(activeModal)),
+    closeModal: () => dispatch(actions.closeModal()),
+    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
     clearAuthError: () => dispatch(actions.clearAuthError())
   }
 }

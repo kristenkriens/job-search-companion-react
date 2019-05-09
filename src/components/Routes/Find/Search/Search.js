@@ -164,7 +164,7 @@ class Search extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, savedSearches, searchFormUpdateElement, toggleAndSetActiveModalAndMessage } = this.props;
+    const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, savedSearches, searchFormUpdateElement } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -183,8 +183,6 @@ class Search extends Component {
                 hasGeolocateButton={formElement.config.hasGeolocateButton}
                 label={formElement.config.label}
                 value={formElement.config.value}
-                moreInfo={formElement.config.moreInfo}
-                toggleAndSetActiveModalAndMessage={toggleAndSetActiveModalAndMessage}
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => this.geolocateClick(event)}
                 location={location}
@@ -237,7 +235,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     geolocateLatLng: () => dispatch(actions.geolocateLatLng()),
-    toggleAndSetActiveModalAndMessage: (activeModal, message) => dispatch(actions.toggleAndSetActiveModalAndMessage(activeModal, message)),
     searchFormUpdateElement: (formElementName, value) => dispatch(actions.searchFormUpdateElement(formElementName, value)),
     searchGo: (searchCriteria) => dispatch(actions.searchGo(searchCriteria)),
     searchClear: () => dispatch(actions.searchClear()),

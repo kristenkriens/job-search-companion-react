@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
+import { openAndSetErrorModalAndMessage } from './modal'
 
 export const setSavedJobStart = () => {
   return {
@@ -32,7 +33,10 @@ export const setSavedJob = (token, userId, savedJob) => {
       .then((response) => {
         dispatch(setSavedJobSuccess(response.data.name, savedJob));
       }).catch((error) => {
-        dispatch(setSavedJobFail(error));
+        const errorMessage = error.message;
+
+        dispatch(setSavedJobFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }
@@ -63,10 +67,19 @@ export const getSavedJobsFind = (savedJobs) => {
           }
         }
 
-        dispatch(getSavedJobsSuccess(response.data.results));
-      })
-      .catch((error) => {
-        dispatch(getSavedJobsFail(error));
+        if(response.data.error) {
+          const errorMessage = response.data.error;
+
+          dispatch(getSavedJobsFail(errorMessage));
+          dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        } else {
+          dispatch(getSavedJobsSuccess(response.data.results));
+        }
+      }).catch((error) => {
+        const errorMessage = error.message;
+
+        dispatch(getSavedJobsFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }
@@ -101,9 +114,11 @@ export const getSavedJobs = (token, userId) => {
         savedJobs.reverse();
 
         dispatch(getSavedJobsFind(savedJobs));
-      })
-      .catch((error) => {
-        dispatch(getSavedJobsFail(error));
+      }).catch((error) => {
+        const errorMessage = error.message;
+
+        dispatch(getSavedJobsFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }
@@ -136,7 +151,10 @@ export const removeSavedJob = (token, userId, jobId) => {
         dispatch(removeSavedJobSuccess());
         dispatch(getSavedJobs(token, userId));
       }).catch((error) => {
-        dispatch(removeSavedJobFail(error));
+        const errorMessage = error.message;
+
+        dispatch(removeSavedJobFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 }

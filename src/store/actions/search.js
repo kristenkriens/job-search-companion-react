@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { turnSpacesIntoPlusses } from '../../shared/utilities';
 import { history } from '../reducers/index';
-
+import { openAndSetErrorModalAndMessage } from './modal';
 
 export const searchFormUpdateElement = (formElementName, value) => {
   return {
@@ -46,11 +46,21 @@ export const searchGo = (searchCriteria) => {
 
     axios.get(url)
       .then((response) => {
-        dispatch(searchSuccess(response.data));
-        history.push('/find/results');
+        if(response.data.error) {
+          const errorMessage = response.data.error;
+
+          dispatch(searchFail(errorMessage));
+          dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        } else {
+          dispatch(searchSuccess(response.data));
+          history.push('/find/results');
+        }
       })
       .catch((error) => {
-        dispatch(searchFail(error));
+        const errorMessage = error.message;
+
+        dispatch(searchFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }
 };

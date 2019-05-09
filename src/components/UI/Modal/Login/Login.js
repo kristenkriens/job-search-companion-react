@@ -43,7 +43,7 @@ class Login extends Component {
   }
 
   render() {
-    const { setActiveModal, loading, error } = this.props;
+    const { click, loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -65,11 +65,14 @@ class Login extends Component {
               />
             )
           })}
+          {error && error.message !== 'EMAIL_NOT_FOUND' && error.message !== 'INVALID_PASSWORD' && (
+            <div className="form__error">{error.message}</div>
+          )}
           <div className="form__footer form__footer--center">
             <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
           </div>
         </form>
-        <LinkButton additionalClasses="modal__link" click={() => setActiveModal('register')}>New user? Create an account</LinkButton>
+        <LinkButton additionalClasses="modal__link" click={click}>New user? Create an account</LinkButton>
       </>
     )
   }

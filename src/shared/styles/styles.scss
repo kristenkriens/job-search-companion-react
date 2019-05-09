@@ -21,12 +21,6 @@ body {
 	font-family: $body-font;
 	font-weight: 300;
 	line-height: 1.25;
-
-	#root > div {
-		display: flex;
-		flex-wrap: wrap;
-		position: relative;
-	}
 }
 
 img {

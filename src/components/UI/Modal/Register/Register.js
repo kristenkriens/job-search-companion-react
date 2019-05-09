@@ -44,7 +44,7 @@ class Register extends Component {
   }
 
   render() {
-    const { setActiveModal, loading, error } = this.props;
+    const { click, loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -66,11 +66,14 @@ class Register extends Component {
               />
             )
           })}
+          {error && error.message !== 'EMAIL_NOT_FOUND' && error.message !== 'INVALID_PASSWORD' && (
+            <div className="form__error">{error.message}</div>
+          )}
           <div className="form__footer form__footer--center">
             <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
           </div>
         </form>
-        <LinkButton additionalClasses="modal__link" click={() => setActiveModal('login')}>Already have an account? Log In</LinkButton>
+        <LinkButton additionalClasses="modal__link" click={click}>Already have an account? Log In</LinkButton>
       </>
     )
   }
