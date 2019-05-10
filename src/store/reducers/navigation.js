@@ -12,7 +12,7 @@ const initialState = {
       },
       secondaryItems: [
         { title: 'Search', link: '/find/search', exact: false },
-        { title: 'Results', link: '/find/results', exact: false },
+        { title: 'Search Results', link: '/find/search-results', exact: false },
         { title: 'Saved Jobs', link: '/find/saved-jobs', exact: false }
       ]
     },
@@ -23,9 +23,8 @@ const initialState = {
         title: 'Track Applications'
       },
       secondaryItems: [
-        { title: 'Overview', link: '/track/overview', exact: false },
-        { title: 'Follow Ups', link: '/track/follow-ups', exact: false },
-        { title: 'Interviews', link: '/track/interviews', exact: false }
+        { title: 'Applications', link: '/track/applications', exact: false },
+        { title: 'Results', link: '/track/results', exact: false }
       ]
     }
   ],

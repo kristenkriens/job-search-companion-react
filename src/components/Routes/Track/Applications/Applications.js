@@ -4,13 +4,13 @@ import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 
-class Overview extends Component {
+class Applications extends Component {
   render() {
     const { isAuthenticated } = this.props;
 
     return (
       <>
-        <h1 className="accessible">Overview</h1>
+        <h1 className="accessible">Applications</h1>
         {isAuthenticated ? (
           <>
             <div className="table">
@@ -66,4 +66,4 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+export default Applications;

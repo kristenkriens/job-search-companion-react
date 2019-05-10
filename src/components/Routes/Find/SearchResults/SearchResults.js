@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './Results.scss';
+import './SearchResults.scss';
 
 import SortBy from './SortBy/SortBy';
 import SearchItem from '../SearchItem/SearchItem';
@@ -10,7 +10,7 @@ import Pagination from './Pagination/Pagination';
 
 import * as actions from '../../../../store/actions/index';
 
-class Results extends Component {
+class SearchResults extends Component {
   componentDidMount = () => {
     if(this.props.isAuthenticated) {
       this.props.getSavedJobs(this.props.token, this.props.userId);
@@ -33,11 +33,11 @@ class Results extends Component {
           <>
             {results.length > 0 ? (
               <>
-                <div className="results__heading">
+                <div className="search-results__heading">
                   <h1>Search Results</h1>
                   <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 </div>
-                <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
+                <div className={`search-results ${loading ? 'search-results--loading' : ''}`} style={{opacity: loading && 0.65}}>
                   {results.map((result, i) => {
                     let savedArray = savedJobs.map((savedJob) => {
                       return (
@@ -58,7 +58,7 @@ class Results extends Component {
               </>
             ) : (
               <div className="absolute-center">
-                <h1 className="accessible">Search Results</h1>
+                <h1 className="accessible">Search SearchResults</h1>
                 <div className="h3">Sorry, your search returned <span className="red">0</span> results. Please try again!</div>
                 <Link to="/find/search" className="button">Try Again</Link>
               </div>
@@ -90,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
