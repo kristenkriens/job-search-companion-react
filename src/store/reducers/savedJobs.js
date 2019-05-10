@@ -17,7 +17,7 @@ const setSavedJobStart = (state, action) => {
 
 const setSavedJobSuccess = (state, action) => {
   const newSavedJob = [];
-  newSavedJob.push(updateObject(action.savedJob, { searchId: action.searchId }));
+  newSavedJob.push(updateObject(action.savedJob, { jobId: action.jobId }));
 
   const updatedState = {
     loading: false,
