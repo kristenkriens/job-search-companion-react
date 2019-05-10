@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import './SavedJobs.scss';
+
 import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 import SearchItem from '../SearchItem/SearchItem';
 
@@ -31,7 +33,7 @@ class SavedJobs extends Component {
   }
 
   render() {
-    const { isAuthenticated, results, savedJobs } = this.props;
+    const { isAuthenticated, results, savedJobs, loading } = this.props;
 
     return (
       <>
@@ -40,22 +42,34 @@ class SavedJobs extends Component {
             {savedJobs.length > 0 ? (
               <>
                 <h1>Saved Jobs</h1>
-                {savedJobs.map((savedJob) => {
-                  return (
-                    <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" isAuthenticated />
-                  )
-                })}
+                <div className={`saved-jobs__items ${loading && 'disable-click'}`} style={{opacity: loading && 0.65}}>
+                  {savedJobs.map((savedJob) => {
+                    return (
+                      <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" isAuthenticated />
+                    )
+                  })}
+                </div>
               </>
             ) : (
-              <div className="absolute-center">
-                <h1 className="accessible">Saved Jobs</h1>
-                <div className="h3">Please save some jobs first!</div>
-                {results !== null ? (
-                  <Link to="/find/results" className="button">Let's Go!</Link>
+              <>
+                {loading ? (
+                  <div className="absolute-center">
+                    <h1 className="accessible">Saved Jobs</h1>
+                    <div className="h3">Your saved jobs are loading!</div>
+                    <i className="fa fa-spinner fa-pulse fa-fw fa-2x"></i>
+                  </div>
                 ) : (
-                  <Link to="/find/search" className="button">Let's Go!</Link>
+                  <div className="absolute-center">
+                    <h1 className="accessible">Saved Jobs</h1>
+                    <div className="h3">Please save some jobs first!</div>
+                    {results !== null ? (
+                      <Link to="/find/results" className="button">Let's Go!</Link>
+                    ) : (
+                      <Link to="/find/search" className="button">Let's Go!</Link>
+                    )}
+                  </div>
                 )}
-              </div>
+              </>
             )}
           </div>
         ) : (
@@ -71,7 +85,8 @@ const mapStateToProps = (state) => {
     results: state.search.results,
     token: state.auth.token,
     userId: state.auth.userId,
-    savedJobs: state.savedJobs.savedJobs
+    savedJobs: state.savedJobs.savedJobs,
+    loading: state.savedJobs.loading
   }
 }
 
