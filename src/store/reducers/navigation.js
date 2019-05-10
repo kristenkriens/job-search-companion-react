@@ -11,7 +11,7 @@ const initialState = {
         title: 'Find Jobs'
       },
       secondaryItems: [
-        { title: 'Search', link: '/find/search', exact: false },
+        { title: 'Search', link: '/', exact: true },
         { title: 'Search Results', link: '/find/search-results', exact: false },
         { title: 'Saved Jobs', link: '/find/saved-jobs', exact: false }
       ]

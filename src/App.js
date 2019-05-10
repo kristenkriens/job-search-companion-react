@@ -3,7 +3,6 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
-import Home from './components/Routes/Home/Home';
 import Search from './components/Routes/Find/Search/Search';
 import SearchResults from './components/Routes/Find/SearchResults/SearchResults';
 import SavedJobs from './components/Routes/Find/SavedJobs/SavedJobs';
@@ -33,7 +32,8 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route
-          path="/find/search"
+          path="/"
+          exact="true"
           render={() => <Search isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
@@ -51,11 +51,6 @@ class App extends Component {
         <Route
           path="/track/results"
           render={() => <Results isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/"
-          exact
-          render={() => <Home isAuthenticated={isAuthenticated} />}
         />
         <Redirect to="/" />
       </Switch>
