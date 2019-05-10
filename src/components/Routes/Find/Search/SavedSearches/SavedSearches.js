@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import LinkButton from '../../../../UI/Button/LinkButton/LinkButton';
+import Loading from '../../../../UI/Loading/Loading';
 
 import { countries } from '../../../../../shared/countries';
 
@@ -21,19 +22,19 @@ class SavedSearches extends Component {
   }
 
   render() {
-    const { savedSearches, jobTypes } = this.props;
+    const { savedSearches, jobTypes, loading } = this.props;
 
     return (
       <>
         <div className="saved-searches">
           <div className="saved-searches__heading">
-            <h3>Saved Searches</h3>
+            <h3>Saved Searches</h3><Loading loading={loading} />
             {savedSearches.length >= 10 && (
               <div>(10 most recent)</div>
             )}
           </div>
           {savedSearches.length > 0 ? (
-            <ul className="saved-searches__list">
+            <ul className={`saved-searches__list ${loading && 'disable-click'}`} style={{opacity: loading && 0.65}}>
               {savedSearches.map((search) => {
                 return (
                   <li key={search.searchId}>
@@ -91,7 +92,8 @@ class SavedSearches extends Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    loading: state.savedSearches.loading
   }
 }
 
