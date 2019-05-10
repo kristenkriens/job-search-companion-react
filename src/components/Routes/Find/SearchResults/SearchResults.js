@@ -24,8 +24,10 @@ class SearchResults extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, search, savedJobs, savedJobsLoading } = this.props;
+    const { isAuthenticated, userIp, userAgent, search, savedJobs, savedJobsLoading, savedApplicationsLoading } = this.props;
     const { results, loading } = search;
+
+    const isLoading = loading || savedJobsLoading || savedApplicationsLoading;
 
     return (
       <>
@@ -37,7 +39,7 @@ class SearchResults extends Component {
                   <h1>Search Results</h1>
                   <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 </div>
-                <div className={`search-results ${(loading || savedJobsLoading) && 'disable-click'}`} style={{opacity: (loading || savedJobsLoading) && 0.65}}>
+                <div className={`search-results ${isLoading && 'disable-click'}`} style={{opacity: isLoading && 0.65}}>
                   {results.map((result, i) => {
                     let savedArray = savedJobs.map((savedJob) => {
                       return (
@@ -81,7 +83,8 @@ const mapStateToProps = (state) => {
     userId: state.auth.userId,
     search: state.search,
     savedJobs: state.savedJobs.savedJobs,
-    savedJobsLoading: state.savedJobs.loading
+    savedJobsLoading: state.savedJobs.loading,
+    savedApplicationsLoading: state.savedApplications.loading
   }
 }
 

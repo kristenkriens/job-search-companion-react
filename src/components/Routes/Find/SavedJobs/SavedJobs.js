@@ -33,7 +33,9 @@ class SavedJobs extends Component {
   }
 
   render() {
-    const { isAuthenticated, results, savedJobs, loading } = this.props;
+    const { isAuthenticated, results, savedJobs, loading, savedApplicationsLoading } = this.props;
+
+    const isLoading = loading || savedApplicationsLoading;
 
     return (
       <>
@@ -42,7 +44,7 @@ class SavedJobs extends Component {
             {savedJobs.length > 0 ? (
               <>
                 <h1>Saved Jobs</h1>
-                <div className={`saved-jobs__items ${loading && 'disable-click'}`} style={{opacity: loading && 0.65}}>
+                <div className={`saved-jobs__items ${isLoading && 'disable-click'}`} style={{opacity: isLoading && 0.65}}>
                   {savedJobs.map((savedJob) => {
                     return (
                       <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" isAuthenticated />
@@ -86,7 +88,8 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     userId: state.auth.userId,
     savedJobs: state.savedJobs.savedJobs,
-    loading: state.savedJobs.loading
+    loading: state.savedJobs.loading,
+    savedApplicationsLoading: state.savedApplications.loading
   }
 }
 

@@ -47,7 +47,7 @@ export const getSavedApplicationsStart = () => {
   }
 }
 
-export const getSavedApplicationsFind = (savedApplications) => {
+export const getSavedApplicationsFind = (savedApplications, isRemove) => {
   return (dispatch) => {
     let savedApplicationsKeys = '';
     for(let key in savedApplications) {
@@ -74,6 +74,10 @@ export const getSavedApplicationsFind = (savedApplications) => {
           dispatch(openAndSetErrorModalAndMessage(errorMessage));
         } else {
           dispatch(getSavedApplicationsSuccess(response.data.results));
+
+          if(isRemove) {
+            dispatch(removeSavedApplicationSuccess());
+          }
         }
       }).catch((error) => {
         const errorMessage = error.message;
@@ -98,7 +102,7 @@ export const getSavedApplicationsFail = (error) => {
   }
 }
 
-export const getSavedApplications = (token, userId) => {
+export const getSavedApplications = (token, userId, isRemove) => {
   return (dispatch) => {
     dispatch(getSavedApplicationsStart());
 
@@ -113,7 +117,7 @@ export const getSavedApplications = (token, userId) => {
         }
         savedApplications.reverse();
 
-        dispatch(getSavedApplicationsFind(savedApplications));
+        dispatch(getSavedApplicationsFind(savedApplications, isRemove));
       }).catch((error) => {
         const errorMessage = error.message;
 

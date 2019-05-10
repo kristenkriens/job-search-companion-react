@@ -8,6 +8,17 @@ import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import * as actions from '../../../../store/actions/index';
 
 class SearchItem extends Component {
+  saveApplication = (event, jobkey) => {
+    event.preventDefault();
+
+    const savedApplication = {
+      jobkey: jobkey,
+      date: Date.now()
+    }
+
+    this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);
+  }
+
   saveJob = (event, jobkey) => {
     event.preventDefault();
 
@@ -66,7 +77,7 @@ class SearchItem extends Component {
             <a href={url} className="button" target="_blank" rel="noopener noreferrer">More / Apply</a>
             {isAuthenticated && (
               <>
-                <LinkButton>
+                <LinkButton click={(event) => this.saveApplication(event, jobkey)}>
                   Track Application
                 </LinkButton>
                 {type === 'result' && (
@@ -105,8 +116,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeSavedJob: (token, userId, jobId) => dispatch(actions.removeSavedJob(token, userId, jobId)),
-    setSavedJob: (token, userId, savedJob) => dispatch(actions.setSavedJob(token, userId, savedJob))
+    setSavedApplication: (token, userId, savedApplication) => dispatch(actions.setSavedApplication(token, userId, savedApplication)),
+    setSavedJob: (token, userId, savedJob) => dispatch(actions.setSavedJob(token, userId, savedJob)),
+    removeSavedJob: (token, userId, jobId) => dispatch(actions.removeSavedJob(token, userId, jobId))
   }
 }
 
