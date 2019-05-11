@@ -14,6 +14,7 @@ class SearchResults extends Component {
   componentDidMount = () => {
     if(this.props.isAuthenticated) {
       this.props.getSavedJobs(this.props.token, this.props.userId);
+      this.props.getSavedApplications(this.props.token, this.props.userId);
     }
   }
 
@@ -24,7 +25,7 @@ class SearchResults extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, search, savedJobs, savedJobsLoading, savedApplicationsLoading } = this.props;
+    const { isAuthenticated, userIp, userAgent, search, savedJobs, savedApplications, savedJobsLoading, savedApplicationsLoading } = this.props;
     const { results, loading } = search;
 
     const isLoading = loading || savedJobsLoading || savedApplicationsLoading;
@@ -39,8 +40,8 @@ class SearchResults extends Component {
                   <h1>Search Results</h1>
                   <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 </div>
-                <div className={`search-results ${isLoading && 'disable-click'}`} style={{opacity: isLoading && 0.65}}>
-                  {results.map((result, i) => {
+                <div className={`search-results ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
+                  {results.map((result) => {
                     let savedArray = savedJobs.map((savedJob) => {
                       return (
                         savedJob['jobkey'] === result.jobkey
@@ -48,8 +49,15 @@ class SearchResults extends Component {
                     });
                     const saved = savedArray.includes(true);
 
+                    let trackedArray = savedApplications.map((savedApplication) => {
+                      return (
+                        savedApplication['jobkey'] === result.jobkey
+                      )
+                    });
+                    const tracked = trackedArray.includes(true);
+
                     return (
-                      <SearchItem key={result.jobkey} item={result} type="result" saved={saved} isAuthenticated={isAuthenticated} />
+                      <SearchItem key={result.jobkey} item={result} type="result" saved={saved} tracked={tracked} isAuthenticated={isAuthenticated} />
                     )
                   })}
                 </div>
@@ -83,6 +91,7 @@ const mapStateToProps = (state) => {
     userId: state.auth.userId,
     search: state.search,
     savedJobs: state.savedJobs.savedJobs,
+    savedApplications: state.savedApplications.savedApplications,
     savedJobsLoading: state.savedJobs.loading,
     savedApplicationsLoading: state.savedApplications.loading
   }
@@ -90,7 +99,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSavedJobs: (token, userId) => dispatch(actions.getSavedJobs(token, userId))
+    getSavedJobs: (token, userId) => dispatch(actions.getSavedJobs(token, userId)),
+    getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId))
   }
 }
 

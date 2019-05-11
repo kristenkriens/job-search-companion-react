@@ -27,6 +27,12 @@
     padding: 5px 10px;
   }
 
+  th, td {
+    &:last-of-type {
+      width: 125px;
+    }
+  }
+
   input[type="text"], input[type="email"], input[type="date"], select {
     border: none;
     text-align: center;

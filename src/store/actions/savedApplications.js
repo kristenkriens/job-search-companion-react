@@ -64,6 +64,7 @@ export const getSavedApplicationsFind = (savedApplications, isRemove) => {
         for(let key in savedApplications) {
           if(response.data.results[key] !== undefined) {
             response.data.results[key].applicationId = savedApplications[key].applicationId;
+            response.data.results[key].applicationDate = savedApplications[key].applicationDate;
           }
         }
 
@@ -106,13 +107,14 @@ export const getSavedApplications = (token, userId, isRemove) => {
   return (dispatch) => {
     dispatch(getSavedApplicationsStart());
 
-    firebaseAxios.get(`/${userId}/saved-applications.json?auth=${token}&orderBy="date"&limitToLast=10`)
+    firebaseAxios.get(`/${userId}/saved-applications.json?auth=${token}&orderBy="date"`)
       .then((response) => {
         const savedApplications = [];
         for(let key in response.data) {
           savedApplications.push({
             ...response.data[key],
-            applicationId: key
+            applicationId: key,
+            applicationDate: response.data[key].date
           });
         }
         savedApplications.reverse();

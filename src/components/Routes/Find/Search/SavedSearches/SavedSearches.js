@@ -34,7 +34,7 @@ class SavedSearches extends Component {
             )}
           </div>
           {savedSearches.length > 0 ? (
-            <ul className={`saved-searches__list ${loading && 'disable-click'}`} style={{opacity: loading && 0.65}}>
+            <ul className={`saved-searches__list ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
               {savedSearches.map((search) => {
                 return (
                   <li key={search.searchId}>
