@@ -3,13 +3,11 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Layout from './components/Layout/Layout';
-import Home from './components/Routes/Home/Home';
 import Search from './components/Routes/Find/Search/Search';
-import Results from './components/Routes/Find/Results/Results';
+import SearchResults from './components/Routes/Find/SearchResults/SearchResults';
 import SavedJobs from './components/Routes/Find/SavedJobs/SavedJobs';
-import Overview from './components/Routes/Track/Overview/Overview';
-import FollowUps from './components/Routes/Track/FollowUps/FollowUps';
-import Interviews from './components/Routes/Track/Interviews/Interviews';
+import Applications from './components/Routes/Track/Applications/Applications';
+import Results from './components/Routes/Track/Results/Results';
 
 import * as actions from './store/actions/index';
 
@@ -34,33 +32,25 @@ class App extends Component {
     let routes = (
       <Switch>
         <Route
-          path="/find/search"
+          path="/"
+          exact={true}
           render={() => <Search isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
-          path="/find/results"
-          render={() => <Results isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
+          path="/find/search-results"
+          render={() => <SearchResults isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
           path="/find/saved-jobs"
           render={() => <SavedJobs isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
-          path="/track/overview"
-          render={() => <Overview isAuthenticated={isAuthenticated} />}
+          path="/track/applications"
+          render={() => <Applications isAuthenticated={isAuthenticated} />}
         />
         <Route
-          path="/track/follow-ups"
-          render={() => <FollowUps isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/track/interviews"
-          render={() => <Interviews isAuthenticated={isAuthenticated} />}
-        />
-        <Route
-          path="/"
-          exact
-          render={() => <Home isAuthenticated={isAuthenticated} />}
+          path="/track/results"
+          render={() => <Results isAuthenticated={isAuthenticated} />}
         />
         <Redirect to="/" />
       </Switch>

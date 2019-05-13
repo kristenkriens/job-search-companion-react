@@ -47,3 +47,9 @@ export {
   getSavedJobs,
   removeSavedJob
 } from './savedJobs';
+
+export {
+  setSavedApplication,
+  getSavedApplications,
+  removeSavedApplication
+} from './savedApplications';

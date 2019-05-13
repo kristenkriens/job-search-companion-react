@@ -1,12 +1,8 @@
 @import '../../../../shared/styles/variables';
 
-.results {
+.search-results {
   margin-bottom: 40px;
   transition: opacity 250ms ease-in-out;
-
-  &--loading {
-    pointer-events: none;
-  }
 
   &__heading {
     display: flex;

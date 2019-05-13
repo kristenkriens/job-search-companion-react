@@ -21,7 +21,8 @@ export const getSetBreadcrumb = (sidebarNav, pathname) => {
         }
       });
     } else if (pathItems[1] === '') {
-      breadcrumb.current = 'Home';
+      breadcrumb.group = 'Find Jobs';
+      breadcrumb.current = 'Search'
     }
   });
 

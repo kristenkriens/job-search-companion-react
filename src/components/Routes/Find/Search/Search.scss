@@ -16,14 +16,23 @@
     div {
       font-size: 14px;
     }
+
+    .fa {
+      margin: 0;
+    }
   }
 
   &__list {
     margin: 0;
     padding-left: 20px;
+    transition: 250ms opacity ease-in-out;
 
     li {
       margin-bottom: 7px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
 
     span {

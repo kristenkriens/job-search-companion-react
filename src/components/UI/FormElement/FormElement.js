@@ -48,7 +48,7 @@ const FormElement = (props) => {
 
   let elementError = null;
   if(error) {
-    let errorMessage = normalizeErrorString(error.message);
+    let errorMessage = normalizeErrorString(error);
 
     if(errorMessage.toLowerCase().indexOf(id) !== -1) {
       elementError = errorMessage;

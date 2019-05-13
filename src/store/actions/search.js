@@ -53,7 +53,7 @@ export const searchGo = (searchCriteria) => {
           dispatch(openAndSetErrorModalAndMessage(errorMessage));
         } else {
           dispatch(searchSuccess(response.data));
-          history.push('/find/results');
+          history.push('/find/search-results');
         }
       })
       .catch((error) => {
