@@ -66,9 +66,6 @@ class Register extends Component {
               />
             )
           })}
-          {error && error.message !== 'EMAIL_NOT_FOUND' && error.message !== 'INVALID_PASSWORD' && (
-            <div className="form__error">{error.message}</div>
-          )}
           <div className="form__footer form__footer--center">
             <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
           </div>

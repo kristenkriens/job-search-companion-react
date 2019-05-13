@@ -7,7 +7,8 @@ import * as actions from '../../../../store/actions/index';
 
 class Content extends Component {
   componentDidMount = () => {
-    const group = this.props.pathname.split('/')[1];
+    let group = this.props.pathname.split('/')[1];
+
     this.props.handleSidebarNavGroupItemLoaded(group);
 
     this.props.getSetBreadcrumb(this.props.sidebarNav, this.props.pathname);
@@ -20,8 +21,6 @@ class Content extends Component {
   render() {
     const { children, pathname } = this.props;
 
-    const componentName = pathname.split('/')[2];
-
     return (
       <div className="content">
         <TransitionGroup>
@@ -33,7 +32,7 @@ class Content extends Component {
               exit: 0
             }}
           >
-            <div className={`content-inner content-inner--${componentName !== undefined ? componentName : 'home'}`}>
+            <div className="content-inner">
               {children}
             </div>
           </CSSTransition>

@@ -33,7 +33,7 @@ export const getUserIp = () => {
       .then((response) => {
         dispatch(getUserIpSuccess(response.data.ip));
       }).catch((error) => {
-        const errorMessage = error.message;
+        const errorMessage = 'Your IP address could not be found';
 
         dispatch(getUserIpFail(errorMessage));
         dispatch(openAndSetErrorModalAndMessage(errorMessage));

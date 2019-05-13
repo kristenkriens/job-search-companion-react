@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './Results.scss';
+import './SearchResults.scss';
 
 import SortBy from './SortBy/SortBy';
 import SearchItem from '../SearchItem/SearchItem';
@@ -10,10 +10,11 @@ import Pagination from './Pagination/Pagination';
 
 import * as actions from '../../../../store/actions/index';
 
-class Results extends Component {
+class SearchResults extends Component {
   componentDidMount = () => {
     if(this.props.isAuthenticated) {
       this.props.getSavedJobs(this.props.token, this.props.userId);
+      this.props.getSavedApplications(this.props.token, this.props.userId);
     }
   }
 
@@ -24,8 +25,10 @@ class Results extends Component {
   }
 
   render() {
-    const { isAuthenticated, userIp, userAgent, search, savedJobs } = this.props;
+    const { isAuthenticated, userIp, userAgent, search, savedJobs, savedApplications, savedJobsLoading, savedApplicationsLoading } = this.props;
     const { results, loading } = search;
+
+    const isLoading = loading || savedJobsLoading || savedApplicationsLoading;
 
     return (
       <>
@@ -33,12 +36,12 @@ class Results extends Component {
           <>
             {results.length > 0 ? (
               <>
-                <div className="results__heading">
+                <div className="search-results__heading">
                   <h1>Search Results</h1>
                   <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 </div>
-                <div className={`results ${loading ? 'results--loading' : ''}`} style={{opacity: loading && 0.65}}>
-                  {results.map((result, i) => {
+                <div className={`search-results ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
+                  {results.map((result) => {
                     let savedArray = savedJobs.map((savedJob) => {
                       return (
                         savedJob['jobkey'] === result.jobkey
@@ -46,8 +49,15 @@ class Results extends Component {
                     });
                     const saved = savedArray.includes(true);
 
+                    let trackedArray = savedApplications.map((savedApplication) => {
+                      return (
+                        savedApplication['jobkey'] === result.jobkey
+                      )
+                    });
+                    const tracked = trackedArray.includes(true);
+
                     return (
-                      <SearchItem key={result.jobkey} item={result} type="result" saved={saved} isAuthenticated={isAuthenticated} />
+                      <SearchItem key={result.jobkey} item={result} type="result" saved={saved} tracked={tracked} isAuthenticated={isAuthenticated} />
                     )
                   })}
                 </div>
@@ -58,7 +68,7 @@ class Results extends Component {
               </>
             ) : (
               <div className="absolute-center">
-                <h1 className="accessible">Search Results</h1>
+                <h1 className="accessible">Search SearchResults</h1>
                 <div className="h3">Sorry, your search returned <span className="red">0</span> results. Please try again!</div>
                 <Link to="/find/search" className="button">Try Again</Link>
               </div>
@@ -80,14 +90,18 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     userId: state.auth.userId,
     search: state.search,
-    savedJobs: state.savedJobs.savedJobs
+    savedJobs: state.savedJobs.savedJobs,
+    savedApplications: state.savedApplications.savedApplications,
+    savedJobsLoading: state.savedJobs.loading,
+    savedApplicationsLoading: state.savedApplications.loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSavedJobs: (token, userId) => dispatch(actions.getSavedJobs(token, userId))
+    getSavedJobs: (token, userId) => dispatch(actions.getSavedJobs(token, userId)),
+    getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

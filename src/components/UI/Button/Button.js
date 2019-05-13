@@ -2,6 +2,8 @@ import React from 'react';
 
 import './Button.scss';
 
+import Loading from '../Loading/Loading';
+
 const Button = (props) => {
   const { children, type, loading, additionalClasses, disabled, click } = props;
 
@@ -10,12 +12,7 @@ const Button = (props) => {
       <span>
         {children}
       </span>
-      {loading && (
-        <>
-          <i className="fa fa-spinner fa-pulse fa-fw"></i>
-          <span className="accessible">Loading...</span>
-        </>
-      )}
+      <Loading loading={loading} />
     </button>
   )
 }
