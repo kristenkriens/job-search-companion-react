@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ApplicationItem = (props) => {
-  const { item } = props;
+  const { item, draggable, dragStart, dragEnd, dragOver } = props;
   const { jobkey, jobtitle, company, city, url, applicationDate } = item;
 
   const date = () => {
@@ -19,8 +19,8 @@ const ApplicationItem = (props) => {
   }
 
   return (
-    <tr>
-      <td><i className="fa fa-sort" aria-hidden="true"></i></td>
+    <tr onDragOver={dragOver}>
+      <td draggable={draggable} onDragStart={dragStart} onDragEnd={dragEnd}><i className="fa fa-sort" aria-hidden="true"></i></td>
       <td>{jobtitle}</td>
       <td>{company}</td>
       <td>{city}</td>

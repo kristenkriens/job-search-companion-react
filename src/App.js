@@ -33,7 +33,7 @@ class App extends Component {
       <Switch>
         <Route
           path="/"
-          exact={true}
+          exact
           render={() => <Search isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route

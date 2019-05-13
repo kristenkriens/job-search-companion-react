@@ -62,6 +62,36 @@ const getSavedApplicationsFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+
+
+const changeSavedApplicationsStart = (state, action) => {
+  const updatedState = {
+    loading: true
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const changeSavedApplicationsSuccess = (state, action) => {
+  const updatedState = {
+    loading: false,
+    savedApplications: action.savedApplications
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const changeSavedApplicationsFail = (state, action) => {
+  const updatedState = {
+    error: action.error,
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
+
+
 const removeSavedApplicationStart = (state, action) => {
   const updatedState = {
     loading: true
@@ -95,6 +125,9 @@ const savedApplicationsReducer = (state = initialState, action) => {
     case actionTypes.GET_SAVED_APPLICATIONS_START: return getSavedApplicationsStart(state, action);
     case actionTypes.GET_SAVED_APPLICATIONS_SUCCESS: return getSavedApplicationsSuccess(state, action);
     case actionTypes.GET_SAVED_APPLICATIONS_FAIL: return getSavedApplicationsFail(state, action);
+    case actionTypes.CHANGE_SAVED_APPLICATIONS_START: return changeSavedApplicationsStart(state, action);
+    case actionTypes.CHANGE_SAVED_APPLICATIONS_SUCCESS: return changeSavedApplicationsSuccess(state, action);
+    case actionTypes.CHANGE_SAVED_APPLICATIONS_FAIL: return changeSavedApplicationsFail(state, action);
     case actionTypes.REMOVE_SAVED_APPLICATION_START: return removeSavedApplicationStart(state, action);
     case actionTypes.REMOVE_SAVED_APPLICATION_SUCCESS: return removeSavedApplicationSuccess(state, action);
     case actionTypes.REMOVE_SAVED_APPLICATION_FAIL: return removeSavedApplicationFail(state, action);

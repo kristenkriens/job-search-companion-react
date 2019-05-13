@@ -30,6 +30,31 @@ class Applications extends Component {
     this.count++;
   }
 
+  dragStart = (event, index) => {
+    this.draggedItem = this.props.savedApplications[index];
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/html", event.target.parentNode);
+    event.dataTransfer.setDragImage(event.target.parentNode, 20, 20);
+  };
+
+  dragOver = (index) => {
+    const draggedOverItem = this.props.savedApplications[index];
+
+    if (this.draggedItem === draggedOverItem) {
+      return;
+    }
+
+    let newSavedApplications = this.props.savedApplications.filter(savedApplication => savedApplication !== this.draggedItem);
+
+    newSavedApplications.splice(index, 0, this.draggedItem);
+
+    this.props.changeSavedApplications(this.props.token, this.props.userId, newSavedApplications);
+  };
+
+  dragEnd = () => {
+    this.draggedItem = null;
+  };
+
   render() {
     const { isAuthenticated, results, savedApplications, loading } = this.props;
 
@@ -54,9 +79,16 @@ class Applications extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                    {savedApplications.map((savedApplication) => {
+                    {savedApplications.map((savedApplication, i) => {
                       return (
-                        <ApplicationItem key={savedApplication.jobkey} item={savedApplication} />
+                        <ApplicationItem
+                          key={savedApplication.jobkey}
+                          item={savedApplication}
+                          dragOver={() => this.dragOver(i)}
+                          draggable
+                          dragStart={(event) => this.dragStart(event, i)}
+                          dragEnd={this.dragEnd}
+                        />
                       )
                     })}
                     </tbody>
@@ -104,7 +136,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId))
+    getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId)),
+    changeSavedApplications: (token, userId, savedApplications) => dispatch(actions.changeSavedApplications(token, userId, savedApplications))
   }
 }
 

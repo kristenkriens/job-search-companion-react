@@ -74,7 +74,7 @@ export const getSavedJobsFind = (savedJobs, isRemove) => {
           dispatch(openAndSetErrorModalAndMessage(errorMessage));
         } else {
           dispatch(getSavedJobsSuccess(response.data.results));
-          
+
           if(isRemove) {
             dispatch(removeSavedJobSuccess());
           }
@@ -106,7 +106,7 @@ export const getSavedJobs = (token, userId, isRemove) => {
   return (dispatch) => {
     dispatch(getSavedJobsStart());
 
-    firebaseAxios.get(`/${userId}/saved-jobs.json?auth=${token}&orderBy="date"&limitToLast=10`)
+    firebaseAxios.get(`/${userId}/saved-jobs.json?auth=${token}`)
       .then((response) => {
         const savedJobs = [];
         for(let key in response.data) {
@@ -115,7 +115,6 @@ export const getSavedJobs = (token, userId, isRemove) => {
             jobId: key
           });
         }
-        savedJobs.reverse();
 
         dispatch(getSavedJobsFind(savedJobs, isRemove));
       }).catch((error) => {

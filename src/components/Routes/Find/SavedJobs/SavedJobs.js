@@ -17,6 +17,32 @@ class SavedJobs extends Component {
     }
   }
 
+  count = 0;
+  componentDidUpdate = (prevProps) => {
+    let jobsLengths = true;
+    let jobsNotEqual = true;
+    let applicationsLengths = true;
+    let applicationsNotEqual = true;
+    if(this.count > 0) {
+      jobsLengths = prevProps.savedJobs.length === 0 && this.props.savedJobs.length === 0;
+      jobsNotEqual = prevProps.savedJobs === this.props.savedJobs;
+      applicationsLengths = prevProps.savedApplications.length === 0 && this.props.savedApplications.length === 0;
+      applicationsNotEqual = prevProps.savedApplications === this.props.savedApplications;
+    }
+
+    if(this.props.isAuthenticated) {
+      if(jobsLengths && jobsNotEqual) {
+        this.props.getSavedJobs(this.props.token, this.props.userId);
+      }
+
+      if(applicationsLengths && applicationsNotEqual) {
+        this.props.getSavedApplications(this.props.token, this.props.userId);
+      }
+    }
+
+    this.count++;
+  }
+
   render() {
     const { isAuthenticated, results, loading, savedJobs, savedApplications, savedApplicationsLoading } = this.props;
 

@@ -12,8 +12,7 @@ class SearchItem extends Component {
     event.preventDefault();
 
     const savedApplication = {
-      jobkey: jobkey,
-      date: Date.now()
+      jobkey: jobkey
     }
 
     this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);
@@ -23,8 +22,7 @@ class SearchItem extends Component {
     event.preventDefault();
 
     const savedJob = {
-      jobkey: jobkey,
-      date: Date.now()
+      jobkey: jobkey
     }
 
     this.props.setSavedJob(this.props.token, this.props.userId, savedJob);
@@ -78,7 +76,7 @@ class SearchItem extends Component {
             {isAuthenticated && (
               <>
                 {tracked ? (
-                  <LinkButton disabled={true}>
+                  <LinkButton disabled>
                     Application Tracked
                   </LinkButton>
                 ) : (
@@ -89,7 +87,7 @@ class SearchItem extends Component {
                 {type === 'result' && (
                   <>
                     {saved ? (
-                      <LinkButton disabled={true}>
+                      <LinkButton disabled>
                         Saved
                       </LinkButton>
                     ) : (
