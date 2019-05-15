@@ -84,10 +84,7 @@ class Applications extends Component {
 
   render() {
     const { isAuthenticated, results, loading } = this.props;
-
-    console.log(this.state.savedApplicationsObject);
-    console.log(this.props.savedApplications);
-
+    
     return (
       <>
         <h1 className="accessible">Applications</h1>
