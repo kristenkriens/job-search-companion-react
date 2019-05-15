@@ -61,7 +61,7 @@ class Applications extends Component {
     this.draggedItem = null;
 
     if(this.removedItem) {
-      this.props.removeSavedApplication(this.props.token, this.props.userId, this.removeItem);
+      this.props.removeSavedApplication(this.props.token, this.props.userId, this.removedItem);
     }
   };
 
@@ -88,8 +88,6 @@ class Applications extends Component {
 
   render() {
     const { isAuthenticated, results, loading } = this.props;
-
-    console.log(this.state.savedApplications);
 
     return (
       <>
