@@ -10,7 +10,7 @@ import * as actions from '../../../../store/actions/index';
 
 class Applications extends Component {
   state = {
-    savedApplications: this.props.savedApplications
+    savedApplicationsObject: this.props.savedApplications
   }
 
   componentDidMount = () => {
@@ -21,7 +21,6 @@ class Applications extends Component {
 
   count = 0;
   componentDidUpdate = (prevProps) => {
-    console.log('njkd');
     let lengths = true;
     let notEqual = true;
     if(this.count > 0) {
@@ -29,32 +28,36 @@ class Applications extends Component {
       notEqual = prevProps.savedApplications === this.props.savedApplications;
     }
 
-    if(this.props.isAuthenticated && lengths && notEqual) {
-      this.props.getSavedApplications(this.props.token, this.props.userId);
+    if(this.props.isAuthenticated) {
+      if(lengths && notEqual) {
+        this.props.getSavedApplications(this.props.token, this.props.userId);
+      } else if(prevProps.savedApplications.length === 0 && this.props.savedApplications.length > 0) {
+        this.setState({
+          savedApplicationsObject: this.props.savedApplications
+        });
+      }
     }
 
     this.count++;
   }
 
   dragStart = (event, index) => {
-    this.draggedItem = this.props.savedApplications[index];
+    this.draggedItem = this.state.savedApplicationsObject[index];
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/html", event.target.parentNode);
     event.dataTransfer.setDragImage(event.target.parentNode, 20, 20);
   };
 
   dragOver = (index) => {
-    const draggedOverItem = this.props.savedApplications[index];
-
-    console.log(this.props.savedApplications);
+    const draggedOverItem = this.state.savedApplicationsObject[index];
 
     if (this.draggedItem !== draggedOverItem) {
-      let newSavedApplications = this.props.savedApplications.filter(savedApplication => savedApplication !== this.draggedItem);
+      let savedApplicationsObject = this.state.savedApplicationsObject.filter(savedApplication => savedApplication !== this.draggedItem);
 
-      newSavedApplications.splice(index, 0, this.draggedItem);
+      savedApplicationsObject.splice(index, 0, this.draggedItem);
 
       this.setState({
-        savedApplications: newSavedApplications
+        savedApplicationsObject: savedApplicationsObject
       });
     }
   };
@@ -70,7 +73,7 @@ class Applications extends Component {
   save = () => {
     const savedApplications = {};
 
-    this.props.savedApplications.forEach((savedApplication) => {
+    this.state.savedApplicationsObject.forEach((savedApplication) => {
       savedApplications[savedApplication.applicationId] = {
         jobkey: savedApplication.jobkey,
         date: savedApplication.applicationDate
@@ -81,14 +84,14 @@ class Applications extends Component {
   }
 
   render() {
-    const { isAuthenticated, results, savedApplications, loading } = this.props;
+    const { isAuthenticated, results, loading } = this.props;
 
     return (
       <>
         <h1 className="accessible">Applications</h1>
         {isAuthenticated ? (
           <>
-            {savedApplications.length > 0 ? (
+            {this.state.savedApplicationsObject.length > 0 ? (
               <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
                 <div className="table">
                   <table className="table-inner">
@@ -104,7 +107,7 @@ class Applications extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                    {savedApplications.map((savedApplication, i) => {
+                    {this.state.savedApplicationsObject.map((savedApplication, i) => {
                       return (
                         <ApplicationItem
                           key={savedApplication.jobkey}
