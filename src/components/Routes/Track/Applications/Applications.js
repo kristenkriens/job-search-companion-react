@@ -60,13 +60,13 @@ class Applications extends Component {
   dragEnd = () => {
     this.draggedItem = null;
 
-    if(this.deletedItem) {
-      this.props.removeSavedApplication(this.props.token, this.props.userId, this.deleteItem);
+    if(this.removedItem) {
+      this.props.removeSavedApplication(this.props.token, this.props.userId, this.removeItem);
     }
   };
 
-  delete = () => {
-    this.deletedItem = this.draggedItem.applicationId;
+  remove = () => {
+    this.removedItem = this.draggedItem.applicationId;
   };
 
   save = () => {
@@ -82,7 +82,7 @@ class Applications extends Component {
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
   };
 
-  deleteAll = () => {
+  removeAll = () => {
     this.props.removeSavedApplications(this.props.token, this.props.userId);
   };
 
@@ -124,10 +124,10 @@ class Applications extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="table__delete" onDragOver={this.delete}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
+                <div className="table__delete" onDragOver={this.remove}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to remove</div>
                 <div className="button-wrapper">
                   <Button click={this.save}>Save</Button>
-                  <LinkButton click={this.deleteAll}>Delete All</LinkButton>
+                  <LinkButton click={this.removeAll}>Remove All</LinkButton>
                 </div>
               </div>
             ) : (
