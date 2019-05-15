@@ -11,7 +11,7 @@ import * as actions from '../../../../store/actions/index';
 
 class Applications extends Component {
   state = {
-    savedApplicationsObject: this.props.savedApplications
+    savedApplications: this.props.savedApplications
   }
 
   componentDidMount = () => {
@@ -28,7 +28,7 @@ class Applications extends Component {
       lengths = prevProps.savedApplications.length === 0 && this.props.savedApplications.length === 0;
       notEqual = prevProps.savedApplications === this.props.savedApplications;
     }
-
+    
     if(this.props.isAuthenticated && lengths && notEqual) {
       this.props.getSavedApplications(this.props.token, this.props.userId);
     }
@@ -37,22 +37,22 @@ class Applications extends Component {
   }
 
   dragStart = (event, index) => {
-    this.draggedItem = this.state.savedApplicationsObject[index];
+    this.draggedItem = this.state.savedApplications[index];
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/html", event.target.parentNode);
     event.dataTransfer.setDragImage(event.target.parentNode, 20, 20);
   };
 
   dragOver = (index) => {
-    const draggedOverItem = this.state.savedApplicationsObject[index];
+    const draggedOverItem = this.state.savedApplications[index];
 
     if (this.draggedItem !== draggedOverItem) {
-      let savedApplicationsObject = this.state.savedApplicationsObject.filter(savedApplication => savedApplication !== this.draggedItem);
+      let savedApplications = this.state.savedApplications.filter(savedApplication => savedApplication !== this.draggedItem);
 
-      savedApplicationsObject.splice(index, 0, this.draggedItem);
+      savedApplications.splice(index, 0, this.draggedItem);
 
       this.setState({
-        savedApplicationsObject: savedApplicationsObject
+        savedApplications: savedApplications
       });
     }
   };
@@ -72,7 +72,7 @@ class Applications extends Component {
   save = () => {
     const savedApplications = {};
 
-    this.state.savedApplicationsObject.forEach((savedApplication) => {
+    this.state.savedApplications.forEach((savedApplication) => {
       savedApplications[savedApplication.applicationId] = {
         jobkey: savedApplication.jobkey,
         date: savedApplication.applicationDate
@@ -89,12 +89,14 @@ class Applications extends Component {
   render() {
     const { isAuthenticated, results, loading } = this.props;
 
+    console.log(this.state.savedApplications);
+
     return (
       <>
         <h1 className="accessible">Applications</h1>
         {isAuthenticated ? (
           <>
-            {this.state.savedApplicationsObject.length > 0 ? (
+            {this.state.savedApplications.length > 0 ? (
               <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
                 <div className="table">
                   <table className="table-inner">
@@ -110,7 +112,7 @@ class Applications extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                    {this.state.savedApplicationsObject.map((savedApplication, i) => {
+                    {this.state.savedApplications.map((savedApplication, i) => {
                       return (
                         <ApplicationItem
                           key={savedApplication.jobkey}
