@@ -12,7 +12,8 @@ class SearchItem extends Component {
     event.preventDefault();
 
     const savedApplication = {
-      jobkey: jobkey
+      jobkey: jobkey,
+      date: Date.now()
     }
 
     this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);
@@ -22,7 +23,8 @@ class SearchItem extends Component {
     event.preventDefault();
 
     const savedJob = {
-      jobkey: jobkey
+      jobkey: jobkey,
+      date: Date.now()
     }
 
     this.props.setSavedJob(this.props.token, this.props.userId, savedJob);

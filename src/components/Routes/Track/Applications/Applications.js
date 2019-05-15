@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Button from '../../../UI/Button/Button';
 import ApplicationItem from './ApplicationItem/ApplicationItem';
 import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 
 import * as actions from '../../../../store/actions/index';
 
 class Applications extends Component {
+  state = {
+    savedApplications: this.props.savedApplications
+  }
+
   componentDidMount = () => {
     if(this.props.isAuthenticated) {
       this.props.getSavedApplications(this.props.token, this.props.userId);
@@ -16,6 +21,7 @@ class Applications extends Component {
 
   count = 0;
   componentDidUpdate = (prevProps) => {
+    console.log('njkd');
     let lengths = true;
     let notEqual = true;
     if(this.count > 0) {
@@ -40,20 +46,39 @@ class Applications extends Component {
   dragOver = (index) => {
     const draggedOverItem = this.props.savedApplications[index];
 
-    if (this.draggedItem === draggedOverItem) {
-      return;
+    console.log(this.props.savedApplications);
+
+    if (this.draggedItem !== draggedOverItem) {
+      let newSavedApplications = this.props.savedApplications.filter(savedApplication => savedApplication !== this.draggedItem);
+
+      newSavedApplications.splice(index, 0, this.draggedItem);
+
+      this.setState({
+        savedApplications: newSavedApplications
+      });
     }
-
-    let newSavedApplications = this.props.savedApplications.filter(savedApplication => savedApplication !== this.draggedItem);
-
-    newSavedApplications.splice(index, 0, this.draggedItem);
-
-    this.props.changeSavedApplications(this.props.token, this.props.userId, newSavedApplications);
   };
 
   dragEnd = () => {
     this.draggedItem = null;
   };
+
+  dragDelete = () => {
+    // this.props.removeSavedApplication(this.props.token, this.props.userId, applicationId);
+  }
+
+  save = () => {
+    const savedApplications = {};
+
+    this.props.savedApplications.forEach((savedApplication) => {
+      savedApplications[savedApplication.applicationId] = {
+        jobkey: savedApplication.jobkey,
+        date: savedApplication.applicationDate
+      }
+    });
+
+    this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
+  }
 
   render() {
     const { isAuthenticated, results, savedApplications, loading } = this.props;
@@ -85,7 +110,6 @@ class Applications extends Component {
                           key={savedApplication.jobkey}
                           item={savedApplication}
                           dragOver={() => this.dragOver(i)}
-                          draggable
                           dragStart={(event) => this.dragStart(event, i)}
                           dragEnd={this.dragEnd}
                         />
@@ -94,7 +118,8 @@ class Applications extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="table__delete"><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
+                <div className="table__delete" onDragOver={this.dragDelete}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
+                <Button click={this.save}>Save</Button>
               </div>
             ) : (
               <>
@@ -137,7 +162,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId)),
-    changeSavedApplications: (token, userId, savedApplications) => dispatch(actions.changeSavedApplications(token, userId, savedApplications))
+    changeSavedApplications: (token, userId, savedApplications) => dispatch(actions.changeSavedApplications(token, userId, savedApplications)),
+    removeSavedApplication: (token, userId, applicationId) => dispatch(actions.removeSavedApplication(token, userId, applicationId))
   }
 }
 

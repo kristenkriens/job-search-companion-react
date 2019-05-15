@@ -157,6 +157,7 @@ export const changeSavedApplications = (token, userId, savedApplications) => {
     firebaseAxios.put(`/${userId}/saved-applications.json?auth=${token}`, savedApplications)
       .then((response) => {
         dispatch(changeSavedApplicationsSuccess(savedApplications));
+        dispatch(getSavedApplications(token, userId));
       }).catch((error) => {
         const errorMessage = error.message;
 

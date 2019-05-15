@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ApplicationItem = (props) => {
-  const { item, draggable, dragStart, dragEnd, dragOver } = props;
+  const { item, dragStart, dragEnd, dragOver } = props;
   const { jobkey, jobtitle, company, city, url, applicationDate } = item;
 
   const date = () => {
@@ -20,14 +20,15 @@ const ApplicationItem = (props) => {
 
   return (
     <tr onDragOver={dragOver}>
-      <td draggable={draggable} onDragStart={dragStart} onDragEnd={dragEnd}><i className="fa fa-sort" aria-hidden="true"></i></td>
+      <td draggable onDragStart={dragStart} onDragEnd={dragEnd}><i className="fa fa-sort" aria-hidden="true"></i></td>
       <td>{jobtitle}</td>
       <td>{company}</td>
       <td>{city}</td>
       <td><a href={url} target="_blank" rel="noopener noreferrer"><i className="fa fa-link" aria-hidden="true"></i><span className="accessible">Link to job posting for {jobtitle}</span></a></td>
       <td>{date()}</td>
       <td>
-        <select id={`result-${jobkey}`} value="no-response">
+        <select id={`result-${jobkey}`} value="disabled">
+          <option value="disabled" disabled></option>
           <option value="interview">Interview</option>
           <option value="accepted-offer">Accepted offer</option>
           <option value="declined-offer">Declined offer</option>
