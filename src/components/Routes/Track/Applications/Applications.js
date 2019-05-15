@@ -59,11 +59,15 @@ class Applications extends Component {
 
   dragEnd = () => {
     this.draggedItem = null;
+
+    if(this.deletedItem) {
+      this.props.removeSavedApplication(this.props.token, this.props.userId, this.deleteItem);
+    }
   };
 
   dragDelete = () => {
-    // this.props.removeSavedApplication(this.props.token, this.props.userId, applicationId);
-  }
+    this.deletedItem = this.draggedItem.applicationId;
+  };
 
   save = () => {
     const savedApplications = {};
@@ -76,15 +80,15 @@ class Applications extends Component {
     });
 
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
-  }
+  };
 
   deleteAll = () => {
     this.props.removeSavedApplications(this.props.token, this.props.userId);
-  }
+  };
 
   render() {
     const { isAuthenticated, results, loading } = this.props;
-    
+
     return (
       <>
         <h1 className="accessible">Applications</h1>
