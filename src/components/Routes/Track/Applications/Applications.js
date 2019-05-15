@@ -65,7 +65,7 @@ class Applications extends Component {
     }
   };
 
-  dragDelete = () => {
+  delete = () => {
     this.deletedItem = this.draggedItem.applicationId;
   };
 
@@ -124,7 +124,7 @@ class Applications extends Component {
                     </tbody>
                   </table>
                 </div>
-                <div className="table__delete" onDragOver={this.dragDelete}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
+                <div className="table__delete" onDragOver={this.delete}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
                 <div className="button-wrapper">
                   <Button click={this.save}>Save</Button>
                   <LinkButton click={this.deleteAll}>Delete All</LinkButton>
