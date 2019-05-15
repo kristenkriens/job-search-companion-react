@@ -95,7 +95,7 @@ class Applications extends Component {
           <>
             {this.state.savedApplications.length > 0 ? (
               <>
-                <h1>Tracked Applications</h1>
+                <h1>Applications</h1>
                 <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
                   <div className="table">
                     <table className="table-inner">
@@ -134,7 +134,7 @@ class Applications extends Component {
               </>
             ) : (
               <>
-                <h1 className="accessible">Tracked Applications</h1>
+                <h1 className="accessible">Applications</h1>
                 {loading ? (
                   <div className="absolute-center">
                     <div className="h3">Your tracked applications are loading!</div>
@@ -155,7 +155,7 @@ class Applications extends Component {
           </>
         ) : (
           <>
-            <h1 className="accessible">Tracked Applications</h1>
+            <h1 className="accessible">Applications</h1>
             <LoginRequired />
           </>
         )}
