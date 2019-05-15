@@ -128,8 +128,6 @@ export const getSavedApplications = (token, userId, isRemove) => {
   }
 }
 
-
-
 export const changeSavedApplicationsStart = () => {
   return {
     type: actionTypes.CHANGE_SAVED_APPLICATIONS_START
@@ -167,8 +165,6 @@ export const changeSavedApplications = (token, userId, savedApplications) => {
   }
 }
 
-
-
 export const removeSavedApplicationStart = () => {
   return {
     type: actionTypes.REMOVE_SAVED_APPLICATION_START
@@ -200,6 +196,42 @@ export const removeSavedApplication = (token, userId, applicationId) => {
         const errorMessage = error.message;
 
         dispatch(removeSavedApplicationFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+      });
+  }
+}
+
+export const removeSavedApplicationsStart = () => {
+  return {
+    type: actionTypes.REMOVE_SAVED_APPLICATIONS_START
+  }
+}
+
+export const removeSavedApplicationsSuccess = () => {
+  return {
+    type: actionTypes.REMOVE_SAVED_APPLICATIONS_SUCCESS
+  }
+}
+
+export const removeSavedApplicationsFail = (error) => {
+  return {
+    type: actionTypes.REMOVE_SAVED_APPLICATIONS_FAIL,
+    error: error
+  }
+}
+
+export const removeSavedApplications = (token, userId) => {
+  return (dispatch) => {
+    dispatch(removeSavedApplicationsStart());
+
+    firebaseAxios.delete(`/${userId}/saved-applications.json?auth=${token}`)
+      .then((response) => {
+        dispatch(removeSavedApplicationsSuccess());
+        dispatch(getSavedApplications(token, userId));
+      }).catch((error) => {
+        const errorMessage = error.message;
+
+        dispatch(removeSavedApplicationsFail(errorMessage));
         dispatch(openAndSetErrorModalAndMessage(errorMessage));
       });
   }

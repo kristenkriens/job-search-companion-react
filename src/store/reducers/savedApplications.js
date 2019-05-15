@@ -62,8 +62,6 @@ const getSavedApplicationsFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-
-
 const changeSavedApplicationsStart = (state, action) => {
   const updatedState = {
     loading: true
@@ -90,8 +88,6 @@ const changeSavedApplicationsFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
-
-
 const removeSavedApplicationStart = (state, action) => {
   const updatedState = {
     loading: true
@@ -117,6 +113,31 @@ const removeSavedApplicationFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const removeSavedApplicationsStart = (state, action) => {
+  const updatedState = {
+    loading: true
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const removeSavedApplicationsSuccess = (state, action) => {
+  const updatedState = {
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const removeSavedApplicationsFail = (state, action) => {
+  const updatedState = {
+    error: action.error,
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const savedApplicationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_SAVED_APPLICATION_START: return setSavedApplicationStart(state, action);
@@ -131,6 +152,9 @@ const savedApplicationsReducer = (state = initialState, action) => {
     case actionTypes.REMOVE_SAVED_APPLICATION_START: return removeSavedApplicationStart(state, action);
     case actionTypes.REMOVE_SAVED_APPLICATION_SUCCESS: return removeSavedApplicationSuccess(state, action);
     case actionTypes.REMOVE_SAVED_APPLICATION_FAIL: return removeSavedApplicationFail(state, action);
+    case actionTypes.REMOVE_SAVED_APPLICATIONS_START: return removeSavedApplicationsStart(state, action);
+    case actionTypes.REMOVE_SAVED_APPLICATIONS_SUCCESS: return removeSavedApplicationsSuccess(state, action);
+    case actionTypes.REMOVE_SAVED_APPLICATIONS_FAIL: return removeSavedApplicationsFail(state, action);
     default: return state;
   }
 }

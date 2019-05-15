@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Button from '../../../UI/Button/Button';
+import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import ApplicationItem from './ApplicationItem/ApplicationItem';
 import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 
@@ -28,14 +29,8 @@ class Applications extends Component {
       notEqual = prevProps.savedApplications === this.props.savedApplications;
     }
 
-    if(this.props.isAuthenticated) {
-      if(lengths && notEqual) {
-        this.props.getSavedApplications(this.props.token, this.props.userId);
-      } else if(prevProps.savedApplications.length === 0 && this.props.savedApplications.length > 0) {
-        this.setState({
-          savedApplicationsObject: this.props.savedApplications
-        });
-      }
+    if(this.props.isAuthenticated && lengths && notEqual) {
+      this.props.getSavedApplications(this.props.token, this.props.userId);
     }
 
     this.count++;
@@ -83,8 +78,15 @@ class Applications extends Component {
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
   }
 
+  deleteAll = () => {
+    this.props.removeSavedApplications(this.props.token, this.props.userId);
+  }
+
   render() {
     const { isAuthenticated, results, loading } = this.props;
+
+    console.log(this.state.savedApplicationsObject);
+    console.log(this.props.savedApplications);
 
     return (
       <>
@@ -122,7 +124,10 @@ class Applications extends Component {
                   </table>
                 </div>
                 <div className="table__delete" onDragOver={this.dragDelete}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to delete</div>
-                <Button click={this.save}>Save</Button>
+                <div className="button-wrapper">
+                  <Button click={this.save}>Save</Button>
+                  <LinkButton click={this.deleteAll}>Delete All</LinkButton>
+                </div>
               </div>
             ) : (
               <>
@@ -166,7 +171,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId)),
     changeSavedApplications: (token, userId, savedApplications) => dispatch(actions.changeSavedApplications(token, userId, savedApplications)),
-    removeSavedApplication: (token, userId, applicationId) => dispatch(actions.removeSavedApplication(token, userId, applicationId))
+    removeSavedApplication: (token, userId, applicationId) => dispatch(actions.removeSavedApplication(token, userId, applicationId)),
+    removeSavedApplications: (token, userId) => dispatch(actions.removeSavedApplications(token, userId))
   }
 }
 
