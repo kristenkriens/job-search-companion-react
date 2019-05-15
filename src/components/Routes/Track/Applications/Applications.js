@@ -91,47 +91,50 @@ class Applications extends Component {
 
     return (
       <>
-        <h1 className="accessible">Applications</h1>
         {isAuthenticated ? (
           <>
             {this.state.savedApplications.length > 0 ? (
-              <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
-                <div className="table">
-                  <table className="table-inner">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Job Title</th>
-                        <th>Company</th>
-                        <th>Location</th>
-                        <th>Job Posting</th>
-                        <th>Application Date</th>
-                        <th>Result</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.savedApplications.map((savedApplication, i) => {
-                      return (
-                        <ApplicationItem
-                          key={savedApplication.jobkey}
-                          item={savedApplication}
-                          dragOver={() => this.dragOver(i)}
-                          dragStart={(event) => this.dragStart(event, i)}
-                          dragEnd={this.dragEnd}
-                        />
-                      )
-                    })}
-                    </tbody>
-                  </table>
+              <>
+                <h1>Tracked Applications</h1>
+                <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
+                  <div className="table">
+                    <table className="table-inner">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Job Title</th>
+                          <th>Company</th>
+                          <th>Location</th>
+                          <th>Job Posting</th>
+                          <th>Application Date</th>
+                          <th>Result</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {this.state.savedApplications.map((savedApplication, i) => {
+                        return (
+                          <ApplicationItem
+                            key={savedApplication.jobkey}
+                            item={savedApplication}
+                            dragOver={() => this.dragOver(i)}
+                            dragStart={(event) => this.dragStart(event, i)}
+                            dragEnd={this.dragEnd}
+                          />
+                        )
+                      })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="table__delete" onDragOver={this.remove}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to remove</div>
+                  <div className="button-wrapper">
+                    <Button click={this.save}>Save</Button>
+                    <LinkButton click={this.removeAll}>Remove All</LinkButton>
+                  </div>
                 </div>
-                <div className="table__delete" onDragOver={this.remove}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to remove</div>
-                <div className="button-wrapper">
-                  <Button click={this.save}>Save</Button>
-                  <LinkButton click={this.removeAll}>Remove All</LinkButton>
-                </div>
-              </div>
+              </>
             ) : (
               <>
+                <h1 className="accessible">Tracked Applications</h1>
                 {loading ? (
                   <div className="absolute-center">
                     <div className="h3">Your tracked applications are loading!</div>
@@ -151,7 +154,10 @@ class Applications extends Component {
             )}
           </>
         ) : (
-          <LoginRequired />
+          <>
+            <h1 className="accessible">Tracked Applications</h1>
+            <LoginRequired />
+          </>
         )}
       </>
     )
