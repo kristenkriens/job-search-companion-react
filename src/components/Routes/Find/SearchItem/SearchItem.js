@@ -78,8 +78,8 @@ class SearchItem extends Component {
             {isAuthenticated && (
               <>
                 {tracked ? (
-                  <LinkButton disabled>
-                    Application Tracked
+                  <LinkButton disabled={true}>
+                    Applied
                   </LinkButton>
                 ) : (
                   <LinkButton click={(event) => this.saveApplication(event, jobkey)}>
