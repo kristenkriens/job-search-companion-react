@@ -64,7 +64,7 @@ export const getSavedSearches = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedSearchesStart());
 
-    firebaseAxios.get(`/${userId}/saved-searches.json?auth=${token}&orderBy="date"&limitToLast=10`)
+    firebaseAxios.get(`/${userId}/saved-searches.json?auth=${token}&orderBy="dateSaved"&limitToLast=10`)
       .then((response) => {
         const savedSearches = [];
         for(let key in response.data) {

@@ -4,8 +4,8 @@ const ApplicationItem = (props) => {
   const { item, dragStart, dragEnd, dragOver } = props;
   const { jobkey, jobtitle, company, city, url, applicationDate } = item;
 
-  const date = () => {
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const convertDate = () => {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const date = new Date(applicationDate);
 
@@ -25,7 +25,7 @@ const ApplicationItem = (props) => {
       <td>{company}</td>
       <td>{city}</td>
       <td><a href={url} target="_blank" rel="noopener noreferrer"><i className="fa fa-link" aria-hidden="true"></i><span className="accessible">Link to job posting for {jobtitle}</span></a></td>
-      <td>{date()}</td>
+      <td>{convertDate()}</td>
       <td>
         <select id={`result-${jobkey}`} value="disabled">
           <option value="disabled" disabled></option>

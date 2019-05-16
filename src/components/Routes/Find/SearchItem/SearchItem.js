@@ -13,7 +13,7 @@ class SearchItem extends Component {
 
     const savedApplication = {
       jobkey: jobkey,
-      date: Date.now()
+      dateSaved: Date.now()
     }
 
     this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);
@@ -24,7 +24,7 @@ class SearchItem extends Component {
 
     const savedJob = {
       jobkey: jobkey,
-      date: Date.now()
+      dateSaved: Date.now()
     }
 
     this.props.setSavedJob(this.props.token, this.props.userId, savedJob);
@@ -38,10 +38,10 @@ class SearchItem extends Component {
 
   render() {
     const { item, type, saved, tracked, isAuthenticated } = this.props;
-    const { jobId, jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, expired } = item;
+    const { jobId, jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, dateSaved, expired } = item;
 
     const todayUnix = new Date().getTime();
-    const itemDateUnix = new Date(date).getTime();
+    const itemDateUnix = new Date(dateSaved).getTime();
 
     const difference = todayUnix - itemDateUnix;
 

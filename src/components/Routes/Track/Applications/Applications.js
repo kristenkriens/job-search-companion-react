@@ -28,7 +28,7 @@ class Applications extends Component {
       lengths = prevProps.savedApplications.length === 0 && this.props.savedApplications.length === 0;
       notEqual = prevProps.savedApplications === this.props.savedApplications;
     }
-    
+
     if(this.props.isAuthenticated && lengths && notEqual) {
       this.props.getSavedApplications(this.props.token, this.props.userId);
     }
@@ -75,7 +75,7 @@ class Applications extends Component {
     this.state.savedApplications.forEach((savedApplication) => {
       savedApplications[savedApplication.applicationId] = {
         jobkey: savedApplication.jobkey,
-        date: savedApplication.applicationDate
+        dateSaved: savedApplication.applicationDate
       }
     });
 

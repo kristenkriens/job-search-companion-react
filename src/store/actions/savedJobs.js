@@ -102,7 +102,7 @@ export const getSavedJobs = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedJobsStart());
 
-    firebaseAxios.get(`/${userId}/saved-jobs.json?auth=${token}`)
+    firebaseAxios.get(`/${userId}/saved-jobs.json?auth=${token}&orderBy="dateSaved"`)
       .then((response) => {
         const savedJobs = [];
         for(let key in response.data) {
