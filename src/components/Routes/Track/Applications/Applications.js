@@ -8,6 +8,7 @@ import ApplicationItem from './ApplicationItem/ApplicationItem';
 import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 
 import * as actions from '../../../../store/actions/index';
+import { updateObject } from '../../../../shared/utilities';
 
 class Applications extends Component {
   state = {
@@ -75,7 +76,8 @@ class Applications extends Component {
     this.state.savedApplications.forEach((savedApplication) => {
       savedApplications[savedApplication.applicationId] = {
         jobkey: savedApplication.jobkey,
-        dateSaved: savedApplication.applicationDate
+        dateSaved: savedApplication.applicationDate,
+        result: savedApplication.result
       }
     });
 
@@ -85,6 +87,16 @@ class Applications extends Component {
   removeAll = () => {
     this.props.removeSavedApplications(this.props.token, this.props.userId);
   };
+
+  changeResult = (result, index) => {
+    const updatedApplications = updateObject(this.state.savedApplications, {
+      [index]: updateObject(this.state.savedApplications[index], {
+        result: result
+      })
+    });
+
+    this.setState({savedApplications: updatedApplications});
+  }
 
   render() {
     const { isAuthenticated, results, loading } = this.props;
@@ -119,6 +131,7 @@ class Applications extends Component {
                             dragOver={() => this.dragOver(i)}
                             dragStart={(event) => this.dragStart(event, i)}
                             dragEnd={this.dragEnd}
+                            changeResult={(event) => this.changeResult(event.target.value, i)}
                           />
                         )
                       })}
