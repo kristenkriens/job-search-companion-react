@@ -13,8 +13,9 @@ class SearchItem extends Component {
 
     const savedApplication = {
       jobkey: jobkey,
-      order: Date.now(),
-      applicationDate: Date.now()
+      applicationDate: Date.now(),
+      result: '',
+      order: Date.now()
     }
 
     this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);

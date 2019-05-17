@@ -70,7 +70,7 @@ class Applications extends Component {
       savedApplications[savedApplication.applicationId] = {
         jobkey: savedApplication.jobkey,
         applicationDate: savedApplication.applicationDate,
-        result: savedApplication.result,
+        result: savedApplication.result || '',
         order: index
       }
     });
@@ -87,14 +87,14 @@ class Applications extends Component {
   };
 
   changeResult = (result, index) => {
-    const updatedApplications = updateObject(this.state.savedApplications, {
-      [index]: updateObject(this.state.savedApplications[index], {
-        result: result
-      })
+    const updatedApplicationItem = updateObject(this.state.savedApplications[index], {
+      result: result
     });
 
+    this.state.savedApplications.splice(index, 1, updatedApplicationItem);
+
     this.setState({
-      savedApplications: updatedApplications
+      savedApplications: this.state.savedApplications
     });
   }
 

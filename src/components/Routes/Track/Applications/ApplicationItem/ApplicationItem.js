@@ -29,7 +29,7 @@ const ApplicationItem = (props) => {
       <td><a href={url} target="_blank" rel="noopener noreferrer"><i className="fa fa-link" aria-hidden="true"></i><span className="accessible">Link to job posting for {jobtitle}</span></a></td>
       <td>{convertDate()}</td>
       <td>
-        <select id={`result-${jobkey}`} value={result ? result : ''} onChange={changeResult}>
+        <select id={`result-${jobkey}`} value={result} onChange={changeResult}>
           <option value="" disabled></option>
           <option value="interview">Interview</option>
           <option value="accepted-offer">Accepted offer</option>

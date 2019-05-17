@@ -65,6 +65,7 @@ export const getSavedApplicationsFind = (savedApplications) => {
           if(response.data.results[key] !== undefined) {
             response.data.results[key].applicationId = savedApplications[key].applicationId;
             response.data.results[key].applicationDate = savedApplications[key].applicationDate;
+            response.data.results[key].result = savedApplications[key].result;
           }
         }
 
