@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import isEqual from 'lodash/isEqual';
 
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
@@ -23,14 +24,12 @@ class Applications extends Component {
 
   count = 0;
   componentDidUpdate = (prevProps) => {
-    let lengths = true;
-    let notEqual = true;
+    let equal = false;
     if(this.count > 0) {
-      lengths = prevProps.savedApplications.length === 0 && this.props.savedApplications.length === 0;
-      notEqual = prevProps.savedApplications === this.props.savedApplications;
+      equal = isEqual(prevProps.savedApplications, this.props.savedApplications);
     }
 
-    if(this.props.isAuthenticated && lengths && notEqual) {
+    if(this.props.isAuthenticated && !equal) {
       this.props.getSavedApplications(this.props.token, this.props.userId);
     }
 

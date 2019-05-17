@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import isEqual from 'lodash/isEqual';
 
 import './SavedJobs.scss';
 
@@ -19,23 +20,19 @@ class SavedJobs extends Component {
 
   count = 0;
   componentDidUpdate = (prevProps) => {
-    let jobsLengths = true;
-    let jobsNotEqual = true;
-    let applicationsLengths = true;
-    let applicationsNotEqual = true;
+    let jobsEqual = false;
+    let applicationsEqual = false;
     if(this.count > 0) {
-      jobsLengths = prevProps.savedJobs.length === 0 && this.props.savedJobs.length === 0;
-      jobsNotEqual = prevProps.savedJobs === this.props.savedJobs;
-      applicationsLengths = prevProps.savedApplications.length === 0 && this.props.savedApplications.length === 0;
-      applicationsNotEqual = prevProps.savedApplications === this.props.savedApplications;
+      jobsEqual = isEqual(prevProps.savedJobs, this.props.savedJobs);
+      applicationsEqual = isEqual(prevProps.savedApplications, this.props.savedApplications);
     }
 
     if(this.props.isAuthenticated) {
-      if(jobsLengths && jobsNotEqual) {
+      if(!jobsEqual) {
         this.props.getSavedJobs(this.props.token, this.props.userId);
       }
 
-      if(applicationsLengths && applicationsNotEqual) {
+      if(!applicationsEqual) {
         this.props.getSavedApplications(this.props.token, this.props.userId);
       }
     }

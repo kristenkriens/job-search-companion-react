@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
@@ -101,14 +102,12 @@ class Search extends Component {
       }
     });
 
-    let lengths = true;
-    let notEqual = true;
+    let equal = false;
     if(this.count > 0) {
-      lengths = prevProps.savedSearches.length === 0 && this.props.savedSearches.length === 0;
-      notEqual = prevProps.savedSearches === this.props.savedSearches;
+      equal = isEqual(prevProps.savedSearches, this.props.savedSearches);
     }
 
-    if(this.props.isAuthenticated && lengths && notEqual) {
+    if(this.props.isAuthenticated && !equal) {
       this.props.getSavedSearches(this.props.token, this.props.userId);
     }
 
