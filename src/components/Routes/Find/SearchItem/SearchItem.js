@@ -38,10 +38,10 @@ class SearchItem extends Component {
 
   render() {
     const { item, type, saved, tracked, isAuthenticated } = this.props;
-    const { jobId, jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, dateSaved, expired } = item;
+    const { jobId, jobkey, jobtitle, company, formattedLocationFull, snippet, url, formattedRelativeTime, date, expired } = item;
 
     const todayUnix = new Date().getTime();
-    const itemDateUnix = new Date(dateSaved).getTime();
+    const itemDateUnix = new Date(date).getTime();
 
     const difference = todayUnix - itemDateUnix;
 
