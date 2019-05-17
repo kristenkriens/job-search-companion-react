@@ -31,6 +31,12 @@ class Applications extends Component {
 
     if(this.props.isAuthenticated && !equal) {
       this.props.getSavedApplications(this.props.token, this.props.userId);
+
+      if(!isEqual(this.props.savedApplications, this.state.savedApplications)) {
+        this.setState({
+          savedApplications: this.props.savedApplications
+        })
+      }
     }
 
     this.count++;
