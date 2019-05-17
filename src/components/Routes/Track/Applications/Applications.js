@@ -13,8 +13,7 @@ import { updateObject } from '../../../../shared/utilities';
 
 class Applications extends Component {
   state = {
-    savedApplications: this.props.savedApplications,
-    allowEmptyTable: false
+    savedApplications: this.props.savedApplications
   }
 
   componentDidMount = () => {
@@ -48,8 +47,6 @@ class Applications extends Component {
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/html", event.target.parentNode);
     event.dataTransfer.setDragImage(event.target.parentNode, 20, 20);
-
-    this.unsetAllowEmptyTable();
   };
 
   dragOver = (index) => {
@@ -66,15 +63,6 @@ class Applications extends Component {
     }
   };
 
-  remove = (index) => {
-    this.props.savedApplications.splice(index, 1);
-
-    this.setState({
-      savedApplications: this.props.savedApplications,
-      allowEmptyTable: true
-    });
-  }
-
   save = () => {
     const savedApplications = {};
 
@@ -87,15 +75,15 @@ class Applications extends Component {
       }
     });
 
-    this.unsetAllowEmptyTable();
-
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
   };
 
+  remove = (index) => {
+    this.props.removeSavedApplication(this.props.token, this.props.userId, this.props.savedApplications[index].applicationId);
+  }
+
   removeAll = () => {
     this.props.removeSavedApplications(this.props.token, this.props.userId);
-
-    this.unsetAllowEmptyTable();
   };
 
   changeResult = (result, index) => {
@@ -110,12 +98,6 @@ class Applications extends Component {
     });
   }
 
-  unsetAllowEmptyTable = () => {
-    this.setState({
-      allowEmptyTable: false
-    });
-  }
-
   render() {
     const { isAuthenticated, results, loading } = this.props;
 
@@ -123,7 +105,7 @@ class Applications extends Component {
       <>
         {isAuthenticated ? (
           <>
-            {this.state.savedApplications.length > 0 || this.state.allowEmptyTable ? (
+            {this.state.savedApplications.length > 0 ? (
               <>
                 <h1>Applications</h1>
                 <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
@@ -210,6 +192,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId)),
     changeSavedApplications: (token, userId, savedApplications) => dispatch(actions.changeSavedApplications(token, userId, savedApplications)),
+    removeSavedApplication: (token, userId, applicationId) => dispatch(actions.removeSavedApplication(token, userId, applicationId)),
     removeSavedApplications: (token, userId) => dispatch(actions.removeSavedApplications(token, userId))
   }
 }

@@ -161,6 +161,42 @@ export const changeSavedApplications = (token, userId, savedApplications) => {
   }
 }
 
+export const removeSavedApplicationStart = () => {
+  return {
+    type: actionTypes.REMOVE_SAVED_APPLICATION_START
+  }
+}
+
+export const removeSavedApplicationSuccess = () => {
+  return {
+    type: actionTypes.REMOVE_SAVED_APPLICATION_SUCCESS
+  }
+}
+
+export const removeSavedApplicationFail = (error) => {
+  return {
+    type: actionTypes.REMOVE_SAVED_APPLICATION_FAIL,
+    error: error
+  }
+}
+
+export const removeSavedApplication = (token, userId, applicationId) => {
+  return (dispatch) => {
+    dispatch(removeSavedApplicationStart());
+
+    firebaseAxios.delete(`/${userId}/saved-applications/${applicationId}.json?auth=${token}`)
+      .then((response) => {
+        dispatch(removeSavedApplicationSuccess());
+        dispatch(getSavedApplications(token, userId));
+      }).catch((error) => {
+        const errorMessage = error.message;
+
+        dispatch(removeSavedApplicationFail(errorMessage));
+        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+      });
+  }
+}
+
 export const removeSavedApplicationsStart = () => {
   return {
     type: actionTypes.REMOVE_SAVED_APPLICATIONS_START
