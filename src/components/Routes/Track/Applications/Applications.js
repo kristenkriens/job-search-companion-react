@@ -14,7 +14,7 @@ import { updateObject } from '../../../../shared/utilities';
 class Applications extends Component {
   state = {
     savedApplications: this.props.savedApplications,
-    allowEmptyVisible: false
+    allowEmptyTable: false
   }
 
   componentDidMount = () => {
@@ -49,7 +49,7 @@ class Applications extends Component {
     event.dataTransfer.setData("text/html", event.target.parentNode);
     event.dataTransfer.setDragImage(event.target.parentNode, 20, 20);
 
-    this.setEmptyVisibleBack();
+    this.unsetAllowEmptyTable();
   };
 
   dragOver = (index) => {
@@ -71,7 +71,7 @@ class Applications extends Component {
 
     this.setState({
       savedApplications: this.props.savedApplications,
-      allowEmptyVisible: true
+      allowEmptyTable: true
     });
   }
 
@@ -87,7 +87,7 @@ class Applications extends Component {
       }
     });
 
-    this.setEmptyVisibleBack();
+    this.unsetAllowEmptyTable();
 
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
   };
@@ -95,7 +95,7 @@ class Applications extends Component {
   removeAll = () => {
     this.props.removeSavedApplications(this.props.token, this.props.userId);
 
-    this.setEmptyVisibleBack();
+    this.unsetAllowEmptyTable();
   };
 
   changeResult = (result, index) => {
@@ -110,9 +110,9 @@ class Applications extends Component {
     });
   }
 
-  setEmptyVisibleBack = () => {
+  unsetAllowEmptyTable = () => {
     this.setState({
-      allowEmptyVisible: false
+      allowEmptyTable: false
     });
   }
 
@@ -123,7 +123,7 @@ class Applications extends Component {
       <>
         {isAuthenticated ? (
           <>
-            {this.state.savedApplications.length > 0 || this.state.allowEmptyVisible ? (
+            {this.state.savedApplications.length > 0 || this.state.allowEmptyTable ? (
               <>
                 <h1>Applications</h1>
                 <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
