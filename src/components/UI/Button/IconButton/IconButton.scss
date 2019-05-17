@@ -1,0 +1,15 @@
+@import '../../../../shared/styles/variables';
+
+button.icon {
+	color: $grey-blue;
+
+	&[disabled] {
+		color: $grey;
+	}
+
+	&:not([disabled]) {
+		&:hover, &:active, &:focus {
+	    color: $blurple;
+	  }
+	}
+}

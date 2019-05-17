@@ -13,7 +13,8 @@ import { updateObject } from '../../../../shared/utilities';
 
 class Applications extends Component {
   state = {
-    savedApplications: this.props.savedApplications
+    savedApplications: this.props.savedApplications,
+    allowEmptyVisible: false
   }
 
   componentDidMount = () => {
@@ -47,6 +48,8 @@ class Applications extends Component {
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData("text/html", event.target.parentNode);
     event.dataTransfer.setDragImage(event.target.parentNode, 20, 20);
+
+    this.setEmptyVisibleBack();
   };
 
   dragOver = (index) => {
@@ -63,17 +66,14 @@ class Applications extends Component {
     }
   };
 
-  dragEnd = () => {
-    this.draggedItem = null;
+  remove = (index) => {
+    this.props.savedApplications.splice(index, 1);
 
-    if(this.removedItem) {
-      this.props.removeSavedApplication(this.props.token, this.props.userId, this.removedItem);
-    }
-  };
-
-  remove = () => {
-    this.removedItem = this.draggedItem.applicationId;
-  };
+    this.setState({
+      savedApplications: this.props.savedApplications,
+      allowEmptyVisible: true
+    });
+  }
 
   save = () => {
     const savedApplications = {};
@@ -87,11 +87,15 @@ class Applications extends Component {
       }
     });
 
+    this.setEmptyVisibleBack();
+
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
   };
 
   removeAll = () => {
     this.props.removeSavedApplications(this.props.token, this.props.userId);
+
+    this.setEmptyVisibleBack();
   };
 
   changeResult = (result, index) => {
@@ -101,7 +105,15 @@ class Applications extends Component {
       })
     });
 
-    this.setState({savedApplications: updatedApplications});
+    this.setState({
+      savedApplications: updatedApplications
+    });
+  }
+
+  setEmptyVisibleBack = () => {
+    this.setState({
+      allowEmptyVisible: false
+    });
   }
 
   render() {
@@ -111,7 +123,7 @@ class Applications extends Component {
       <>
         {isAuthenticated ? (
           <>
-            {this.state.savedApplications.length > 0 ? (
+            {this.state.savedApplications.length > 0 || this.state.allowEmptyVisible ? (
               <>
                 <h1>Applications</h1>
                 <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
@@ -126,6 +138,7 @@ class Applications extends Component {
                           <th>Job Posting</th>
                           <th>Application Date</th>
                           <th>Result</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -138,13 +151,13 @@ class Applications extends Component {
                             dragStart={(event) => this.dragStart(event, i)}
                             dragEnd={this.dragEnd}
                             changeResult={(event) => this.changeResult(event.target.value, i)}
+                            remove={() => this.remove(i)}
                           />
                         )
                       })}
                       </tbody>
                     </table>
                   </div>
-                  <div className="table__delete" onDragOver={this.remove}><i className="fa fa-trash" aria-hidden="true"></i> Drag row here to remove</div>
                   <div className="button-wrapper">
                     <Button click={this.save}>Save</Button>
                     <LinkButton click={this.removeAll}>Remove All</LinkButton>
@@ -197,7 +210,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getSavedApplications: (token, userId) => dispatch(actions.getSavedApplications(token, userId)),
     changeSavedApplications: (token, userId, savedApplications) => dispatch(actions.changeSavedApplications(token, userId, savedApplications)),
-    removeSavedApplication: (token, userId, applicationId) => dispatch(actions.removeSavedApplication(token, userId, applicationId)),
     removeSavedApplications: (token, userId) => dispatch(actions.removeSavedApplications(token, userId))
   }
 }

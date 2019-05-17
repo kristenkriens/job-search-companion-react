@@ -28,7 +28,7 @@
   }
 
   th, td {
-    &:last-of-type {
+    &:nth-last-of-type(2) {
       width: 125px;
     }
   }

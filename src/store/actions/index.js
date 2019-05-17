@@ -52,6 +52,5 @@ export {
   setSavedApplication,
   getSavedApplications,
   changeSavedApplications,
-  removeSavedApplication,
   removeSavedApplications
 } from './savedApplications';
