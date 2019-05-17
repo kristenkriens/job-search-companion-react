@@ -103,7 +103,7 @@ export const getSavedApplications = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedApplicationsStart());
 
-    firebaseAxios.get(`/${userId}/saved-applications.json?auth=${token}&orderBy="order"`)
+    firebaseAxios.get(`/${userId}/saved-applications.json?auth=${token}&orderBy="order"&startAt=0`)
       .then((response) => {
         const savedApplications = [];
         for(let key in response.data) {
