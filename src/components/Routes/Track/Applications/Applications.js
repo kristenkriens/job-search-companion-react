@@ -72,11 +72,12 @@ class Applications extends Component {
   save = () => {
     const savedApplications = {};
 
-    this.state.savedApplications.forEach((savedApplication) => {
+    this.state.savedApplications.forEach((savedApplication, index) => {
       savedApplications[savedApplication.applicationId] = {
         jobkey: savedApplication.jobkey,
-        dateSaved: savedApplication.applicationDate,
-        result: savedApplication.result
+        applicationDate: savedApplication.applicationDate,
+        result: savedApplication.result,
+        order: index
       }
     });
 
