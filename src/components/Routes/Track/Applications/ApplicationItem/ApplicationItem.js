@@ -20,8 +20,15 @@ const ApplicationItem = (props) => {
     return `${month} ${day}, ${year}`;
   }
 
+  let colourClass = '';
+  if(result === 'accepted-offer') {
+    colourClass = 'colour green';
+  } else if(result === 'declined' || result === 'declined-offer') {
+    colourClass = 'colour red';
+  }
+
   return (
-    <tr onDragOver={dragOver}>
+    <tr onDragOver={dragOver} className={colourClass}>
       <td draggable onDragStart={dragStart} onDragEnd={dragEnd}><i className="fa fa-sort" aria-hidden="true"></i></td>
       <td>{jobtitle}</td>
       <td>{company}</td>

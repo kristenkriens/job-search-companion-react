@@ -14,6 +14,32 @@
     cursor:grab;
   }
 
+  tr {
+    &.colour {
+      color: $white;
+
+      select {
+        color: $white;
+      }
+
+      a, button {
+        color: $white;
+
+        &:hover, &:active, &:focus {
+          color: $blurple;
+        }
+      }
+
+      &.green {
+        background-color: $green;
+      }
+
+      &.red {
+        background-color: $red;
+      }
+    }
+  }
+
   th {
     background-color: $lightest-grey;
     padding: 5px 10px;
@@ -21,7 +47,6 @@
   }
 
   td {
-    background-color: $white;
     border: 1px solid $light-grey;
     font-weight: 300;
     padding: 5px 10px;
