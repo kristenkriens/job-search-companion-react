@@ -13,7 +13,8 @@ class SearchItem extends Component {
 
     const savedApplication = {
       jobkey: jobkey,
-      dateSaved: Date.now()
+      order: Date.now(),
+      applicationDate: Date.now()
     }
 
     this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);
@@ -24,7 +25,7 @@ class SearchItem extends Component {
 
     const savedJob = {
       jobkey: jobkey,
-      dateSaved: Date.now()
+      order: Date.now()
     }
 
     this.props.setSavedJob(this.props.token, this.props.userId, savedJob);

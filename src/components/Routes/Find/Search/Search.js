@@ -156,7 +156,7 @@ class Search extends Component {
       radius: this.state.form.radius.value,
       jobType: this.state.form.jobType.value,
       age: this.state.form.age.value,
-      dateSaved: Date.now()
+      order: Date.now()
     }
 
     this.props.setSavedSearch(this.props.token, this.props.userId, savedSearch);

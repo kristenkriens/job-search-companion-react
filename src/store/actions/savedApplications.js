@@ -107,14 +107,14 @@ export const getSavedApplications = (token, userId, isRemove) => {
   return (dispatch) => {
     dispatch(getSavedApplicationsStart());
 
-    firebaseAxios.get(`/${userId}/saved-applications.json?auth=${token}&orderBy="dateSaved"`)
+    firebaseAxios.get(`/${userId}/saved-applications.json?auth=${token}&orderBy="order"`)
       .then((response) => {
         const savedApplications = [];
         for(let key in response.data) {
           savedApplications.push({
             ...response.data[key],
             applicationId: key,
-            applicationDate: response.data[key].dateSaved
+            applicationDate: response.data[key].applicationDate
           });
         }
 
