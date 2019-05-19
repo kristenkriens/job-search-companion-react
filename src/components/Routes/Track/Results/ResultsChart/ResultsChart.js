@@ -42,7 +42,7 @@ const ResultsChart = (props) => {
       <ResponsivePie
         data={data}
         colors={['#F05540', '#4ABAA5', '#FFD15C', '#77B5F7']}
-        margin={{ top: 10, right: 100, bottom: 30, left: 100 }}
+        margin={{ top: 10, right: 100, bottom: 20, left: 100 }}
         innerRadius={0.5}
         padAngle={2.5}
         borderWidth={1}
