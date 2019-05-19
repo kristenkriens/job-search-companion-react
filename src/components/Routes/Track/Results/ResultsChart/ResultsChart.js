@@ -1,65 +1,46 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
+import { turnDashesIntoSpacesAndCapitalize } from '../../../../../shared/utilities';
 
 const ResultsChart = (props) => {
   const { savedApplications } = props;
 
-  const data = [];
-  savedApplications.forEach((savedApplication) => {
-    data.push(savedApplication.result);
-  });
-
-  const count = data.reduce((total, current) => {
-    total[current] = (total[current] || 0) + 1;
+  const values = savedApplications.reduce((total, current) => {
+    total[current.result] = (total[current.result] || 0) + 1;
 
     return total;
   }, {});
 
+  const data = [];
+  for(let value in values) {
+    const name = value === '' ? 'None' : turnDashesIntoSpacesAndCapitalize(value);
+
+    data.push({
+      id: name,
+      label: name,
+      value: values[value]
+    });
+  }
+
+  const rawData = [];
+  savedApplications.forEach((savedApplication) => {
+    rawData.push(savedApplication.result);
+  });
+
+  const fill = [];
+  for(let data in rawData) {
+    fill.push({
+      match: {
+        id: rawData[data] === '' ? 'None' : turnDashesIntoSpacesAndCapitalize(rawData[data])
+      },
+      id: 'lines'
+    });
+  }
+
   return (
     <div style={{height: 400}}>
       <ResponsivePie
-        data={[
-          {
-            "id": "Interview",
-            "label": "Interview",
-            "value": count['interview']
-          },
-          {
-            "id": "Accepted Offer",
-            "label": "Accepted Offer",
-            "value": count['accepted-offer']
-          },
-          {
-            "id": "Declined Offer",
-            "label": "Declined Offer",
-            "value": count['declined-offer']
-          },
-          {
-            "id": "No Response",
-            "label": "No Response",
-            "value": count['no-response']
-          },
-          {
-            "id": "No Offer",
-            "label": "No Offer",
-            "value": count['no-offer']
-          },
-          {
-            "id": "Declined",
-            "label": "Declined",
-            "value": count['declined']
-          },
-          {
-            "id": "Other",
-            "label": "Other",
-            "value": count['other']
-          },
-          {
-            "id": "None",
-            "label": "None",
-            "value": count['']
-          }
-        ]}
+        data={data}
         colors={['#F05540', '#4ABAA5', '#FFD15C', '#77B5F7']}
         margin={{ top: 10, right: 100, bottom: 30, left: 100 }}
         innerRadius={0.5}
@@ -85,56 +66,7 @@ const ResultsChart = (props) => {
             spacing: 10
           }
         ]}
-        fill={[
-          {
-            match: {
-                id: 'Interview'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'Accepted Offer'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'Declined Offer'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'No Response'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'No Offer'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'Declined'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'Other'
-            },
-            id: 'lines'
-          },
-          {
-            match: {
-                id: 'None'
-            },
-            id: 'lines'
-          },
-        ]}
+        fill={fill}
       />
     </div>
   )

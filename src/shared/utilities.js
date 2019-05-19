@@ -22,3 +22,13 @@ export const turnSpacesIntoPlusses = (string) => {
 
   return string;
 }
+
+export const turnDashesIntoSpacesAndCapitalize = (string) => {
+  for(let i = 0; i < string.length; i++) {
+    string = string.replace("-", " ");
+  }
+
+  const normalizedString = string.charAt(0).toUpperCase() + string.slice(1);
+
+  return normalizedString;
+}
