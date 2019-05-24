@@ -9,7 +9,7 @@
     }
   }
 
-  tr td:first-of-type {
+  tr th:first-of-type, tr td:first-of-type {
     @media (max-width: 650px) {
       display: none;
     }
