@@ -1,3 +1,17 @@
 .applications {
   transition: 250ms opacity ease-in-out;
+
+  &-note {
+    text-align: center;
+
+    @media (max-width: 650px) {
+      display: none;
+    }
+  }
+
+  tr td:first-of-type {
+    @media (max-width: 650px) {
+      display: none;
+    }
+  }
 }

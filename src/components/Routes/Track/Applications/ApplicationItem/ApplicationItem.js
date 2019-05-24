@@ -29,7 +29,7 @@ const ApplicationItem = (props) => {
 
   return (
     <tr onDragOver={dragOver} className={colourClass}>
-      <td draggable onDragStart={dragStart} onDragEnd={dragEnd}><i className="fa fa-sort" aria-hidden="true"></i></td>
+      <td draggable onDragStart={dragStart} onDragEnd={dragEnd}><i className="fa fa-sort" aria-hidden="true"></i><span className="accessible">Drag to change order</span></td>
       <td>{jobtitle}</td>
       <td>{company}</td>
       <td>{city}</td>

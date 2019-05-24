@@ -8,6 +8,8 @@ import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import ApplicationItem from './ApplicationItem/ApplicationItem';
 import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
 
+import './Applications.scss';
+
 import * as actions from '../../../../store/actions/index';
 import { updateObject } from '../../../../shared/utilities';
 
@@ -140,6 +142,7 @@ class Applications extends Component {
                       </tbody>
                     </table>
                   </div>
+                  <p className="applications-note"><i className="fa fa-sort" aria-hidden="true"></i> = Drag to change order</p>
                   <div className="button-wrapper">
                     <Button click={this.save}>Save</Button>
                     <LinkButton click={this.removeAll}>Remove All</LinkButton>
