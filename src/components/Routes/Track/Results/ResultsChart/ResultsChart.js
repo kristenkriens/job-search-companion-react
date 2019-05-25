@@ -11,31 +11,26 @@ const ResultsChart = (props) => {
     return total;
   }, {});
 
-  const data = [];
-  for(let value in values) {
+  const data = Object.keys(values).map((value) => {
     const name = value === '' ? 'None' : turnDashesIntoSpacesAndCapitalize(value);
 
-    data.push({
+    return {
       id: name,
       label: name,
       value: values[value]
-    });
-  }
-
-  const rawData = [];
-  savedApplications.forEach((savedApplication) => {
-    rawData.push(savedApplication.result);
+    }
   });
 
-  const fill = [];
-  for(let data in rawData) {
-    fill.push({
+  const rawData = savedApplications.map(({ result }) => result);
+
+  const fill = Object.keys(rawData).map((data) => {
+    return {
       match: {
         id: rawData[data] === '' ? 'None' : turnDashesIntoSpacesAndCapitalize(rawData[data])
       },
       id: 'lines'
-    });
-  }
+    }
+  })
 
   return (
     <div style={{height: 400}}>

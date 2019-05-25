@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import './SearchResults.scss';
 
 import SortBy from './SortBy/SortBy';
 import SearchItem from '../SearchItem/SearchItem';
 import Pagination from './Pagination/Pagination';
+import ButtonMessage from '../../../UI/CenteredMessages/ButtonMessage/ButtonMessage';
 
 import * as actions from '../../../../store/actions/index';
 
@@ -30,6 +30,8 @@ class SearchResults extends Component {
 
     const isLoading = loading || savedJobsLoading || savedApplicationsLoading;
 
+    const title = 'Search Results';
+
     return (
       <>
         {results ? (
@@ -37,7 +39,7 @@ class SearchResults extends Component {
             {results.length > 0 ? (
               <>
                 <div className="search-results__heading">
-                  <h1>Search Results</h1>
+                  <h1>{title}</h1>
                   <SortBy userIp={userIp} userAgent={userAgent} search={search} />
                 </div>
                 <div className={`search-results ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
@@ -67,18 +69,17 @@ class SearchResults extends Component {
                 </div>
               </>
             ) : (
-              <div className="absolute-center">
-                <h1 className="accessible">Search SearchResults</h1>
-                <div className="h3">Sorry, your search returned <span className="red">0</span> results. Please try again!</div>
-                <Link to="/find/search" className="button">Try Again</Link>
-              </div>
+              <>
+                <h1 className="accessible">{title}</h1>
+                <ButtonMessage message="Sorry, your search returned 0 results. Please try again!" buttonLink="/find/search" buttonText="Try Again" />
+              </>
             )}
           </>
         ) : (
-          <div className="absolute-center">
-            <div className="h3">Please fill out the search form first!</div>
-            <Link to="/find/search" className="button">Let's Go!</Link>
-          </div>
+          <>
+            <h1 className="accessible">{title}</h1>
+            <ButtonMessage message="Please fill out the search form first!" buttonLink="/find/search" buttonText="Let's Go!" />
+          </>
         )}
       </>
     )

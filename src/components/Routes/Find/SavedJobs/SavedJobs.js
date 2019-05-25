@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
 
 import './SavedJobs.scss';
 
-import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
+import LoginRequiredMessage from '../../../UI/CenteredMessages/LoginRequiredMessage/LoginRequiredMessage';
+import LoadingMessage from '../../../UI/CenteredMessages/LoadingMessage/LoadingMessage';
+import ButtonMessage from '../../../UI/CenteredMessages/ButtonMessage/ButtonMessage';
 import SearchItem from '../SearchItem/SearchItem';
 
 import * as actions from '../../../../store/actions/index';
@@ -45,13 +46,15 @@ class SavedJobs extends Component {
 
     const isLoading = loading || savedApplicationsLoading;
 
+    const title = 'Saved Jobs';
+
     return (
       <>
         {isAuthenticated ? (
           <div className="saved-jobs">
             {savedJobs.length > 0 ? (
               <>
-                <h1>Saved Jobs</h1>
+                <h1>{title}</h1>
                 <div className={`saved-jobs__items ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
                   {savedJobs.map((savedJob) => {
                     let trackedArray = savedApplications.map((savedApplication) => {
@@ -69,28 +72,20 @@ class SavedJobs extends Component {
               </>
             ) : (
               <>
+                <h1 className="accessible">{title}</h1>
                 {loading ? (
-                  <div className="absolute-center">
-                    <h1 className="accessible">Saved Jobs</h1>
-                    <div className="h3">Your saved jobs are loading!</div>
-                    <i className="fa fa-spinner fa-pulse fa-fw fa-2x"></i>
-                  </div>
+                  <LoadingMessage message="Your saved jobs are loading!" />
                 ) : (
-                  <div className="absolute-center">
-                    <h1 className="accessible">Saved Jobs</h1>
-                    <div className="h3">Please save some jobs first!</div>
-                    {results !== null ? (
-                      <Link to="/find/results" className="button">Let's Go!</Link>
-                    ) : (
-                      <Link to="/find/search" className="button">Let's Go!</Link>
-                    )}
-                  </div>
+                  <ButtonMessage message="Please save some jobs first!" buttonLink={results !== null ? '/find/results' : '/find/search'} buttonText="Let's Go!" />
                 )}
               </>
             )}
           </div>
         ) : (
-          <LoginRequired />
+          <>
+            <h1 className="accessible">{title}</h1>
+            <LoginRequiredMessage />
+          </>
         )}
       </>
     )

@@ -2,30 +2,22 @@ import React from 'react';
 
 import IconButton from '../../../../UI/Button/IconButton/IconButton';
 
+import { convertDate } from '../../../../../shared/utilities';
+
 const ApplicationItem = (props) => {
   const { item, dragStart, dragEnd, dragOver, changeResult, remove } = props;
   const { jobkey, jobtitle, company, city, url, applicationDate, result } = item;
 
-  const convertDate = () => {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const acceptedClass = 'colour green';
+  const declinedClass = 'colour red';
 
-    const date = new Date(applicationDate);
+  const colourClasses = {
+    'accepted-offer': acceptedClass,
+    'declined': declinedClass,
+    'declined-offer': declinedClass
+  };
 
-    const year = date.getFullYear();
-
-    const month = months[date.getMonth()];
-
-    const day = date.getDate();
-
-    return `${month} ${day}, ${year}`;
-  }
-
-  let colourClass = '';
-  if(result === 'accepted-offer') {
-    colourClass = 'colour green';
-  } else if(result === 'declined' || result === 'declined-offer') {
-    colourClass = 'colour red';
-  }
+  const colourClass = colourClasses[result];
 
   return (
     <tr onDragOver={dragOver} className={colourClass}>
@@ -34,7 +26,7 @@ const ApplicationItem = (props) => {
       <td>{company}</td>
       <td>{city}</td>
       <td><a href={url} target="_blank" rel="noopener noreferrer"><i className="fa fa-link" aria-hidden="true"></i><span className="accessible">Link to job posting for {jobtitle}</span></a></td>
-      <td>{convertDate()}</td>
+      <td>{convertDate(applicationDate)}</td>
       <td>
         <select id={`result-${jobkey}`} value={result} onChange={changeResult}>
           <option value="" disabled></option>

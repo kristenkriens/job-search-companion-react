@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 
-import * as actions from '../../../store/actions/index';
+import * as actions from '../../../../store/actions/index';
 
-class LoginRequired extends Component {
+class LoginRequiredMessage extends Component {
   render() {
     const { openAndSetActiveModal } = this.props;
 
@@ -24,4 +24,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginRequired);
+export default connect(null, mapDispatchToProps)(LoginRequiredMessage);

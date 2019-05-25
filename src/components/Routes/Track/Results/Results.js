@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 
-import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
+import LoginRequiredMessage from '../../../UI/CenteredMessages/LoginRequiredMessage/LoginRequiredMessage';
+import LoadingMessage from '../../../UI/CenteredMessages/LoadingMessage/LoadingMessage';
 import ResultsChart from './ResultsChart/ResultsChart';
 
 import * as actions from '../../../../store/actions/index';
@@ -31,29 +32,28 @@ class Results extends Component {
   render() {
     const { isAuthenticated, loading, savedApplications } = this.props;
 
+    const title = 'Results';
+
     return (
       <>
         {isAuthenticated ? (
           <>
             {loading ? (
               <>
-                <h1 className="accessible">Results</h1>
-                <div className="absolute-center">
-                  <div className="h3">Your application results are loading!</div>
-                  <i className="fa fa-spinner fa-pulse fa-fw fa-2x"></i>
-                </div>
+                <h1 className="accessible">{title}</h1>
+                <LoadingMessage message="Your application results are loading!" />
               </>
             ) : (
               <>
-                <h1>Results</h1>
+                <h1>{title}</h1>
                 <ResultsChart savedApplications={savedApplications} />
               </>
             )}
           </>
         ) : (
           <>
-            <h1 className="accessible">Results</h1>
-            <LoginRequired />
+            <h1 className="accessible">{title}</h1>
+            <LoginRequiredMessage />
           </>
         )}
       </>

@@ -8,6 +8,8 @@ import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import * as actions from '../../../../store/actions/index';
 
 class SearchItem extends Component {
+  moment = Date.now();
+  
   saveApplication = (event, jobkey) => {
     event.preventDefault();
 
@@ -15,7 +17,7 @@ class SearchItem extends Component {
       jobkey: jobkey,
       applicationDate: Date.now(),
       result: '',
-      order: Date.now()
+      order: this.moment
     }
 
     this.props.setSavedApplication(this.props.token, this.props.userId, savedApplication);
@@ -26,7 +28,7 @@ class SearchItem extends Component {
 
     const savedJob = {
       jobkey: jobkey,
-      order: Date.now()
+      order: this.moment
     }
 
     this.props.setSavedJob(this.props.token, this.props.userId, savedJob);

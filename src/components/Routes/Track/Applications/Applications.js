@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
 
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
 import ApplicationItem from './ApplicationItem/ApplicationItem';
-import LoginRequired from '../../../UI/LoginRequired/LoginRequired';
+import LoginRequiredMessage from '../../../UI/CenteredMessages/LoginRequiredMessage/LoginRequiredMessage';
+import LoadingMessage from '../../../UI/CenteredMessages/LoadingMessage/LoadingMessage';
+import ButtonMessage from '../../../UI/CenteredMessages/ButtonMessage/ButtonMessage';
 
 import './Applications.scss';
 
@@ -66,16 +67,18 @@ class Applications extends Component {
   };
 
   save = () => {
-    const savedApplications = {};
-
-    this.state.savedApplications.forEach((savedApplication, index) => {
-      savedApplications[savedApplication.applicationId] = {
-        jobkey: savedApplication.jobkey,
-        applicationDate: savedApplication.applicationDate,
-        result: savedApplication.result || '',
-        order: index
-      }
-    });
+    const savedApplications = this.state.savedApplications.reduce(
+      (savedApplicationsResult, currentApplication, index) => ({
+        ...savedApplicationsResult,
+        [currentApplication.applicationId]: {
+          jobkey: currentApplication.jobkey,
+          applicationDate: currentApplication.applicationDate,
+          result: currentApplication.result || '',
+          order: index
+        }
+      }),
+      {}
+    );
 
     this.props.changeSavedApplications(this.props.token, this.props.userId, savedApplications);
   };
@@ -103,13 +106,15 @@ class Applications extends Component {
   render() {
     const { isAuthenticated, results, loading } = this.props;
 
+    const title = 'Applications';
+
     return (
       <>
         {isAuthenticated ? (
           <>
             {this.state.savedApplications.length > 0 ? (
               <>
-                <h1>Applications</h1>
+                <h1>{title}</h1>
                 <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
                   <div className="table">
                     <table className="table-inner">
@@ -151,29 +156,19 @@ class Applications extends Component {
               </>
             ) : (
               <>
-                <h1 className="accessible">Applications</h1>
+                <h1 className="accessible">{title}</h1>
                 {loading ? (
-                  <div className="absolute-center">
-                    <div className="h3">Your tracked applications are loading!</div>
-                    <i className="fa fa-spinner fa-pulse fa-fw fa-2x"></i>
-                  </div>
+                  <LoadingMessage message="Your tracked applications are loading!" />
                 ) : (
-                  <div className="absolute-center">
-                    <div className="h3">Please track some applications first!</div>
-                    {results !== null ? (
-                      <Link to="/find/results" className="button">Let's Go!</Link>
-                    ) : (
-                      <Link to="/find/search" className="button">Let's Go!</Link>
-                    )}
-                  </div>
+                  <ButtonMessage message="Please track some applications first!" buttonLink={results !== null ? '/find/results' : '/find/search'} buttonText="Let's Go" />
                 )}
               </>
             )}
           </>
         ) : (
           <>
-            <h1 className="accessible">Applications</h1>
-            <LoginRequired />
+            <h1 className="accessible">{title}</h1>
+            <LoginRequiredMessage />
           </>
         )}
       </>
