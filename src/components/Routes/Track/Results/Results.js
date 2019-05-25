@@ -34,27 +34,39 @@ class Results extends Component {
 
     const title = 'Results';
 
+    const LoadingView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <LoadingMessage message="Your application results are loading!" />
+      </>
+    );
+
+    const ResultsView = () => (
+      <>
+        <h1>{title}</h1>
+        <ResultsChart savedApplications={savedApplications} />
+      </>
+    );
+
+    const NotAuthenticatedView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <LoginRequiredMessage />
+      </>
+    );
+
     return (
       <>
         {isAuthenticated ? (
           <>
             {loading ? (
-              <>
-                <h1 className="accessible">{title}</h1>
-                <LoadingMessage message="Your application results are loading!" />
-              </>
+              <LoadingView />
             ) : (
-              <>
-                <h1>{title}</h1>
-                <ResultsChart savedApplications={savedApplications} />
-              </>
+              <ResultsView />
             )}
           </>
         ) : (
-          <>
-            <h1 className="accessible">{title}</h1>
-            <LoginRequiredMessage />
-          </>
+          <NotAuthenticatedView />
         )}
       </>
     )

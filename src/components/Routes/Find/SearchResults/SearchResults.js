@@ -32,54 +32,66 @@ class SearchResults extends Component {
 
     const title = 'Search Results';
 
+    const ResultsView = () => (
+      <>
+        <div className="search-results__heading">
+          <h1>{title}</h1>
+          <SortBy userIp={userIp} userAgent={userAgent} search={search} />
+        </div>
+        <div className={`search-results ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
+          {results.map((result) => {
+            let savedArray = savedJobs.map((savedJob) => {
+              return (
+                savedJob['jobkey'] === result.jobkey
+              )
+            });
+            const saved = savedArray.includes(true);
+
+            let trackedArray = savedApplications.map((savedApplication) => {
+              return (
+                savedApplication['jobkey'] === result.jobkey
+              )
+            });
+            const tracked = trackedArray.includes(true);
+
+            return (
+              <SearchItem key={result.jobkey} item={result} type="result" saved={saved} tracked={tracked} isAuthenticated={isAuthenticated} />
+            )
+          })}
+        </div>
+        <Pagination userIp={userIp} userAgent={userAgent} search={search} />
+        <div className="indeed-attribution">
+          <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
+        </div>
+      </>
+    );
+
+    const NoResultsView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <ButtonMessage message="Sorry, your search returned 0 results. Please try again!" buttonLink="/find/search" buttonText="Try Again" />
+      </>
+    );
+
+    const NoSearchView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <ButtonMessage message="Please fill out the search form first!" buttonLink="/find/search" buttonText="Let's Go!" />
+      </>
+    );
+
     return (
       <>
         {results ? (
           <>
             {results.length > 0 ? (
-              <>
-                <div className="search-results__heading">
-                  <h1>{title}</h1>
-                  <SortBy userIp={userIp} userAgent={userAgent} search={search} />
-                </div>
-                <div className={`search-results ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
-                  {results.map((result) => {
-                    let savedArray = savedJobs.map((savedJob) => {
-                      return (
-                        savedJob['jobkey'] === result.jobkey
-                      )
-                    });
-                    const saved = savedArray.includes(true);
-
-                    let trackedArray = savedApplications.map((savedApplication) => {
-                      return (
-                        savedApplication['jobkey'] === result.jobkey
-                      )
-                    });
-                    const tracked = trackedArray.includes(true);
-
-                    return (
-                      <SearchItem key={result.jobkey} item={result} type="result" saved={saved} tracked={tracked} isAuthenticated={isAuthenticated} />
-                    )
-                  })}
-                </div>
-                <Pagination userIp={userIp} userAgent={userAgent} search={search} />
-                <div className="indeed-attribution">
-                  <span id="indeed_at"><a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank">jobs</a> by <a href="http://www.indeed.com/" rel="nofollow noopener noreferrer" target="_blank" title="Job Search"><img src="http://www.indeed.com/p/jobsearch.gif" style={{border: 0, verticalAlign: 'middle'}} alt="Indeed job search" /></a></span>
-                </div>
-              </>
+              <ResultsView />
             ) : (
-              <>
-                <h1 className="accessible">{title}</h1>
-                <ButtonMessage message="Sorry, your search returned 0 results. Please try again!" buttonLink="/find/search" buttonText="Try Again" />
-              </>
+              <NoResultsView />
             )}
           </>
         ) : (
-          <>
-            <h1 className="accessible">{title}</h1>
-            <ButtonMessage message="Please fill out the search form first!" buttonLink="/find/search" buttonText="Let's Go!" />
-          </>
+          <NoSearchView />
         )}
       </>
     )

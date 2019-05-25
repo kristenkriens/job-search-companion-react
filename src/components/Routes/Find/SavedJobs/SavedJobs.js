@@ -48,44 +48,65 @@ class SavedJobs extends Component {
 
     const title = 'Saved Jobs';
 
+    const SavedJobsView = () => (
+      <>
+        <h1>{title}</h1>
+        <div className={`saved-jobs__items ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
+          {savedJobs.map((savedJob) => {
+            let trackedArray = savedApplications.map((savedApplication) => {
+              return (
+                savedApplication['jobkey'] === savedJob.jobkey
+              )
+            });
+            const tracked = trackedArray.includes(true);
+
+            return (
+              <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" tracked={tracked} isAuthenticated />
+            )
+          })}
+        </div>
+      </>
+    );
+
+    const LoadingView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <LoadingMessage message="Your saved jobs are loading!" />
+      </>
+    );
+
+    const NoSavedJobsView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <ButtonMessage message="Please save some jobs first!" buttonLink={results !== null ? '/find/results' : '/find/search'} buttonText="Let's Go!" />
+      </>
+    );
+
+    const NotAuthenticatedView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <LoginRequiredMessage />
+      </>
+    );
+
     return (
       <>
         {isAuthenticated ? (
           <div className="saved-jobs">
             {savedJobs.length > 0 ? (
-              <>
-                <h1>{title}</h1>
-                <div className={`saved-jobs__items ${isLoading ? 'disable-click' : ''}`} style={{opacity: isLoading && 0.65}}>
-                  {savedJobs.map((savedJob) => {
-                    let trackedArray = savedApplications.map((savedApplication) => {
-                      return (
-                        savedApplication['jobkey'] === savedJob.jobkey
-                      )
-                    });
-                    const tracked = trackedArray.includes(true);
-
-                    return (
-                      <SearchItem key={savedJob.jobkey} item={savedJob} type="saved" tracked={tracked} isAuthenticated />
-                    )
-                  })}
-                </div>
-              </>
+              <SavedJobsView />
             ) : (
               <>
-                <h1 className="accessible">{title}</h1>
                 {loading ? (
-                  <LoadingMessage message="Your saved jobs are loading!" />
+                  <LoadingView />
                 ) : (
-                  <ButtonMessage message="Please save some jobs first!" buttonLink={results !== null ? '/find/results' : '/find/search'} buttonText="Let's Go!" />
+                  <NoSavedJobsView />
                 )}
               </>
             )}
           </div>
         ) : (
-          <>
-            <h1 className="accessible">{title}</h1>
-            <LoginRequiredMessage />
-          </>
+          <NotAuthenticatedView />
         )}
       </>
     )

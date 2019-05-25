@@ -108,68 +108,89 @@ class Applications extends Component {
 
     const title = 'Applications';
 
+    const ApplicationsView = () => (
+      <>
+        <h1>{title}</h1>
+        <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
+          <div className="table">
+            <table className="table-inner">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Location</th>
+                  <th>Job Posting</th>
+                  <th>Application Date</th>
+                  <th>Result</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {this.state.savedApplications.map((savedApplication, i) => {
+                return (
+                  <ApplicationItem
+                    key={savedApplication.jobkey}
+                    item={savedApplication}
+                    dragOver={() => this.dragOver(i)}
+                    dragStart={(event) => this.dragStart(event, i)}
+                    dragEnd={this.dragEnd}
+                    changeResult={(event) => this.changeResult(event.target.value, i)}
+                    remove={() => this.remove(i)}
+                  />
+                )
+              })}
+              </tbody>
+            </table>
+          </div>
+          <p className="applications-note"><i className="fa fa-sort" aria-hidden="true"></i> = Drag to change order</p>
+          <div className="button-wrapper">
+            <Button click={this.save}>Save</Button>
+            <LinkButton click={this.removeAll}>Remove All</LinkButton>
+          </div>
+        </div>
+      </>
+    );
+
+    const LoadingView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <LoadingMessage message="Your tracked applications are loading!" />
+      </>
+    );
+
+    const NoApplicationsView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <ButtonMessage message="Please track some applications first!" buttonLink={results !== null ? '/find/results' : '/find/search'} buttonText="Let's Go" />
+      </>
+    );
+
+    const NotAuthenticatedView = () => (
+      <>
+        <h1 className="accessible">{title}</h1>
+        <LoginRequiredMessage />
+      </>
+    );
+
     return (
       <>
         {isAuthenticated ? (
           <>
             {this.state.savedApplications.length > 0 ? (
-              <>
-                <h1>{title}</h1>
-                <div className={`applications ${loading ? 'disable-click' : ''}`} style={{opacity: loading && 0.65}}>
-                  <div className="table">
-                    <table className="table-inner">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Job Title</th>
-                          <th>Company</th>
-                          <th>Location</th>
-                          <th>Job Posting</th>
-                          <th>Application Date</th>
-                          <th>Result</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {this.state.savedApplications.map((savedApplication, i) => {
-                        return (
-                          <ApplicationItem
-                            key={savedApplication.jobkey}
-                            item={savedApplication}
-                            dragOver={() => this.dragOver(i)}
-                            dragStart={(event) => this.dragStart(event, i)}
-                            dragEnd={this.dragEnd}
-                            changeResult={(event) => this.changeResult(event.target.value, i)}
-                            remove={() => this.remove(i)}
-                          />
-                        )
-                      })}
-                      </tbody>
-                    </table>
-                  </div>
-                  <p className="applications-note"><i className="fa fa-sort" aria-hidden="true"></i> = Drag to change order</p>
-                  <div className="button-wrapper">
-                    <Button click={this.save}>Save</Button>
-                    <LinkButton click={this.removeAll}>Remove All</LinkButton>
-                  </div>
-                </div>
-              </>
+              <ApplicationsView />
             ) : (
               <>
-                <h1 className="accessible">{title}</h1>
                 {loading ? (
-                  <LoadingMessage message="Your tracked applications are loading!" />
+                  <LoadingView />
                 ) : (
-                  <ButtonMessage message="Please track some applications first!" buttonLink={results !== null ? '/find/results' : '/find/search'} buttonText="Let's Go" />
+                  <NoApplicationsView />
                 )}
               </>
             )}
           </>
         ) : (
-          <>
-            <h1 className="accessible">{title}</h1>
-            <LoginRequiredMessage />
-          </>
+          <NotAuthenticatedView />
         )}
       </>
     )
