@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
+import _isEqual from 'lodash/isEqual';
 
 import './SavedJobs.scss';
 
@@ -24,8 +24,8 @@ class SavedJobs extends Component {
     let jobsEqual = false;
     let applicationsEqual = false;
     if(this.count > 0) {
-      jobsEqual = isEqual(prevProps.savedJobs, this.props.savedJobs);
-      applicationsEqual = isEqual(prevProps.savedApplications, this.props.savedApplications);
+      jobsEqual = _isEqual(prevProps.savedJobs, this.props.savedJobs);
+      applicationsEqual = _isEqual(prevProps.savedApplications, this.props.savedApplications);
     }
 
     if(this.props.isAuthenticated) {

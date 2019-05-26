@@ -1,4 +1,4 @@
-import flow from 'lodash/flow';
+import _flow from 'lodash/flow';
 
 export const updateObject = (oldObject, updatedProperties) => {
   return {
@@ -17,13 +17,13 @@ export const lowercaseString = (string) => string.toLowerCase();
 
 export const capitalizeFirstWordString = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const normalizeErrorString = flow(
+export const normalizeErrorString = _flow(
   turnUnderscoresIntoSpaces,
   lowercaseString,
   capitalizeFirstWordString
 );
 
-export const normalizeResultString = flow(
+export const normalizeResultString = _flow(
   turnDashesIntoSpaces,
   capitalizeFirstWordString
 );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
+import _isEqual from 'lodash/isEqual';
 
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
@@ -104,7 +104,7 @@ class Search extends Component {
 
     let equal = false;
     if(this.count > 0) {
-      equal = isEqual(prevProps.savedSearches, this.props.savedSearches);
+      equal = _isEqual(prevProps.savedSearches, this.props.savedSearches);
     }
 
     if(this.props.isAuthenticated && !equal) {

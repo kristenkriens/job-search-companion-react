@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
+import _isEqual from 'lodash/isEqual';
 
 import Button from '../../../UI/Button/Button';
 import LinkButton from '../../../UI/Button/LinkButton/LinkButton';
@@ -29,13 +29,13 @@ class Applications extends Component {
   componentDidUpdate = (prevProps) => {
     let equal = false;
     if(this.count > 0) {
-      equal = isEqual(prevProps.savedApplications, this.props.savedApplications);
+      equal = _isEqual(prevProps.savedApplications, this.props.savedApplications);
     }
 
     if(this.props.isAuthenticated && !equal) {
       this.props.getSavedApplications(this.props.token, this.props.userId);
 
-      if(!isEqual(this.props.savedApplications, this.state.savedApplications)) {
+      if(!_isEqual(this.props.savedApplications, this.state.savedApplications)) {
         this.setState({
           savedApplications: this.props.savedApplications
         })

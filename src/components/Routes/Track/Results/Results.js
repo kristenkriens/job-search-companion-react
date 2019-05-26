@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
+import _isEqual from 'lodash/isEqual';
 
 import LoginRequiredMessage from '../../../UI/CenteredMessages/LoginRequiredMessage/LoginRequiredMessage';
 import LoadingMessage from '../../../UI/CenteredMessages/LoadingMessage/LoadingMessage';
@@ -19,7 +19,7 @@ class Results extends Component {
   componentDidUpdate = (prevProps) => {
     let equal = false;
     if(this.count > 0) {
-      equal = isEqual(prevProps.savedApplications, this.props.savedApplications);
+      equal = _isEqual(prevProps.savedApplications, this.props.savedApplications);
     }
 
     if(this.props.isAuthenticated && !equal) {
