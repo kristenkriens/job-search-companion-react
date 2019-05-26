@@ -1,3 +1,5 @@
+import flow from 'lodash/flow';
+
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -5,23 +7,26 @@ export const updateObject = (oldObject, updatedProperties) => {
   }
 }
 
-export const turnSpacesIntoPlusses = (string) => {
-  return string.replace(/ /g, "+");
-}
+export const turnSpacesIntoPlusses = (string) => string.replace(/ /g, "+");
 
-export const normalizeErrorString = (string) => {
-  const spacedString = string.replace(/_/g, " ").toLowerCase();
-  const normalizedString = spacedString.charAt(0).toUpperCase() + spacedString.slice(1);
+export const turnUnderscoresIntoSpaces = (string) => string.replace(/_/g, " ");
 
-  return normalizedString;
-}
+export const turnDashesIntoSpaces = (string) => string.replace(/-/g, " ");
 
-export const turnDashesIntoSpacesAndCapitalize = (string) => {
-  const spacedString = string.replace(/-/g, " ");
-  const normalizedString = spacedString.charAt(0).toUpperCase() + spacedString.slice(1);
+export const lowercaseString = (string) => string.toLowerCase();
 
-  return normalizedString;
-}
+export const capitalizeFirstWordString = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+export const normalizeErrorString = flow(
+  turnUnderscoresIntoSpaces,
+  lowercaseString,
+  capitalizeFirstWordString
+);
+
+export const normalizeResultString = flow(
+  turnDashesIntoSpaces,
+  capitalizeFirstWordString
+);
 
 export const convertDate = (date) => {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

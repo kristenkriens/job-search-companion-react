@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
-import { turnDashesIntoSpacesAndCapitalize } from '../../../../../shared/utilities';
+import { normalizeResultString } from '../../../../../shared/utilities';
 
 const ResultsChart = (props) => {
   const { savedApplications } = props;
@@ -12,7 +12,7 @@ const ResultsChart = (props) => {
   }, {});
 
   const data = Object.keys(values).map((value) => {
-    const name = value === '' ? 'None' : turnDashesIntoSpacesAndCapitalize(value);
+    const name = value === '' ? 'None' : normalizeResultString(value);
 
     return {
       id: name,
@@ -26,7 +26,7 @@ const ResultsChart = (props) => {
   const fill = Object.keys(rawData).map((data) => {
     return {
       match: {
-        id: rawData[data] === '' ? 'None' : turnDashesIntoSpacesAndCapitalize(rawData[data])
+        id: rawData[data] === '' ? 'None' : normalizeResultString(rawData[data])
       },
       id: 'lines'
     }
