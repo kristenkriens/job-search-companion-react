@@ -6,29 +6,19 @@ export const updateObject = (oldObject, updatedProperties) => {
 }
 
 export const turnSpacesIntoPlusses = (string) => {
-  for(let i = 0; i < string.length; i++) {
-    string = string.replace(/ /g, "+");
-  }
-
-  return string;
+  return string.replace(/ /g, "+");
 }
 
 export const normalizeErrorString = (string) => {
-  for(let i = 0; i < string.length; i++) {
-    string = string.replace(/-/g, " ").toLowerCase();
-  }
-
-  const normalizedString = string.charAt(0).toUpperCase() + string.slice(1);
+  const spacedString = string.replace(/_/g, " ").toLowerCase();
+  const normalizedString = spacedString.charAt(0).toUpperCase() + spacedString.slice(1);
 
   return normalizedString;
 }
 
 export const turnDashesIntoSpacesAndCapitalize = (string) => {
-  for(let i = 0; i < string.length; i++) {
-    string = string.replace(/-/g, " ");
-  }
-
-  const normalizedString = string.charAt(0).toUpperCase() + string.slice(1);
+  const spacedString = string.replace(/-/g, " ");
+  const normalizedString = spacedString.charAt(0).toUpperCase() + spacedString.slice(1);
 
   return normalizedString;
 }
