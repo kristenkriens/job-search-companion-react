@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
-import LinkButton from '../../Button/LinkButton/LinkButton';
 
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
-class Login extends Component {
+class ForgotPassword extends Component {
   state = {
     form: {
       email: {
@@ -24,33 +23,25 @@ class Login extends Component {
           isEmail: true
         },
         valid: false
-      },
-      password: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'password',
-          placeholder: ''
-        },
-        label: 'Password',
-        value: '',
-        validation: {
-          required: true,
-          minLength: 6
-        },
-        valid: false
       }
     }
   }
 
+  submitForm = (event) => {
+    event.preventDefault();
+
+    this.props.authForgotPassword(this.state.form.email.value);
+  }
+
   render() {
-    const { click, forgotPasswordClick, loading, error } = this.props;
+    const { loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
-        <h2>Log In</h2>
-        <form onSubmit={(event) => forms.submitAuthForm(this, event)} className="form">
+        <h2>Reset Password</h2>
+        <form onSubmit={(event) => this.submitForm(event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -66,11 +57,9 @@ class Login extends Component {
             )
           })}
           <div className="form__footer form__footer--center">
-            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Reset</Button>
           </div>
         </form>
-        <LinkButton additionalClasses="modal__link" click={click}>New user? Create an account</LinkButton>
-        <LinkButton additionalClasses="modal__link" click={forgotPasswordClick}>Forgot your password?</LinkButton>
       </>
     )
   }
@@ -85,8 +74,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authGo: (email, password, isRegister) => dispatch(actions.authGo(email, password, isRegister))
+    authForgotPassword: (email) => dispatch(actions.authForgotPassword(email))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

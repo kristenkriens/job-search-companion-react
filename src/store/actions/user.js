@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { openAndSetErrorModalAndMessage } from './modal';
+import { openAndSetActiveModalAndMessage } from './modal';
 
 export const getUserIpStart = () => {
   return {
@@ -36,7 +36,7 @@ export const getUserIp = () => {
         const errorMessage = 'Your IP address could not be found';
 
         dispatch(getUserIpFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 };

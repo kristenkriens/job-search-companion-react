@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
-import { openAndSetErrorModalAndMessage } from './modal'
+import { openAndSetActiveModalAndMessage } from './modal'
 
 export const setSavedJobStart = () => {
   return {
@@ -36,7 +36,7 @@ export const setSavedJob = (token, userId, savedJob) => {
         const errorMessage = error.message;
 
         dispatch(setSavedJobFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -71,7 +71,7 @@ export const getSavedJobsFind = (savedJobs) => {
           const errorMessage = response.data.error;
 
           dispatch(getSavedJobsFail(errorMessage));
-          dispatch(openAndSetErrorModalAndMessage(errorMessage));
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
         } else {
           dispatch(getSavedJobsSuccess(response.data.results));
         }
@@ -79,7 +79,7 @@ export const getSavedJobsFind = (savedJobs) => {
         const errorMessage = error.message;
 
         dispatch(getSavedJobsFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -117,7 +117,7 @@ export const getSavedJobs = (token, userId) => {
         const errorMessage = error.message;
 
         dispatch(getSavedJobsFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -152,7 +152,7 @@ export const removeSavedJob = (token, userId, jobId) => {
         const errorMessage = error.message;
 
         dispatch(removeSavedJobFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }

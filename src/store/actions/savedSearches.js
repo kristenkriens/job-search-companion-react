@@ -1,7 +1,7 @@
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
-import { openAndSetErrorModalAndMessage } from './modal';
+import { openAndSetActiveModalAndMessage } from './modal';
 
 export const setSavedSearchStart = () => {
   return {
@@ -35,7 +35,7 @@ export const setSavedSearch = (token, userId, savedSearch) => {
         const errorMessage = error.message;
 
         dispatch(setSavedSearchFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -79,7 +79,7 @@ export const getSavedSearches = (token, userId) => {
         const errorMessage = error.message;
 
         dispatch(getSavedSearchesFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -130,7 +130,7 @@ export const useSavedSearch = (token, userId, searchId) => {
         const errorMessage = error.message;
 
         dispatch(useSavedSearchFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -166,7 +166,7 @@ export const removeSavedSearch = (token, userId, searchId) => {
         const errorMessage = error.message;
 
         dispatch(removeSavedSearchFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }

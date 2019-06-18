@@ -3,35 +3,20 @@ import { connect } from 'react-redux';
 
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
-import LinkButton from '../../Button/LinkButton/LinkButton';
 
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
-class Login extends Component {
+class ResetPassword extends Component {
   state = {
     form: {
-      email: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'email',
-          placeholder: 'e.g. fake-email@gmail.com'
-        },
-        label: 'Email',
-        value: '',
-        validation: {
-          required: true,
-          isEmail: true
-        },
-        valid: false
-      },
       password: {
         elementType: 'input',
         elementConfig: {
           type: 'password',
           placeholder: ''
         },
-        label: 'Password',
+        label: 'New Password',
         value: '',
         validation: {
           required: true,
@@ -42,15 +27,21 @@ class Login extends Component {
     }
   }
 
+  submitForm = (event) => {
+    event.preventDefault();
+
+    this.props.authResetPassword(this.props.code, this.state.form.password.value);
+  }
+
   render() {
-    const { click, forgotPasswordClick, loading, error } = this.props;
+    const { loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
     return (
       <>
-        <h2>Log In</h2>
-        <form onSubmit={(event) => forms.submitAuthForm(this, event)} className="form">
+        <h2>Reset Password</h2>
+        <form onSubmit={(event) => this.submitForm(event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -66,11 +57,9 @@ class Login extends Component {
             )
           })}
           <div className="form__footer form__footer--center">
-            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Update</Button>
           </div>
         </form>
-        <LinkButton additionalClasses="modal__link" click={click}>New user? Create an account</LinkButton>
-        <LinkButton additionalClasses="modal__link" click={forgotPasswordClick}>Forgot your password?</LinkButton>
       </>
     )
   }
@@ -79,14 +68,16 @@ class Login extends Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    code: state.auth.oobCode,
+    router: state.router
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authGo: (email, password, isRegister) => dispatch(actions.authGo(email, password, isRegister))
+    authResetPassword: (email) => dispatch(actions.authResetPassword(email))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);

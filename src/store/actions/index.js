@@ -2,7 +2,11 @@ export {
   clearAuthError,
   authGo,
   authLogout,
-  authCheckState
+  authForgotPassword,
+  authResetPassword,
+  authCheckIfLoggedIn,
+  authCheckIfPasswordReset,
+  authClearPasswordReset
 } from './auth';
 
 export {

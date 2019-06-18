@@ -5,7 +5,7 @@
   align-items: flex-end;
 
   &__footer {
-    width: 100%;
+    width: calc(100% + 20px);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -55,8 +55,6 @@
 
       .form__element-message {
         color: $red;
-        font-size: 14px;
-        margin-top: 5px;
       }
     }
 
@@ -130,7 +128,12 @@
       }
     }
 
-    .form__element-inner--select {
+    &-message {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    &-inner--select {
       position: relative;
 
       &:after {

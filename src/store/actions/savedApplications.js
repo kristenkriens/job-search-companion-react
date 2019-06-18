@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
-import { openAndSetErrorModalAndMessage } from './modal'
+import { openAndSetActiveModalAndMessage } from './modal'
 
 export const setSavedApplicationStart = () => {
   return {
@@ -36,7 +36,7 @@ export const setSavedApplication = (token, userId, savedApplication) => {
         const errorMessage = error.message;
 
         dispatch(setSavedApplicationFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -73,7 +73,7 @@ export const getSavedApplicationsFind = (savedApplications) => {
           const errorMessage = response.data.error;
 
           dispatch(getSavedApplicationsFail(errorMessage));
-          dispatch(openAndSetErrorModalAndMessage(errorMessage));
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
         } else {
           dispatch(getSavedApplicationsSuccess(response.data.results));
         }
@@ -81,7 +81,7 @@ export const getSavedApplicationsFind = (savedApplications) => {
         const errorMessage = error.message;
 
         dispatch(getSavedApplicationsFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -120,7 +120,7 @@ export const getSavedApplications = (token, userId) => {
         const errorMessage = error.message;
 
         dispatch(getSavedApplicationsFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -157,7 +157,7 @@ export const changeSavedApplications = (token, userId, savedApplications) => {
         const errorMessage = error.message;
 
         dispatch(changeSavedApplicationsFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -193,7 +193,7 @@ export const removeSavedApplication = (token, userId, applicationId) => {
         const errorMessage = error.message;
 
         dispatch(removeSavedApplicationFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -229,7 +229,7 @@ export const removeSavedApplications = (token, userId) => {
         const errorMessage = error.message;
 
         dispatch(removeSavedApplicationsFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }

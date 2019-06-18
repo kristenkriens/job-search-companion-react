@@ -34,9 +34,10 @@
     text-align: center;
     width: 100%;
     font-size: 14px;
-  }
+    margin-top: 10px;
 
-  .form__footer {
-    margin-bottom: 10px;
+    &:first-of-type {
+      margin-top: 20px;
+    }
   }
 }
