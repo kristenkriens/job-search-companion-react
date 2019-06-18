@@ -1,3 +1,5 @@
+import _flow from 'lodash/flow';
+
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -5,20 +7,37 @@ export const updateObject = (oldObject, updatedProperties) => {
   }
 }
 
-export const normalizeErrorString = (string) => {
-  for(let i = 0; i < string.length; i++) {
-    string = string.replace("_", " ").toLowerCase();
-  }
+export const turnSpacesIntoPlusses = (string) => string.replace(/ /g, "+");
 
-  const normalizedString = string.charAt(0).toUpperCase() + string.slice(1);
+export const turnUnderscoresIntoSpaces = (string) => string.replace(/_/g, " ");
 
-  return normalizedString;
-}
+export const turnDashesIntoSpaces = (string) => string.replace(/-/g, " ");
 
-export const turnSpacesIntoPlusses = (string) => {
-  for(let i = 0; i < string.length; i++) {
-    string = string.replace(" ", "+");
-  }
+export const lowercaseString = (string) => string.toLowerCase();
 
-  return string;
+export const capitalizeFirstWordString = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+export const normalizeErrorString = _flow(
+  turnUnderscoresIntoSpaces,
+  lowercaseString,
+  capitalizeFirstWordString
+);
+
+export const normalizeResultString = _flow(
+  turnDashesIntoSpaces,
+  capitalizeFirstWordString
+);
+
+export const convertDate = (date) => {
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  const newDate = new Date(date);
+
+  const year = newDate.getFullYear();
+
+  const month = months[newDate.getMonth()];
+
+  const day = newDate.getDate();
+
+  return `${month} ${day}, ${year}`;
 }

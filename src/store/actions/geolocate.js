@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
-import { openAndSetErrorModalAndMessage } from './modal';
+import { openAndSetActiveModalAndMessage } from './modal';
 
 export const geolocateLatLngStart = () => {
   return {
@@ -78,7 +78,7 @@ export const geolocateGeocode = (lat, lng) => {
         const errorMessage = 'Your location could not be found';
 
         dispatch(geolocateGeocodeFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 };

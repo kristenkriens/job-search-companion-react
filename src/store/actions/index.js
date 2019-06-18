@@ -2,7 +2,11 @@ export {
   clearAuthError,
   authGo,
   authLogout,
-  authCheckState
+  authForgotPassword,
+  authResetPassword,
+  authCheckIfLoggedIn,
+  authCheckIfPasswordReset,
+  authClearPasswordReset
 } from './auth';
 
 export {
@@ -51,5 +55,7 @@ export {
 export {
   setSavedApplication,
   getSavedApplications,
-  removeSavedApplication
+  changeSavedApplications,
+  removeSavedApplication,
+  removeSavedApplications
 } from './savedApplications';

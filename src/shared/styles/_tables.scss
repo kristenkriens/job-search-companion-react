@@ -1,5 +1,5 @@
 .table {
-  max-height: 300px;
+  max-height: 260px;
   overflow: auto;
   margin-bottom: 20px;
 
@@ -14,6 +14,32 @@
     cursor:grab;
   }
 
+  tr {
+    &.colour {
+      color: $white;
+
+      select {
+        color: $white;
+      }
+
+      a, button {
+        color: $white;
+
+        &:hover, &:active, &:focus {
+          color: $blurple;
+        }
+      }
+
+      &.green {
+        background-color: $green;
+      }
+
+      &.red {
+        background-color: $red;
+      }
+    }
+  }
+
   th {
     background-color: $lightest-grey;
     padding: 5px 10px;
@@ -21,14 +47,13 @@
   }
 
   td {
-    background-color: $white;
     border: 1px solid $light-grey;
     font-weight: 300;
     padding: 5px 10px;
   }
 
   th, td {
-    &:last-of-type {
+    &:nth-last-of-type(2) {
       width: 125px;
     }
   }

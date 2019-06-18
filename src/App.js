@@ -13,9 +13,10 @@ import * as actions from './store/actions/index';
 
 class App extends Component {
   componentDidMount = () => {
-    const { userIp, userAgent, getUserIp, getUserAgent } = this.props;
+    const { userIp, userAgent, search, getUserIp, getUserAgent, authCheckIfLoggedIn, authCheckIfPasswordReset } = this.props;
 
-    this.props.tryAutoSignup();
+    authCheckIfLoggedIn();
+    authCheckIfPasswordReset(search);
 
     if(!userIp) {
       getUserIp();
@@ -33,7 +34,7 @@ class App extends Component {
       <Switch>
         <Route
           path="/"
-          exact={true}
+          exact
           render={() => <Search isAuthenticated={isAuthenticated} userIp={userIp} userAgent={userAgent} />}
         />
         <Route
@@ -66,15 +67,17 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     userIp: state.user.userIp,
-    userAgent: state.user.userAgent
+    userAgent: state.user.userAgent,
+    search: state.router.location.search
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tryAutoSignup: () => dispatch(actions.authCheckState()),
+    authCheckIfLoggedIn: () => dispatch(actions.authCheckIfLoggedIn()),
     getUserIp: () => dispatch(actions.getUserIp()),
-    getUserAgent: () => dispatch(actions.getUserAgent())
+    getUserAgent: () => dispatch(actions.getUserAgent()),
+    authCheckIfPasswordReset: (search) => dispatch(actions.authCheckIfPasswordReset(search))
   }
 }
 

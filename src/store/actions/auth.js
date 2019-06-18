@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { push } from 'connected-react-router';
 
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
-import { openAndSetErrorModalAndMessage } from './modal';
+import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
 import { normalizeErrorString } from '../../shared/utilities';
 
 export const clearAuthError = () => {
@@ -17,11 +18,12 @@ export const authStart = () => {
   }
 };
 
-export const authSuccess = (idToken, userId) => {
+export const authSuccess = (idToken, userId, oobCode) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: idToken,
-    userId: userId
+    userId: userId,
+    oobCode: oobCode
   }
 };
 
@@ -39,6 +41,34 @@ export const authLogout = () => {
 
   return {
     type: actionTypes.AUTH_LOGOUT
+  }
+}
+
+export const authDoneLoading = (error) => {
+  return {
+    type: actionTypes.AUTH_DONE_LOADING
+  }
+}
+
+export const authSetPasswordResetCode = (oobCode) => {
+  return {
+    type: actionTypes.AUTH_SET_PASSWORD_RESET_CODE,
+    oobCode: oobCode
+  }
+}
+
+export const authClearPasswordResetCode = () => {
+  return {
+    type: actionTypes.AUTH_CLEAR_PASSWORD_RESET_CODE
+  }
+}
+
+export const authClearPasswordReset = () => {
+  return (dispatch) => {
+    dispatch(authClearPasswordResetCode());
+    dispatch(push({
+      search: ''
+    }));
   }
 }
 
@@ -93,14 +123,89 @@ export const authGo = (email, password, isRegister) => {
         if(notWord('email') && notWord('password')) {
           dispatch(closeModal());
           setTimeout(() => {
-            dispatch(openAndSetErrorModalAndMessage(errorMessage));
+            dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
           }, 250);
         }
       });
   }
 };
 
-export const authCheckState = () => {
+export const authForgotPassword = (email) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode?key=${apiKey}`;
+
+    const authData = {
+      email: email,
+      requestType: 'PASSWORD_RESET'
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(closeModal());
+        dispatch(authClearPasswordResetCode());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly!'));
+        }, 250);
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authFail(errorMessage));
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+};
+
+export const authResetPassword = (code, newPassword) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/resetPassword?key=${apiKey}`;
+
+    const authData = {
+      oobCode: code,
+      newPassword: newPassword
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been reset!'));
+        }, 250);
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authFail(errorMessage));
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+};
+
+export const authCheckIfLoggedIn = () => {
   return (dispatch) => {
     const token = localStorage.getItem('token');
 
@@ -113,9 +218,21 @@ export const authCheckState = () => {
         dispatch(authLogout());
       } else {
         const userId = localStorage.getItem('userId');
+
         dispatch(authSuccess(token, userId));
         dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
       }
+    }
+  }
+}
+
+export const authCheckIfPasswordReset = (search) => {
+  return (dispatch) => {
+    const oobCodeObject = search.match(/oobCode=([^&]*)/);
+
+    if(oobCodeObject) {
+      dispatch(authSetPasswordResetCode(oobCodeObject[1]));
+      dispatch(openAndSetActiveModal('reset-password'));
     }
   }
 }

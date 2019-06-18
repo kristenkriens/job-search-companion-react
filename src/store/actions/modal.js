@@ -33,9 +33,9 @@ export const setModalMessage = (message) => {
   }
 };
 
-export const openAndSetErrorModalAndMessage = (message) => {
+export const openAndSetActiveModalAndMessage = (type, message) => {
   return (dispatch) => {
-    dispatch(setActiveModal('error'));
+    dispatch(setActiveModal(type));
     dispatch(setModalMessage(message));
     dispatch(openModal());
   }

@@ -14,19 +14,16 @@
   }
 
   &-inner {
+    background-color: $white;
+    box-shadow: 0 0 5px 0 rgba($grey, 0.5);
+    min-height: calc(100vh - 120px);
     padding: 30px;
+    position: relative;
+    transition: opacity 750ms ease-in-out, transform 750ms ease-in-out;
 
     @media (max-width: $sm-width) {
       padding: 20px;
     }
-  }
-
-  &-inner {
-    background-color: $white;
-    box-shadow: 0 0 5px 0 rgba($grey, 0.5);
-    min-height: calc(100vh - 120px);
-    position: relative;
-    transition: opacity 750ms ease-in-out, transform 750ms ease-in-out;
 
     &-enter {
       opacity: 0;

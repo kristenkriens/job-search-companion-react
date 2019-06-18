@@ -1,7 +1,7 @@
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
-import { openAndSetErrorModalAndMessage } from './modal';
+import { openAndSetActiveModalAndMessage } from './modal';
 
 export const setSavedSearchStart = () => {
   return {
@@ -35,7 +35,7 @@ export const setSavedSearch = (token, userId, savedSearch) => {
         const errorMessage = error.message;
 
         dispatch(setSavedSearchFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -64,7 +64,7 @@ export const getSavedSearches = (token, userId) => {
   return (dispatch) => {
     dispatch(getSavedSearchesStart());
 
-    firebaseAxios.get(`/${userId}/saved-searches.json?auth=${token}&orderBy="date"&limitToLast=10`)
+    firebaseAxios.get(`/${userId}/saved-searches.json?auth=${token}&orderBy="order"&limitToLast=10`)
       .then((response) => {
         const savedSearches = [];
         for(let key in response.data) {
@@ -73,14 +73,13 @@ export const getSavedSearches = (token, userId) => {
             searchId: key
           });
         }
-        savedSearches.reverse();
 
         dispatch(getSavedSearchesSuccess(savedSearches));
       }).catch((error) => {
         const errorMessage = error.message;
 
         dispatch(getSavedSearchesFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -131,7 +130,7 @@ export const useSavedSearch = (token, userId, searchId) => {
         const errorMessage = error.message;
 
         dispatch(useSavedSearchFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }
@@ -167,7 +166,7 @@ export const removeSavedSearch = (token, userId, searchId) => {
         const errorMessage = error.message;
 
         dispatch(removeSavedSearchFail(errorMessage));
-        dispatch(openAndSetErrorModalAndMessage(errorMessage));
+        dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
       });
   }
 }

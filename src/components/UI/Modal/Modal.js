@@ -6,7 +6,9 @@ import './Modal.scss';
 
 import Login from './Login/Login';
 import Register from './Register/Register';
-import Error from './Error/Error';
+import ForgotPassword from './ForgotPassword/ForgotPassword';
+import ResetPassword from './ResetPassword/ResetPassword';
+import Message from './Message/Message';
 import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
 
@@ -18,6 +20,10 @@ class Modal extends Component {
 
     if(this.props.activeModal === 'login' || this.props.activeModal === 'register') {
       this.props.clearAuthError();
+    }
+
+    if(this.props.activeModal === 'reset-password' || this.props.activeModal === 'success') {
+      this.props.authClearPasswordReset();
     }
   }
 
@@ -46,13 +52,19 @@ class Modal extends Component {
             <Button additionalClasses="modal__close" click={this.close}><i className="fa fa-times" aria-hidden="true"></i></Button>
             <div className="modal__content">
               {activeModal === 'login' && (
-                <Login click={() => this.changeActive('register')} />
+                <Login click={() => this.changeActive('register')} forgotPasswordClick={() => this.changeActive('forgot-password')} />
               )}
               {activeModal === 'register' && (
                 <Register click={() => this.changeActive('login')} />
               )}
-              {activeModal === 'error' && (
-                <Error message={message} />
+              {activeModal === 'forgot-password' && (
+                <ForgotPassword click={() => this.changeActive('login')} />
+              )}
+              {activeModal === 'reset-password' && (
+                <ResetPassword click={() => this.changeActive('login')} />
+              )}
+              {(activeModal === 'error' || activeModal === 'success') && (
+                <Message type={activeModal} message={message} />
               )}
             </div>
           </div>
@@ -74,7 +86,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     closeModal: () => dispatch(actions.closeModal()),
     openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
-    clearAuthError: () => dispatch(actions.clearAuthError())
+    clearAuthError: () => dispatch(actions.clearAuthError()),
+    authClearPasswordReset: () => dispatch(actions.authClearPasswordReset())
   }
 }
 
