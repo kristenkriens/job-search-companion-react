@@ -6,6 +6,7 @@ import Button from '../../Button/Button';
 import LinkButton from '../../Button/LinkButton/LinkButton';
 
 import * as forms from '../../../../shared/forms';
+import * as actions from '../../../../store/actions/index';
 
 class Register extends Component {
   state = {
@@ -38,7 +39,8 @@ class Register extends Component {
         },
         valid: false
       }
-    }
+    },
+    isRegister: true
   }
 
   render() {
@@ -81,4 +83,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Register);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authGo: (email, password, isRegister) => dispatch(actions.authGo(email, password, isRegister))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

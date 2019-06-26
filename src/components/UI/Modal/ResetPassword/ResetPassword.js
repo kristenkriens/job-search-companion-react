@@ -27,7 +27,7 @@ class ResetPassword extends Component {
     }
   }
 
-  submitForm = (event) => {
+  submitPasswordResetForm = (event) => {
     event.preventDefault();
 
     this.props.authResetPassword(this.props.code, this.state.form.password.value);
@@ -41,7 +41,7 @@ class ResetPassword extends Component {
     return (
       <>
         <h2>Reset Password</h2>
-        <form onSubmit={(event) => this.submitForm(event)} className="form">
+        <form onSubmit={(event) => this.submitPasswordResetForm(event)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
