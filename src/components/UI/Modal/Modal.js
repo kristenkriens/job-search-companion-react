@@ -8,6 +8,7 @@ import Login from './Login/Login';
 import Register from './Register/Register';
 import ForgotPassword from './ForgotPassword/ForgotPassword';
 import ResetPassword from './ResetPassword/ResetPassword';
+import Profile from './Profile/Profile';
 import Message from './Message/Message';
 import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
@@ -62,6 +63,9 @@ class Modal extends Component {
               )}
               {activeModal === 'reset-password' && (
                 <ResetPassword click={() => this.changeActive('login')} />
+              )}
+              {(activeModal === 'profile' || activeModal === 'edit-profile') && (
+                <Profile type={activeModal} click={this.close} />
               )}
               {(activeModal === 'error' || activeModal === 'success') && (
                 <Message type={activeModal} message={message} />

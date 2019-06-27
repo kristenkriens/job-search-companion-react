@@ -1,11 +1,23 @@
 @import '../../../../../shared/styles/variables';
 
 .topbar__auth {
+  display: flex;
+  align-items: center;
   padding-left: 10px;
 
   @media (max-width: $sm-width) {
     text-align: center;
     width: 100%;
     padding: 0;
+  }
+
+  &-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 10px;
   }
 }

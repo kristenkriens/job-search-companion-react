@@ -2,6 +2,8 @@ export {
   clearAuthError,
   authGo,
   authLogout,
+  authSetProfile,
+  authGetProfile,
   authForgotPassword,
   authResetPassword,
   authCheckIfLoggedIn,

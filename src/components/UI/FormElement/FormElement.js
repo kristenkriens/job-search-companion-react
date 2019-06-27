@@ -2,10 +2,12 @@ import React from 'react';
 
 import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 
+import BlankUser from '../../../assets/images/blank-user.gif';
+
 import { normalizeErrorString } from '../../../shared/utilities';
 
 const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed } = props;
+  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed, fileChanged } = props;
 
   let formElement = null;
   switch(elementType) {
@@ -42,6 +44,25 @@ const FormElement = (props) => {
         </ul>
       );
       break;
+    case ('file'):
+      const isUploaded = value !== BlankUser;
+
+      formElement = (
+        <>
+          <label htmlFor={id} style={{backgroundImage: `url(${value})`}}>
+            <div>
+              <i className="fa fa-camera" aria-hidden="true"></i>
+              {isUploaded ? (
+                <div className="accessible">Change {label}</div>
+              ) : (
+                <div>Upload {label}</div>
+              )}
+            </div>
+          </label>
+          <input id={id} type="file" {...elementConfig} onChange={fileChanged} className="accessible" />
+        </>
+      );
+      break;
     default:
       formElement = <input id={id} {...elementConfig} value={value} onChange={changed} />;
   }
@@ -67,9 +88,13 @@ const FormElement = (props) => {
       {elementType === 'radio' ? (
         <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
       ) : (
-        <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
+        <>
+          {elementType !== 'file' && (
+            <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
+          )}
+        </>
       )}
-      <div className={`form__element-inner ${formElement.type === 'select' ? 'form__element-inner--select' : null}`}>
+      <div className={`form__element-inner form__element-inner--${elementType}`}>
         {formElement}
         {hasGeolocateButton && <GeolocateButton loading={geolocateLoading} geolocate={geolocate} />}
       </div>

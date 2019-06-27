@@ -5,6 +5,8 @@ const initialState = {
   token: null,
   userId: null,
   oobCode: null,
+  displayName: null,
+  photoUrl: null,
   error: null,
   loading: false
 }
@@ -46,10 +48,42 @@ const authFail = (state, action) => {
   return updateObject(state, updatedState);
 }
 
+const authGetProfileStart = (state, action) => {
+  const updatedState = {
+    error: null,
+    loading: true
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const authGetProfileSuccess = (state, action) => {
+  const updatedState = {
+    displayName: action.displayName,
+    photoUrl: action.photoUrl,
+    error: null,
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const authGetProfileFail = (state, action) => {
+  const updatedState = {
+    error: action.error,
+    loading: false
+  };
+
+  return updateObject(state, updatedState);
+}
+
 const authLogout = (state, action) => {
   const updatedState = {
     token: null,
-    userId: null
+    userId: null,
+    oobCode: null,
+    displayName: null,
+    photoUrl: null
   };
 
   return updateObject(state, updatedState);
@@ -85,6 +119,9 @@ const authReducer = (state = initialState, action) => {
     case actionTypes.AUTH_START: return authStart(state, action);
     case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
     case actionTypes.AUTH_FAIL: return authFail(state, action);
+    case actionTypes.AUTH_GET_PROFILE_START: return authGetProfileStart(state, action);
+    case actionTypes.AUTH_GET_PROFILE_SUCCESS: return authGetProfileSuccess(state, action);
+    case actionTypes.AUTH_GET_PROFILE_FAIL: return authGetProfileFail(state, action);
     case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
     case actionTypes.AUTH_DONE_LOADING: return authDoneLoading(state, action);
     case actionTypes.AUTH_SET_PASSWORD_RESET_CODE: return authSetPasswordResetCode(state, action);

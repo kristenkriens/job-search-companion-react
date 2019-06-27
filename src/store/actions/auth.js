@@ -34,6 +34,31 @@ export const authFail = (error) => {
   }
 }
 
+
+
+export const authGetProfileStart = () => {
+  return {
+    type: actionTypes.AUTH_GET_PROFILE_START
+  }
+};
+
+export const authGetProfileSuccess = (displayName, photoUrl) => {
+  return {
+    type: actionTypes.AUTH_GET_PROFILE_SUCCESS,
+    displayName: displayName,
+    photoUrl: photoUrl
+  }
+};
+
+export const authGetProfileFail = (error) => {
+  return {
+    type: actionTypes.AUTH_GET_PROFILE_FAIL,
+    error: error
+  }
+}
+
+
+
 export const authLogout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('expirationDate');
@@ -109,6 +134,12 @@ export const authGo = (email, password, isRegister) => {
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
         dispatch(closeModal());
+
+        if(isRegister) {
+          setTimeout(() => {
+            dispatch(openAndSetActiveModal('profile'));
+          }, 250);
+        }
       }).catch((error) => {
         let errorMessage = '';
         if(error.response) {
@@ -129,6 +160,82 @@ export const authGo = (email, password, isRegister) => {
       });
   }
 };
+
+export const authSetProfile = (token, displayName, photoUrl, isEdit) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=${apiKey}`;
+
+    const authData = {
+      idToken: token,
+      displayName: displayName,
+      photoUrl: photoUrl
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
+        }, 250);
+        dispatch(authGetProfile(token));
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authFail(errorMessage));
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+};
+
+
+
+export const authGetProfile = (token) => {
+  return (dispatch) => {
+    dispatch(authGetProfileStart());
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=${apiKey}`;
+
+    const authData = {
+      idToken: token
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        const { displayName, photoUrl } = response.data.users[0];
+
+        dispatch(authGetProfileSuccess(displayName, photoUrl));
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authGetProfileFail(errorMessage));
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+};
+
+
 
 export const authForgotPassword = (email) => {
   return (dispatch) => {
