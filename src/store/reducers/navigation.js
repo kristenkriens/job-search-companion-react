@@ -28,6 +28,7 @@ const initialState = {
       ]
     }
   ],
+  isDropdownOpen: false,
   breadcrumb: {
     group: '',
     current: ''
@@ -37,6 +38,22 @@ const initialState = {
 const changeOpenSidebarNavGroup = (state, action) => {
   const updatedState = {
     openSidebarNavGroup: state.openSidebarNavGroup !== action.openSidebarNavGroup ? action.openSidebarNavGroup : ''
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const toggleDropdown = (state, action) => {
+  const updatedState = {
+    isDropdownOpen: !state.isDropdownOpen
+  };
+
+  return updateObject(state, updatedState);
+}
+
+const closeDropdown = (state, action) => {
+  const updatedState = {
+    isDropdownOpen: false
   };
 
   return updateObject(state, updatedState);
@@ -55,6 +72,10 @@ const navigationReducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.CHANGE_OPEN_SIDEBAR_NAV_GROUP:
       return changeOpenSidebarNavGroup(state, action);
+    case actionTypes.TOGGLE_DROPDOWN:
+      return toggleDropdown(state, action);
+    case actionTypes.CLOSE_DROPDOWN:
+      return closeDropdown(state, action);
     case actionTypes.GET_SET_BREADCRUMB:
       return getSetBreadcrumb(state, action);
     default: return state;

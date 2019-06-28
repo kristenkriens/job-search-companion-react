@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 
 import './Auth.scss';
 
+import Dropdown from './Dropdown/Dropdown';
 import LinkButton from '../.././../../UI/Button/LinkButton/LinkButton';
+import Backdrop from '../../../../UI/Backdrop/Backdrop';
 import BlankUser from '../../../../../assets/images/blank-user.gif';
 
 import * as actions from '../../../../../store/actions/index';
@@ -16,14 +18,20 @@ class Auth extends Component {
   }
 
   render() {
-    const { isAuthenticated, logout, openAndSetActiveModal, displayName, photoUrl } = this.props;
+    const { isAuthenticated, openAndSetActiveModal, toggleDropdown, displayName, photoUrl } = this.props;
 
     return (
       <div className="topbar__auth">
         {isAuthenticated ? (
           <>
-            <div className="topbar__auth-image" style={{backgroundImage: `url(${photoUrl ? photoUrl : BlankUser})`}}></div>
-            <div className="topbar__auth-message">Welcome{displayName ? `, ${displayName}` : ''}! <LinkButton click={logout}>(Logout)</LinkButton></div>
+            <div className="topbar__auth-profile">
+              <div className="topbar__auth-profile-image" style={{backgroundImage: `url(${photoUrl ? photoUrl : BlankUser})`}}></div>
+              <LinkButton additionalClasses="topbar__auth-profile-message" click={toggleDropdown}>
+                Welcome{displayName ? `, ${displayName}` : ''}!
+                <i className="fa fa-angle-down" aria-hidden="true"></i>
+              </LinkButton>
+            </div>
+            <Dropdown />
           </>
         ) : (
           <>
@@ -46,9 +54,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(actions.authLogout()),
     openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
-    authGetProfile: (token) => dispatch(actions.authGetProfile(token))
+    authGetProfile: (token) => dispatch(actions.authGetProfile(token)),
+    toggleDropdown: () => dispatch(actions.toggleDropdown())
   }
 }
 

@@ -13,6 +13,8 @@ export {
 
 export {
   changeOpenSidebarNavGroup,
+  toggleDropdown,
+  closeDropdown,
   getSetBreadcrumb
 } from './navigation';
 

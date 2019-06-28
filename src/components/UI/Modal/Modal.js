@@ -42,7 +42,7 @@ class Modal extends Component {
 
     return (
       <>
-        <Backdrop isModalOpen={isModalOpen} close={this.close} />
+        <Backdrop isOpen={isModalOpen} type="modal" close={this.close} />
         <CSSTransition
           in={isModalOpen}
           timeout={500}

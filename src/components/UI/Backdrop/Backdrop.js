@@ -4,16 +4,16 @@ import { CSSTransition } from 'react-transition-group';
 import './Backdrop.scss';
 
 const Backdrop = (props) => {
-  const { isModalOpen, close } = props;
+  const { isOpen, type, close } = props;
 
   return (
     <CSSTransition
-      in={isModalOpen}
+      in={isOpen}
       timeout={500}
       classNames="fade"
       unmountOnExit
     >
-      <div className="backdrop" onClick={close}></div>
+      <div className={`backdrop backdrop--${type}`} onClick={close}></div>
     </CSSTransition>
   )
 }

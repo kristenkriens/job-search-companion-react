@@ -7,6 +7,18 @@ export const changeOpenSidebarNavGroup = (sidebarNavGroup) => {
   }
 };
 
+export const toggleDropdown = () => {
+  return {
+    type: actionTypes.TOGGLE_DROPDOWN
+  }
+};
+
+export const closeDropdown = () => {
+  return {
+    type: actionTypes.CLOSE_DROPDOWN
+  }
+};
+
 export const getSetBreadcrumb = (sidebarNav, pathname) => {
   const pathItems = pathname.split('/');
 

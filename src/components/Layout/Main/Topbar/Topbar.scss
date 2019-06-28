@@ -7,7 +7,6 @@
   background-color: $white;
   font-weight: 400;
   box-shadow: 0 0 5px 0 rgba($grey, 0.5);
-  overflow: hidden;
   position: fixed;
   height: 60px;
   width: calc(100% - 250px);
@@ -20,10 +19,19 @@
 
   @media (max-width: 650px) {
     width: auto;
-    position: static;
+    position: relative;
   }
 
   @media (max-width: $sm-width) {
     padding: 20px;
+  }
+
+  .link {
+    text-decoration: none;
+
+    &:hover, &:active, &:focus {
+      color: $grey-blue;
+      text-decoration: underline;
+    }
   }
 }
