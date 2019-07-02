@@ -162,52 +162,61 @@ export const authGo = (email, password, isRegister) => {
   }
 };
 
+export const authSetProfileGo = (token, displayName, photoUrl, isEdit) => {
+  return (dispatch) => {
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    const authData = {
+      idToken: token,
+      displayName: displayName,
+      photoUrl: photoUrl
+    }
+
+    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=${apiKey}`;
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
+        }, 250);
+        dispatch(authGetProfile(token));
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authFail(errorMessage));
+        dispatch(closeModal());
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+}
+
 export const authSetProfile = (token, displayName, photoUrl, isEdit) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const ref = firebaseStorageRef.child(photoUrl.name);
+    const photoUpdated = typeof(photoUrl) === 'object';
+    if(photoUpdated) {
+      const ref = firebaseStorageRef.child(photoUrl.name);
 
-    ref.put(photoUrl).then(() => {
-      ref.getDownloadURL().then((newPhotoUrl) => {
-        const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-        const authData = {
-          idToken: token,
-          displayName: displayName,
-          photoUrl: newPhotoUrl
-        }
-
-        let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=${apiKey}`;
-
-        axios.post(url, authData)
-          .then((response) => {
-            dispatch(authDoneLoading());
-            dispatch(closeModal());
-            setTimeout(() => {
-              dispatch(openAndSetActiveModalAndMessage('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
-            }, 250);
-            dispatch(authGetProfile(token));
-          }).catch((error) => {
-            let errorMessage = '';
-            if(error.response) {
-              errorMessage = normalizeErrorString(error.response.data.error.message);
-            } else {
-              errorMessage = error.message;
-            }
-
-            dispatch(authFail(errorMessage));
-            dispatch(closeModal());
-            setTimeout(() => {
-              dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-            }, 250);
-          });
+      ref.put(photoUrl).then((response) => {
+        ref.getDownloadURL().then((response) => {
+          dispatch(authSetProfileGo(token, displayName, response, isEdit));
+        });
       });
-    });
+    } else {
+      dispatch(authSetProfileGo(token, displayName, photoUrl, isEdit));
+    }
   }
 };
-
-
 
 export const authGetProfile = (token) => {
   return (dispatch) => {
