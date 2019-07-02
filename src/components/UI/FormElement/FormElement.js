@@ -46,10 +46,15 @@ const FormElement = (props) => {
       break;
     case ('file'):
       const isUploaded = value !== BlankUser;
+      const isUpdated = typeof(value) !== 'string';
+
+      const binaryData = [];
+      binaryData.push(value);
+      const url = URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}));
 
       formElement = (
         <>
-          <label htmlFor={id} style={{backgroundImage: `url(${value})`}}>
+          <label htmlFor={id} style={{backgroundImage: `url(${isUpdated ? url : value})`}}>
             <div>
               <i className="fa fa-camera" aria-hidden="true"></i>
               {isUploaded ? (

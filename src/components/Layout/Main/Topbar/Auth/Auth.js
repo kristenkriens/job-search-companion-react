@@ -5,7 +5,6 @@ import './Auth.scss';
 
 import Dropdown from './Dropdown/Dropdown';
 import LinkButton from '../.././../../UI/Button/LinkButton/LinkButton';
-import Backdrop from '../../../../UI/Backdrop/Backdrop';
 import BlankUser from '../../../../../assets/images/blank-user.gif';
 
 import * as actions from '../../../../../store/actions/index';

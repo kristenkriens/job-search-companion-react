@@ -11,6 +11,8 @@ import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
 class Profile extends Component {
+  isEdit = this.props.type === 'edit-profile';
+
   state = {
     form: {
       image: {
@@ -19,7 +21,7 @@ class Profile extends Component {
           accept: 'image/*'
         },
         label: 'Image',
-        value: BlankUser,
+        value: this.isEdit ? (this.props.photoUrl ? this.props.photoUrl : BlankUser) : BlankUser,
         validation: {
           required: false
         },
@@ -32,7 +34,7 @@ class Profile extends Component {
           placeholder: 'John Doe'
         },
         label: 'Name',
-        value: '',
+        value: this.isEdit ? this.props.displayName : '',
         validation: {
           required: false
         },
@@ -44,13 +46,11 @@ class Profile extends Component {
   submitProfileForm = (event) => {
     event.preventDefault();
 
-    const isEdit = this.props.type === 'edit-profile';
-
-    this.props.authSetProfile(this.props.token, this.state.form.name.value, this.state.form.image.value, isEdit);
+    this.props.authSetProfile(this.props.token, this.state.form.name.value, this.state.form.image.value, this.isEdit);
   }
 
   render() {
-    const { type, click, loading, error } = this.props;
+    const { click, loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -74,10 +74,10 @@ class Profile extends Component {
             )
           })}
           <div className="form__footer form__footer--center">
-            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>{type === 'profile' ? 'Submit' : 'Save'}</Button>
+            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>{this.isEdit ? 'Save' : 'Submit'}</Button>
           </div>
         </form>
-        {type === 'profile' && (
+        {!this.isEdit && (
           <LinkButton additionalClasses="modal__link" click={click}>Skip</LinkButton>
         )}
       </>
@@ -89,7 +89,9 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    token: state.auth.token
+    token: state.auth.token,
+    displayName: state.auth.displayName,
+    photoUrl: state.auth.photoUrl
   }
 }
 

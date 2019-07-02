@@ -65,7 +65,7 @@ export const formElementFileChanged = (that, event, formElementName) => {
 
   let value = fileItem[0][1].value;
   if(event.target.files[0]) {
-    value = URL.createObjectURL(event.target.files[0]);
+    value = event.target.files[0];
   }
 
   const updatedForm = updateObject(that.state.form, {

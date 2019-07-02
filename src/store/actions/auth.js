@@ -5,6 +5,7 @@ import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
 import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
 import { normalizeErrorString } from '../../shared/utilities';
+import firebaseStorageRef from '../../shared/firebaseStorage';
 
 export const clearAuthError = () => {
   return {
@@ -165,38 +166,44 @@ export const authSetProfile = (token, displayName, photoUrl, isEdit) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const ref = firebaseStorageRef.child(photoUrl.name);
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=${apiKey}`;
+    ref.put(photoUrl).then(() => {
+      ref.getDownloadURL().then((newPhotoUrl) => {
+        const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    const authData = {
-      idToken: token,
-      displayName: displayName,
-      photoUrl: photoUrl
-    }
-
-    axios.post(url, authData)
-      .then((response) => {
-        dispatch(authDoneLoading());
-        dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
-        }, 250);
-        dispatch(authGetProfile(token));
-      }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
+        const authData = {
+          idToken: token,
+          displayName: displayName,
+          photoUrl: newPhotoUrl
         }
 
-        dispatch(authFail(errorMessage));
-        dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=${apiKey}`;
+
+        axios.post(url, authData)
+          .then((response) => {
+            dispatch(authDoneLoading());
+            dispatch(closeModal());
+            setTimeout(() => {
+              dispatch(openAndSetActiveModalAndMessage('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
+            }, 250);
+            dispatch(authGetProfile(token));
+          }).catch((error) => {
+            let errorMessage = '';
+            if(error.response) {
+              errorMessage = normalizeErrorString(error.response.data.error.message);
+            } else {
+              errorMessage = error.message;
+            }
+
+            dispatch(authFail(errorMessage));
+            dispatch(closeModal());
+            setTimeout(() => {
+              dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+            }, 250);
+          });
       });
+    });
   }
 };
 
