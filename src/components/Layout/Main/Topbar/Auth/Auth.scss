@@ -43,6 +43,8 @@
     list-style-type: none;
     box-shadow: 1px 2px 3px 0 rgba($grey, 0.5);
     z-index: 120;
+    width: 100%;
+    max-width: 125px;
 
     &:before {
       content: '';

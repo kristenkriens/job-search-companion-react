@@ -17,7 +17,7 @@ class Auth extends Component {
   }
 
   render() {
-    const { isAuthenticated, openAndSetActiveModal, toggleDropdown, displayName, photoUrl } = this.props;
+    const { isAuthenticated, openAndSetActiveModal, toggleDropdown, displayName, photoUrl, isDropdownOpen } = this.props;
 
     return (
       <div className="topbar__auth">
@@ -27,7 +27,11 @@ class Auth extends Component {
               <div className="topbar__auth-profile-image" style={{backgroundImage: `url(${photoUrl ? photoUrl : BlankUser})`}}></div>
               <LinkButton additionalClasses="topbar__auth-profile-message" click={toggleDropdown}>
                 Welcome{displayName ? `, ${displayName}` : ''}!
-                <i className="fa fa-angle-down" aria-hidden="true"></i>
+                {isDropdownOpen ? (
+                  <i className="fa fa-angle-up" aria-hidden="true"></i>
+                ) : (
+                  <i className="fa fa-angle-down" aria-hidden="true"></i>
+                )}
               </LinkButton>
             </div>
             <Dropdown />
@@ -47,7 +51,8 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.token !== null,
     token: state.auth.token,
     displayName: state.auth.displayName,
-    photoUrl: state.auth.photoUrl
+    photoUrl: state.auth.photoUrl,
+    isDropdownOpen: state.navigation.isDropdownOpen
   }
 }
 
