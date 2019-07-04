@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import LinkButton from '../.././../../../UI/Button/LinkButton/LinkButton';
-import Backdrop from '../../../../../UI/Backdrop/Backdrop';
 
 import * as actions from '../../../../../../store/actions/index';
 
