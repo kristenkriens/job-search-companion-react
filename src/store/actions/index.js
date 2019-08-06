@@ -4,7 +4,7 @@ export {
   authLogout,
   authSetProfile,
   authGetProfile,
-  authForgotUpdatePassword,
+  authForgotPassword,
   authResetPassword,
   authCheckIfLoggedIn,
   authCheckIfPasswordReset,

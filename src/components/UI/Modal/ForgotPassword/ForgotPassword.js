@@ -7,7 +7,7 @@ import Button from '../../Button/Button';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
-class ForgotUpdatePassword extends Component {
+class ForgotPassword extends Component {
   state = {
     form: {
       email: {
@@ -30,7 +30,7 @@ class ForgotUpdatePassword extends Component {
   submitForm = (event) => {
     event.preventDefault();
 
-    this.props.authForgotUpdatePassword(this.state.form.email.value);
+    this.props.authForgotPassword(this.state.form.email.value);
   }
 
   render() {
@@ -74,8 +74,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authForgotUpdatePassword: (email) => dispatch(actions.authForgotUpdatePassword(email))
+    authForgotPassword: (email) => dispatch(actions.authForgotPassword(email))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotUpdatePassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

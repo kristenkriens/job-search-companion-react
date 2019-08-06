@@ -6,7 +6,7 @@ import './Modal.scss';
 
 import Login from './Login/Login';
 import Register from './Register/Register';
-import ForgotUpdatePassword from './ForgotUpdatePassword/ForgotUpdatePassword';
+import ForgotPassword from './ForgotPassword/ForgotPassword';
 import ResetPassword from './ResetPassword/ResetPassword';
 import Profile from './Profile/Profile';
 import Message from './Message/Message';
@@ -53,13 +53,13 @@ class Modal extends Component {
             <Button additionalClasses="modal__close" click={this.close}><i className="fa fa-times" aria-hidden="true"></i></Button>
             <div className="modal__content">
               {activeModal === 'login' && (
-                <Login click={() => this.changeActive('register')} ForgotUpdatePasswordClick={() => this.changeActive('forgot-password')} />
+                <Login click={() => this.changeActive('register')} ForgotPasswordClick={() => this.changeActive('forgot-password')} />
               )}
               {activeModal === 'register' && (
                 <Register click={() => this.changeActive('login')} />
               )}
               {activeModal === 'forgot-password' && (
-                <ForgotUpdatePassword click={() => this.changeActive('login')} />
+                <ForgotPassword click={() => this.changeActive('login')} />
               )}
               {activeModal === 'reset-password' && (
                 <ResetPassword click={() => this.changeActive('login')} />
