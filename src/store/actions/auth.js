@@ -112,10 +112,10 @@ export const authGo = (email, password, isRegister) => {
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`;
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
 
     if(isRegister) {
-      url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${apiKey}`;
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
     }
 
     const authData = {
@@ -172,7 +172,7 @@ export const authSetProfileGo = (token, displayName, photoUrl, isEdit) => {
       photoUrl: photoUrl
     }
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=${apiKey}`;
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`;
 
     axios.post(url, authData)
       .then((response) => {
@@ -224,7 +224,7 @@ export const authGetProfile = (token) => {
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=${apiKey}`;
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`;
 
     const authData = {
       idToken: token
@@ -232,9 +232,9 @@ export const authGetProfile = (token) => {
 
     axios.post(url, authData)
       .then((response) => {
-        const { displayName, photoUrl } = response.data.users[0];
+        const { displayName, photoUrl, email } = response.data.users[0];
 
-        dispatch(authGetProfileSuccess(displayName, photoUrl));
+        dispatch(authGetProfileSuccess(displayName, photoUrl, email));
       }).catch((error) => {
         let errorMessage = '';
         if(error.response) {
@@ -253,13 +253,13 @@ export const authGetProfile = (token) => {
 
 
 
-export const authForgotUpdatePassword = (email) => {
+export const authForgotPassword = (email) => {
   return (dispatch) => {
     dispatch(authStart());
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode?key=${apiKey}`;
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`;
 
     const authData = {
       email: email,
@@ -272,7 +272,7 @@ export const authForgotUpdatePassword = (email) => {
         dispatch(closeModal());
         dispatch(authClearPasswordResetCode());
         setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly with a link to set your new password!'));
+          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly with a link to reset your password!'));
         }, 250);
       }).catch((error) => {
         let errorMessage = '';
@@ -297,7 +297,7 @@ export const authResetPassword = (code, newPassword) => {
 
     const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/resetPassword?key=${apiKey}`;
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=${apiKey}`;
 
     const authData = {
       oobCode: code,
@@ -327,6 +327,48 @@ export const authResetPassword = (code, newPassword) => {
       });
   }
 };
+
+
+
+
+
+
+export const authUpdatePassword = (idToken, newPassword) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`;
+
+    const authData = {
+      idToken: idToken,
+      password: newPassword
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been updated!'));
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authFail(errorMessage));
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+};
+
+
+
+
 
 export const authCheckIfLoggedIn = () => {
   return (dispatch) => {
