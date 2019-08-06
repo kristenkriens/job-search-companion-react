@@ -33,7 +33,7 @@ class ResetUpdatePassword extends Component {
     if(isReset) {
       this.props.authResetPassword(this.props.code, this.state.form.password.value);
     } else {
-      this.props.authUpdatePassword(this.props.idToken, this.state.form.password.value);
+      this.props.authUpdatePassword(this.props.token, this.state.form.password.value);
     }
   }
 
@@ -76,7 +76,7 @@ const mapStateToProps = (state) => {
     loading: state.auth.loading,
     error: state.auth.error,
     code: state.auth.oobCode,
-    idToken: state.auth.idToken,
+    token: state.auth.token,
     router: state.router
   }
 }
@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     authResetPassword: (code, newPassword) => dispatch(actions.authResetPassword(code, newPassword)),
-    authUpdatePassword: (idToken, newPassword) => dispatch(actions.authUpdatePassword(idToken, newPassword))
+    authUpdatePassword: (token, newPassword) => dispatch(actions.authUpdatePassword(token, newPassword))
   }
 }
 

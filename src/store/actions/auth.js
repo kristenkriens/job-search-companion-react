@@ -19,10 +19,10 @@ export const authStart = () => {
   }
 };
 
-export const authSuccess = (idToken, userId, oobCode) => {
+export const authSuccess = (token, userId, oobCode) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    idToken: idToken,
+    idToken: token,
     userId: userId,
     oobCode: oobCode
   }
@@ -329,7 +329,7 @@ export const authResetPassword = (code, newPassword) => {
 };
 
 
-export const authUpdatePassword = (idToken, newPassword) => {
+export const authUpdatePassword = (token, newPassword) => {
   return (dispatch) => {
     dispatch(authStart());
 
@@ -337,8 +337,10 @@ export const authUpdatePassword = (idToken, newPassword) => {
 
     let url = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`;
 
+    console.log(token);
+
     const authData = {
-      idToken: idToken,
+      idToken: token,
       password: newPassword
     }
 
