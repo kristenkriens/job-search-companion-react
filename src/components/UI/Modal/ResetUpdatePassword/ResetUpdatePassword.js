@@ -7,7 +7,7 @@ import Button from '../../Button/Button';
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
-class ResetPassword extends Component {
+class ResetUpdatePassword extends Component {
   state = {
     form: {
       password: {
@@ -27,21 +27,27 @@ class ResetPassword extends Component {
     }
   }
 
-  submitPasswordResetForm = (event) => {
+  submitPasswordResetUpdateForm = (event, isReset) => {
     event.preventDefault();
 
-    this.props.authResetPassword(this.props.code, this.state.form.password.value);
+    if(isReset) {
+      this.props.authResetPassword(this.props.code, this.state.form.password.value);
+    } else {
+      this.props.authUpdatePassword(this.props.idToken, this.state.form.password.value);
+    }
   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, type } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
+    const isReset = type === 'reset-password';
+
     return (
       <>
-        <h2>Reset Password</h2>
-        <form onSubmit={(event) => this.submitPasswordResetForm(event)} className="form">
+        <h2>{isReset ? 'Reset Password' : 'Update Password'}</h2>
+        <form onSubmit={(event) => this.submitPasswordResetUpdateForm(event, isReset)} className="form">
           {formElementsArray.map((formElement) => {
             return (
               <FormElement
@@ -57,7 +63,7 @@ class ResetPassword extends Component {
             )
           })}
           <div className="form__footer form__footer--center">
-            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Update</Button>
+            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>{isReset ? 'Reset' : 'Update'}</Button>
           </div>
         </form>
       </>
@@ -70,14 +76,16 @@ const mapStateToProps = (state) => {
     loading: state.auth.loading,
     error: state.auth.error,
     code: state.auth.oobCode,
+    idToken: state.auth.idToken,
     router: state.router
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authResetPassword: (email) => dispatch(actions.authResetPassword(email))
+    authResetPassword: (code, newPassword) => dispatch(actions.authResetPassword(code, newPassword)),
+    authUpdatePassword: (idToken, newPassword) => dispatch(actions.authUpdatePassword(idToken, newPassword))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ResetUpdatePassword);

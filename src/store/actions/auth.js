@@ -329,10 +329,6 @@ export const authResetPassword = (code, newPassword) => {
 };
 
 
-
-
-
-
 export const authUpdatePassword = (idToken, newPassword) => {
   return (dispatch) => {
     dispatch(authStart());
@@ -365,8 +361,6 @@ export const authUpdatePassword = (idToken, newPassword) => {
       });
   }
 };
-
-
 
 
 

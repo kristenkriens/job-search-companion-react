@@ -49,6 +49,7 @@ class Auth extends Component {
           <ul className="topbar__auth-dropdown" ref={this.setWrapperRef}>
             <li><LinkButton click={this.logout}>Log Out</LinkButton></li>
             <li><LinkButton click={() => this.openAndSetActiveModal('edit-profile')}>My Profile</LinkButton></li>
+            <li><LinkButton click={() => this.openAndSetActiveModal('update-password')}>Update Password</LinkButton></li>
           </ul>
         </CSSTransition>
       </>
