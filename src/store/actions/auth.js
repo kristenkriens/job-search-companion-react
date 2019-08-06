@@ -329,6 +329,46 @@ export const authResetPassword = (code, newPassword) => {
 };
 
 
+export const getNewTokenFromRefreshToken = (refreshToken) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+
+    let url = `https://securetoken.googleapis.com/v1/token?key=${apiKey}`;
+
+    const authData = {
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000);
+
+        localStorage.setItem('token', response.data.id_token);
+        localStorage.setItem('expirationDate', expirationDate);
+        localStorage.setItem('userId', response.data.user_id);
+
+        dispatch(authSuccess(response.data.id_token, response.data.user_id));
+        dispatch(checkAuthTimeout(response.data.expires_in));
+      }).catch((error) => {
+        let errorMessage = '';
+        if(error.response) {
+          errorMessage = normalizeErrorString(error.response.data.error.message);
+        } else {
+          errorMessage = error.message;
+        }
+
+        dispatch(authFail(errorMessage));
+        setTimeout(() => {
+          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
+        }, 250);
+      });
+  }
+};
+
+
 export const authUpdatePassword = (token, newPassword) => {
   return (dispatch) => {
     dispatch(authStart());
@@ -341,13 +381,15 @@ export const authUpdatePassword = (token, newPassword) => {
 
     const authData = {
       idToken: token,
-      password: newPassword
+      password: newPassword,
+      returnSecureToken: true
     }
 
     axios.post(url, authData)
       .then((response) => {
         dispatch(authDoneLoading());
         dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been updated!'));
+        dispatch(getNewTokenFromRefreshToken(response.data.refreshToken));
       }).catch((error) => {
         let errorMessage = '';
         if(error.response) {
