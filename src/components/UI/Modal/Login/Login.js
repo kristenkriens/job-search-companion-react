@@ -43,7 +43,7 @@ class Login extends Component {
   }
 
   render() {
-    const { click, forgotPasswordClick, loading, error } = this.props;
+    const { click, ForgotUpdatePasswordClick, loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
@@ -70,7 +70,7 @@ class Login extends Component {
           </div>
         </form>
         <LinkButton additionalClasses="modal__link" click={click}>New user? Create an account</LinkButton>
-        <LinkButton additionalClasses="modal__link" click={forgotPasswordClick}>Forgot your password?</LinkButton>
+        <LinkButton additionalClasses="modal__link" click={ForgotUpdatePasswordClick}>Forgot your password?</LinkButton>
       </>
     )
   }

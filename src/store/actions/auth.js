@@ -253,7 +253,7 @@ export const authGetProfile = (token) => {
 
 
 
-export const authForgotPassword = (email) => {
+export const authForgotUpdatePassword = (email) => {
   return (dispatch) => {
     dispatch(authStart());
 
@@ -272,7 +272,7 @@ export const authForgotPassword = (email) => {
         dispatch(closeModal());
         dispatch(authClearPasswordResetCode());
         setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly!'));
+          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly with a link to set your new password!'));
         }, 250);
       }).catch((error) => {
         let errorMessage = '';
