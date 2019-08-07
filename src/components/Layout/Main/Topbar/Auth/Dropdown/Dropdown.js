@@ -7,24 +7,6 @@ import LinkButton from '../.././../../../UI/Button/LinkButton/LinkButton';
 import * as actions from '../../../../../../store/actions/index';
 
 class Auth extends Component {
-  componentDidMount = () => {
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  componentWillUnmount = () => {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  setWrapperRef = (node) => {
-    this.wrapperRef = node;
-  }
-
-  handleClickOutside = (event) => {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.props.closeDropdown();
-    }
-  }
-
   logout = () => {
     this.props.closeDropdown();
     this.props.logout();
@@ -46,7 +28,7 @@ class Auth extends Component {
           classNames="accordion"
           unmountOnExit
         >
-          <ul className="topbar__auth-dropdown" ref={this.setWrapperRef}>
+          <ul className="topbar__auth-dropdown">
             <li><LinkButton click={this.logout}>Log Out</LinkButton></li>
             <li><LinkButton click={() => this.openAndSetActiveModal('edit-profile')}>My Profile</LinkButton></li>
             <li><LinkButton click={() => this.openAndSetActiveModal('update-password')}>Update Password</LinkButton></li>

@@ -16,11 +16,29 @@ class Auth extends Component {
     }
   }
 
+  componentDidMount = () => {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setWrapperRef = (node) => {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.props.closeDropdown();
+    }
+  }
+
   render() {
     const { isAuthenticated, openAndSetActiveModal, toggleDropdown, displayName, photoUrl, isDropdownOpen } = this.props;
 
     return (
-      <div className="topbar__auth">
+      <div className="topbar__auth" ref={this.setWrapperRef}>
         {isAuthenticated ? (
           <>
             <div className="topbar__auth-profile">
@@ -60,7 +78,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
     authGetProfile: (token) => dispatch(actions.authGetProfile(token)),
-    toggleDropdown: () => dispatch(actions.toggleDropdown())
+    toggleDropdown: () => dispatch(actions.toggleDropdown()),
+    closeDropdown: () => dispatch(actions.closeDropdown())
   }
 }
 
