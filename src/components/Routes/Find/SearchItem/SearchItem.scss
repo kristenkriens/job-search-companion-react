@@ -65,6 +65,7 @@
       > div {
         width: 85px;
         text-align: center;
+        margin: auto;
       }
 
       @media (max-width: 480px), (min-width: 650px) and (max-width: $md-width) {
