@@ -230,8 +230,6 @@ export const authGetProfile = (token) => {
   }
 };
 
-
-
 export const authForgotPassword = (email) => {
   return (dispatch) => {
     dispatch(authStart());

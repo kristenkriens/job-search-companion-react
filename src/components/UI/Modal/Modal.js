@@ -23,7 +23,7 @@ class Modal extends Component {
       this.props.clearAuthError();
     }
 
-    if(this.props.activeModal === 'reset-password' || this.props.activeModal === 'success') {
+    if(this.props.activeModal === 'reset-password' || this.props.activeModal === 'success' || this.props.activeModal === 'error') {
       this.props.authClearPasswordReset();
     }
   }
