@@ -18,4 +18,8 @@ const Backdrop = (props) => {
   )
 }
 
+Backdrop.defaultProps = {
+  type: "default"
+};
+
 export default Backdrop;
