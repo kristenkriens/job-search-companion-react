@@ -94,9 +94,9 @@ class Search extends Component {
   componentDidUpdate = (prevProps) => {
     const formElementsArray = forms.createFormElementsArray(this.state.form);
 
-    formElementsArray.map((formElement) => {
-      if(this.state.form[formElement.id].value !== this.props[formElement.id]) {
-        return forms.formElementReduxChanged(this, formElement.id, this.props[formElement.id]);
+    formElementsArray.map(({id}) => {
+      if(this.state.form[id].value !== this.props[id]) {
+        return forms.formElementReduxChanged(this, id, this.props[id]);
       } else {
         return false;
       }
@@ -171,26 +171,26 @@ class Search extends Component {
       <>
         <h1 className="accessible">Search</h1>
         <form onSubmit={(event) => this.submitSearchForm(event, userIp, userAgent, limit)} className="form">
-          {formElementsArray.map((formElement) => {
+          {formElementsArray.map(({id, config}) => {
             return (
               <FormElement
-                key={formElement.id}
-                id={formElement.id}
-                widths={formElement.config.widths}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                hasGeolocateButton={formElement.config.hasGeolocateButton}
-                label={formElement.config.label}
-                value={formElement.config.value}
+                key={id}
+                id={id}
+                widths={config.widths}
+                elementType={config.elementType}
+                elementConfig={config.elementConfig}
+                hasGeolocateButton={config.hasGeolocateButton}
+                label={config.label}
+                value={config.value}
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => this.geolocateClick(event)}
                 location={location}
                 country={country}
                 changed={(event) => {
-                  searchFormUpdateElement(formElement.id, event.target.value);
-                  forms.formElementReduxChanged(this, formElement.id, event.target.value);
+                  searchFormUpdateElement(id, event.target.value);
+                  forms.formElementReduxChanged(this, id, event.target.value);
 
-                  if(formElement.id === 'country') {
+                  if(id === 'country') {
                     forms.countryReduxChangedRadiusLabel(this, event.target.value)
                   }
                 }}

@@ -52,17 +52,17 @@ class Register extends Component {
       <>
         <h2>Create Account</h2>
         <form onSubmit={(event) => forms.submitAuthForm(this, event)} className="form">
-          {formElementsArray.map((formElement) => {
+          {formElementsArray.map(({id, config}) => {
             return (
               <FormElement
-                key={formElement.id}
-                id={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                label={formElement.config.label}
-                value={formElement.config.value}
+                key={id}
+                id={id}
+                elementType={config.elementType}
+                elementConfig={config.elementConfig}
+                label={config.label}
+                value={config.value}
                 error={error}
-                changed={(event) => forms.formElementChanged(this, event, formElement.id)}
+                changed={(event) => forms.formElementChanged(this, event, id)}
               />
             )
           })}
