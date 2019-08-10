@@ -45,3 +45,11 @@ export const convertDate = (date) => {
 export const setErrorMessage = (error) => {
   return error.response ? normalizeErrorString(error.response.data.error.message) : error.message;
 }
+
+export const setAuthLocalStorage = (token, expiresIn, userId) => {
+  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+  localStorage.setItem('token', token);
+  localStorage.setItem('expirationDate', expirationDate);
+  localStorage.setItem('userId', userId);
+}

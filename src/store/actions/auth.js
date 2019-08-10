@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
 import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
-import { setErrorMessage } from '../../shared/utilities';
+import { setAuthLocalStorage, setErrorMessage } from '../../shared/utilities';
 import firebaseStorageRef from '../../shared/firebaseStorage';
 
 export const clearAuthError = () => {
@@ -35,8 +35,6 @@ export const authFail = (error) => {
   }
 }
 
-
-
 export const authGetProfileStart = () => {
   return {
     type: actionTypes.AUTH_GET_PROFILE_START
@@ -57,8 +55,6 @@ export const authGetProfileFail = (error) => {
     error: error
   }
 }
-
-
 
 export const authLogout = () => {
   localStorage.removeItem('token');
@@ -126,11 +122,7 @@ export const authGo = (email, password, isRegister) => {
 
     axios.post(url, authData)
       .then((response) => {
-        const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-
-        localStorage.setItem('token', response.data.idToken);
-        localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('userId', response.data.localId);
+        setAuthLocalStorage(response.data.idToken, response.data.expiresIn, response.data.localId);
 
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
@@ -318,11 +310,7 @@ export const getNewTokenFromRefreshToken = (refreshToken) => {
 
     axios.post(url, authData)
       .then((response) => {
-        const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000);
-
-        localStorage.setItem('token', response.data.id_token);
-        localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('userId', response.data.user_id);
+        setAuthLocalStorage(response.data.id_token, response.data.expires_in, response.data.user_id);
 
         dispatch(authSuccess(response.data.id_token, response.data.user_id));
         dispatch(checkAuthTimeout(response.data.expires_in));
