@@ -189,11 +189,13 @@ export const authSetProfile = (token, displayName, photoUrl, isEdit) => {
     if(photoUpdated) {
       const ref = firebaseStorageRef.child(photoUrl.name);
 
-      ref.put(photoUrl).then((response) => {
-        ref.getDownloadURL().then((response) => {
-          dispatch(authSetProfileGo(token, displayName, response, isEdit));
-        });
-      });
+      ref.put(photoUrl)
+      	.then((response) => {
+          return ref.getDownloadURL();
+      	})
+      	.then((responsePhotoUrl) => {
+          dispatch(authSetProfileGo(token, displayName, responsePhotoUrl, isEdit));
+      	});
     } else {
       dispatch(authSetProfileGo(token, displayName, photoUrl, isEdit));
     }
