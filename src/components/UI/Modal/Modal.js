@@ -53,7 +53,7 @@ class Modal extends Component {
             <Button additionalClasses="modal__close" click={this.close}><i className="fa fa-times" aria-hidden="true"></i></Button>
             <div className="modal__content">
               {activeModal === 'login' && (
-                <Login click={() => this.changeActive('register')} ForgotPasswordClick={() => this.changeActive('forgot-password')} />
+                <Login click={() => this.changeActive('register')} forgotPasswordClick={() => this.changeActive('forgot-password')} />
               )}
               {activeModal === 'register' && (
                 <Register click={() => this.changeActive('login')} />
