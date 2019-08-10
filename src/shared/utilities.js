@@ -41,3 +41,7 @@ export const convertDate = (date) => {
 
   return `${month} ${day}, ${year}`;
 }
+
+export const setErrorMessage = (error) => {
+  return error.response ? normalizeErrorString(error.response.data.error.message) : error.message;
+}

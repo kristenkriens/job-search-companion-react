@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
 import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
-import { normalizeErrorString } from '../../shared/utilities';
+import { setErrorMessage } from '../../shared/utilities';
 import firebaseStorageRef from '../../shared/firebaseStorage';
 
 export const clearAuthError = () => {
@@ -142,12 +142,7 @@ export const authGo = (email, password, isRegister) => {
           }, 250);
         }
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
 
@@ -183,12 +178,7 @@ export const authSetProfileGo = (token, displayName, photoUrl, isEdit) => {
         }, 250);
         dispatch(authGetProfile(token));
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
@@ -236,12 +226,7 @@ export const authGetProfile = (token) => {
 
         dispatch(authGetProfileSuccess(displayName, photoUrl, email));
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authGetProfileFail(errorMessage));
         setTimeout(() => {
@@ -275,12 +260,7 @@ export const authForgotPassword = (email) => {
           dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly with a link to reset your password!'));
         }, 250);
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
@@ -312,12 +292,7 @@ export const authResetPassword = (code, newPassword) => {
           dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been reset!'));
         }, 250);
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
@@ -327,7 +302,6 @@ export const authResetPassword = (code, newPassword) => {
       });
   }
 };
-
 
 export const getNewTokenFromRefreshToken = (refreshToken) => {
   return (dispatch) => {
@@ -353,12 +327,7 @@ export const getNewTokenFromRefreshToken = (refreshToken) => {
         dispatch(authSuccess(response.data.id_token, response.data.user_id));
         dispatch(checkAuthTimeout(response.data.expires_in));
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         setTimeout(() => {
@@ -367,7 +336,6 @@ export const getNewTokenFromRefreshToken = (refreshToken) => {
       });
   }
 };
-
 
 export const authUpdatePassword = (token, newPassword) => {
   return (dispatch) => {
@@ -391,12 +359,7 @@ export const authUpdatePassword = (token, newPassword) => {
         dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been updated!'));
         dispatch(getNewTokenFromRefreshToken(response.data.refreshToken));
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         setTimeout(() => {
@@ -405,8 +368,6 @@ export const authUpdatePassword = (token, newPassword) => {
       });
   }
 };
-
-
 
 export const authCheckIfLoggedIn = () => {
   return (dispatch) => {
