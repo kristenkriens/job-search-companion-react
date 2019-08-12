@@ -133,6 +133,7 @@ export const authGo = (email, password, isRegister) => {
         dispatch(authFail(errorMessage));
 
         const notWord = (word) => errorMessage.toLowerCase().indexOf(word) === -1;
+
         if(notWord('email') && notWord('password')) {
           dispatch(closeModal());
           setTimeout(() => {
@@ -178,6 +179,7 @@ export const authSetProfile = (token, displayName, photoUrl, isEdit) => {
     dispatch(authStart());
 
     const photoUpdated = typeof(photoUrl) === 'object';
+
     if(photoUpdated) {
       const ref = firebaseStorageRef.child(photoUrl.name);
 
