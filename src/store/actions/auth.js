@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
 import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
-import { setAuthLocalStorage, setErrorMessage } from '../../shared/utilities';
+import { setAuthLocalStorage, setErrorMessage, buildFirebaseAuthAccountsUrl } from '../../shared/utilities';
 import firebaseStorageRef from '../../shared/firebaseStorage';
 
 export const clearAuthError = () => {
@@ -106,13 +106,7 @@ export const authGo = (email, password, isRegister) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
-
-    if(isRegister) {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`;
-    }
+    const url = isRegister ? buildFirebaseAuthAccountsUrl('signUp') : buildFirebaseAuthAccountsUrl('signInWithPassword');
 
     const authData = {
       email: email,
@@ -151,15 +145,13 @@ export const authGo = (email, password, isRegister) => {
 
 export const authSetProfileGo = (token, displayName, photoUrl, isEdit) => {
   return (dispatch) => {
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const url = buildFirebaseAuthAccountsUrl('update');
 
     const authData = {
       idToken: token,
       displayName: displayName,
       photoUrl: photoUrl
     }
-
-    let url = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`;
 
     axios.post(url, authData)
       .then((response) => {
@@ -206,9 +198,7 @@ export const authGetProfile = (token) => {
   return (dispatch) => {
     dispatch(authGetProfileStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${apiKey}`;
+    const url = buildFirebaseAuthAccountsUrl('lookup');
 
     const authData = {
       idToken: token
@@ -234,9 +224,7 @@ export const authForgotPassword = (email) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`;
+    const url = buildFirebaseAuthAccountsUrl('sendOobCode');
 
     const authData = {
       email: email,
@@ -267,9 +255,7 @@ export const authResetPassword = (code, newPassword) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://identitytoolkit.googleapis.com/v1/accounts:resetPassword?key=${apiKey}`;
+    const url = buildFirebaseAuthAccountsUrl('resetPassword');
 
     const authData = {
       oobCode: code,
@@ -329,9 +315,7 @@ export const authUpdatePassword = (token, newPassword) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`;
+    const url = buildFirebaseAuthAccountsUrl('update');
 
     console.log(token);
 
