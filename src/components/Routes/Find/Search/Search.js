@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _isEqual from 'lodash/isEqual';
+import _pick from 'lodash/pick';
 
 import FormElement from '../../../UI/FormElement/FormElement';
 import Button from '../../../UI/Button/Button';
@@ -166,6 +167,7 @@ class Search extends Component {
     const { isAuthenticated, userIp, userAgent, limit, loading, geolocateLoading, location, country, savedSearches, searchFormUpdateElement } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
+    const formElementConfigPropsToPass = ['widths', 'elementType', 'elementConfig', 'hasGeolocateButton', 'label', 'value'];
 
     return (
       <>
@@ -176,12 +178,7 @@ class Search extends Component {
               <FormElement
                 key={id}
                 id={id}
-                widths={config.widths}
-                elementType={config.elementType}
-                elementConfig={config.elementConfig}
-                hasGeolocateButton={config.hasGeolocateButton}
-                label={config.label}
-                value={config.value}
+                {..._pick(config, formElementConfigPropsToPass)}
                 geolocateLoading={geolocateLoading}
                 geolocate={(event) => this.geolocateClick(event)}
                 location={location}

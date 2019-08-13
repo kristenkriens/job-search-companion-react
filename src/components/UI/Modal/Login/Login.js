@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _pick from 'lodash/pick';
 
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
@@ -46,6 +47,7 @@ class Login extends Component {
     const { click, forgotPasswordClick, loading, error } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
+    const formElementConfigPropsToPass = ['elementType', 'elementConfig', 'label', 'value'];
 
     return (
       <>
@@ -56,10 +58,7 @@ class Login extends Component {
               <FormElement
                 key={id}
                 id={id}
-                elementType={config.elementType}
-                elementConfig={config.elementConfig}
-                label={config.label}
-                value={config.value}
+                {..._pick(config, formElementConfigPropsToPass)}
                 error={error}
                 changed={(event) => forms.formElementChanged(this, event, id)}
               />
