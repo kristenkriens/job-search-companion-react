@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { searchFormUpdateElement } from './search';
 import { openAndSetActiveModalAndMessage } from './modal';
+import { getApiKey } from '../../shared/utilities';
 
 export const geolocateLatLngStart = () => {
   return {
@@ -62,7 +63,7 @@ export const geolocateGeocode = (lat, lng) => {
   return (dispatch) => {
     dispatch(geolocateGeocodeStart());
 
-    const apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
+    const apiKey = getApiKey('mapbox');
 
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?types=place,country&access_token=${apiKey}`;
 

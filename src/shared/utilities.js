@@ -1,6 +1,27 @@
 import _flow from 'lodash/flow';
 import { googleIdentityToolkitUrl } from './globalConfig';
 
+
+export const getApiKey = (type) => {
+  let apiKey = null;
+
+  switch(type) {
+    case ('firebase'):
+      apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+      break;
+    case ('indeed'):
+      apiKey = process.env.REACT_APP_INDEED_API_KEY;
+      break;
+    case ('mapbox'):
+      apiKey = process.env.REACT_APP_MAPBOX_API_KEY;
+      break;
+    default:
+      apiKey = null;
+  }
+
+  return apiKey;
+}
+
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -56,7 +77,7 @@ export const setAuthLocalStorage = (token, expiresIn, userId) => {
 }
 
 export const buildFirebaseAuthAccountsUrl = (action) => {
-  const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+  const apiKey = getApiKey('firebase');
 
   return `${googleIdentityToolkitUrl.base}${googleIdentityToolkitUrl.accountsPath}:${action}?key=${apiKey}`;
 }

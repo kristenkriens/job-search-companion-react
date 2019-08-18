@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
 import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
-import { setAuthLocalStorage, setErrorMessage, buildFirebaseAuthAccountsUrl } from '../../shared/utilities';
+import { getApiKey, setAuthLocalStorage, setErrorMessage, buildFirebaseAuthAccountsUrl } from '../../shared/utilities';
 import firebaseStorageRef from '../../shared/firebaseStorage';
 
 export const clearAuthError = () => {
@@ -287,7 +287,7 @@ export const getNewTokenFromRefreshToken = (refreshToken) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
+    const apiKey = getApiKey('firebase');
 
     let url = `https://securetoken.googleapis.com/v1/token?key=${apiKey}`;
 
