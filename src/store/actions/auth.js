@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
-import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
+import { openAndSetActiveModal, openAndSetActiveModalAfterClose, openAndSetActiveModalAndMessage, openAndSetActiveModalAndMessageAfterClose } from './modal';
 import { getApiKey, setAuthLocalStorage, setErrorMessage, buildFirebaseAuthAccountsUrl } from '../../shared/utilities';
 import firebaseStorageRef from '../../shared/firebaseStorage';
 
@@ -123,9 +123,7 @@ export const authGo = (email, password, isRegister) => {
         dispatch(closeModal());
 
         if(isRegister) {
-          setTimeout(() => {
-            dispatch(openAndSetActiveModal('profile'));
-          }, 250);
+          dispatch(openAndSetActiveModalAfterClose('profile'));
         }
       }).catch((error) => {
         const errorMessage = setErrorMessage(error);
@@ -136,9 +134,7 @@ export const authGo = (email, password, isRegister) => {
 
         if(notWord('email') && notWord('password')) {
           dispatch(closeModal());
-          setTimeout(() => {
-            dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-          }, 250);
+          dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
         }
       });
   }
@@ -158,18 +154,14 @@ export const authSetProfileGo = (token, displayName, photoUrl, isEdit) => {
       .then((response) => {
         dispatch(authDoneLoading());
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
         dispatch(authGetProfile(token));
       }).catch((error) => {
         const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 }
@@ -215,9 +207,7 @@ export const authGetProfile = (token) => {
         const errorMessage = setErrorMessage(error);
 
         dispatch(authGetProfileFail(errorMessage));
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };
@@ -238,17 +228,13 @@ export const authForgotPassword = (email) => {
         dispatch(authDoneLoading());
         dispatch(closeModal());
         dispatch(authClearPasswordResetCode());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly with a link to reset your password!'));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('success', 'You will receive an email shortly with a link to reset your password!'));
       }).catch((error) => {
         const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };
@@ -268,17 +254,13 @@ export const authResetPassword = (code, newPassword) => {
       .then((response) => {
         dispatch(authDoneLoading());
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been reset!'));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('success', 'Your password has been reset!'));
       }).catch((error) => {
         const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };
@@ -306,9 +288,7 @@ export const getNewTokenFromRefreshToken = (refreshToken) => {
         const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };
@@ -336,9 +316,7 @@ export const authUpdatePassword = (token, newPassword) => {
         const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };

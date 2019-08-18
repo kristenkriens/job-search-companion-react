@@ -21,7 +21,10 @@ export {
 
 export {
   closeModal,
-  openAndSetActiveModal
+  openAndSetActiveModal,
+  openAndSetActiveModalAfterClose,
+  openAndSetActiveModalAndMessage,
+  openAndSetActiveModalAndMessageAfterClose
 } from './modal';
 
 export {

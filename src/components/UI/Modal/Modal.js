@@ -30,11 +30,8 @@ class Modal extends Component {
 
   changeActive = (newActiveModal) => {
     this.props.closeModal();
-
-    setTimeout(() => {
-      this.props.clearAuthError();
-      this.props.openAndSetActiveModal(newActiveModal);
-    }, 250);
+    this.props.clearAuthError();
+    this.props.openAndSetActiveModalAfterClose(newActiveModal);
   }
 
   render() {
@@ -89,7 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     closeModal: () => dispatch(actions.closeModal()),
-    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
+    openAndSetActiveModalAfterClose: (activeModal) => dispatch(actions.openAndSetActiveModalAfterClose(activeModal)),
     clearAuthError: () => dispatch(actions.clearAuthError()),
     authClearPasswordReset: () => dispatch(actions.authClearPasswordReset())
   }
