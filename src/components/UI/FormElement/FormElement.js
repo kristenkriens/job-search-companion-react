@@ -1,113 +1,122 @@
 import React from 'react';
+import _pick from 'lodash/pick';
+
+import {
+  RadioFormElement,
+  DefaultFormElement,
+  FileFormElement,
+  InputFormElement,
+  TextareaFormElement,
+  SelectFormElement
+} from './FormElements';
 
 import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 
-import BlankUser from '../../../assets/images/blank-user.gif';
-
 import { normalizeErrorString } from '../../../shared/utilities';
 
-const FormElement = (props) => {
-  const { id, widths, label, hiddenLabel, elementConfig, hasGeolocateButton, elementType, value, error, geolocateLoading, geolocate, location, country, changed, fileChanged } = props;
-
-  let formElement = null;
-  switch(elementType) {
-    case ('input'):
-      formElement = <input id={id} {...elementConfig} value={hasGeolocateButton && location ? location : value} onChange={changed} />;
-      break;
-    case ('textarea'):
-      formElement = <textarea id={id} {...elementConfig} value={value} onChange={changed} />;
-      break;
-    case ('select'):
-      formElement = (
-        <select id={id} value={country ? country : value} onChange={changed}>
-          {elementConfig.options.map((option) => {
-            return (
-              <option key={option.value} value={option.value} disabled={option.disabled}>
-                {option.displayValue}
-              </option>
-            )
-          })}
-        </select>
-      );
-      break;
-    case ('radio'):
-      formElement = (
-        <ul>
-          {elementConfig.choices.map((choice) => {
-            return (
-              <li key={choice.value}>
-                <input type="radio" id={choice.value} value={choice.value} name={id} className="accessible" checked={choice.value === value} onChange={changed} />
-                <label htmlFor={choice.value}>{choice.label}</label>
-              </li>
-            )
-          })}
-        </ul>
-      );
-      break;
-    case ('file'):
-      const isUploaded = value !== BlankUser;
-      const isUpdated = typeof(value) !== 'string';
-
-      const binaryData = [];
-      binaryData.push(value);
-      const url = URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}));
-
-      formElement = (
-        <>
-          <label htmlFor={id} style={{backgroundImage: `url(${isUpdated ? url : value})`}}>
-            <div>
-              <i className="fa fa-camera" aria-hidden="true"></i>
-              {isUploaded ? (
-                <div className="accessible">Change {label}</div>
-              ) : (
-                <div>Upload {label}</div>
-              )}
-            </div>
-          </label>
-          <input id={id} type="file" {...elementConfig} onChange={fileChanged} className="accessible" />
-        </>
-      );
-      break;
+const chooseFormElement = (elementType, propsToPass) => {
+  switch (elementType) {
+    case 'input':
+      return <InputFormElement {...propsToPass} />;
+    case 'textarea':
+      return <TextareaFormElement {...propsToPass} />;
+    case 'select':
+      return <SelectFormElement {...propsToPass} />;
+    case 'radio':
+      return <RadioFormElement {...propsToPass} />;
+    case 'file':
+      return <FileFormElement {...propsToPass} />;
     default:
-      formElement = <input id={id} {...elementConfig} value={value} onChange={changed} />;
+      return <DefaultFormElement {...propsToPass} />;
   }
+};
 
-  let elementError = null;
-  if(error) {
-    let errorMessage = normalizeErrorString(error);
+const getErrorMessage = (error) => {
+  const normalizedError = normalizeErrorString(error);
 
-    if(errorMessage.toLowerCase().indexOf(id) !== -1) {
-      elementError = errorMessage;
-    }
-  }
+  return normalizedError.toLowerCase().indexOf(id) !== -1
+    ? normalizedError
+    : null;
+};
 
-  let widthClasses = '';
-  if(widths) {
-    widths.forEach((width) => {
-      widthClasses += `form__element--${width} `;
-    });
-  }
+const shouldShowLabel = (elementType) =>
+  !['radio', 'file'].includes(elementType);
+const LabelOrLegend = ({ id, label, hiddenLabel, elementType }) => (
+  <>
+    {elementType === 'radio' && (
+      <legend className={hiddenLabel ? 'accessible' : ''}>
+        {hiddenLabel ? hiddenLabel : label}
+      </legend>
+    )}
+    {shouldShowLabel(elementType) && (
+      <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>
+        {hiddenLabel ? hiddenLabel : label}
+      </label>
+    )}
+  </>
+);
+
+const FormElement = (props) => {
+  const {
+    id,
+    widths,
+    label,
+    hiddenLabel,
+    hasGeolocateButton,
+    elementType,
+    error,
+    geolocateLoading,
+    geolocate
+  } = props;
+  const propsToPass = _pick(
+    [
+      'id',
+      'elementConfig',
+      'hasGeolocateButton',
+      'value',
+      'changed',
+      'country',
+      'label',
+      'fileChanged'
+    ],
+    props
+  );
+  const formElement = chooseFormElement(elementType, propsToPass);
+
+  const elementError = getErrorMessage(error);
+
+  const addWidthClassesReducer = (finalClasses, width) =>
+    `form__element--${width} ${finalClasses}`;
+  // Here, we don't need to truth-check `widths`, as the `.reduce` sets a default
+  const widthClasses = widths.reduce(addWidthClassesReducer, '');
+
+  const labelOrLegendProps = {
+    elementType,
+    hiddenLabel,
+    id,
+    label
+  };
 
   return (
-    <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
-      {elementType === 'radio' ? (
-        <legend className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</legend>
-      ) : (
-        <>
-          {elementType !== 'file' && (
-            <label htmlFor={id} className={hiddenLabel ? 'accessible' : ''}>{hiddenLabel ? hiddenLabel : label}</label>
-          )}
-        </>
-      )}
-      <div className={`form__element-inner form__element-inner--${elementType}`}>
+    <div
+      className={`form__element ${
+        elementError ? 'form__element--error' : ''
+      } ${widthClasses}`}
+    >
+      <LabelOrLegend {...labelOrLegendProps} />
+      <div
+        className={`form__element-inner form__element-inner--${elementType}`}
+      >
         {formElement}
-        {hasGeolocateButton && <GeolocateButton loading={geolocateLoading} geolocate={geolocate} />}
+        {hasGeolocateButton && (
+          <GeolocateButton loading={geolocateLoading} geolocate={geolocate} />
+        )}
       </div>
       {elementError && (
         <div className="form__element-message">{elementError}</div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default FormElement;
