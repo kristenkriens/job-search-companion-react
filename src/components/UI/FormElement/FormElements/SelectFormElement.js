@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react';
 
-export const SelectFormElement = ({ id, country, changed, elementConfig }) => (
+export const SelectFormElement = ({
+  id,
+  value,
+  country,
+  changed,
+  elementConfig
+}) => (
   <select id={id} value={country ? country : value} onChange={changed}>
-    {elementConfig.options.map(option => {
+    {elementConfig.options.map((option) => {
       return (
         <option
           key={option.value}

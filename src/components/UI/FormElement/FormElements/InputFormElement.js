@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
 
 export const InputFormElement = ({
- id,
- elementConfig,
- hasGeolocateButton,
- value,
- changed
+  id,
+  elementConfig,
+  location,
+  hasGeolocateButton,
+  value,
+  changed
 }) => (
   <input
     id={id}

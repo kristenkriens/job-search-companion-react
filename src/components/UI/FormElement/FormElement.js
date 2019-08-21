@@ -29,7 +29,7 @@ const formElementsDictionary = {
 const chooseFormElementComponent = (elementType) =>
   formElementsDictionary[elementType] || DefaultFormElement;
 
-const getErrorMessage = (error) => {
+const getErrorMessage = (error, id) => {
   const normalizedError = normalizeErrorString(error);
 
   return normalizedError.toLowerCase().indexOf(id) !== -1
@@ -56,6 +56,7 @@ const LabelOrLegend = ({ id, label, hiddenLabel, elementType }) => (
 
 const FormElement = (props) => {
   const {
+    id,
     widths,
     hasGeolocateButton,
     elementType,
@@ -66,7 +67,7 @@ const FormElement = (props) => {
 
   const FormElementComponent = chooseFormElementComponent(elementType);
 
-  const elementError = getErrorMessage(error);
+  const elementError = getErrorMessage(error, id);
 
   const addWidthClassesReducer = (finalClasses, width) =>
     `form__element--${width} ${finalClasses}`;
@@ -86,7 +87,8 @@ const FormElement = (props) => {
       'changed',
       'country',
       'label',
-      'fileChanged'
+      'fileChanged',
+      'location'
     ],
     props
   );
