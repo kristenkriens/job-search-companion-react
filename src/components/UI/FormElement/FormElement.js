@@ -14,22 +14,20 @@ import GeolocateButton from '../Button/GeolocateButton/GeolocateButton';
 
 import { normalizeErrorString } from '../../../shared/utilities';
 
-const chooseFormElement = (elementType, propsToPass) => {
-  switch (elementType) {
-    case 'input':
-      return <InputFormElement {...propsToPass} />;
-    case 'textarea':
-      return <TextareaFormElement {...propsToPass} />;
-    case 'select':
-      return <SelectFormElement {...propsToPass} />;
-    case 'radio':
-      return <RadioFormElement {...propsToPass} />;
-    case 'file':
-      return <FileFormElement {...propsToPass} />;
-    default:
-      return <DefaultFormElement {...propsToPass} />;
-  }
+const formElementsDictionary = {
+  input: InputFormElement,
+  textarea: TextareaFormElement,
+  select: SelectFormElement,
+  radio: RadioFormElement,
+  file: FileFormElement
 };
+
+// Here, the lookup in the dictionary object will either return the correct
+// form element component, or because the key is not found in the object, return
+// `undefined`, which is falsy. In that case, the conditional "OR" operator will
+// choose the truthy value on the right, providing the default.
+const chooseFormElementComponent = (elementType) =>
+  formElementsDictionary[elementType] || DefaultFormElement;
 
 const getErrorMessage = (error) => {
   const normalizedError = normalizeErrorString(error);
@@ -58,17 +56,28 @@ const LabelOrLegend = ({ id, label, hiddenLabel, elementType }) => (
 
 const FormElement = (props) => {
   const {
-    id,
     widths,
-    label,
-    hiddenLabel,
     hasGeolocateButton,
     elementType,
     error,
     geolocateLoading,
     geolocate
   } = props;
-  const propsToPass = _pick(
+
+  const FormElementComponent = chooseFormElementComponent(elementType);
+
+  const elementError = getErrorMessage(error);
+
+  const addWidthClassesReducer = (finalClasses, width) =>
+    `form__element--${width} ${finalClasses}`;
+  // Here, we don't need to truth-check `widths`, as the `.reduce` sets a default
+  const widthClasses = widths.reduce(addWidthClassesReducer, '');
+
+  const labelOrLegendProps = _pick(
+    ['elementType', 'hiddenLabel', 'id', 'label'],
+    props
+  );
+  const formElementProps = _pick(
     [
       'id',
       'elementConfig',
@@ -81,21 +90,6 @@ const FormElement = (props) => {
     ],
     props
   );
-  const formElement = chooseFormElement(elementType, propsToPass);
-
-  const elementError = getErrorMessage(error);
-
-  const addWidthClassesReducer = (finalClasses, width) =>
-    `form__element--${width} ${finalClasses}`;
-  // Here, we don't need to truth-check `widths`, as the `.reduce` sets a default
-  const widthClasses = widths.reduce(addWidthClassesReducer, '');
-
-  const labelOrLegendProps = {
-    elementType,
-    hiddenLabel,
-    id,
-    label
-  };
 
   return (
     <div
@@ -107,7 +101,7 @@ const FormElement = (props) => {
       <div
         className={`form__element-inner form__element-inner--${elementType}`}
       >
-        {formElement}
+        <FormElementComponent {...formElementProps} />
         {hasGeolocateButton && (
           <GeolocateButton loading={geolocateLoading} geolocate={geolocate} />
         )}
