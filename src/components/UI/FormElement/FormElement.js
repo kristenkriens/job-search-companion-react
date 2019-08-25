@@ -22,23 +22,20 @@ const formElementsDictionary = {
   file: FileFormElement
 };
 
-// Here, the lookup in the dictionary object will either return the correct
-// form element component, or because the key is not found in the object, return
-// `undefined`, which is falsy. In that case, the conditional "OR" operator will
-// choose the truthy value on the right, providing the default.
-const chooseFormElementComponent = (elementType) =>
-  formElementsDictionary[elementType] || DefaultFormElement;
+const chooseFormElementComponent = (elementType) => formElementsDictionary[elementType] || DefaultFormElement;
 
 const getErrorMessage = (error, id) => {
-  const normalizedError = normalizeErrorString(error);
+  if(error && id) {
+    const normalizedError = normalizeErrorString(error);
 
-  return normalizedError.toLowerCase().indexOf(id) !== -1
-    ? normalizedError
-    : null;
+    return normalizedError.toLowerCase().indexOf(id) !== -1
+      ? normalizedError
+      : null;
+  }
 };
 
-const shouldShowLabel = (elementType) =>
-  !['radio', 'file'].includes(elementType);
+const shouldShowLabel = (elementType) => !['radio', 'file'].includes(elementType);
+
 const LabelOrLegend = ({ id, label, hiddenLabel, elementType }) => (
   <>
     {elementType === 'radio' && (
@@ -69,16 +66,17 @@ const FormElement = (props) => {
 
   const elementError = getErrorMessage(error, id);
 
-  const addWidthClassesReducer = (finalClasses, width) =>
-    `form__element--${width} ${finalClasses}`;
-  // Here, we don't need to truth-check `widths`, as the `.reduce` sets a default
-  const widthClasses = widths.reduce(addWidthClassesReducer, '');
+  const widthClasses = widths && widths.reduce((finalClasses, width) => {
+    return `form__element--${width} ${finalClasses}`;
+  }, '');
 
   const labelOrLegendProps = _pick(
-    ['elementType', 'hiddenLabel', 'id', 'label'],
-    props
+    props,
+    ['elementType', 'hiddenLabel', 'id', 'label']
   );
+
   const formElementProps = _pick(
+    props,
     [
       'id',
       'elementConfig',
@@ -89,20 +87,13 @@ const FormElement = (props) => {
       'label',
       'fileChanged',
       'location'
-    ],
-    props
+    ]
   );
 
   return (
-    <div
-      className={`form__element ${
-        elementError ? 'form__element--error' : ''
-      } ${widthClasses}`}
-    >
+    <div className={`form__element ${elementError ? 'form__element--error' : ''} ${widthClasses}`}>
       <LabelOrLegend {...labelOrLegendProps} />
-      <div
-        className={`form__element-inner form__element-inner--${elementType}`}
-      >
+      <div className={`form__element-inner form__element-inner--${elementType}`}>
         <FormElementComponent {...formElementProps} />
         {hasGeolocateButton && (
           <GeolocateButton loading={geolocateLoading} geolocate={geolocate} />
