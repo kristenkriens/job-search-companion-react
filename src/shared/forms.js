@@ -58,6 +58,26 @@ export const formElementChanged = (that, event, formElementName) => {
   that.setState({form: updatedForm});
 }
 
+export const formElementFileChanged = (that, event, formElementName) => {
+  const fileItem = Object.entries(that.state.form).filter((formItem) => {
+    return formItem[1].elementType === 'file';
+  });
+
+  let value = fileItem[0][1].value;
+  if(event.target.files[0]) {
+    value = event.target.files[0];
+  }
+
+  const updatedForm = updateObject(that.state.form, {
+    [formElementName]: updateObject(that.state.form[formElementName], {
+      value: value,
+      valid: that.state.form[formElementName].validation ? checkValidity(value, that.state.form[formElementName].validation) : undefined
+    })
+  });
+
+  that.setState({form: updatedForm});
+}
+
 export const formElementReduxChanged = (that, formElementName, value) => {
   const updatedForm = updateObject(that.state.form, {
     [formElementName]: updateObject(that.state.form[formElementName], {

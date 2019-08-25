@@ -3,8 +3,9 @@ import { push } from 'connected-react-router';
 
 import * as actionTypes from './actionTypes';
 import { closeModal } from './modal';
-import { openAndSetActiveModal, openAndSetActiveModalAndMessage } from './modal';
-import { normalizeErrorString } from '../../shared/utilities';
+import { openAndSetActiveModal, openAndSetActiveModalAfterClose, openAndSetActiveModalAndMessage, openAndSetActiveModalAndMessageAfterClose } from './modal';
+import { getApiKey, setAuthLocalStorage, setErrorMessage, buildFirebaseAuthAccountsUrl } from '../../shared/utilities';
+import firebaseStorageRef from '../../shared/firebaseStorage';
 
 export const clearAuthError = () => {
   return {
@@ -18,10 +19,10 @@ export const authStart = () => {
   }
 };
 
-export const authSuccess = (idToken, userId, oobCode) => {
+export const authSuccess = (token, userId, oobCode) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    idToken: idToken,
+    idToken: token,
     userId: userId,
     oobCode: oobCode
   }
@@ -30,6 +31,27 @@ export const authSuccess = (idToken, userId, oobCode) => {
 export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
+    error: error
+  }
+}
+
+export const authGetProfileStart = () => {
+  return {
+    type: actionTypes.AUTH_GET_PROFILE_START
+  }
+};
+
+export const authGetProfileSuccess = (displayName, photoUrl) => {
+  return {
+    type: actionTypes.AUTH_GET_PROFILE_SUCCESS,
+    displayName: displayName,
+    photoUrl: photoUrl
+  }
+};
+
+export const authGetProfileFail = (error) => {
+  return {
+    type: actionTypes.AUTH_GET_PROFILE_FAIL,
     error: error
   }
 }
@@ -84,13 +106,7 @@ export const authGo = (email, password, isRegister) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`;
-
-    if(isRegister) {
-      url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${apiKey}`;
-    }
+    const url = isRegister ? buildFirebaseAuthAccountsUrl('signUp') : buildFirebaseAuthAccountsUrl('signInWithPassword');
 
     const authData = {
       email: email,
@@ -100,32 +116,98 @@ export const authGo = (email, password, isRegister) => {
 
     axios.post(url, authData)
       .then((response) => {
-        const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-
-        localStorage.setItem('token', response.data.idToken);
-        localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('userId', response.data.localId);
+        setAuthLocalStorage(response.data.idToken, response.data.expiresIn, response.data.localId);
 
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
         dispatch(closeModal());
-      }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
+
+        if(isRegister) {
+          dispatch(openAndSetActiveModalAfterClose('profile'));
         }
+      }).catch((error) => {
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
 
         const notWord = (word) => errorMessage.toLowerCase().indexOf(word) === -1;
+
         if(notWord('email') && notWord('password')) {
           dispatch(closeModal());
-          setTimeout(() => {
-            dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-          }, 250);
+          dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
         }
+      });
+  }
+};
+
+export const authSetProfileGo = (token, displayName, photoUrl, isEdit) => {
+  return (dispatch) => {
+    const url = buildFirebaseAuthAccountsUrl('update');
+
+    const authData = {
+      idToken: token,
+      displayName: displayName,
+      photoUrl: photoUrl
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(closeModal());
+        dispatch(openAndSetActiveModalAndMessageAfterClose('success', `Your profile has been ${isEdit ? 'updated' : 'set'}!`));
+        dispatch(authGetProfile(token));
+      }).catch((error) => {
+        const errorMessage = setErrorMessage(error);
+
+        dispatch(authFail(errorMessage));
+        dispatch(closeModal());
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
+      });
+  }
+}
+
+export const authSetProfile = (token, displayName, photoUrl, isEdit) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const photoUpdated = typeof(photoUrl) === 'object';
+
+    if(photoUpdated) {
+      const ref = firebaseStorageRef.child(photoUrl.name);
+
+      ref.put(photoUrl)
+      	.then((response) => {
+          return ref.getDownloadURL();
+      	})
+      	.then((responsePhotoUrl) => {
+          dispatch(authSetProfileGo(token, displayName, responsePhotoUrl, isEdit));
+      	});
+    } else {
+      dispatch(authSetProfileGo(token, displayName, photoUrl, isEdit));
+    }
+  }
+};
+
+export const authGetProfile = (token) => {
+  return (dispatch) => {
+    dispatch(authGetProfileStart());
+
+    const url = buildFirebaseAuthAccountsUrl('lookup');
+
+    const authData = {
+      idToken: token
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        const { displayName, photoUrl, email } = response.data.users[0];
+
+        dispatch(authGetProfileSuccess(displayName, photoUrl, email));
+      }).catch((error) => {
+        const errorMessage = setErrorMessage(error);
+
+        dispatch(authGetProfileFail(errorMessage));
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };
@@ -134,9 +216,7 @@ export const authForgotPassword = (email) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode?key=${apiKey}`;
+    const url = buildFirebaseAuthAccountsUrl('sendOobCode');
 
     const authData = {
       email: email,
@@ -148,22 +228,13 @@ export const authForgotPassword = (email) => {
         dispatch(authDoneLoading());
         dispatch(closeModal());
         dispatch(authClearPasswordResetCode());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', 'You will receive an email shortly!'));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('success', 'You will receive an email shortly with a link to reset your password!'));
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };
@@ -172,9 +243,7 @@ export const authResetPassword = (code, newPassword) => {
   return (dispatch) => {
     dispatch(authStart());
 
-    const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
-
-    let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/resetPassword?key=${apiKey}`;
+    const url = buildFirebaseAuthAccountsUrl('resetPassword');
 
     const authData = {
       oobCode: code,
@@ -185,22 +254,69 @@ export const authResetPassword = (code, newPassword) => {
       .then((response) => {
         dispatch(authDoneLoading());
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been reset!'));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('success', 'Your password has been reset!'));
       }).catch((error) => {
-        let errorMessage = '';
-        if(error.response) {
-          errorMessage = normalizeErrorString(error.response.data.error.message);
-        } else {
-          errorMessage = error.message;
-        }
+        const errorMessage = setErrorMessage(error);
 
         dispatch(authFail(errorMessage));
         dispatch(closeModal());
-        setTimeout(() => {
-          dispatch(openAndSetActiveModalAndMessage('error', errorMessage));
-        }, 250);
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
+      });
+  }
+};
+
+export const getNewTokenFromRefreshToken = (refreshToken) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const apiKey = getApiKey('firebase');
+
+    let url = `https://securetoken.googleapis.com/v1/token?key=${apiKey}`;
+
+    const authData = {
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        setAuthLocalStorage(response.data.id_token, response.data.expires_in, response.data.user_id);
+
+        dispatch(authSuccess(response.data.id_token, response.data.user_id));
+        dispatch(checkAuthTimeout(response.data.expires_in));
+      }).catch((error) => {
+        const errorMessage = setErrorMessage(error);
+
+        dispatch(authFail(errorMessage));
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
+      });
+  }
+};
+
+export const authUpdatePassword = (token, newPassword) => {
+  return (dispatch) => {
+    dispatch(authStart());
+
+    const url = buildFirebaseAuthAccountsUrl('update');
+
+    console.log(token);
+
+    const authData = {
+      idToken: token,
+      password: newPassword,
+      returnSecureToken: true
+    }
+
+    axios.post(url, authData)
+      .then((response) => {
+        dispatch(authDoneLoading());
+        dispatch(openAndSetActiveModalAndMessage('success', 'Your password has been updated!'));
+        dispatch(getNewTokenFromRefreshToken(response.data.refreshToken));
+      }).catch((error) => {
+        const errorMessage = setErrorMessage(error);
+
+        dispatch(authFail(errorMessage));
+        dispatch(openAndSetActiveModalAndMessageAfterClose('error', errorMessage));
       });
   }
 };

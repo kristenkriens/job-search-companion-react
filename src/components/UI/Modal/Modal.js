@@ -7,7 +7,8 @@ import './Modal.scss';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import ForgotPassword from './ForgotPassword/ForgotPassword';
-import ResetPassword from './ResetPassword/ResetPassword';
+import ResetUpdatePassword from './ResetUpdatePassword/ResetUpdatePassword';
+import Profile from './Profile/Profile';
 import Message from './Message/Message';
 import Backdrop from '../Backdrop/Backdrop';
 import Button from '../Button/Button';
@@ -22,18 +23,15 @@ class Modal extends Component {
       this.props.clearAuthError();
     }
 
-    if(this.props.activeModal === 'reset-password' || this.props.activeModal === 'success') {
+    if(this.props.activeModal === 'reset-password' || this.props.activeModal === 'success' || this.props.activeModal === 'error') {
       this.props.authClearPasswordReset();
     }
   }
 
   changeActive = (newActiveModal) => {
     this.props.closeModal();
-
-    setTimeout(() => {
-      this.props.clearAuthError();
-      this.props.openAndSetActiveModal(newActiveModal);
-    }, 250);
+    this.props.clearAuthError();
+    this.props.openAndSetActiveModalAfterClose(newActiveModal);
   }
 
   render() {
@@ -41,7 +39,7 @@ class Modal extends Component {
 
     return (
       <>
-        <Backdrop isModalOpen={isModalOpen} close={this.close} />
+        <Backdrop isOpen={isModalOpen} type="modal" close={this.close} />
         <CSSTransition
           in={isModalOpen}
           timeout={500}
@@ -60,8 +58,11 @@ class Modal extends Component {
               {activeModal === 'forgot-password' && (
                 <ForgotPassword click={() => this.changeActive('login')} />
               )}
-              {activeModal === 'reset-password' && (
-                <ResetPassword click={() => this.changeActive('login')} />
+              {(activeModal === 'reset-password' || activeModal === 'update-password') && (
+                <ResetUpdatePassword type={activeModal} click={() => this.changeActive('login')} />
+              )}
+              {(activeModal === 'profile' || activeModal === 'edit-profile') && (
+                <Profile type={activeModal} click={this.close} />
               )}
               {(activeModal === 'error' || activeModal === 'success') && (
                 <Message type={activeModal} message={message} />
@@ -85,7 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     closeModal: () => dispatch(actions.closeModal()),
-    openAndSetActiveModal: (activeModal) => dispatch(actions.openAndSetActiveModal(activeModal)),
+    openAndSetActiveModalAfterClose: (activeModal) => dispatch(actions.openAndSetActiveModalAfterClose(activeModal)),
     clearAuthError: () => dispatch(actions.clearAuthError()),
     authClearPasswordReset: () => dispatch(actions.authClearPasswordReset())
   }

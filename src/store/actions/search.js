@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-import { turnSpacesIntoPlusses } from '../../shared/utilities';
+import { turnSpacesIntoPlusses, getApiKey } from '../../shared/utilities';
 import { history } from '../reducers/index';
 import { openAndSetActiveModalAndMessage } from './modal';
 
@@ -40,7 +40,7 @@ export const searchGo = (searchCriteria) => {
 
     const { userIp, userAgent, limit, sortBy, start, query, location, country, radius, jobType, age } = searchCriteria;
 
-    const apiKey = process.env.REACT_APP_INDEED_API_KEY;
+    const apiKey = getApiKey('indeed');
 
     const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apisearch?publisher=${apiKey}&v=2&userip=${userIp}&useragent=${userAgent}&format=json&q=${turnSpacesIntoPlusses(query)}&l=${turnSpacesIntoPlusses(location)}&sort=${sortBy}&radius=${radius}&jt=${jobType === 'nopreference' ? undefined : jobType}&start=${start}&limit=${limit}&fromage=${age}&highlight=1&latlong=1&co=${country}`;
 

@@ -26,6 +26,15 @@ export const openAndSetActiveModal = (activeModal) => {
   }
 };
 
+export const openAndSetActiveModalAfterClose = (activeModal) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(setActiveModal(activeModal));
+      dispatch(openModal());
+    }, 250);
+  }
+};
+
 export const setModalMessage = (message) => {
   return {
     type: actionTypes.SET_MODAL_MESSAGE,
@@ -38,5 +47,15 @@ export const openAndSetActiveModalAndMessage = (type, message) => {
     dispatch(setActiveModal(type));
     dispatch(setModalMessage(message));
     dispatch(openModal());
+  }
+};
+
+export const openAndSetActiveModalAndMessageAfterClose = (type, message) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(setActiveModal(type));
+      dispatch(setModalMessage(message));
+      dispatch(openModal());
+    }, 250);
   }
 };

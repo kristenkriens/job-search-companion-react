@@ -4,35 +4,20 @@ import _pick from 'lodash/pick';
 
 import FormElement from '../../FormElement/FormElement';
 import Button from '../../Button/Button';
-import LinkButton from '../../Button/LinkButton/LinkButton';
 
 import * as forms from '../../../../shared/forms';
 import * as actions from '../../../../store/actions/index';
 
-class Register extends Component {
+class ResetUpdatePassword extends Component {
   state = {
     form: {
-      email: {
-        elementType: 'input',
-        elementConfig: {
-          type: 'email',
-          placeholder: 'e.g. fake-email@gmail.com'
-        },
-        label: 'Email',
-        value: '',
-        validation: {
-          required: true,
-          isEmail: true
-        },
-        valid: false
-      },
       password: {
         elementType: 'input',
         elementConfig: {
           type: 'password',
           placeholder: ''
         },
-        label: 'Password',
+        label: 'New Password',
         value: '',
         validation: {
           required: true,
@@ -40,20 +25,31 @@ class Register extends Component {
         },
         valid: false
       }
-    },
-    isRegister: true
+    }
+  }
+
+  submitPasswordResetUpdateForm = (event, isReset) => {
+    event.preventDefault();
+
+    if(isReset) {
+      this.props.authResetPassword(this.props.code, this.state.form.password.value);
+    } else {
+      this.props.authUpdatePassword(this.props.token, this.state.form.password.value);
+    }
   }
 
   render() {
-    const { click, loading, error } = this.props;
+    const { loading, error, type } = this.props;
 
     const formElementsArray = forms.createFormElementsArray(this.state.form);
     const formElementConfigPropsToPass = ['elementType', 'elementConfig', 'label', 'value'];
 
+    const isReset = type === 'reset-password';
+
     return (
       <>
-        <h2>Create Account</h2>
-        <form onSubmit={(event) => forms.submitAuthForm(this, event)} className="form">
+        <h2>{isReset ? 'Reset Password' : 'Update Password'}</h2>
+        <form onSubmit={(event) => this.submitPasswordResetUpdateForm(event, isReset)} className="form">
           {formElementsArray.map(({id, config}) => {
             return (
               <FormElement
@@ -66,10 +62,9 @@ class Register extends Component {
             )
           })}
           <div className="form__footer form__footer--center">
-            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>Submit</Button>
+            <Button type="submit" loading={loading} additionalClasses="modal__submit" disabled={forms.checkSubmitButtonDisabled(this.state.form)}>{isReset ? 'Reset' : 'Update'}</Button>
           </div>
         </form>
-        <LinkButton additionalClasses="modal__link" click={click}>Already have an account? Log In</LinkButton>
       </>
     )
   }
@@ -78,14 +73,18 @@ class Register extends Component {
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
-    error: state.auth.error
+    error: state.auth.error,
+    code: state.auth.oobCode,
+    token: state.auth.token,
+    router: state.router
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authGo: (email, password, isRegister) => dispatch(actions.authGo(email, password, isRegister))
+    authResetPassword: (code, newPassword) => dispatch(actions.authResetPassword(code, newPassword)),
+    authUpdatePassword: (token, newPassword) => dispatch(actions.authUpdatePassword(token, newPassword))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(ResetUpdatePassword);

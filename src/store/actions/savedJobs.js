@@ -3,6 +3,7 @@ import axios from 'axios';
 import firebaseAxios from '../../shared/firebaseAxios';
 import * as actionTypes from './actionTypes';
 import { openAndSetActiveModalAndMessage } from './modal'
+import { getApiKey } from '../../shared/utilities';
 
 export const setSavedJobStart = () => {
   return {
@@ -55,7 +56,7 @@ export const getSavedJobsFind = (savedJobs) => {
     }
     savedJobsKeys = savedJobsKeys.substring(0, savedJobsKeys.length - 1);
 
-    const apiKey = process.env.REACT_APP_INDEED_API_KEY;
+    const apiKey = getApiKey('indeed');
 
     const url = `https://cors-anywhere.herokuapp.com/http://api.indeed.com/ads/apigetjobs?publisher=${apiKey}&jobkeys=${savedJobsKeys}&v=2&format=json`;
 

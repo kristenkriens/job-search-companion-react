@@ -2,8 +2,11 @@ export {
   clearAuthError,
   authGo,
   authLogout,
+  authSetProfile,
+  authGetProfile,
   authForgotPassword,
   authResetPassword,
+  authUpdatePassword,
   authCheckIfLoggedIn,
   authCheckIfPasswordReset,
   authClearPasswordReset
@@ -11,12 +14,17 @@ export {
 
 export {
   changeOpenSidebarNavGroup,
+  toggleDropdown,
+  closeDropdown,
   getSetBreadcrumb
 } from './navigation';
 
 export {
   closeModal,
-  openAndSetActiveModal
+  openAndSetActiveModal,
+  openAndSetActiveModalAfterClose,
+  openAndSetActiveModalAndMessage,
+  openAndSetActiveModalAndMessageAfterClose
 } from './modal';
 
 export {
